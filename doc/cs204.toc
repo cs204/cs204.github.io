@@ -1,0 +1,4 @@
+\babel@toc {russian}{}
+\contentsline {section}{\numberline {1}\IeC {\CYRG }\IeC {\cyrl }\IeC {\cyra }\IeC {\cyrv }\IeC {\cyrn }\IeC {\cyra }\IeC {\cyrya } \IeC {\cyrs }\IeC {\cyrt }\IeC {\cyrr }\IeC {\cyra }\IeC {\cyrn }\IeC {\cyri }\IeC {\cyrc }\IeC {\cyra }}{1}% 
+\contentsline {section}{\numberline {2}\IeC {\CYRO }\IeC {\cyrb }\IeC {\cyrshch }\IeC {\cyra }\IeC {\cyrya } \IeC {\cyrch }\IeC {\cyra }\IeC {\cyrs }\IeC {\cyrt }\IeC {\cyrsftsn } \IeC {\cyrs }\IeC {\cyrt }\IeC {\cyrr }\IeC {\cyra }\IeC {\cyrn }\IeC {\cyri }\IeC {\cyrc }}{1}% 
+\contentsline {subsection}{\numberline {2.1}Makefile}{2}% 

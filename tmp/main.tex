@@ -1,0 +1,86 @@
+\nwfilename{src/main.nw}\nwbegindocs{0}\maketitle% ===> this file was generated automatically by noweave --- better not edit it
+\section{Главная страница}
+\nwenddocs{}\nwbegincode{1}\sublabel{NW17W4dw-3cYSIo-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW17W4dw-3cYSIo-1}}}\moddef{index.html~{\nwtagstyle{}\subpageref{NW17W4dw-3cYSIo-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+\LA{}bootstrup begin~{\nwtagstyle{}\subpageref{NW17W4dw-1WS7z7-1}}\RA{}
+<title>cs204</title>
+</head>
+<body>
+привет
+
+\LA{}bootsturp end~{\nwtagstyle{}\subpageref{NW17W4dw-zOp1I-1}}\RA{}
+\nwnotused{index.html}\nwendcode{}\nwbegindocs{2}\nwdocspar
+
+
+
+\section{Общая часть страниц}
+\nwenddocs{}\nwbegincode{3}\sublabel{NW17W4dw-1WS7z7-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW17W4dw-1WS7z7-1}}}\moddef{bootstrup begin~{\nwtagstyle{}\subpageref{NW17W4dw-1WS7z7-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW17W4dw-3cYSIo-1}}\nwenddeflinemarkup
+<!doctype html>
+<html lang="en, ru">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+\nwused{\\{NW17W4dw-3cYSIo-1}}\nwendcode{}\nwbegindocs{4}\nwdocspar
+
+
+\nwenddocs{}\nwbegincode{5}\sublabel{NW17W4dw-zOp1I-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW17W4dw-zOp1I-1}}}\moddef{bootsturp end~{\nwtagstyle{}\subpageref{NW17W4dw-zOp1I-1}}}\endmoddef\nwstartdeflinemarkup\nwusesondefline{\\{NW17W4dw-3cYSIo-1}}\nwenddeflinemarkup
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</body>
+</html>
+\nwused{\\{NW17W4dw-3cYSIo-1}}\nwendcode{}\nwbegindocs{6}\nwdocspar
+
+\nwenddocs{}\nwfilename{src/Makefile.nw}\nwbegindocs{0}\subsection{Makefile}
+
+В этой части
+мы создаем Makefile, управляющий сборкой. 
+Утилита make начинает читать этот файл с конца, поэтому
+такой порядок действий выбран в файле.
+Результат работы утилиты make -- это текст   cs204.pdf,
+и javascript, html файлы,  эти цели заданы в первой строке.
+Здесь используются утилиты noweave, notangle из пакета noweb,
+ pdflatex генерирует pdf файл из tex файлов. 
+
+\nwenddocs{}\nwbegincode{1}\sublabel{NW3GAfYZ-2CgwVs-1}\nwmargintag{{\nwtagstyle{}\subpageref{NW3GAfYZ-2CgwVs-1}}}\moddef{Makefile~{\nwtagstyle{}\subpageref{NW3GAfYZ-2CgwVs-1}}}\endmoddef\nwstartdeflinemarkup\nwenddeflinemarkup
+res: doc/cs204.pdf  index.html 
+
+
+index.html: src/main.nw 
+        notangle -Rindex.html src/main.nw > index.html 
+
+
+
+
+doc/cs204.pdf: src/cs204.tex  tmp/main.tex
+        pdflatex -output-directory=doc src/cs204.tex
+        pdflatex -output-directory=doc src/cs204.tex
+
+# Утилита noweave генерирует файл main.tex из отдельных файлов 
+# формата noweb.
+tmp/main.tex: src/main.nw  src/Makefile.nw
+        noweave -n -latex -index -autodefs c  src/main.nw \\
+                src/Makefile.nw > tmp/main.tex
+
+# Эту команду выполняем в случае, если были изменения в файле 
+#Makefile.nw, notangle генерирует новый Makefile
+
+new: src/Makefile.nw
+        notangle -t8 -RMakefile src/Makefile.nw > Makefile
+
+
+view:
+        evince doc/cs204.pdf &
+        
+clean:
+        rm doc/cs204.pdf *.html  
+
+\nwnotused{Makefile}\nwendcode{}\nwbegindocs{2}\nwdocspar
+\nwenddocs{}
+
+\nwixlogsorted{c}{{bootstrup begin}{NW17W4dw-1WS7z7-1}{\nwixu{NW17W4dw-3cYSIo-1}\nwixd{NW17W4dw-1WS7z7-1}}}%
+\nwixlogsorted{c}{{bootsturp end}{NW17W4dw-zOp1I-1}{\nwixu{NW17W4dw-3cYSIo-1}\nwixd{NW17W4dw-zOp1I-1}}}%
+\nwixlogsorted{c}{{index.html}{NW17W4dw-3cYSIo-1}{\nwixd{NW17W4dw-3cYSIo-1}}}%
+\nwixlogsorted{c}{{Makefile}{NW3GAfYZ-2CgwVs-1}{\nwixd{NW3GAfYZ-2CgwVs-1}}}%
+
