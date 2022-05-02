@@ -1,0 +1,38 @@
+\documentclass[professionalfonts]{beamer}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}  %% свойства шрифтов по умолчанию. Для XeTeX опцию Renderer=Basic можно не указывать, она необходима для LuaTeX
+\setmainfont[Ligatures={TeX,Historic}]{CMU Serif} 
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+\usefonttheme{professionalfonts}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usetheme{Pittsburgh}
+\usecolortheme{owl}
+\usepackage{tikz}
+\begin{document}
+\begin{frame}
+	\frametitle{Властелин разума}
+	\begin{center}
+\begin{tikzpicture}
+\filldraw[red]  (0,0)  circle (20pt);
+\filldraw[blue] (2, 0)  circle (20pt);
+\filldraw[green] (4, 0)  circle (20pt);
+\filldraw[yellow] (6, 0)  circle (20pt) node[right=30pt, white] {\Huge 2};
+	
+\filldraw[blue]  (0,-2)  circle (20pt);
+\filldraw[red] (2, -2)  circle (20pt);
+\filldraw[green] (4, -2)  circle (20pt);
+\filldraw[yellow] (6, -2)  circle (20pt) node[right=30pt, white] {\Huge 0};
+
+\filldraw[red]  (0,-4)  circle (20pt);
+\filldraw[blue] (2, -4)  circle (20pt);
+\filldraw[yellow] (4, -4)  circle (20pt);
+\filldraw[green] (6, -4)  circle (20pt) node[right=30pt, white] {\Huge 4};
+
+\end{tikpicture}
+\end{center}
+\end{frame}
+\end{document}

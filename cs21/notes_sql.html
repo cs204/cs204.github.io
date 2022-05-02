@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<hr>
+
+					<li> <a href="week0.html">Неделя 0</a> ide.cs50.io</li>
+					<li> <a href="week1.html">Неделя 1</a> HTML, CSS</li>
+					<li> <a href="week2.html">Неделя 2</a> Git, Github</li>
+
+					<li> <a href="week3.html">Неделя 3</a> Javascript, Nodejs</li>
+					<li> <a href="week4.html">Неделя 4</a> Задача о рюкзаке</li>
+					<li> <a href="canvas.html">Неделя 5</a> Canvas</li>
+					<li> <a href="week7.html">Неделя 6</a> Поиск</li>
+					<li> <a href="logic.html">Неделя 7</a> Логика</li>
+					<li> <a href="express.html">Неделя 8</a> Express</li>
+					<li> <a href="sql.html">Неделя 9</a> БД, SQL</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>SQL</h1>
+Технология баз данных используется для сохранения данных на дисках, 
+поиска нужной информации. Хранящиеся данные мы будем называть базой данных.
+Мы создадим базу данных,  в которой будем сохранять оценки студентов.
+Мы будем использовать 
+систему управления базами данных (СУБД) PostgreSQL.
+Сервер PostgreSQL - запускается на компьютере на котором хранятся и сами данные.
+Сервер принимает запросы от программ клиентов, написанные на языке SQL, и возвращает ответы.
+
+<h2>Создание базы данных на heroku</h2>
+<p>Мы могли бы установить postgresql локально,
+но мы разместим нашу базу данных на Heroky,
+online web hosting service.</p>
+<ol>
+	<li> Зайдите на <a href="https://www.heroku.com/">https://www.heroku.com/</a>, создайте аккаунт, если его ещё нет.</li>
+	<li>На dashboard heroku кликните "New" и выберите "Create new app".</li>
+	<li>Дайте название вашему приложению(app-name) и кликните "Create app".</li>
+	<li>Перейдите на вкладку  "Resources".</li>
+	<li>В поле Quickly add .. наберите или выберите Heroku Postgres.</li>
+	<li>Выберите "Hobby Dev - Free" план, кликните "Submit Order Form".</li>
+	<li>Кликните "Heroku Postgres" ссылку</li>
+	<li>Вы оказались на странице "Overview", выберите "Settings" и "View Credentials". Там находится информация, необходимая для подключения к созданной для вас базе данных. Скопируйте URI, мы будем использовать его.</li>
+</ol>
+
+В URI  указан протокол postgres, имя пользователя, пароль, адрес сервера, название базы данных.
+Нам будет удобно сохранить URI  в переменную окружения, чтобы иметь к ней доступ из разных программ.
+Перейдите в ide.cs50.io, создайте в домашнем каталоге файл с именем .profile .
+В этом файле введите строку
+<pre>
+<code>
+export DATABASE_URL=ваш_uri
+</pre>
+</code>
+Закройте терминал, откройте снова. Когда мы открываем терминал,
+он считывает ~/.profile и выполняет команды в нём. Написанная нами
+строчка создаёт переменную окружения. Проверьте, что терминал имеет к ней
+доступ, для этого введите в терминале 
+<pre>
+<code>
+echo $DATABASE_URL
+</code>
+</pre>
+В терминале должен появиться ваш URI.
+
+<h2>psql</h2>
+Выполните в терминале 
+<pre>
+<code>
+psql $DATABASE_URL
+</code>
+</pre>
+Если все прошло удачно, то перед нами окно, в котором мы можем вводить 
+запросы к серверу.
+Нам надо освоить четыре вида запросов на языке SQL: создать, прочитать, изменить и удалить.
+Начнём с создать. Создадим таблицу  задания.
+<pre>
+<code>
+create table задания(id serial, название text, primary key(id));
+</code>
+</pre>
+Первый столбец таблицы мы назвали id, тип данных serial - это
+целые числа автоматически увеличивающиеся, столбец id будет primary key (первичный ключ), мы будем использовать значения из него 
+для ссылки из других таблиц. 
+Столбец называние будет содержать данные типа текст. 
+Добавим данные в таблицу.
+<pre>
+<code>
+insert into задания(название) values ('Приворотное зелье'), ('Напиток живой смерти');
+</code>
+</pre>
+Это было запрос на изменение таблиц. Выполним запрос на чтение.
+<pre>
+<code>
+select * from задания;
+</code>
+</pre>
+Удалить таблицу можно выполнив запрос.
+<pre>
+<code>
+drop table if exists имя_таблицы;
+</code>
+</pre>
+Создадим таблицы студенты и оценки.
+<pre>
+<code>
+create table студенты (id serial, фамилия text, имя text, primary key(id));
+
+create table оценки(id_студента int,  
+id_задания int , оценка int,
+foreign key(id_студента) references студенты(id),
+foreign key(id_задания) references задания(id),
+primary key(id_студента, id_задания));
+</code>
+</pre>
+Для таблицы оценки первичный ключ состоит из двух полей, 
+за одно задание студент получает одну оценку.
+Для выхода из psql введите <kbd>Ctrl+d</kbd>.
+
+<h2>SQL запросы из nodejs</h2>
+Создайте папку hogwarts. Перейдите в неё.
+Инициализируйте npm, выполнив <kbd>npm init -y</kbd>.
+Для работы с PostgreSQL утсановите модуль pg.
+<pre>
+<code>
+npm install pg
+</code>
+</pre>
+Создайте файл pgConfig.js
+<pre>
+<code>
+//Импортируем класс Pool из модуля pg
+const {Pool} = require("pg")
+
+//Создаём пул соединений с сервером.
+const pool = new Pool({connectionString: process.env.DATABASE_URL,
+	    ssl: { rejectUnauthorized: false}
+})
+
+module.exports.pool = pool 
+</code>
+</pre>
+<p>Объект process, предоставляет информацию о текущем процессе.
+Через свойство env мы получаем доступ к переменным окружения.
+</p>
+<p>Создайте файл test.js.
+<pre>
+<code>
+const {pool} = require('./pgConfig')
+pool.query('select * from задания;', (err, res)=>
+	{
+		if(err) console.log('Ошибка:', err)
+		else
+		{
+			console.log(res.rows)
+			pool.end()
+		}
+	}
+)
+</code>
+</pre>
+Выполним в терминале команду <kbd>node test.js</kbd>.
+Мы получим список строк, каждая строка представлена объектом.
+query - это асинхронная функция, её первый аргумент - sql 
+запрос, второй - функция обратного вызова. Она будет вызываться
+node, после получения ответа от сервера.
+
+<h2>Связь веб приложения с БД.</h2>
+Для создания веб приложения, установим модули.
+<pre>
+<code>
+npm install express ejs body-parser
+</code>
+</pre>
+Создайте файл index.js
+<pre>
+<code>
+const express = require('express')
+const {pool} = require('./pgConfig')
+const port = process.env.PORT || 8080
+const app = express()
+
+app.get('/', (req, res) =>
+{
+    const sql1 = `select * from задания;`
+
+    pool.query(sql1, (err, resp) =>
+    {
+        if(err)
+            console.log('Error:', err)
+        else
+        {
+            res.render('problemset.ejs', {rows: resp.rows})
+        }
+    })
+
+})
+
+app.listen(port, ()=>
+    console.log('Приложение слушает порт:', port)
+    )
+</code>
+</pre>
+Мы создаём объект app, если он получает запрос методом get 
+на маршрут /, то делает запрос к базе данных, возвращает 
+страницу построенную с использованием данных из БД.
+<br>
+Создадим каталог views, в нём мы будем сохранять шаблоны веб страниц.
+Создайте в нём файл problemset.ejs.
+<pre>
+<code id=pset_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/sql/pset.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let pset_html = document.querySelector("#pset_html")
+					pset_html.innerText = data
+				})
+	</script>
+Выполним <kbd>node index.js</kbd>.
+Зайдите на свой сайт. 
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>

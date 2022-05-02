@@ -1,0 +1,85 @@
+\begin{frame}
+	\onslide<1->{
+$\text{Р}$: Рыцарь. \;\;$	\text{Л}$: Лжец. 
+
+		БЗ:  $\text{Р} \iff \neg \text{Л}$ \;\;\;  $\text{Р} \land \text{Л} \iff \text{Р}$ 
+
+		Запрос: $\text{Л}$
+		\begin{table}
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline\rowcolor{darkBlue}
+			$\text{Р}$ 	& $\text{Л}$	 & $¬\text{Л}$	 & 	$\text{Р} \iff \neg \text{Л}$ & $\text{Р} \land \text{Л}$& $\text{Р} \land \text{Л} \iff \text{Р}$\\ \hline
+			F 	& F 	&\onslide<2->{ T} 	&\onslide<3->{F}&\onslide<4->{F}&\onslide<5->{T}\\ \hline
+			F 	& T	& \onslide<2->{F}	&\onslide<3->{T}&\onslide<4->{F}&\onslide<5->{T}\\ \hline
+			T	& F	& \onslide<2->{T}	&\onslide<3->{T}&\onslide<4->{F}&\onslide<5->{F}\\ \hline
+			T	&T	& \onslide<2->{F}	&\onslide<3->{F}&\onslide<4->{T}&\onslide<5->{T}\\ \hline
+		\end{tabular}
+		\end{table} 
+		}
+
+\end{frame}
+
+\begin{frame}
+	\onslide<1->{
+$\text{Р}$: Рыцарь. \;\;$\text{Л}$: Лжец. 
+
+		БЗ:  $\text{Р} \iff \neg \text{Л}$ \;\;\;  $\text{Р} \land \text{Л} \iff \text{Р}$ 
+
+		Запрос: $\text{Л}$
+		\begin{table}
+		\begin{tabular}{|c|c|c|c|c|}
+			\hline\rowcolor{darkBlue}
+			$\text{Р}$ 	& $\text{Л}$	 &$\text{Р} \iff \neg \text{Л}$ 	& $\text{Р} \land \text{Л} \iff \text{Р}$	&БЗ\\ \hline
+			F 	& F	&\onslide<2->{F}	&\onslide<3->{T}	&\onslide<4->{F}\\ \hline
+			F 	& T	&\onslide<2->{T}	&\onslide<3->{T}	&\onslide<4->{T}\\ \hline
+			T	& F	&\onslide<2->{T}	&\onslide<3->{F}	&\onslide<4->{F}\\ \hline
+			T	&T	&\onslide<2->{F}	&\onslide<3->{T}	&\onslide<4->{F}\\ \hline
+		\end{tabular}
+		\end{table} 
+		}
+
+\end{frame}
+
+\begin{frame}
+$\text{Р}$: Рыцарь. \;\;$\text{Л}$: Лжец. 
+
+		БЗ:  $\text{Р} \iff \neg \text{Л}$ \;\;\;  $\text{Р} \land \text{Л} \iff \text{Р}$ 
+
+		Запрос: $\text{Л}$
+		\begin{table}
+		\begin{tabular}{|c|c|c|}
+			\hline\rowcolor{darkBlue}
+			$\text{Р}$ 	& $\text{Л}$	&БЗ\\ \hline
+			F 	& F	&F\\ \hline
+			\rowcolor{Green}
+			F 	& T	&T\\ \hline
+			T	& F	&F\\ \hline
+			T	&T	&F\\ \hline
+		\end{tabular}
+		\end{table} 
+\end{frame}
+
+\begin{frame}
+	\onslide<1->{
+$\text{Р}$: Рыцарь. \;\;$\text{Л}$: Лжец. 
+
+		БЗ:  $\text{Р} \iff \neg \text{Л}$ \;\;\;  $\text{Р} \land \text{Л} \iff \text{Р}$ 
+
+		Запрос: $\text{Л}$
+		\begin{table}
+		\begin{tabular}{|c|c|c|c|}
+			\hline\rowcolor{darkBlue}
+			$\text{Р}$ 	& $\text{Л}$	&БЗ& БЗ$\implies \text{Л}$\\ \hline
+			F 	& F	&F&\onslide<2->{T}\\ \hline
+			\rowcolor{Green}
+			F 	& T	&T&\onslide<2->{T}\\ \hline
+			T	& F	&F&\onslide<2->{T}\\ \hline
+			T	&T	&F&\onslide<2->{T}\\ \hline
+		\end{tabular}
+		\end{table} 
+		}
+
+\end{frame}
+
+
+

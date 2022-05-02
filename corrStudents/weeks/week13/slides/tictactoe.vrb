@@ -1,0 +1,46 @@
+\fontsize{6}{12}\selectfont
+
+\begin{tikzcd}
+		Plaer(s)=O	&\begin{tabular}{c}
+		MinV:\\
+		0
+		\end{tabular} 	\tictactoe
+				{\,} {X}  {O}
+				{O} {X}  {X}
+				{X} {\,} {O}
+	\arrow{ld}\arrow{rd}		 &  \\
+	\begin{tabular}{c}
+		MaxV:\\
+		1
+	\end{tabular}
+	\tictactoe
+	{\cy{O}} {X} { O}
+	{O} {X} { X}
+	{X} {} { O}
+	\arrow{d}		&			&
+					\begin{tabular}{c}
+						MaxV:\\
+						0
+					\end{tabular}
+						\tictactoe
+						{} {X} {O}
+						{O}{ X} { X}
+						 {X} {\cy{O}}{O}\arrow{d} 	\\
+\begin{tabular}{c}
+	Val:\\
+		1
+	\end{tabular}
+	\tictactoe
+	{\cy{O}}{X}{O}
+	{O}   {X} { X}
+	{X} {\cy{X}} {O}
+	&			&
+					\begin{tabular}{c}
+						Val:\\
+						0
+					\end{tabular}
+					\tictactoe
+						{\cy{X}}{X}{ O}
+						  {O}  {X}  {X}
+						 {X} {\cy{O}}{O}
+\end{tikzcd}

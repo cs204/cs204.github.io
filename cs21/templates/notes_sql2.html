@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block tytle %}
+SQL 
+{% endblock %}
+
+{% block body %}
+<h1>SQL</h1>
+<h2>Форма для таблицы задания</h2>
+Изменим файл problemset.ejs
+<pre>
+<code id=pset2_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/sql/pset2.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let pset2_html = document.querySelector("#pset2_html")
+					pset2_html.innerText = data
+				})
+	</script>
+Создадим папку /public/javascript . В ней будем размещать javascript файлы выполняемые
+на стороне клиента. Создадим в ней файл pset.js
+<pre>
+<code>
+document.addEventListener('DOMContentLoaded', ()=>
+	{
+		const psetTable = document.querySelector('#psetTable')
+		pset_list()
+	})
+
+async function pset_list()
+{
+	let rowCount = psetTable.rows.length
+	for(let i = 0; i < rowCount; i++)
+      		psetTable.deleteRow(0)
+      	const url = '/api_list'
+      	const data = {}
+      	const response = await fetch(url,
+      	{
+      		method: 'POST',
+      		headers: {'Content-Type': 'application/json'},
+      		body: JSON.stringify(data)
+      	})
+      	const pset = await response.json()
+      	rowCount = pset.length
+	console.log(pset)
+      	for(let i = 0; i < rowCount; i++)
+      	{
+      		let row = psetTable.insertRow()
+      		let cellName = row.insertCell()
+      		let cellRemove = row.insertCell()
+      		cellName.innerHTML = pset[i].название
+      		cellRemove.innerHTML = `<input class=messageChekcbox type=checkbox name='remove_list[]' value=${pset[i].id}/>`
+	}
+}
+
+
+
+</code>
+</pre>
+Изменим файл index.js
+<pre>
+<code>
+const express = require('express')
+const path = require('path')
+const {pool} = require('./pgConfig')
+const port = process.env.PORT || 8080
+const app = express()
+
+//Статичные файл в папке public: images, javascripts 
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/', (req, res) =>
+{ 
+	res.render('problemset.ejs')
+})
+ 
+app.post('/api_list', (req, res)=>
+	{
+		const sql1 = 'select * from задания;'
+		pool.query(sql1, (err, resp)=>
+			{
+				if(err) console.log('Error:', err)
+				else
+				{
+					res.end(JSON.stringify(resp.rows))
+				}
+			})
+	})
+
+app.listen(port, ()=>
+    console.log('Приложение слушает порт:', port)
+    )
+</code>
+</pre>
+Запустим приложение <kbd>node index.js</kbd>
+
+      	
+{% endblock %}

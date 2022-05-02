@@ -1,0 +1,162 @@
+\begin{frame}
+	\Large
+	Задать {\Huge модель} -- каждому пропозициональному символу 
+	присвоить истинностное значение ("задать возможный мир").
+\end{frame}
+
+\begin{frame}
+	\Huge
+	\begin{center}
+	\begin{tabular}{c l }
+		\multirow{2}{*}{Модель} 
+			& $P$: Идет дождь. \\
+			& $Q$: Вторник.\\
+	\end{tabular}
+
+		\{$P=True$, $Q=True$\}
+	\end{center}
+\end{frame}
+
+\begin{comment}
+	Если мы имеем $n$ символов, то можно построить $2^n$ моделей.
+\end{comment}
+
+\begin{frame}
+		\Huge База знаний \Large- множество высказываний,
+	которые агент, использующий знания, считает истинными.
+\end{frame}
+% То что агент знает о мире. 
+
+\begin{frame}
+	\Large
+	\begin{center}
+	\frametitle{Влечёт}
+	$$\alpha \models \beta$$
+	Во всех моделях, в которых $\alpha$ истинно, 
+	высказывание $\beta$ тоже истинно.
+	\end{center}
+\end{frame}
+\begin{frame}
+	\begin{itemize}[label={}]
+		\item Если не будет дождя, то Гарри посетит Хагрида.
+		\item Гарри сегодня посетил Хагрида или Дамблдора, но не обоих.
+		\item Гарри посетил Дамблдора сегодня.
+
+\;
+			\hrule
+			\;
+
+		\item \textbf{Гарри сегодня не посещал Хагрида.}
+		\item \textbf{Сегодня был дождь.}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\Huge Вывод -  
+
+\Large	процесс получения новых высказываний из старых.
+\end{frame}
+
+\begin{frame}
+	\Large
+	\begin{itemize}[label={}]
+		\item $P$: Вторник.
+		\item $Q$: Идет дождь.
+		\item $R$: Гарри пойдет на пробежку.
+
+			\;\pause
+		
+		\item БЗ: \pause $(P∧¬Q)\Rightarrow R$ \;\;\; \pause $P$ \;\;\;\pause $¬Q$
+
+			\;\pause
+
+		\item Вывод: \pause $R$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\Huge
+	\begin{center}
+	Алгоритмы вывода
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Huge
+	\begin{center}
+		БЗ $\models \alpha$
+
+		?
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Huge
+	\begin{center}
+		Проверка моделей
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Проверка моделей}
+	\begin{itemize}
+		\item Чтобы определить, что БЗ$\models \alpha$:
+			\pause
+			\begin{itemize}[label=\textbullet]
+				\item Рассматриваем все возможные
+					модели.\pause
+				\item БЗ влечёт $\alpha$, если
+					всгда, когда истина БЗ, 
+					то иситнно и $\alpha$.\pause
+				\item Иначе БЗ не влечет $\alpha$
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\onslide<1->{
+$P$: Вторник. \;\;$Q$: Дождь. \;\;\;$R$: Гарри пойдет на пробежку.
+
+		БЗ:  $(P∧¬Q)\Rightarrow R$ \;\;\;  $P$ \;\;\; $¬Q$
+
+		Запрос: $R$
+		\begin{table}
+		\begin{tabular}{|c|c|c|c|}
+			\hline\rowcolor{darkBlue}
+			$P$ 	& $Q$	 & $R$	 & БЗ \\ \hline
+			False 	&False 	& False	&\onslide<2->{ False} \\ \hline
+			False & False & True & \onslide<2->{False}	\\ \hline
+			False	& True	& False	& \onslide<2->{False}	\\ \hline
+			False	&True	&True	& \onslide<2->{False}\\ \hline
+			True	&False	&False	&\onslide<2->{False}\\ \hline 
+			True	&False	&True	&\onslide<2->{True	}\\ \hline
+			True	&True	&False	&\onslide<2->{False}	\\ \hline
+			True	&True	&True	&\onslide<2->{False}\\ \hline
+		\end{tabular}
+		\end{table} 
+		}
+\end{frame}
+
+\begin{frame}
+$P$: Вторник. \;\;$Q$: Дождь. \;\;\;$R$: Гарри пойдет на пробежку.
+
+		БЗ:  $(P∧¬Q)\Rightarrow R$ \;\;\;  $P$ \;\;\; $¬Q$
+
+		Запрос: $R$
+		\begin{table}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\rowcolor{darkBlue}
+			$P$ 	& $Q$	 & $R$	 & БЗ \\ \hline
+			False 	&False 	& False	& False \\ \hline
+			False & False & True & False	\\ \hline
+			False	& True	& False	& False	\\ \hline
+			False	&True	&True	& False\\ \hline
+			True	&False	&False	&False\\ \hline 
+			\rowcolor{Green}
+			True	&False	&True	&True	\\ \hline
+			True	&True	&False	&False	\\ \hline
+			True	&True	&True	&False\\ \hline
+		\end{tabular}
+		\end{table} 
+\end{frame}

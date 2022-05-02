@@ -1,0 +1,538 @@
+\begin{frame}
+\Huge
+\begin{center}
+Правила вывода
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{modus ponens}
+\begin{center}
+Если дождь, то Гарри внутри.
+
+Дождь.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гарри внутри.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{modus ponens}
+\Large
+\begin{center}
+
+$\alpha \rightarrow \beta$
+
+$\alpha$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$\beta$
+
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Удаления конъюнкции.}
+\begin{center}
+Гарри - друг Рона и Гермионы.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гарри - друг Гермионы.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Удаления конъюнкции.}
+\Large
+\begin{center}
+$\alpha ∧ \beta$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$\alpha$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Удаление двойного отрицания}
+\begin{center}
+Неправда, что Гарри не прошёл тест.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гарри прошёл тест.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Удаление двойного отрицания}
+\Large 
+\begin{center}
+$¬(¬\alpha)$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$\alpha$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Удаление импликации}
+\begin{center}
+Если дождь, то Гарри внутри.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Дождя нет и Гарри внутри.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Удаление импликации}
+\Large
+\begin{center}
+$\alpha \rightarrow \beta$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$¬\alpha ∨ \beta$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Удаление эквиваленции}
+\begin{center}
+Идёт дождь тогда и только тогда, когда Гарри внутри.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Если идёт дождь, то Гарри внутри, и
+если Гарри внутри, то идёт дождь.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Удаление эквиваленции}
+\Large
+\begin{center}
+$\alpha \leftrightarrow \beta$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$(\alpha \rightarrow \beta) ∧ (\beta \rightarrow \alpha)$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Законы де Моргана}
+\begin{center}
+Неправда, что Гарри и Рон прошли тест.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гарри не прошёл тест, или
+Рон не прошёл тест.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Законы де Моргана}
+\Large
+\begin{center}
+$¬(\alpha ∧ \beta)$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$¬\alpha ∨ ¬\beta$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Законы де Моргана}
+\begin{center}
+Неправда, что Гарри или Рон прошли тест.
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гарри не прошёл тест, и
+Рон не прошёл тест.
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Законы де Моргана}
+\Large
+\begin{center}
+$¬(\alpha ∨ \beta)$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$¬\alpha ∧ ¬\beta$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Свойство дистрибутивности.}
+\Large
+\begin{center}
+$(\alpha ∧ (\beta ∨ \gamma))$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$(\alpha ∧ \beta) ∨ (\alpha ∧ \gamma)$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Свойство дистрибутивности.}
+\Large
+\begin{center}
+$(\alpha  ∨(\beta ∧ \gamma))$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$(\alpha ∨ \beta) ∧ (\alpha ∨ \gamma)$
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Задачи поиска.}
+\begin{itemize}[label=$\bullet$]
+\item начальное состояние
+\item действия
+\item модель перехода
+\item тест цели
+\item функция цены пути
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Доказательство теоремы}
+\begin{itemize}[label=$\bullet$]
+\item начальное состояние: начальная база знаний
+\item действия: правила вывода
+\item модель перехода: новая база знаний после вывода
+\item тест цели: проверка было ли доказано утверждение
+\item функция цены пути: число шагов в доказательстве
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+Резолюция
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+(Рон в Большом зале) $∨$ (Гермиона в библиотеке)
+
+Рон не в Большом зале
+
+\rule{0.6\textwidth}{0.4pt}
+
+Гермиона в библиотеке
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+$P ∨ Q$
+
+$¬P$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$Q$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+$P ∨ Q_1 ∨ Q_2 ∨ ... ∨ Q_n$
+
+$¬P$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$Q_1 ∨ Q_2 ∨ ... ∨ Q_n$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+(Рон в Большом зале) $∨$ (Гермиона в библиотеке)
+
+(Рон не в Большом зале) $∨$ (Гарри спит)
+
+\rule{0.6\textwidth}{0.4pt}
+
+(Гермиона в библиотеке) $∨$ (Гарри спит)
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+$P ∨ Q$
+
+$¬P ∨ R$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$Q ∨ R$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Large
+\begin{center}
+$P ∨ Q_1 ∨ Q_2 ∨ ... ∨ Q_n$
+\pause
+
+$¬P ∨ R_1 ∨ R_2 ∨ ... ∨ R_m$
+\pause
+
+\rule{0.6\textwidth}{0.4pt}
+
+$Q_1 ∨ Q_2 ∨ ... ∨ Q_n ∨ R_1 ∨ R_2 ∨ ... ∨ R_m$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge Клауза \Large -
+
+дизъюнкция литерал, 
+
+например $P ∨ Q ∨ ¬R$
+\end{frame}
+
+\begin{frame}
+\Huge Конъюнктивная нормальная форма \Large -
+
+логическое высказывание, имеющее вид конъюнкции клауз,
+
+например $(A ∨ B ∨ C) ∧ (D ∨ ¬E)$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Преобразование к КНФ}
+\begin{itemize}[label=$\bullet$]
+\item Удалить эквиваленции
+	\pause
+	\begin{itemize}[label=$\bullet$]
+		\item $(\alpha \leftrightarrow \beta)$ в 
+			$(\alpha \rightarrow \beta) ∧ (\beta \rightarrow \alpha)$ 
+	\end{itemize}
+	\pause
+\item Удалить импликации
+	\pause
+	\begin{itemize}[label=$\bullet$]
+		\item $(\alpha \rightarrow \beta)$ в $¬\alpha ∨ \beta$
+	\end{itemize}
+	\pause
+\item Сместить $¬$ внутрь, используя де Моргана законы
+	\pause
+	\begin{itemize}[label=$\bullet$]
+		\item $¬(\alpha ∧ \beta)$ в $¬\alpha ∨ ¬ \beta$
+	\end{itemize}
+	\pause
+\item Использовать дистрибутивный закон, где это возможно
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Преобразование к КНФ}
+
+$(P ∨ Q) \rightarrow R$
+\pause
+
+$¬(P ∨ Q) ∨ R$ удаление импликации
+\pause
+
+$(¬P ∧ ¬ Q) ∨ R$ де Моргана закон
+\pause
+
+$(¬P ∨ R) ∧ (¬Q ∨ R)$ дистрибутивный закон
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+Вывод на основе резолюции
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+$P ∨ Q$
+
+$¬P ∨ R$
+
+\rule{0.6\textwidth}{0.4pt}
+
+$Q ∨ R$
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Large
+\begin{center}
+\onslide<1->{$P \lor Q \lor S$}
+
+\onslide<2->{$\lnot P \lor R \lor S$}
+
+\onslide<1->{\hL}
+
+\onslide<3,4>{$(Q \only<3>{\lor S} \lor R \lor S)$}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+\onslide<1->{$P$}
+
+\onslide<2->{$\lnot P$}
+
+\onslide<1->{\hL}
+
+\onslide<3->{$()$}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\pause
+\begin{itemize}[label=$\bullet$]
+\item Чтобы определить, что БЗ $\models \alpha$:
+	\pause
+	\begin{itemize}[label=$\bullet$]
+		\item Проверим, есть ли противоречие в (БЗ$\land \lnot\alpha$).
+		
+		\pause
+			\begin{itemize}[label=$\bullet$]
+				\item Если есть противоречие, то БЗ $\models \alpha$.
+		\pause
+				\item Иначе, $\alpha$  не следует.
+	\end{itemize}
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\pause
+\begin{itemize}[label=$\bullet$]
+\item Чтобы определить, что БЗ $\models \alpha$:
+	\pause
+	\begin{itemize}[label=$\bullet$]
+		\item Преобразуем (БЗ $\land \lnot \alpha$) в Конъюнктивную Нормальную Форму.
+	\pause
+		\item Находим, где мы можем применить резолюции для 
+получения новых клауз.
+	\pause
+		\begin{itemize}[label=$\bullet$]
+			\item Если мы получим пустую клаузу (эквивалентную лжи), то мы нашли противоречие, и БЗ$\models \alpha$.
+	\pause
+			\item Иначе, $\alpha$  не следуют из БЗ.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\Large
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \models A$?
+
+\;\pause
+
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \land (\lnot A)$
+
+\; \pause
+
+
+$(A \lor B) \;\; (\lnot B \lor C) \;\; (\lnot C) \;\;(\lnot A)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\Large
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \models A$?
+
+\;
+
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \land (\lnot A)$
+
+\; 
+
+
+$(A \lor B) \;\; \underline{(\lnot B \lor C)} \;\; \underline{(\lnot C)} \;\; (\lnot A)\;\; \pause (\lnot B)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\Large
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \models A$?
+
+\;
+
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \land (\lnot A)$
+
+\; 
+
+
+$\underline{(A \lor B)} \;\; (\lnot B \lor C) \;\; (\lnot C) \;\; (\lnot A) \;\;  \underline{(\lnot B)} \; \; \pause (A)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\Large
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \models A$?
+
+\;
+
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \land (\lnot A)$
+
+\; 
+
+
+$(A \lor B) \;\; (\lnot B \lor C) \;\; (\lnot C) \;\; \underline{(\lnot A)}
+ \;\;  (\lnot B) \; \; \underline{(A)} \;\; \pause ()$
+\end{frame}
+
+\begin{frame}
+\frametitle{Вывод через резолюции}
+\Large
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \models A$?
+
+\;
+
+$(A \lor B) \land (\lnot B \lor C) \land (\lnot C) \land (\lnot A)$
+
+\; 
+
+
+$(A \lor B) \;\; (\lnot B \lor C) \;\; (\lnot C) \;\; (\lnot A)
+ \;\;  (\lnot B) \; \; (A) \;\;  ()$
+\end{frame}

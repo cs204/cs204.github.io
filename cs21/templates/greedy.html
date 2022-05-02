@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}
+	Задача о рюкзаке. 
+{% endblock %}
+{% block body %}
+<h1>Задача о рюкзаке</h1>
+<h2>Жадный алгоритм</h2>	
+<p>Используя жадный алгоритм с сортировкой по удельной
+цене, решите  задачу о рюкзаке из лекции.</p>
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://ide.cs50.io">ide.cs50.io</a>. Перейдите в домашний каталог
+<pre>
+<kbd>cd ~</kbd>
+</pre>
+Создайте каталог greedy и перейдите в него 
+<pre>
+<kbd>mkdir greedy</kbd>
+<kbd>cd greedy</kbd>
+</pre>
+Закачайте в папку файл greedy.js
+<pre>
+<kbd> wget https://vadimgb.github.io/weeks/greedy.js</kbd>
+</pre>
+В этом файле вам надо определить функцию сравнения по удельной цене cmpDencity.
+Подробно об этом рассказано  в видео к лекции.
+Выполните программу 
+<pre>
+<kbd> node greedy.js </kbd>
+</pre>
+Интерпретатор node выполнил нашу программу.
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>npx check204 2021/greedy local</kdbd>
+</pre>
+
+Для отправки на проверку выполните команду
+<pre>
+<kbd>npx check204 2021/greedy</kdbd>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2021/greedy/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/W4DYZ87G4ho" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{% endblock %}

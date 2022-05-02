@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}
+	Поиск. 
+{% endblock %}
+{% block body %}
+<h1>Поиск</h1>
+<p>В лекции реализован алгоритм поиска в ширину.
+Ваша задача изменить его, чтобы  реализовать поиск в глубину.
+</>
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://ide.cs50.io">ide.cs50.io</a>. Перейдите в домашний каталог
+<pre>
+<kbd>cd ~</kbd>
+</pre>
+<p>Скачайте исходный код к лекции.
+<pre>
+<kbd>wget https://vadimgb.github.io/cs21/data/search.zip</kdb>
+</pre>
+Распакуйте архив, удалите архив
+<pre>
+<kbd>unzip search.zip</kbd>
+<kbd>rm -f search.zip</kbd>
+</pre>
+Создайте клон репозитория 
+<pre>
+<kbd>git clone https://github.com/cs204/{username}.git -b main pset9</kbd>
+</pre>
+В адресе замените {username} на ваше имя на github.
+Перейдите в папку pset9 
+<pre>
+<kbd>cd pset9</kbd>
+</pre>
+Создайте новую ветку и перейдите в неё
+<pre>
+<kbd>git checkout -b pset9</kbd>
+</pre>
+Скопируйте файлы из папки search в папку pset9
+
+<pre>
+<kbd>cp ~/search/* ./</kbd>
+</pre>
+<p>Для реализации поиска в глубину, вам надо изменить файл agenda.js.
+Класс Agenda надо сделать стеком.
+Для этого измените в нем метод getNode. Напоминаю, что в стеке узел надо 
+брать с конца. </p>
+<p>Запустите программу, выполнив
+<pre>
+<kbd>node main.js</kbd>
+</pre>
+Если все работает, проверьте правильность, выполнив 
+<pre>
+<kbd>check50 cs204/psets/2021/search --local -o html</kdbd>
+</pre>
+Сохраните изменения в репозитории и отправьте их на github.
+<pre>
+<kbd>git add .</kbd>
+<kbd>git commit -m "first commit"</kbd>
+<kbd>git push origin -f pset9</kbd>
+</pre>
+
+<h2>Заполните форму</h2>
+Заполните <a href="https://cs204.herokuapp.com/character/pset/9/c">форму</a></li>
+<br>
+Свои оценки вы можете посмотреть на <a href="https://cs204.herokuapp.com">https://cs204.herokuapp.com</a>.
+<br>
+
+{% endblock %}

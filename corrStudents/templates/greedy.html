@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block title %}
+	Задача о рюкзаке. 
+{% endblock %}
+{% block body %}
+<h1>Задача о рюкзаке</h1>
+<h2>Жадный алгоритм</h2>	
+<p>Используя жадный алгоритм с сортировкой по удельной
+цене, решите  задачу о рюкзаке из лекции.</p>
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://ide.cs50.io">ide.cs50.io</a>. Перейдите в домашний каталог
+<pre>
+<kbd>cd ~</kbd>
+</pre>
+Создайте клон репозитория 
+<pre>
+<kbd>git clone https://github.com/cs204/{username}.git -b main pset4</kbd>
+</pre>
+В адресе замените {username} на ваше имя на github.
+Перейдите в папку pset4 
+<pre>
+<kbd>cd pset4</kbd>
+</pre>
+Создайте новую ветку и перейдите в неё
+<pre>
+<kbd>git checkout -b pset4</kbd>
+</pre>
+Закачайте в папку файл greedy.js
+<pre>
+<kbd> wget https://vadimgb.github.io/weeks/greedy.js</kbd>
+</pre>
+В этом файле вам надо определить функцию сравнения по удельной цене cmpDencity.
+Подробно об этом рассказано  в видео к лекции.
+Выполните программу 
+<pre>
+<kbd> node greedy.js </kbd>
+</pre>
+Интерпретатор node выполнил нашу программу.
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>check50 cs204/psets/2021/greedy --local -o html</kdbd>
+</pre>
+Сохраните изменения в репозитории и отправьте их на github.
+<pre>
+<kbd>git add greedy.js</kbd>
+<kbd>git commit -m "first commit"</kbd>
+<kbd>git push origin -f pset4</kbd>
+</pre>
+
+<h2>Заполните форму</h2>
+<a href="https://cs204.herokuapp.com/character/pset/4/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="https://cs204.herokuapp.com">https://cs204.herokuapp.com</a>.
+<br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lix0k0FRY54" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+{% endblock %}

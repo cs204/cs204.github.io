@@ -1,0 +1,29 @@
+\documentclass[professionalfonts]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}  %% свойства шрифтов по умолчанию. Для XeTeX опцию Renderer=Basic можно не указывать, она необходима для LuaTeX
+\setmainfont[Ligatures={TeX,Historic}]{CMU Serif} 
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+\usefonttheme{professionalfonts}
+\usepackage{unicode-math}
+\setmathfont{texgyrepagella-math.otf}
+\usetheme{Pittsburgh}
+\usecolortheme{owl}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{multirow}
+\usepackage{color, colortbl}
+\usepackage{tikz}
+\title{Knights and Knaves}
+\definecolor{darkBlue}{rgb}{0, 0, 0.3}
+\definecolor{Green}{rgb}{0,0.7,0}
+\begin{document}
+\newcommand{\hL}{\rule{0.6\textwidth}{0.4pt}}
+\frame{\titlepage}
+\input table.txt
+\end{document}
+

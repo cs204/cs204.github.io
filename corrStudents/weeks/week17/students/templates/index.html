@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block tytle %}
+Информатика
+{% endblock %}
+
+
+{% block body %}
+<h1>Студенты</h1>
+<ul>
+	{% for студент in студенты %}
+	<li>{{ студент.имя }}</li>
+	{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,104 @@
+\begin{frame}
+\Huge
+\begin{center}
+Логика первого порядка
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Пропозициональная логика}
+\Large
+\begin{itemize}
+\item \underline{Пропозициональные символы}
+
+	\item МинерваГриффиндор
+
+	\item МинрваПуффендуй
+
+\item МинерваКогтевран
+
+\item МнерваСлизерин
+
+\item ...
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Логика первого порядка}
+\begin{tabular}{l l}
+\underline{Символы констант} & \underline{Символы предикатов}\\
+Минерва	& Преподаватель \\
+Помона & Факультет \\
+Гораций & ПринаделжитК\\
+Златопуст & \\
+Гриффиндор &\\
+Пуффендуй &\\
+Когтевран &\\
+Слизерин &\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Логика первого порядка}
+\begin{tabular}{l r}
+Преподаватель(Минерва) & Минерва - преподаватель.\\
+&\\
+Факультет(Гриффиндор) & Грффиндор - факультет.\\
+&\\
+¬Факльтет(Минерва) & Минерва не факультет.\\
+&\\
+ПринадлежитК(Минерва, \\
+Гриффиндор)&  Минерва с Гриффиндора.\\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\Huge
+\begin{center}
+Квантор всеобщности
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Квантор всеобщности}
+\Large
+$\forall x.$ПринадлежитК($x$, Гриффиндор)$\rightarrow$ 
+
+\hspace{3cm}$\lnot$ ПринадлежитК($x$, Пуффендуй)
+\large \pause
+
+\vspace{2cm}
+Для всех $x$, если $x$ принадлежит к Гриффиндору, то
+не принадлежит к Пуффендую.
+\end{frame}
+
+
+\begin{frame}
+\Huge
+\begin{center}
+Квантор существования
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{ Квантор существования}
+\Large
+$\exists x.$Факультет($x$) $\land$ ПринадлежитК(Минева, $x$)
+\large \pause
+
+\vspace{2cm}
+Существует $x$, такой что $x$ - факультет и Минерва ему принадлежит.
+\end{frame}
+
+\begin{frame}
+\frametitle{ Квантор существования}
+\Large
+$\exists x.$Преподаватель($x$)$\rightarrow$
+
+\hspace{1cm}($\exists y.$Факультет($y$) $\land$ ПринадлежитК($x,y$)) 
+\large \pause
+
+\vspace{2cm}
+Для все $x$, если $x$-преподаватель, то существует $y$, такой что
+$y$ - факультет и $x$ принадлежит к $y$.
+\end{frame}

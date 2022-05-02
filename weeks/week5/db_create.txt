@@ -1,0 +1,7 @@
+create table groups (id_group int primary key, phone varchar(255), houses text);
+
+insert into groups (id_group, houses) values (209, 'ФИЯ'), (201, 'ФИЯ'), (202, 'ФИЯ'), (203, 'ФИЯ'), (103, 'БХФ'), (104, 'БХФ'), (784, 'ФЭУ'), (795, 'ФЭУ');
+
+
+create table students (id_student serial primary key, login text unique, email text, firstName varchar(255) not null, lastName varchar(255) not null, id_group int references groups(id_group));
+

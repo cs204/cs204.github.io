@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a 
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="index.html">ИиИТ</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<hr>
+
+					<li> <a href="week0.html">Неделя 0</a> ide.cs50.io</li>
+					<li> <a href="week1.html">Неделя 1</a> HTML, CSS</li>
+					<li> <a href="week2.html">Неделя 2</a> Git, Github</li>
+
+					<li> <a href="week3.html">Неделя 3</a> Javascript, Nodejs</li>
+					<li> <a href="week4.html">Неделя 4</a> Задача о рюкзаке</li>
+					<li> <a href="week5.html">Неделя 5</a> SQL,  express</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Задача о рюкзаке</h1>
+<p>Из заданного набора вещей надо выбрать, что положить в рюкзак,
+так чтобы суммарная цена была максимальна и вес не превысил
+заданной величины.</p>
+<table  class="table table-bordered table-striped w-auto">
+	<tr>
+		<th>наименование</th>
+		<td>часы</td> 
+		<td>картина</td>
+		<td>радио</td>
+		<td>ваза</td>
+		<td>книга</td>
+		<td>компьютер</td>
+	</tr>
+	<tr>
+		<th>цена</th>
+		<td>175</td>
+		<td>90</td>
+		<td>20</td>
+		<td>50</td>
+		<td>10</td>
+		<td>200</td>
+	</tr>
+	<tr>
+		<th>вес</th>
+		<td>10</td>
+		<td>9</td>
+		<td>4</td>
+		<td>2</td>
+		<td>1</td>
+		<td>20</td>
+	</tr>
+</table>
+<p>Создадим список объектов</p>
+<pre>
+<code>
+function buildItems()
+{
+	const names = ['часы', 'картина', 'радио', 'выза', 'книга', 'компьютер']
+	const values = [175, 90, 20, 50, 10, 200]
+	const weights = [10, 9, 4, 2, 1, 20]
+	const items = []
+	for (let i = 0; i < values.length; i++)
+	{
+		items.push({
+			name:names[i], 
+			value: values[i], 
+			weight: weights[i]
+		})
+	} 
+	return items
+}
+const items = buildItems()
+</code>
+</pre>
+<p>Подмножество вещей мы будем обозначать массивом
+из 0, 1. 1 если мы берём вешь и ноль, если не берём.
+Создадим генератор таких последовательностей. </p>
+<pre>
+<code>
+function* genBin(n)//на каждоме шаке получеам 
+//увеличенное на 1 двоичное чилсо
+{
+	let b = []
+	for(let i = 0; i < n; i++)
+		b.push(0)
+	yield b
+	let i = n - 1
+	while(true)
+	{
+		if(i == -1)
+		{
+			return
+		}
+		else if( b[i] == 1)
+		{
+			b[i] = 0
+			i -= 1
+		}
+		else
+		{
+			b[i] = 1
+			i = n - 1
+			yield b
+		}
+	}
+}
+for(let x of genBin(6))//проверим как он рабтает
+	console.log(x)
+</code>
+</pre>
+<p>Используя этот генератор, создадим следующий,
+который будет генерировать всевозможные подмножества
+из данного множества</p>
+<pre>
+<code>
+function* genPowerSet(items)
+{
+	for(let x of genBin(items.length))
+	{
+		let taken = []
+		for (let i = 0; i < x.length; i++)
+		{
+			if (x[i] == 1) taken.push(items[i])
+		}
+		yield taken
+	}
+}
+</code>
+</pre>
+Создадим фильтр генерирующий только подходящие
+по весу наборы
+<pre>
+<code>
+function weightTest(taken, maxWeight)
+{
+	totalWeight = 0
+	for(let t of taken)
+	{
+		totalWeight += t.weight 
+		if(totalWeight > maxWeight)
+		{
+			return false
+		}
+	}
+	return true
+}
+
+
+
+function* weightFilter(maxWeight, genSet)
+{
+	for(let taken of genSet)
+	{
+		if (weightTest(taken, maxWeight))
+			yield taken
+	}
+	return
+}
+
+//Проверим
+let setF = weightFilter(20, genPowerSet(items))
+for(let taken of setF) console.log(taken) 
+</code>
+</pre>
+Выбреме набор имещий максимальную цену
+<pre>
+<code>
+function genSolution(xFGen)
+{
+	let totalValue = 0
+	let taken = []
+	for (let x of xFGen)
+	{
+		if (value(x) > totalValue)
+		{
+			totalValue = value(x)
+			taken = x.slice()
+		}
+	}
+	return {totalValue: totalValue, taken: taken}
+}
+
+function value(taken)
+{
+	let totalValue = 0
+	for(let item of taken)
+	{
+		totalValue += item.value 
+	}
+	return totalValue
+}
+//Проверим
+let  sol = genSolution(setF)
+console.log(sol.taken)
+console.log(sol.totalValue)
+</code>
+</pre>
+<h2>Жадный алгоритм</h2>
+<p>Приближённый метод решения, мы сортируем
+вещи в наборе по убыванию, по какому-то свойству, например
+по цене. И затем выбираем те из них, которые подходят по весу.
+</p>
+<pre>
+<code>
+function greedy(items, maxWeight, cmpFunction)
+{
+	items.sort(cmpFunction)
+	items.reverse()
+	let totalWeight = 0
+	let totalValue = 0
+	const taken = []
+	for (let i = 0; i < items.length; i++)
+	{
+		if( totalWeight + items[i].weight <= maxWeight)
+		{
+			taken.push(items[i].name)
+			totalWeight += items[i].weight
+			totalValue += items[i].value
+		}
+	}
+	return {totalValue: totalValue, taken: taken}
+}
+</code>
+</pre>
+Приведём примеры функций сортировки по цене
+и обратному весу.
+<pre>
+<code>
+function cmpValue(itemA, itemB)
+{
+	let r = itemA.value - itemB.value
+	return r
+}
+
+function cmpWeightInverse(itemA, itemB)
+{
+	let r = 1/itemA.weight - 1/itemB.weight
+	return r
+}
+</code>
+</pre>
+Создадим функцию, которая будет выводить результат
+<pre>
+<code>
+function testGreedy(items, maxWeight, cmpFunction)
+{
+	const {totalValue, taken} = greedy(items, maxWeight, cmpFunction)
+	console.log("Полная цена = ", totalValue)
+	console.log("Взяли:", taken)
+}
+</code>
+</pre>
+Проверим как все работает
+<pre>
+<code>
+console.log("Сортировка по цене даёт:")
+testGreedy(items, 20, cmpValue)
+console.log("Сортировка по обратному весу даёт:")
+testGreedy(items, 20, cmpWeightInverse)
+</code>
+</pre>
+Решение для сортировки по удельной цене (цена/вес) найдите самостоятельно.
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>

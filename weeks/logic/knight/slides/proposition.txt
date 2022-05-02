@@ -1,0 +1,156 @@
+\begin{comment}
+На основе имеющихся аксиом люди могут доказать истинность теорем.
+	Эти исходные утверждения(аксиомы) мы будем назвать базой знаний.
+\end{comment}
+
+\begin{frame}
+	\frametitle{Агент, использующий знания.}
+	Агент, использующий знания --  это агент, принимающий решение, основываясь на 
+	внутреннем представлении знаний.
+\end{frame}
+\begin{frame}
+	\begin{itemize}[label={}]
+		\item Если не будет дождя, то Гарри посетит Хагрида.
+		\item Гарри сегодня посетил Хагрида или Дамблдора, но не обоих.
+		\item Гарри посетил Дамблдора сегодня.
+		\pause
+		\item \textbf{Гарри сегодня не посещал Хагрида.}
+		\pause
+		\item \textbf{Сегодня был дождь.}
+	\end{itemize}
+\end{frame}
+\begin{frame}
+	\begin{center}
+		\Huge Логика
+	\end{center}
+\end{frame}
+\begin{frame}
+	\Large \textbf{Предложение} - суждение о мире на языке
+	представления знаний.
+\end{frame}
+
+\begin{comment}
+	Язык представления знаний - способ представления знания.
+	 Один из таких языков - логика высказываний.
+\end{comment}
+
+\begin{frame}
+	\begin{center}
+	\Huge Логика высказываний \large(пропозициональная)
+	\end{center}
+\end{frame}
+
+\begin{comment}
+	Символы представляют высказывания об мире.  
+\end{comment}
+
+\begin{frame}
+	\begin{center}
+	\Huge Пропозициональная символы
+
+	P\; Q\; R
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Знаки логических связок}
+\Large
+	\begin{center}
+		\begin{table}
+			\begin{tabular}{c  c  c}
+				$¬$  &  $∧$ & $∨$ \\
+				отрицание & конъюнкция & дизъюнкция\\
+			\end{tabular}
+
+			\begin{tabular}{c c}
+				$\Rightarrow$ & $\Leftrightarrow$\\
+				импликация & эквиваленция
+			\end{tabular}
+		\end{table}
+	\end{center}
+\end{frame}
+\begin{frame}
+	\Large
+	\frametitle{Отрицание $¬$}
+	\begin{center}
+		\begin{tabular}{|c | c|}
+		\hline
+			\rowcolor{darkBlue}
+		$P$ & $¬ P$ \\ \hline
+		False & True \\ \hline
+		True & False \\ \hline
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Large
+	\frametitle{Конъюнкция, и, $∧$}
+	\begin{center}
+	\begin{table}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\rowcolor{darkBlue}
+			$P$ & 		$Q$ &		 $P ∧ Q$ \\ \hline
+			False & 	False & 	False \\ \hline
+			False & 	True & 		False \\ \hline
+			True  & 	False & 	Fasle \\ \hline
+			True & 		True & 		True \\ \hline
+		\end{tabular}
+	\end{table}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Large
+	\frametitle{Дизъюнкция, или, $∨$}
+	\begin{center}
+	\begin{table}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\rowcolor{darkBlue}
+			$P$ & 		$Q$ &		 $P ∨ Q$ \\ \hline
+			False & 	False & 	False \\ \hline
+			False & 	True & 		True \\ \hline
+			True  & 	False & 	True \\ \hline
+			True & 		True & 		True \\ \hline
+		\end{tabular}
+	\end{table}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Large
+	\frametitle{Импликация $\Rightarrow$}
+	\begin{center}
+	\begin{table}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\rowcolor{darkBlue}
+			$P$ & 		$Q$ &		 $P \Rightarrow Q$ \\ \hline
+			False & 	False & 	True \\ \hline
+			False & 	True & 		True \\ \hline
+			True  & 	False & 	False \\ \hline
+			True & 		True & 		True \\ \hline
+		\end{tabular}
+	\end{table}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\Large
+	\frametitle{Эквиваленция $\Leftrightarrow$}
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\rowcolor{darkBlue}
+			$P$ & 		$Q$ &		 $P \Leftrightarrow Q$ \\ \hline
+			False & 	False & 	True \\ \hline
+			False & 	True & 		False \\ \hline
+			True  & 	False & 	False \\ \hline
+			True & 		True & 		True \\ \hline
+		\end{tabular}
+	\end{center}
+\end{frame}
+
+
