@@ -39,7 +39,7 @@
 				
 <h1>Canvas</h1>
 <p>canvas - элемент html, мы будем рисовать на нём.
-Создайте папку week6, перейдите в неё.
+Создайте папку canvas, перейдите в неё.
 Создайте в ней файл canvas.html. </p>
 <pre>
 <code>
@@ -119,7 +119,7 @@ ctx.fillText('Hello, World', 50, 70) // положение текста 50 пи�
 <pre>
 <code>
 ctx.strokeStyle = 'yellow' //цвет контура жёлтый
-ctx.linewidth = 5//задаём толщину контура в 5 пикселей
+ctx.lineWidth = 5//задаём толщину контура в 5 пикселей
 ctx.strokeRect(10, 20, 50, 70)
 </pre>
 </code>
@@ -131,7 +131,7 @@ ctx.strokeRect(10, 20, 50, 70)
 	canvas3.style.backgroundColor = 'lightgray'
 	const ctx3 = canvas3.getContext('2d')
 	ctx3.strokeStyle = 'yellow'
-	ctx3.linewidth = 5
+	ctx3.lineWidth = 5
 	ctx3.strokeRect(10, 20, 50, 70)
 </script>
 <br>
@@ -161,6 +161,33 @@ ctx.stroke()//линия появляется на экране
 	ctx4.lineTo(290, 10)//чертим прямую до точки 290 вправо и 10 вниз пикселей  
 	ctx4.lineTo(10, 290)//чертим прямую до точки 10 вправо и 290 вниз пикселей  
 	ctx4.stroke()//линия появляется на экране
+</script>
+<br>
+<p>Рассмотрим,  как можно обработать нажатие на клавишу мышки.
+<pre>
+<code>
+canvas.addEventListener('click', drawRect);
+
+function drawRect(event)
+{
+	ctx.fillStyle = 'red';
+	ctx.fillRect(event.offsetX, event.offsetY, 5, 5);
+}
+</code>
+</pre>
+</p>
+<canvas width=300 height=300 id="canvas5"></canvas>
+<script>
+	const canvas5 = document.querySelector("#canvas5")
+	canvas5.style.backgroundColor = 'lightgray'
+	const ctx5 = canvas5.getContext('2d')
+	canvas5.addEventListener('click', drawRect);
+
+	function drawRect(event)
+	{
+		ctx5.fillStyle = 'red';
+		ctx5.fillRect(event.offsetX, event.offsetY, 5, 5);
+	}
 </script>
 <br>
 Учебник по canvas вы можете посмотреть, например, 
