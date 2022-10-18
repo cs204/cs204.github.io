@@ -42,21 +42,16 @@
 Создайте папку week6, перейдите в неё.
 Создайте в ней файл canvas.html. </p>
 <pre>
-<code id="canvas1">
+<code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;body&gt;
+		&lt;canvas width=300 height=300 id="canvas"&gt;&lt;/canvas&gt;
+		&lt;script src="./js/main.js" type="module"&gt;&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
 </code>
 </pre>
-	<script>
-		document.querySelector("#canvas1").innerText=`
-<!doctype html>
-<html>
-	<body>
-		<canvas width=300 height=300 id="canvas"></canvas>
-		<script src="./js/main.js" type="module">
-	</body>
-</html>
-`
-	</script>
-
 
 В папке создайте каталог js, в нем файл main.js.
 <pre>
@@ -98,7 +93,7 @@ x - число пикселей вправо, y - число пикселей в
 Следующий пример создаёт текст на canvas
 <pre>
 <code>
-ctx.font = `$20px Arial`//размер шрифта 20 пикселей, шрифт Arial
+ctx.font = `20px Arial`//размер шрифта 20 пикселей, шрифт Arial
 ctx.fillStyle = 'blue' //цвет текста голубой
 ctx.textAlign = 'center'//выравнивание по горизонтали
 ctx.textBaseline = 'middle'//выравнивание по вертикали
