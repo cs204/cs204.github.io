@@ -1,110 +1,140 @@
-import {minedTrue, minedFalse, dimension, showTrue, showFalse, showFlag} from "./config.js"
-export const startBtn = document.querySelector("#start");
-export const aiMoveBtn = document.querySelector("#ai_move");
+import {rowCol2index, index2row, index2col} from "./helper.js"
+
 export const canvas = document.querySelector("#canvas");
-var maine = document.querySelector("#mine");
+var mine = document.querySelector("#mine");
 var flag = document.querySelector("#flag");
 var ctx = canvas.getContext('2d');
 
-//d is the number of elements in dimension.
-var d = dimension;
-
-const tileWidth = canvas.width / d
-const tileHeight = canvas.height / d
-const flagWidth = tileWidth
-const flagHeight = tileWidth
-const mineWidth= tileWidth
-const mineHeight = tileWidth
-const mineDx = 0
-const mineDy = 0
-const flagDx = 0
-const flagDy = 0
 
 const tileColor = '#eee'
 const canvasColor = '#fff'
-canvas.style.backgroundColor = canvasColor
+canvas.style.backgroundColor = canvasColor;
+
+class Image
+{
+	constructor()
+	{ 
+		this.no = 0; 
+		this.flag = 1; 
+		this.mine = 2; 
+		this.showN = 3;
+	}
+}
+const image = new Image();
+
 
 class Tile
 { 
-	constructor(i, j, minesCount, mined, show) 
+	constructor(i, j, minesCount, gImage, dimension ) 
 	{ 
+		this.width = canvas.width /dimension;
+		this.height = canvas.height / dimension;
+		this.flagSize = this.width;
+		this.mineSize = this.width;
 		this.row = i;
 		this.col = j;
 		this.minesCount = minesCount; 
-		this.mined = mined;
-		this.show = show;
+		this.image = gImage;
 	} 
 	draw() 
 	{ 
-		if(this.show === showFalse)
+		switch(this.image)
 		{
-			ctx.fillStyle = tileColor 
-			ctx.strokeStyle = canvasColor 
-			ctx.linewidth = 5 
-			ctx.fillRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-			ctx.strokeRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-		}
-		else if(this.show === showFlag)
-		{
-			ctx.fillStyle = tileColor 
-			ctx.strokeStyle = canvasColor 
-			ctx.linewidth = 5 
-			ctx.fillRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-			ctx.strokeRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-			ctx.drawImage(flag, this.col * tileWidth + flagDx, this.row * tileWidth + flagDy, flagWidth, flagHeight);  
-		}
-		else
-		{ 
-			if(this.mined !== minedTrue) 
-			{ 
+			case image.no: 
 				ctx.fillStyle = tileColor 
 				ctx.strokeStyle = canvasColor 
 				ctx.linewidth = 5 
-				ctx.fillRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-				ctx.strokeRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight) 
-				ctx.font = `${tileWidth * 0.6}px Arial` 
+				ctx.fillRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				ctx.strokeRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				break;
+			case image.flag: 
+				ctx.fillStyle = tileColor 
+				ctx.strokeStyle = canvasColor 
+				ctx.linewidth = 5 
+				ctx.fillRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				ctx.strokeRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				ctx.drawImage(flag, this.col * this.width, this.row * this.width, this.flagSize, this.flagSize);  
+				break;
+			case image.showN:
+				ctx.fillStyle = tileColor 
+				ctx.strokeStyle = canvasColor 
+				ctx.linewidth = 5 
+				ctx.fillRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				ctx.strokeRect(this.col * this.width, this.row * this.height, this.width, this.height) 
+				ctx.font = `${this.width * 0.6}px Arial` 
 				ctx.fillStyle = "black" 
 				ctx.textAlign = 'center' 
 				ctx.textBaseline = "middle" 
-				ctx.fillText(this.minesCount, this.col * tileWidth + tileWidth / 2, this.row * tileHeight + tileHeight / 2) 
-			} 
-			else 
-			{ 
+				ctx.fillText(this.minesCount, this.col * this.width + this.width / 2, this.row * this.height + this.height / 2) 
+				break;
+			case image.mine:
 				ctx.fillStyle = "red";
 				ctx.strokeStyle = canvasColor;
 				ctx.linewidth = 5;
-				ctx.fillRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight);
-				ctx.strokeRect(this.col * tileWidth, this.row * tileHeight, tileWidth, tileHeight);
-				ctx.drawImage(mine, this.col * tileWidth + mineDx, this.row * tileWidth + mineDy, mineWidth, mineHeight);  
-			}
-		} 
-	} 
+				ctx.fillRect(this.col * this.width, this.row * this.height, this.width, this.height);
+				ctx.strokeRect(this.col * this.width, this.row * this.height, this.width, this.height);
+				ctx.drawImage(mine, this.col * this.width, this.row * this.width, this.mineSize, this.mineSize);  
+		}
+	}
 }
 
 
 export class GameView
 {
-    constructor(state)
+    constructor(game)
     { 
 	    ctx.clearRect(0, 0, canvas.width, canvas.height)
-	    this.board = []
-	    for(let i = 0; i < d; ++i)
+	    for(let i = 0; i < game.dimension * game.dimension; ++i)
 	    { 
-		    this.board.push(new Array(d)); 
-		    for(let j = 0; j < d; j++) 
-		    { 
-			    this.board[i][j] = new Tile(i, j, state[i][j].minesCount, state[i][j].mined, state[i][j].show) 
-			    this.board[i][j].draw() 
+		    let boad = [];
+		    let cell;
+		    if(game.endGame)
+		    {
+			    if(game.mines.has(i)) 
+				    new Tile(index2row(i, game.dimension), 
+					    index2col(i, game.dimension), 
+					    game.countMines(i),  
+					    image.mine, game.dimension).draw();
+			    else
+				    new Tile(index2row(i, game.dimension), 
+					    index2col(i, game.dimension), 
+					    game.countMines(i),  
+					    image.showN, game.dimension).draw();
+		    }
+		    else
+		    {
+			    if(game.flags.has(i))
+				    new Tile(index2row(i, game.dimension), 
+					    index2col(i, game.dimension), 
+					    game.countMines(i),  
+					    image.flag, game.dimension).draw();
+			    else if(game.moves_made.has(i))
+				    new Tile(index2row(i, game.dimension), 
+					    index2col(i, game.dimension), 
+					    game.countMines(i),  
+					    image.showN, game.dimension).draw();
+			    else
+			    {
+				    cell = new Tile(index2row(i, game.dimension), 
+					    index2col(i, game.dimension), 
+					    game.countMines(i),  
+					    image.no, game.dimension);
+				    cell.draw();
+			    }
 		    }
 	    }
     }
 }
 
-export function clickToTail(x, y)
-{
-    const j = Math.floor(x / tileWidth)
-    const i = Math.floor(y / tileHeight)
-    return [i,j]
+
+
+export function clickToTail(x, y, canvas, dimension)
+{ 
+	const width = canvas.width /dimension;
+	const height = canvas.height / dimension;
+	const i = Math.floor(y / height); 
+	const j = Math.floor(x / width); 
+	return rowCol2index(i,j, dimension);
 }
 
 
