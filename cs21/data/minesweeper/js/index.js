@@ -1,89 +1,91 @@
-import {aiMoveBtn, startBtn, GameView, clickToTail, canvas} from "./view.js"
-import {setMine} from "./game.js"
-import {start, stop, dimension, nMine, minedTrue, minedFalse, showTrue, showFalse, showFlag} from "./config.js"
+import Game from "./game.js"
+import {GameView, clickToTail, canvas} from "./view.js"
 import {MinesweeperAI} from "./minesweeper.js"
+import {dimension, nMine} from "./config.js"
 
-let state;
-let s1;
+const startBtn = document.querySelector("#start");
+const aiMoveBtn = document.querySelector("#ai_move");
+startBtn.addEventListener('click', startGame);
+aiMoveBtn.addEventListener('click', aiMove);
+canvas.addEventListener('mouseup', moveView);
+
+var game = new Game(dimension, nMine);
 var ai;
 startGame();
 
-canvas.addEventListener('mouseup', moveView);
-startBtn.addEventListener('click', startGame);
-aiMoveBtn.addEventListener('click', aiMove);
-
 function startGame()
 {
-	state = start;
-	s1 = setMine(dimension, nMine);
+	game.start();
 	ai = new MinesweeperAI(dimension);
-	new GameView(s1)
+	new GameView(game);
 }
 
 
 
 function moveView(event)
 { 
-	if(state){ 
-		const [i, j] = clickToTail(event.offsetX, event.offsetY) 
+	if(!game.endGame)
+	{ 
+		const cell = clickToTail(event.offsetX, event.offsetY, canvas, game.dimension);
 		if(event.button === 0)
 		{ 
-			if(s1[i][j].mined !== minedTrue) 
+			if(!game.mines.has(cell))
 			{ 
-				s1[i][j].show = showTrue; 
-				ai.add_knowledge(i * dimension + j, s1[i][j].minesCount);
+				game.moves_made.add(cell); 
+				ai.add_knowledge(cell, game.countMines(cell));
 			} 
 			else 
 			{ 
-				state = stop; 
-				for(let l = 0; l < dimension; ++l) 
-					for(let k = 0; k < dimension; ++k) 
-						s1[l][k].show = showTrue; 
+				game.endGame = true; 
+				for(let l = 0; l < dimension * dimension; ++l) 
+					game.moves_made.add(l);
 			}
 		}
 		else 
 		{ 
-			if(s1[i][j].show === showFlag) 
-				s1[i][j].show = showFalse; 
-			else if(s1[i][j].show === showFalse) 
-				s1[i][j].show = showFlag;
+			if(game.flags.has(cell)) 
+				game.flags.delete(cell); 
+			else if(!game.flags.has(cell) && !game.moves_made.has(cell)) 
+				game.flags.add(cell);
 		} 
-		new GameView(s1)
+		new GameView(game)
 	}
 }
 
 function aiMove()
 {
-	if(state)
+	if(!game.endGame)
 	{ 
-		let move = ai.make_safe_move(); 
-		if(move === undefined) 
+		let cell = ai.make_safe_move(); 
+		if(cell === undefined) 
 		{ 
-			move = ai.make_random_move(); 
-			if(move === undefined) 
+			cell = ai.make_random_move(); 
+			if(cell === undefined) 
 			{ 
 				console.log("Нет ходов"); 
-				state = 0; 
-				return ; 
 			} 
-		} 
-		let i = Math.floor(move / dimension); 
-		let j = move % dimension; 
-		if(s1[i][j].mined !== minedTrue) 
+			else
+			{
+				console.log("Случайный выбор"); 
+				if(game.mines.has(cell)) 
+					game.endGame = true; 
+				else
+				{ 
+					game.moves_made.add(cell); 
+					ai.add_knowledge(cell, game.countMines(cell));
+				}
+
+			}
+		}
+		else
 		{ 
-			s1[i][j].show = showTrue; 
-			ai.add_knowledge(i * dimension + j, s1[i][j].minesCount);
-		} 
-		else 
-		{ 
-			state = stop; 
-			for(let l = 0; l < dimension; ++l) 
-				for(let k = 0; k < dimension; ++k) 
-					s1[l][k].show = showTrue; 
+			game.moves_made.add(cell); 
+			console.log("Безопасный ход");
+			ai.add_knowledge(cell, game.countMines(cell));
 		} 
 	} 
-	ai.mines.forEach(m =>{let i = Math.floor(m / dimension); let j = m % dimension; s1[i][j].show =showFlag;});
-	new GameView(s1)
+	ai.mines.forEach(m => game.flags.add(m));
+	new GameView(game)
 }
 
 
