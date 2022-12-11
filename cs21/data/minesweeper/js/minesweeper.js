@@ -104,6 +104,14 @@ export class MinesweeperAI
 		this.knowledge = [];
 	}
 
+	start()
+	{
+		this.moves_made = new Set();
+		this.mines = new Set();
+		this.safes = new Set();
+		this.knowledge = [];
+	}
+
 	mark_mine(cell)
 	{
 		//Помечает ячейку как мину и обновляет все знания,

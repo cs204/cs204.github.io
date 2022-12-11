@@ -10,13 +10,14 @@ aiMoveBtn.addEventListener('click', aiMove);
 canvas.addEventListener('mouseup', moveView);
 
 var game = new Game(dimension, nMine);
-var ai;
+var ai = new MinesweeperAI(dimension);
+
 startGame();
 
 function startGame()
 {
 	game.start();
-	ai = new MinesweeperAI(dimension);
+	ai.start(); 
 	new GameView(game);
 }
 
