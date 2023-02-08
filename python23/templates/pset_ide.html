@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}
+ide. Задание. 
+{% endblock %}
+
+
+{% block body %}
+<header> 
+	<h1>ide. Задание.</h1> 
+</header> 
+<p>
+<h2>Регистрация на сайте учета заданий</h2>
+
+<p>Выполнив задание из <a href="./notes_ide.html">лекции</a>, 
+вы зарегистрировались на github, создали токен.
+Используя учётную запись на github, зайдите на сайт
+<a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+Вам будет отправлено письмо с темой cs203. 
+В веб-браузере устройства, на котором будете 
+смотреть письмо, надо  войти  на github.
+Примите находящееся в письме 
+приглашение (View Invitation -> Accept Invitation). 
+Письмо может попасть в спам.
+
+Для вас был создан репозиторий, вы будете
+отправлять в него свой работы на проверку.
+Имя репозитория имеет вид https://github.com/cs204/{username}.git, где {username} замените на имя пользователя на github. 
+Так если пользователь имеет имя в github vadimgb1, 
+то репозиторий будет
+называться https://github.com/cs204/vadimgb1.git, где cs204 - это имя организации. 
+</p>
+
+<h2>Выполнение первого задания</h2>
+Зайдите на <a href="https://ide.cs50.io">ide.cs50.io</a>. 
+Создайте каталог и перейдите в него.
+<pre>
+<kbd>mkdir ~/hello</kbd>
+<kbd>cd ~/hello</kbd>
+</pre>
+Создайте файл hello.py,  сохраните его в папке ~/hello.
+Текст файла ниже
+<pre>
+<code>
+print('Hello, World!')
+</code>
+</pre>
+Выполните команду в терминале
+<pre>
+<kbd>python hello.py</kbd>
+</pre>
+Интерпретатор python выполнил вашу программу и вывел на экран приветствие.
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>npx check204 2023/hello_py local</kbd>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<kbd>npx check204 2023/hello_py</kbd>
+</pre>
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/hello_py/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+</br>
+
+<iframe  width="640" height="498" src="https://www.youtube.com/embed/WznQ1C4VS5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+{% endblock %}

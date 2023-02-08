@@ -7,9 +7,8 @@
 	<meta charset="utf-8">
 	<link href="style.css" rel="stylesheet">
 	<title> 
-		
-Информатика
- 
+		{% block title %} 
+		{% endblock %} 
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
 	</head>
@@ -17,25 +16,17 @@
 		<div id=flex>
 			<nav>
 				<ul>
-					<li> <a href="cs21/error.html">Замечания</a></li>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
 					<hr>
 
+					<li><a href="ide_cs50_io.html">Неделя 0</a> ide.cs50.io</li>
 				</ul>
 			</nav>
 			<main>
-				
-<header>
-
-</header>
-<main>
- <ul>
-	 <li><a href="cs21/index.html">Информатика и информационные технологии</a></li>
-	 <li><a href="python23/index.html">Python и технологии программирования</a></li>
-
-
- </ul>
-</main>
-
+				{% block body %} 
+				{% endblock %}
 			</main>
 		</div>
 
