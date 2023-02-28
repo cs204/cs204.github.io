@@ -1,0 +1,104 @@
+
+{% extends "layout.html" %}
+{% block title %}
+	Футы в метры. 
+{% endblock %}
+{% block body %}
+<h1>Футы в метры.</h1>
+<p>
+Мы почти написали программу переводящую футы в метры.
+<pre>
+<code>
+def main(): 
+    v = feet2meter(input("Сколько футов:")) 
+    print(f"Это будет {v:.2f} метров.")
+
+def feet2meter(v): 
+	# Здесь будет ваш код
+
+main()
+</code>
+</pre>
+Но не успели задать функцию feet2meter. Определите 
+эту функцию. Она должна принимать аргумент str 
+(вида ##.##ft , где каждый # это десятичная цифра), 
+удалять ft и возвращать результат типа float.
+Например, дано 180.9ft как ввод, она должна вернуть 55.138.
+
+</p>
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Напомним, что input возвращает тип str, см. 
+					<a href="https://digitology.tech/docs/python_3/library/functions.html#input">https://digitology.tech/docs/python_3/library/functions.html#input</a>
+		</li>
+		<li> 
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+
+<script async id="asciicast-iYiymfg8p5X7Ees3iUHfiDsDN" 
+	src="https://asciinema.org/a/iYiymfg8p5X7Ees3iUHfiDsDN.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. Выполните команду: 
+<pre>
+<code>cd </code>
+</pre>
+<p>
+<pre>
+Создайте каталог feet2meter,  выполнив
+<pre>
+<code>mkdir feet2meter</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd feet2meter</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code feet2meter.py
+</code>
+</pre>
+чтобы открыть редактор. Скопируйте и вставьте код выше и завершите 
+реализацию функции feet2meter.
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой, запустите программу, выполнив:
+<pre>
+<code>
+python feet2meter.py
+</code>
+</pre>
+Введите 180.9ft и нажмите Enter. Ваша программа должна вывести:
+<pre>
+<code>
+Это будет 55.14 метров.
+</code>
+</pre>
+
+Вы можеет проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/feet2meter local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/feet2meter</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/feet2meter/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}
