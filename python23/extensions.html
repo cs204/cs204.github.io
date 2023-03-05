@@ -1,0 +1,160 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		
+	Расширение файла. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+				
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Расширение файла.</h1>
+<p>Файл - это последовательность байтов. Файл имеет тип(формат файла). Тип определяет
+как байты интерпритируются программами. Например, современный текстовый редактор
+набранный текст сохраняет в кодеровке utf8 (текстоый файл).</p>
+<p>Большинство файлов имеют 
+<a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5_%D0%B8%D0%BC%D0%B5%D0%BD%D0%B8_%D1%84%D0%B0%D0%B9%D0%BB%D0%B0">расширение</a> - 
+последовательность символов, начинающеся с точки окончание в имени файла. Расширение
+используют для обозначения типа файла.
+Например, <a href="https://ru.wikipedia.org/wiki/GIF">GIF</a> файлы заканчиваются на .gif,
+имена <a href="https://ru.wikipedia.org/wiki/JPEG">JPEG</a>
+файлов имеют окончания .jpg или .jpeg.
+Когда мы дважды кликаем по файлу мышкой, <a href="https://ru.wikipedia.org/wiki/%D0%A1%D1%80%D0%B5%D0%B4%D0%B0_%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B3%D0%BE_%D1%81%D1%82%D0%BE%D0%BB%D0%B0">среда рабочего стола</a>
+определяет по расширению в какой прогамме открыть файл.
+</p>
+<p>Веб браузер для определения типа файла использует 
+<a href="https://developer.mozilla.org/ru/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">медиа тип</a>
+(mime type), 
+указанный в заголовке http. Например, медиа тип GIF - image/gif, медиа тип JPEG - image/jpeg.
+Веб сервер для определения медиа типа смотрит расширение файла.
+См. <a href="https://developer.mozilla.org/ru/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types">список медиа типов</a>.
+</p>
+<p>В файле extensions.py реализуйте программу, которая спрашивает имя файла (<code>input("File name: ")</code>). Выводит меди тип файла, если имя заканчивается на:
+</p>
+<ul>
+	<li>.gif</li>
+	<li>.jpg</li>
+	<li>.jpeg</li>
+	<li>.png</li>
+	<li>.pdf</li>
+	<li>.txt</li>
+	<li>.zip</li>
+</ul>
+Если окончание имени файла другое, то выводит application/octet-stream.
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li>
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-BR4kfBBlDEigIIujd0YqaMBbO" 
+	      src="https://asciinema.org/a/BR4kfBBlDEigIIujd0YqaMBbO.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Сделайте рабочим каталогом вашу Codespace.
+Создайте каталог extensions,  выполнив
+<pre>
+<code>mkdir extensions</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd extensions</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code extensions.py
+</code>
+</pre>
+чтобы создать файл extensions.py, в котором вы будете писать вашу программу.
+
+<h2>Как проверить</h2>
+<ul>
+	<li>
+	Сделайте рабочим каталог с программой, 
+	</li>
+	<li>
+	Запустите программу, выполнив <code>python extensions.py</code>.
+	Введите hello.jpg и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	image/jpeg	
+	</code>
+	</pre>
+	</li>
+	<li>
+		Запустите программу, выполнив <code>python extension.py</code>.
+	Введите document.pdf  и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	application/pdf
+	</code>
+	</pre>
+	</li>
+</ul>
+
+
+Вы можеет проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/extensions local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/extensions</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/exrensions/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>
