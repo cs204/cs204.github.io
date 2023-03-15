@@ -36,12 +36,12 @@
 
 <h1>Циклы</h1>
 Циклы - это способ  сделать что-то несколько раз.
-Например, мы можем 3 раза напечатать meow не используя цикл.
+Например, мы можем 3 раза напечатать мяу, не используя цикл:
 <pre>
 <code class="language-python">
-print("meow")
-print("meow")
-print("meow")
+print("мяу")
+print("мяу")
+print("мяу")
 </code>
 </pre>
 Код с использованием цикла будет удобнее писать, читать, изменять.
@@ -51,17 +51,17 @@ print("meow")
 <code class="language-python">
 i = 3
 while i != 0:
-	print("meow")
+	print("мяу")
 	i = i - 1
 </code>
 </pre>
-<code>+=, -=</code> операторы удобны для изменения переменных, 
+<code>+=, -=</code> - операторы удобны для изменения переменных, 
 так <code>i = i - 1</code> можно записать <code>i -= 1</code>
 <pre>
 <code class="language-py">
 i = 0
 while i < 3:
-	print("meow")
+	print("мяу")
 	i += 1
 </code>
 </pre>
@@ -70,7 +70,7 @@ while i < 3:
 <pre>
 <code class="language-python">
 for i in [0, 1, 2]:
-	print(i, "meow")
+	print(i, "мяу")
 </code>
 </pre>
 i последовательно принимает значения из списка <code>[0, 1, 2]</code>.
@@ -87,7 +87,7 @@ class range(start, stop[,step])
 <pre>
 <code class="language-python">
 for i in range(3):
-	print(i, "meow")
+	print(i, "мяу")
 </code>
 </pre>
 
@@ -97,15 +97,15 @@ for i in range(3):
 правильности ввода
 <pre>
 <code class="language-python">
-while True:
-	n = int(input("What's n? "))
-	if n < 0:
-   		continue
-   	else:
-   		break
+while True: 
+    n = int(input("Введите n: ")) 
+    if n > 0: 
+        break 
+    else: 
+        continue
  
-for i in range(n):
-   print("meow")
+for i in range(n): 
+    print("мяу")
 </code>
 </pre>
 <code>continue</code> - начать следующую итерацию цикла.
@@ -118,14 +118,14 @@ def main():
 
 def get_number():
 	while True:
-		n = int(input("What is n? "))
+		n = int(input("Введите n: "))
 		if n > 0:
 			break
 	return n
 
 def meow(n):
 	for i in range(n):
-		print("meow")
+		print("мяу")
 
 main()
 </code>
@@ -135,16 +135,16 @@ main()
 <h2>Тип данных <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#list">list</a> (список)</h2>
 <pre>
 <code class="language-python">
-students = ["Hermione", "Harry", "Ron"]
-print(student[0])
-print(student[1])
-print(student[2])
+students = ["Гермиона", "Гарри", "Рон"]
+print(students[0])
+print(students[1])
+print(students[2])
 </code>
 </pre>
 Список удобно обрабатывать в цикле.
 <pre>
 <code class="language-python">
-students = ["Hermione", "Harry", "Ron"]
+students = ["Гермиона", "Гарри", "Рон"]
 for student in students:
 	print(student)
 </code>
@@ -155,9 +155,9 @@ for student in students:
 Следующий код печатает имя студента и его положение в списке.
 <pre>
 <code class="language-python">
-students = ["Hermione", "Harry", "Ron"]
+students = ["Гермиона", "Гарри", "Рон"]
 n = len(students)
-for i in range(n)):
+for i in range(n):
 	print(i, students[i])
 </code>
 </pre>
@@ -167,16 +167,16 @@ dict - структура данных для связывания ключей 
 
 <table class="table table-bordered">
 	<tr> 
-		<th>Hermione</th>
-		<th>Harry</th>
-		<th>Ron</th>
-		<th>Darco</th>
+		<th>Гермиона</th>
+		<th>Гарри</th>
+		<th>Рон</th>
+		<th>Драко</th>
 	</tr>
 	<tr>
-		<td>Gryffinodr</td>
-		<td>Gryffindor</td>
-		<td>Gryffindor</td>
-		<td>Slytherin</td>
+		<td>Гриффиндор</td>
+		<td>Гриффиндор</td>
+		<td>Гриффиндор</td>
+		<td>Слизерин</td>
 	</tr>
 </table>
 
@@ -185,27 +185,29 @@ dict.
 <pre>
 <code class="language-python">
 students={
-	"Hermione": "Gryffindor",
-	"Harry": "Gryffindor",
-	"Ron": "Gryffindor",
-	"Draco": "Slytherin"
+	"Гермиона": "Гриффиндор",
+	"Гарри": "Гриффиндор",
+	"Рон": "Гриффиндор",
+	"Драко": "Слизерин"
 	}
-print(students["Hermione"])
-print(students["Draco"])
+print(students["Гермиона"])
+print(students["Гарри"])
+print(students["Рон"])
+print(students["Драко"])
 </code>
 </pre>
 Для итерации по списку мы можем использовать цикл.
 <pre>
 <code class="language-python">
 students={
-	"Hermione": "Gryffindor",
-	"Harry": "Gryffindor",
-	"Ron": "Gryffindor",
-	"Draco": "Slytherin"
+	"Гермиона": "Гриффиндор",
+	"Гарри": "Гриффиндор",
+	"Рон": "Гриффиндор",
+	"Драко": "Слизерин"
 	}
 
 for student in students:
-	print(student, sudents[student], sep=", ")
+	print(student, students[student], sep=", ")
 </code>
 </pre>
 Переменная student пробегает множество ключей из словаря.
@@ -214,32 +216,32 @@ for student in students:
 <table class="table table-bordered">
 	<tr>
 		<th></ht>
-		<th>name</th>
-		<th>house</th>
-		<th>patronus</th>
+		<th>имя</th>
+		<th>факультет</th>
+		<th>патронус</th>
 	</tr>
 	<tr>
 		<td>0</td>
-		<td>Hermione</td>
-		<td>Gryffindor</td>
-		<td>Otter</td>
+		<td>Гермиона</td>
+		<td>Гриффиндор</td>
+		<td>Выдра</td>
 	</tr>
 	<tr>
 		<td>1</td>
-		<td>Harry</td>
-		<td>Gryffindor</td>
-		<td>Stag</td>
+		<td>Гарри</td>
+		<td>Гриффиндор</td>
+		<td>Олень</td>
 	</tr>
 	<tr>
 		<td>2</td>
-		<td>Ron</td>
-		<td>Gryffindor</td>
-		<td>Jack Russell terrier</td>
+		<td>Рон</td>
+		<td>Гриффиндор</td>
+		<td>Джек Рассел терьер</td>
 	</tr>
 	<tr>
 		<td>3</td>
-		<td>Draco</td>
-		<td>Slytherin</td>
+		<td>Драко</td>
+		<td>Слизерин</td>
 		<td></td>
 	</tr>
 </table>
@@ -247,13 +249,13 @@ for student in students:
 <pre>
 <code class="language-python">
 students = [
-	{"name": "Hermione", "house": "Gryffindor", "patronus":"Otter"},
-	{"name": "Harry", "house": "Gryffinodr", "patrnous": "Stag"},
-	{"name": "Draco", "house": "Slytherin", "patronus": None}
+	{"имя": "Гермиона", "факультет": "Гриффиндор", "патронус":"выдра"},
+	{"имя": "Гарри", "факультет": "Гриффиндор", "патронус": "Олень"},
+	{"имя": "Драко", "факультет": "Слизерин", "патронус": None}
 	]
 
 for student in students:
-	print(student["name"], student["house"], student["patronus"], set=", ")
+	print(student["имя"], student["факультет"], student["патронус"], sep=", ")
 </code>
 </pre>
 
@@ -266,13 +268,12 @@ for student in students:
 Закодируем такой столбец:
 <pre>
 <code class="language-python">
-def main()
+def main():
 	print_column(3)
 
-def print_column(n):
+def print_column(height):
 	for i in range(height):
 		print("#")
-
 main()
 </code>
 </pre>
@@ -302,6 +303,24 @@ def print_square(size):
 			print("#", end="")
 		#Печатаем пустую строку
 		print()
+
+main()
+</code>
+</pre>
+Можно так реализовать код:
+<pre>
+<code class="language-python">
+def main():
+    print_square(3)
+
+
+def print_square(n):
+    for i in range(3):
+        print_row(3)
+
+
+def print_row(n):
+    print("#"*n)
 
 main()
 </code>
