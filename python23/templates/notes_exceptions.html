@@ -131,5 +131,35 @@ main()
 </pre>
 Вы можете посмотреть документацию Python об инструкции 
 <a href="https://digitology.tech/docs/python_3/tutorial/controlflow.html#pass">pass</a>. 
+
+<h2>raise</h2>
+raise бросает исключение, например:
+<pre>
+<code class="language-python">
+def main():
+    n = get_pos_number()
+    meow(n)
+
+def get_pos_number():
+    while True:
+        try:
+            n = int(input("Введите положительное число: "))
+            if n <= 0:
+                raise ValueError
+            return n
+        except ValueError:
+            pass
+
+def meow(n):
+    for i in range(n):
+        print("мяу")
+
+main()
+</code>
+</pre>
+
+
+Справка по <a href="https://digitology.tech/docs/python_3/tutorial/errors.html#tut-raising">raise</a>.
+
 {% endblock %}
 
