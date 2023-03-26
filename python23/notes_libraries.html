@@ -1,0 +1,349 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+				
+				</ul>
+			</nav>
+			<main>
+				
+
+<h1>Библиотеки</h1>
+<h2>random</h2>
+<ul>
+	<li>random - библиотека идущая вместе с Python, вы можете импортировать
+		её в свой проект.</li>
+	<li>Для загрузки библиотеке используйте ключевое слово import.</li>
+	<li>В модуле random есть функция random.choice(seq). Аргумент
+		этой функции это список.</li>
+	<li>В терминале выполните code generate.py. В редакторе наберите:
+	<pre>
+	<code class="language-python">
+import random 
+coin = random.choice(["heads", "tails"]) 
+print(coin)
+	</code>
+	</pre>
+		Программа будет с равной вероятностью печатать одно из значений списка.
+	</li>
+
+	<li>Мы можем импортировать только эту функцию из модуля, изменив код:
+	<pre>
+	<code class="language-python">
+from random import choice
+coin = choice(["heads", "tails"])
+print(coin)
+	</code>
+	</pre>
+	</li>
+
+	<li>
+		Следующая функция random.randint(a, b) генерирует случайное 
+		целое значение n, такое что  a ≤ n ≤ b.
+	<pre>
+	<code class="language-python">
+import random
+number= random.randint(1, 10)
+print(number)
+	</code>
+	</pre>
+	</li>
+
+	<li>random.shuffle(x) перемешивает последовательность x на месте.
+	<pre>
+	<code class="language-python">
+import random
+cards=["jack", "quen", "king"]
+random.shuffle(cards)
+for card in cards:
+    print(card)
+	</code>
+	</pre>
+	</li>
+
+	<li>
+Документация на 
+<a href="https://digitology.tech/docs/python_3/library/random.html">
+	random</a>.</li>
+</ul>
+
+<h2>Statistics</h2>
+<ul>
+	<li>Библиотека statistics встроена в Python.</li>
+	
+	<li>
+		statistcs.mean вычисляет среднее арифметическое. Например:
+	<pre>
+	<code class="language-python">
+import statistics
+print(statistics.mean([100, 90]))
+	</code>
+	</pre>
+	</li>
+
+	<li>
+		Документация на 
+		<a href=https://digitology.tech/docs/python_3/library/statistics.html>statistcs</a>
+	</li>
+</ul>
+
+<h2>Аргументы командной строки</h2>
+<ul>
+	<li>
+		sys модуль позволяет использовать аргументы командной строки.
+	</li>
+
+	<li>
+		В терминале выполните code name.py. В редакторе наберите:
+	<pre>
+	<code class="language-python">
+import sys
+print("hello, my name is", sys.argv[1])
+	</code>
+	</pre>
+	Если вы наберёте в терминале: python name.py Garry. Программа 
+	выведет: hello, my name is Garry. sys.argv[0] будет name.py.
+	</li>
+
+	<li>Если мы напечатаем: python name.py. Возникнет ошибка,
+		указанный индекс выходит за рамки списка. Мы можем
+		защитить программу от этого типа ошибки:
+	<pre>
+	<code class="language-python">
+import sys
+try:
+    print("hello, my name is", sys.argv[1])
+except IndexError:
+    print("Too few arguments")
+	</code>
+	</pre>
+	</li>
+
+	<li>Другой способ проверить аргументы:
+	<pre>
+	<code class="language-python">
+import sys
+
+if len(sys.argv) < 2:
+    sys.exit("Too few arguments")
+elif len(sys.argv) > 2:
+    sys.exit("Too many arguments")
+
+print("hello, my name is", sys.argv[1])
+</code>
+	</pre>
+	sys.exit завершает работу программы.
+	</li>
+	
+	<li>
+		Документация на 
+		<a href=https://digitology.tech/docs/python_3/library/sys.html>sys</a>.
+	</li>
+
+</ul>
+
+<h2>slice</h2>
+<ul>
+	<li>
+	<pre>
+	<code class="language-python">
+import sys
+if len(sys.argv) < 2:
+    sys.exit("Too few arguvents")
+
+for arg in sys.argv:
+    print("hello, my name is", arg)
+</code>
+	</pre>
+	</li>
+
+	<li>
+		slice  выбирает часть списка.
+	<pre>
+	<code class="language-python">
+import sys
+if len(sys.argv) < 2:
+    sys.exit("Too few arguvents")
+
+for arg in sys.argv[1:]:
+    print("hello, my name is", arg)
+</code>
+	</pre>
+	</li>
+</ul>
+
+<h2>Пакеты</h2>
+<ul>
+	<li>
+		Библиотеки, реализованные в виде папок, мы называем пакетами.
+	</li>
+	<li>Python имеет менеджер пакетов pip. Он помогает инсталлировать пакеты в систему.</li>
+
+	<li>
+		В окне терминала выполните pip install cowsay. pip закачает пакет
+		и установит.
+	</li>
+
+	<li>
+		Наберите code say.py. В редакторе наберите код:
+	<pre>
+	<code class="language-python">
+import cowsay
+import sys
+
+if len(sys.argv) == 2:
+    cowsay.cow("hello, " + sys.argv[1])
+    </code>
+	</pre>
+	Наберите python say.py Garry, и вы увидите "hello" to Garry.
+	</li>
+
+	<li>
+		Документация на <a href=https://pypi.org/project/cowsay/>cowsay</a>.
+	</li>
+	<li>Много пакетов вы можете найти на 
+		<a href="https://pypi.org/">PyPI</a>.
+	</li>
+</ul>
+
+<h2>API</h2>
+<ul>
+	<li>API или "application program interfaces" позволяет 
+		вам подключатся к чужому коду.
+	</li>
+
+	<li>requests позволяет вашей программе вести себя как веб-браузер.
+	</li>
+
+	<li>Выполните в терминале pip install requests. </li>
+	<li>Apple iTunes имеет свой API, вы может получить к ним доступ из 
+		вашей программы. Если вы в веб-браузере посетите 
+		<a href="https://itunes.apple.com/search?entity=song&limit=1&term=weezer">https://itunes.apple.com/search?entity=song&limit=1&term=weezer</a>,
+		то будет загружен файл. Как конструировать URL вы можете
+		найти в документации Apple's API.
+	</li>
+
+	<li>Формат загруженного файла json. Это text-based формат, часто используемый
+		для обмена text-based данными между приложениями.
+	</li>
+
+	<li>Наберите code itunes.py. В текстовом редакторе наберите:
+	<pre>
+	<code class="language-python">
+import requests
+import sys
+
+if len(sys.argv) != 2:
+    sys.exit()
+
+response = requests.get("https://itunes.apple.com/search?entity=song&limit=1&term=" + sys.argv[1])
+print(response.json())
+	</code>
+	</pre>
+	</li>
+
+	<li>Выполните python itunes.py weezer.py, вы увидите тот же текст, что и в файле.
+	</li>
+	<li>
+		Выведем только названия треков.
+	<pre>
+	<code class="language-python">
+import json
+import requests
+import sys
+
+if len(sys.argv) != 2:
+    sys.exit()
+
+response = requests.get("https://itunes.apple.com/search?entity=song&limit=50&term=" + sys.argv[1])
+
+o = response.json()
+for result in o["results"]:
+    print(result["trackName"])
+    </code>
+	</pre>
+	</li>
+
+	<li>
+		Документация на <a href="https://requests.readthedocs.io/en/latest/">requests</a>.
+	</li>
+
+	<li>
+		Документация на <a href="https://digitology.tech/docs/python_3/library/json.html">JSON</a>
+	</li>
+</ul>
+
+
+<h2>Создаём библиотеку</h2>
+<ul>
+	<li>Создайте файл sayings.py.
+	<pre>
+	<code class="language-python">
+def hello(name):
+    print(f"hello, {name}")
+
+def goodbye(name):
+    print(f"goodbye, {name}")
+</code>
+	</pre>
+	</li>
+
+	<li>В терминале наберите code say.py. В редакторе наберите:
+	<pre>
+	<code class="language-python">
+import sys
+from sayings import goodbye
+
+if len(sys.argv) == 2:
+    goodbye(sys.argv[1])
+</code>
+	</pre>
+	</li>
+</ul>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
