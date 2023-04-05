@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Биткоин 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+				
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Биткоин</h1>
+<a href="https://ru.wikipedia.org/wiki/%D0%91%D0%B8%D1%82%D0%BA%D0%BE%D0%B9%D0%BD">Биткоин</a>
+- вид цифровой валюты.
+В файле bitcoin.py реализуйте программу:
+<ul>
+	<li>Ожидает, что пользователь в аргументе командной
+		строки число биткоинов, n, которое хочет купить.
+		Если аргумент не может быть конвертирован в тип float,
+		программа должна завершить работу через sys.exit с 
+		выводом сообщения об ошибке.</li>
+	<li>
+		Запрашивает API CoinDesk Bitcoin Price Index 
+		<a href="https://api.coindesk.com/v1/bpi/currentprice.json">https://api.coindesk.com/v1/bpi/currentprice.json</a>,	
+		чтобы получить json объект, среди ключей объекта есть текущая цена биткоина.
+		Не забудьте обработать 
+		<a href="https://requests.readthedocs.io/en/latest/api/#exceptions">исключения</a>.
+		<pre>
+		<code class="language-python">
+		import requests
+		try:
+		  ...
+		except requests.ReaquestException:
+		</code>
+		</pre>
+	</li>
+	<li>
+		Выводит текущую цену n биткоинов в долларах США до 4 десятичных знаков,
+		используя , как разделитель тысяч.
+	</li>
+
+</ul>
+
+
+
+
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Напомним, что модуль sys имеет 
+			<a href="https://digitology.tech/docs/python_3/library/sys.html#sys.argv">argv</a>
+		</li>
+		<li>
+			Модуль request имеет методы, см.<a href="https://requests.readthedocs.io/en/latest/">https://requests.readthedocs.io/en/latest/</a>.
+			Среди них есть get, см. <a href="https://requests.readthedocs.io/en/latest/user/quickstart/#make-a-request">https://requests.readthedocs.io/en/latest/user/quickstart/#make-a-request</a>
+			и json, см 
+			<a href="https://requests.readthedocs.io/en/latest/user/quickstart/#json-response-content">https://requests.readthedocs.io/en/latest/user/quickstart/#json-response-content</a>.
+			Вы можете установить пакет:
+			<pre>
+			<code>
+			pip install requests
+			</code>
+			</pre>
+		</li>
+		<li>
+			CoinDesk API возвращает JSON:
+			<pre>
+			<code class="language-javascript">
+
+{"time":{
+"updated":"Apr 5, 2023 14:18:00 UTC",
+"updatedISO":"2023-04-05T14:18:00+00:00",
+"updateduk":"Apr 5, 2023 at 15:18 BST"
+},
+"disclaimer":"This data was produced from the CoinDesk Bitcoin Price Index (USD). Non-USD currency data converted using hourly conversion rate from openexchangerates.org",
+"chartName":"Bitcoin",
+"bpi":{
+	"USD":{
+		"code":"USD",
+		"symbol":"&#36;",
+		"rate":"28,204.7072",
+		"description":"United States Dollar",
+		"rate_float":28204.7072
+		},
+	"GBP":{
+		"code":"GBP",
+		"symbol":"&pound;",
+		"rate":"23,567.6277",
+		"description":"British Pound Sterling",
+		"rate_float":23567.6277
+		},
+	"EUR":{
+		"code":"EUR",
+		"symbol":"&euro;",
+		"rate":"27,475.5027",
+		"description":"Euro",
+		"rate_float":27475.5027
+		}
+	}
+}
+</code>
+			</pre>
+		</li>
+		<li>
+			Вы можете форматировать USD до 4 десятичных знаков с запятой 
+			<a href="https://docs.python.org/3/library/string.html#formatspec">для разделения тысяч</a> :
+			<pre>
+			<code class="language-python">
+			print(f"${amount:,.4f}")
+			</code>
+			</pre>
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+Демонстрация была записана, когда биткоин был $28,072.4255 . Ваш вывод может отличаться.
+<script async 
+	id="asciicast-T9HLuCDtYTODuydfOIFux5ajQ" src="https://asciinema.org/a/T9HLuCDtYTODuydfOIFux5ajQ.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог bitcoin,  выполнив
+<pre>
+<code>mkdir bitcoin</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd bitcoin</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code bitcoin.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой.
+</p>
+<ul>
+	<li>
+Запустите программу python bitcoin.py.
+Ваша программа должна использовать sys.exit, завершить работу и вывести: 
+<pre>
+<code>
+Пропущен аргумент командной строки
+</code>
+</pre>
+	</li>
+	<li>
+Запустите программу python bitcoin.py cat.
+Программа завершает работу использую sys.exit и выводит:
+<pre>
+<code>
+Аргумент командной строки не число
+</code>
+</pre>
+	</li>
+	<li>
+		Запустите программу python bitcoin.py 2. Ваша программа
+		должна вывести цену двух биткоинов в долларах до 4 десятичных 
+		знаков используя , как разделитель тысяч.
+	</li>
+</ul>
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/bitcoin local</code>
+</pre>
+Проверка  была создана, когда биткоин был $28,072.4255 . Ваш вывод может отличаться.
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/bitcoin</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/emojize/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
