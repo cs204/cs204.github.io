@@ -7,25 +7,26 @@
 <h1>Фотболка CS50</h1>
 <hr>
 <img src="/python23/data/shirt/took.png" />
-<br>
+<hr>
+
 <p>
-Студенты Гарварда после окончания курса CS50 (информатика), 
+
+Студенты Гарварда, после окончания курса CS50 (информатика), 
 получают футболки <a href="https://cs50.harvardshop.com/collections/print/products/i-took-cs50-unisex-t-shirt">я изучил CS50</a>.
 </p>
 <p>В файле shirt.py реализуйте программу, которая принимает
 два аргумента командной строки:
 <ul>
-	<li>sys.argv[1] имя файла jpeg или png для чтения
+	<li>sys.argv[1], имя файла jpeg или png для чтения
 	</li>
 	<li>
-		sys.argv[2] имя файла jpeg или png для записи
+		sys.argv[2], имя файла jpeg или png для записи
 		результата
 	</li>
 </ul>
 </p>
 <p>
-Программа должна с
-Программа должна загрузить файл <a href="/python23/data/shirt/shirt.png">shirt.pnp</a>(имеющий прозрачный фон),
+Программа должна загрузить файл <a href="/python23/data/shirt/shirt.png">shirt.png</a> (имеющий прозрачный фон),
 загрузить входной файл sys.argv[1], изменить размер и обрезать до размеров файла shirt.png, 
 наложить футболку на входной файл, результат сохранить с именем sys.argv[2].
 </p>
@@ -38,12 +39,12 @@
 
 <p>Программа должна заканчивать работу с sys.exit:
 <ul>
-	<li>если указано не указанно точно два аргуменат,
+	<li>если не указанно точно два аргумента,
 	</li>
 	<li>если входной или выходной файл не заканчивается на .jpg, .jpeg, .png.
 	</li>
 	<li>
-		если имена файлов имеют разные расширения,
+		если файлоы имеют разные расширения,
 	</li>
 	<li>
 		или не существует входного файла.
@@ -51,7 +52,8 @@
 </ul>
 </p>
 <p>
-Предположим, что на входе будет фотография кого-то, кто правильно позирует, как в этих демонстрациях, так что, когда они будут изменены и обрезаны, рубашка будет сидеть идеально.
+Предположим, что на входе будет фотография кого-то, кто правильно позирует, как в этих 
+<a href="#before">демонстрациях</a>, так что, когда они будут изменены и обрезаны, рубашка будет сидеть идеально.
 </p>
 <p>Вы можете свою фотографию поместить в папку с программой shirt.py и применить к ней. Не надо
 отправлять на проверку свою фотографию.</p>
@@ -67,7 +69,7 @@
 			Функция open может бросать исключение FileNotFoundError, см. <a href="https://digitology.tech/docs/python_3/library/exceptions.html#FileNotFoundError">https://digitology.tech/docs/python_3/library/exceptions.html#FileNotFoundError</a>.
 		</li>
 		<li>
-			Pillo пакет идёт с многими классами и методами, см. 
+			Pillow пакет идёт с многими классами и методами, см. 
 			<a href="https://pypi.org/project/Pillow/">https://pypi.org/project/Pillow/</a>.  
 			Вы можете посмотреть 
 			<a href="https://pillow.readthedocs.io/en/stable/handbook/">учебник</a> 
@@ -121,10 +123,11 @@
 </script>
 
 <h2>До</h2>
-<p>
+<p><a name="before">
 <img src="/python23/data/shirt/before1.jpg" alt="before" class="img-thumbnail w-25">
 <img src="/python23/data/shirt/before2.jpg" alt="before" class="img-thumbnail w-25">
 <img src="/python23/data/shirt/anastasiya-stezhko.jpg" alt="before" class="img-thumbnail w-25">
+</a>
 </p>
 <h2>После</h2>
 
@@ -151,18 +154,18 @@ code shirt.py
 </pre>
 чтобы открыть редактор, и напишите вашу программу.
 Загрузите
-<a href="https://vadimgb.github.io/python23/data/shirt.png">shirt.py</a>:
+<a href="https://vadimgb.github.io/python23/data/shirt/shirt.png">shirt.py</a>:
 <pre>
 <code>
-wget https://vadimgb.github.io/python23/data/shirt.png
+wget https://vadimgb.github.io/python23/data/shirt/shirt.png
 </code>
 </pre>
 Загрузите 
-<a href="https://vadimgb.github.io/python23/data/muppets.zip">muppets.zip</a> 
+<a href="https://vadimgb.github.io/python23/data/shirt/muppets.zip">muppets.zip</a> 
 в директорию, выполнив
 <pre>
 <code>
-wget https://vadimgb.github.io/python23/data/muppets.zip
+wget https://vadimgb.github.io/python23/data/shirt/muppets.zip
 </code>
 </pre>
 Выполните
