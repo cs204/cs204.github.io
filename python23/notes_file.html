@@ -32,7 +32,8 @@
 					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
 					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
 					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
-					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод.</li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
 				
 				</ul>
 			</nav>
@@ -43,13 +44,13 @@
 	Файловый ввод/вывод.
 </h1>
 
-<h2>openБ</h2>
+<h2>open</h2>
 <ul>
 	<li>open - встроенная в python функция, открывает файл
 		и создаёт объект для чтения и записи в файл.
 	</li>
 	<li>
-		Создайте файл выполнив в терминале code names.py.
+		Создайте файл, выполнив в терминале code names.py.
 		Наберите программу:
 		<pre>
 		<code class="language-python">
@@ -59,7 +60,7 @@ file.write(name)
 file.close()
 		</code>
 		</pre>
-		open функция открывает файл names.txt, "w"(write) 
+		open функция открывает файл names.txt. "w"(write) 
 		- параметр
 		указывает, что файл открывается для записи.
 		На созданный объект ссылается переменная file.
@@ -109,8 +110,8 @@ for line in lines:
     print("hello,", line)
     </code>
 		</pre>
-		readlines считывает строки из файла в список, 
-		каждую строку как отдельный элемент.
+		readlines считывает строки из файла в список.
+		Каждая строка образует отдельный элемент списка. 
 	</li>
 	<li>
 		Упростим запись программы.
@@ -142,7 +143,7 @@ for name in sorted(names):
 <ul>
 	<li>
 		SCV(comma separated values) - значения, разделённые
-		запятыми. csv - формат файла базирующийся 
+		запятыми. csv - формат файла, базирующийся 
 		на текстовом. Формат используется для представления 
 		табличных данных.
 	</li>
@@ -246,7 +247,7 @@ for student in sorted(students, key=lambda student: student["name"]):
 	</li>
 	
 	<li>
-		Изменим файл students.csv, укажем в нем где выросли студенты.
+		Изменим файл students.csv, укажем в нем, где выросли студенты.
 		<pre>
 		<code>
 Гарри, "Номер четыре, Тисовая улица" 
@@ -257,7 +258,7 @@ for student in sorted(students, key=lambda student: student["name"]):
 		Запуск нашей программы приведёт к ошибкам.
 	</li>
 	<li>
-		Для правильной обработки csv файлов удобно использовать встроенный
+		Для правильной обработки csv файлов, удобно использовать встроенный
 		модуль csv. Документация на функцию<a href="https://digitology.tech/docs/python_3/library/csv.html#csv.reader">reader</a>.
 		<pre>
 		<code class="language-python">
@@ -335,12 +336,12 @@ with open("students4.csv", "a") as file:
 		<br>
 		<img src="/python23/data/images/costume2.gif">
 		<br>
-		Можно сделать это, выполнив в терминале.
+		Можно сделать это, выполнив в терминале:
 
 		<pre>
 		<code>
-			wget https://vadimgb.github.io/python23/data/iamges/cosutme1.git
-			wget https://vadimgb.github.io/python23/data/iamges/cosutme2.git
+			wget https://vadimgb.github.io/python23/data/iamges/cosutme1.gif
+			wget https://vadimgb.github.io/python23/data/iamges/cosutme2.gif
 		</code>
 		</pre>
 	</li>
