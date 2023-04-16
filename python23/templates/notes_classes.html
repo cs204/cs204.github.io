@@ -1,0 +1,405 @@
+{% extends "layout.html" %}
+{% block tytle %}
+	Объектно-ориентированное программирование
+{% endblock %}
+
+
+{% block body %}
+
+<h1>
+	Объектно-ориентированное программирование
+</h1>
+<hr>
+<ul>
+	<li>Есть разные стили (парадигмы) организации кода. До сих пор
+		мы использовали структруное программирование. Далее мы рассмотрим
+		объекнтно-ориентированное.
+	</li>
+	<li>Создайте файл student.py и наберите в нем:
+	<pre>
+	<code class="language-python">
+name = input("Name: ")
+house = input("House: ")
+print(f"{name} from {house}")
+</code>
+	</pre>
+	Эта программа следует структруному стилю программировония.
+	В структурном подходе мы разбиваем задачу на подзадачи,
+	создаем для них фукции и выражаем решение через вызов функций.
+	</li>
+	<li>
+		Мы можем создать вспомогательные функции.
+		<pre>
+	<code class="language-python">
+def main():
+    name = get_name()
+    house = get_house()
+    print(f"{name} from {house}")
+
+def get_name():
+    return input("Name: ")
+    
+def get_house():
+    return input("House: ")
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+		get_name и get_house нужны, чтобы абстраигроваться от решения подзадач
+		в main функции.
+	</li>
+	<li>
+		Мы можем далее упростить программу, используя tuple (кортеж). 
+		tuple - последовательность значений. 
+		В отилчие от list (список), tuple не может быть изменён. 
+		<pre>
+	<code class="language-python">
+def main():
+    name, house = get_student()
+    print(f"{name} from {house}")
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return name, house
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+	</li>
+	<li>
+		Реализуем программу, используя словарь (dict).
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+		В словаре мы можем указывать на элемент ключом. 
+	</li>
+
+	<h2>Классы</h2>
+	<li>
+		Класс - способ создать свой тип данных и дать ему имя. Этот 
+		инструмент используется в объектно-ориентированном программировании.
+	</li>
+	<li>
+		Изменим наш код. Создадим класс Student.
+		<pre>
+	<code class="language-python">
+class Student: # Создаем класс
+    ...
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+def get_student():
+    student = Student() # создаем объект
+    student.name = input("Name: ") 	# задаем свойство
+    student.house = input("House: ")
+    return student
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+		Для создания класса, используем ключевое слово class. 
+		Конструкор класса Student() создает объект класса.
+		Чтобы получить значение свойства объекта класса, используем 
+		точку после имени объекта, например, student.name.
+	</li>
+	<li>
+		Класс - это шаблон для   создания экземпляров (объектов).
+	</li>
+	<li>
+		Мы можем создавать функции в классе их принято назваыть методы.
+		Специальная функция класса ининциализирующая его свойства называется
+		конструктор.
+		Посмотрим как можно задать конструктор класса.
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+		self используется для ссылки на объект.
+	</li>
+	<li>
+		Смотри документацию на <a href="https://digitology.tech/docs/python_3/tutorial/classes.html">классы</a>.
+	</li>
+</ul>
+
+<h2>raise</h2>
+<ul>
+	<li>
+		Используем функцию raise, чтобы создать исключение, если пользователь 
+		ошибся.
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        if not name:
+            raise ValueError("Missing name")
+        if house not in ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]: 
+            raise ValueError("Invalid house") 
+        self.name = name
+        self.house = house
+
+def main():
+    student = get_student()
+    print(f"{student.name} from {student.house}")
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+		Код  создаёт объект класса ValueError c текстом.
+	</li>
+	<li>
+		Если мы зададим для нашего класса функцию __str__, то
+		функция print сможет печатать его объекты.
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        if not name:
+            raise ValueError("Missing name")
+        if house not in ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]: 
+            raise ValueError("Invalid house") 
+        self.name = name
+        self.house = house
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+
+def main():
+    student = get_student()
+    print(student)
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
+</code>
+		</pre>
+	</li>
+
+</ul>
+
+
+<h2>Декораторы</h2>
+<ul>
+	<li>Декораторы функций начинаются с @
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        if not name:
+            raise ValueError("Missing name")
+        if house not in ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]: 
+            raise ValueError("Invalid house") 
+        self._name = name
+        self._house = house
+    def __str__(self):
+        return f"{self._name} from {self._house}"
+
+    @property
+    def house(self):
+        return self._house
+
+    @house.setter
+    def house(self, house):
+        if house not in ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]: 
+            raise ValueError("Invalid house") 
+        self._house = house
+
+def main():
+    student = get_student()
+    student.house="Slytherin"
+
+    print(student)
+
+def get_student():
+    name = input("Name: ")
+    house = input("House: ")
+    return Student(name, house)
+
+if __name__ == "__main__":
+    main()
+    </code>
+		</pre>
+	</li>
+</ul>
+<h2>Методы класса</h2>
+<ul>
+	<li>Можно задать функцию класса а не объекта.</li>
+	<li>Создадим файл hat.py не использующий метода класса.
+		<pre>
+	<code class="language-python">
+import random
+class Hat:
+    def __init__(self):
+        self.houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"] 
+
+    def sort(self, name):
+        print(name, "is in", random.choice(self.houses))
+
+hat = Hat()
+hat.sort("Harry")
+</code>
+		</pre>
+	</li>
+	<li>Мы можем использовать функцию sort не создавая объекта класса. Изменим
+		наш код:
+		<pre>
+	<code class="language-python">
+import random
+class Hat: 
+    houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"] 
+
+    @classmethod
+    def sort(cls, name):
+        print(name, "is in", random.choice(cls.houses))
+
+Hat.sort("Harry")
+</code>
+		</pre>
+	</li>
+	<li>
+		Изменим файл student.py, добавив @classmethod
+		<pre>
+	<code class="language-python">
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
+
+    def __str__(self):
+        return f"{self.name} from {self.house}"
+
+    @classmethod
+    def get(cls):
+        name = input("Name: ")
+        house = input("House: ")
+        return cls(name, house)
+
+def main():
+    student = Student.get()
+    print(student)
+
+
+if __name__ == "__main__":
+    main()
+    </code>
+		</pre>
+	</li>
+</ul>
+
+<h2>Наследование</h2>
+<ul>
+	<li>
+		Можно создать класс, которые наследует свойства и методы другого.
+	</li>
+	<li>
+		Создайте файл wizar.py. С кодом:
+		<pre>
+	<code class="language-python">
+class Wizard:
+    def __init__(self, name):
+        if not name:
+            raise ValueError("Missing name")
+        self.name = name
+
+class Student(Wizard):
+    def __init__(self, name, house):
+        super().__init__(name)
+        self.house = house
+
+class Professor(Wizard):
+    def __init__(self, name , subject):
+        super().__init__(name)
+        self.subject = subject
+
+wizard = Wizard("Albus")
+student = Student("Harry", "Gryffindor")
+professor = Professor("Severus", "Defense Against the Dark Arits")
+
+print(student.name)
+</code>
+		</pre>
+	</li>
+</ul>
+
+<h2>Перегрузка операторов</h2>
+<ul>
+	<li>Некоторые операторы, такие как +, -, могут быть перегружены.</li>
+	<li>Создайте файл vault.py. Наберите в нем:
+		<pre>
+	<code class="language-python">
+class Vault:
+    def __init__(self, galleons=0, sickles=0, knuts=0):
+        self.galleons = galleons
+        self.sickles = sickles
+        self.knuts = knuts
+    def __str__(self):
+        return f"{self.galleons} Galleons, {self.sickles} Sickles, {self.knuts} Rnuts"
+
+    def __add__(self, other):
+        galleons = self.galleons + other.galleons
+        sickles = self.sickles + other.sickles
+        knuts = self.knuts + other.knuts
+        return Vault(galleons, sickles, knuts)
+
+
+potter = Vault(100, 50, 25)
+print(potter)
+
+weasley = Vault(25, 50, 100)
+print(weasley)
+
+total= potter + weasley
+print(total)
+</code>
+		</pre>
+	</li>
+</ul>
+{% endblock %}
+
