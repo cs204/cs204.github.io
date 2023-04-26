@@ -1,0 +1,110 @@
+
+{% extends "layout.html" %}
+{% block tytle %}
+Поиск
+{% endblock %}
+
+
+{% block body %}
+
+<h1>
+	Поиск
+</h1>
+<h2>Решение задачи поиска</h2>
+<hr>
+Для решения задачи поиска представим на python:
+<ul>
+	<li> 
+		Состояния системы.
+	</li>
+	<li>
+		<code>Results(s, a)</code>  находит состояние в которое переходит состояние <var>s</var> под 
+		действием <var>a</var>.
+
+	</li>
+
+	<li>
+		<code>Actions(s)</code> для состояния <var>s</var> возвращает возможные 
+		действия.
+	</li> 
+	<li>
+		<code>GoalTest(s)</code>  возвращает <code>true</code>, если состояние <var>s</var> цель, 
+		иначе возвращает </code>false</code>.
+	</li>
+	<li>
+		<code>PathCost(p)</code> возвращает числовое значение для пути <var>p</par>.
+	</li>
+</ul>
+Решение - это последовательность действий, переводящих из начального в целевое состояние.
+Оптимальное решение имеет минимальную цену пути.
+<br>
+Для решения задачи мы будем строить дерево поиска решений.
+Узел дерева будет содержать:
+<ul>
+	<li>
+		Состояние
+	</li>
+	<li>
+		Ссылку на узел родитель
+	</li>
+	<li>
+		Действие, которое привело в текущий узел.
+	</li>
+</ul>
+Представим узел в виде класса Python.
+<pre>
+<code>
+class Node: 
+    def __init__(self, action, state, parent): 
+        self.action = action 
+        self.state = state 
+        self.parent = parent 
+
+    def path(self): 
+        if self.parent == None: 
+            return [{"action": self.action, "state": self.state}] 
+        else: 
+            h1 = self.parent.path() 
+            h2 = {"action": self.action, "state": self.state} 
+            h1.append(h2) 
+            return h1
+</code>
+</pre>
+Запишем алгоритм поиска.
+<pre>
+<code class="language-python">
+def search(initialState, goalTest, actions, results, typeFrontier="stack", printPath=False):
+    frontier = Frontier(typeFrontier)
+    explored = Explored()
+    initialNode = Node(None, initialState, None)
+    numTest = 0
+    frontier.add(initialNode)
+
+    while True: 
+        if frontier.isEmpty():
+            raise Exception("No solution")
+        parent = frontier.get()
+        numTest += 1
+        parentS = parent.state 
+        if goalTest(parentS): 
+            if printPath: 
+                print("Soluten:", parent.strPath() ) 
+                print("num =", numTest) 
+            return parent.path()
+
+        if printPath: 
+            print(parent.strPath())
+        explored.add(parentS)
+
+        for action in actions(parentS):
+            newS = results(parentS, action)
+            newN = Node(action, newS, parent) 
+            if not explored.hasState(newS):
+                frontier.add(newN)
+</code>
+</pre>
+
+
+
+{% endblock %}
+
