@@ -1,0 +1,192 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Крестики-нолики
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>
+	Крестики-нолики
+</h1>
+<p>
+Закачайте 
+<a href="https://vadimgb.github.io/python23/data/tictactoe.zip">дистрибутив 
+	игры</a>, распакуйте. 
+В нем два основных файла: runner.py, tictactoe.py.  
+runner.py был уже создан для вас, 
+он содержит код, создающий графический
+интерфейс игры. tictactoe.py содержит логику игры, вам надо закончить 
+определение необходимых функции.
+После этого  выполните в терминале python runner.py, чтобы
+запустить игру.
+
+<img  src="/python23/data/images/tictactoe.png" >
+
+<h2>Шаги выполнения</h2>
+<ul>
+	<li>
+		Зайдите на <a href="https://code.cs50.io">https://code.cs50.io</a>.
+	</li>
+	<li>
+		Загрузите дистрибутив.
+		<pre>
+		<code> 
+		wget https://vadimgb.github.io/python23/data/tictactoe.zip
+		</code>
+		</pre>
+	</li>
+	<li>
+		Распакуйте.
+		<pre>
+		<code>
+		unzip ticktactoe.zip
+		</code>
+		</pre>
+	</li>
+	<li>
+		Сделайте папку tictactoe рабочей.
+		<pre>
+		<code>
+		cd tictactoe
+		</code>
+		</pre>
+	</li>
+	<li>
+		Установите необходимые пакеты.
+		<pre>
+		<code>
+		pip3 install -r reuirements.txt
+		</code>
+		</pre>
+	</li>
+	<li>
+		Завершите реализацию player, actions, result, winner, terminal,
+		utility, minimax.
+	</li>
+</ul> 
+
+<h2>Пояснения</h2>
+<ul> 
+	<li> 
+		player для заданного состояния возвращает, кто
+		ходит X или O.
+		Начинают игру X.
+	</li>
+	<li>
+				action для заданного состояния игры должна возвращать
+				set (множество) возможных действий.
+				Каждое действие должно быть представлено
+				как (i, j),  i- строка и j - столбец  
+				пустой ячейки. 
+			</li>
+			<li>
+				result для состояния и действия, возвращает новое
+				состояние, не изменяет входное. Создаём копию 
+				входного состояние,
+				в указанную действием ячейку помещаем знак
+				ходящего игрока. Для создания копии используйте
+				команду <a href="https://digitology.tech/docs/python_3/library/copy.html#copy.deepcopy">copy.deepcopy</a>.
+			</li>
+			<li>
+				winner для заданного состояния возвращает 
+				победителя, если есть. Если X игрок победил, 
+				возвращает X. Если победил O, возвращает O.
+				Победит тот, кто сделает три хода в 
+				строке, столбце или по диагонали.
+				Если нет победителя, то функция должна вернуть
+				None.
+			</li>
+			<li>
+				terminal для состояния возвращает True, если 
+				игра закончена, иначе - False.
+				Игра закончена, если кто-то выиграл, или все
+				ячейки были заполнены. 
+			</li>
+			<li>
+				utility для терминального состояния возвращает
+				-1, если выиграл O. 
+				Возвращает 0, если игра закончилась в ничью.
+				1, если выиграл X. Предполагаем, что функция
+				будет вызываться только на состояния, для которых
+				terminal(board) даёт True.
+			</li>
+			<li>
+				minimax для состояния возвращает оптимальный ход
+				для игрока.
+				Ход в виде пары (j, j). Если состояние терминальное,
+				то возвращает None.
+			</li>
+</ul>
+
+
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой.
+</p>
+
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/tictactoe</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/tictactoe/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
