@@ -15,6 +15,14 @@
 		 
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
 	</head>
 	<body>
 		<div id=flex>
@@ -140,6 +148,67 @@ def search(initialState, goalTest, actions, results, typeFrontier="stack", print
 </pre>
 
 <h2>Состязательный поиск</h2>
+Состязательный алгоритм ищет путь к цели, 
+учитывая, что его соперник стремиться достичь
+противоположной цели.
+<h3>Минимакс</h3>
+<img class="w-50" src="/python23/data/search/minimax_tictactoe.png">
+<br>
+Рассмотрим игру крестики-нолики. Введём функцию <code>utility(state)</code>. 
+Если X победили, функция возвращает 1. Если O победили, возвращает -1.
+Возвращает 0, если игра закончилась в ничью.
+Определим функцию <code>minimax(state)</code>, она для состояния возвращает оптимальное действие.
+Запишем псевдокод действия <code>minimax</code> :
+<ul>
+	<li>Дано состояние s.
+		<ul>
+			<li>Если ход Х, то он будет выбирать то <code>a</code> действие ,
+				среди <code>actions(s)</code>, которое будет давать
+				максимальное 
+				значение для minValue(reslut(s, a)).
+			</li>
+			<li>
+				Если ход O, то он будет выбирать то <code>a</code>
+				действие среди <code>actions(s)</code>, которое
+				даёт минимальное значение maxValue(result(s, a)).
+			</li>
+		</ul>
+
+	</li>
+	<li>
+		Функция maxValue(state)
+		<ul>
+			<li>v = -\(\infty\)</li>
+			<li>if terminal(state):
+				return utility(state)
+			</li>
+			<li>
+				for action in actions(state):
+				v = max(v, minValue(result(state, action)))
+			</li>
+			<li>
+				return v
+			</li>
+		</ul>
+	</li>
+	<li>
+		Функция minValue(state)
+		<ul>
+			<li>v = \(\infty\)</li>
+			<li>if terminal(state):
+				return utility(state)
+			</li>
+			<li>
+				for action in actions(state):
+				v = min(v, minValue(result(state, action)))
+			</li>
+			<li>
+				return v
+			</li>
+		</ul>
+	</li>
+</ul>
+
 
 
 			</main>
