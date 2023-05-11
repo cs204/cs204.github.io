@@ -1,0 +1,561 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+				</ul>
+			</nav>
+			<main>
+				
+
+<h1>
+	Продолжение
+</h1>
+<h2>
+	set
+</h2>
+set не содержит повторяющихся элементов.
+Создадим файл
+<pre>
+<code class="language-python">
+studetns = [
+        {"name": "Hermione", "house": "Gryffindor"}, 
+        {"name": "Harry", "house": "Gryffindor"}, 
+        {"name": "Ron", "house": "Gryffindor"}, 
+        {"name": "Draco", "house": "Slytherin"}, 
+        {"name": "Padma", "house": "Ravenclaw"}
+        ]
+
+houses = []
+for student in studetns:
+    if student["house"] not in houses:
+        houses.append(student["house"])
+
+for house in sorted(houses):
+    print(house)
+</code>
+</pre>
+Мы создали список из названий факультетов. Для подобных
+целей лучше подходит встроенный тип set.
+<pre>
+<code class="language-python">
+students = [
+    {"name": "Hermione", "house": "Gryffindor"},
+    {"name": "Harry", "house": "Gryffindor"},
+    {"name": "Ron", "house": "Gryffindor"},
+    {"name": "Draco", "house": "Slytherin"},
+    {"name": "Padma", "house": "Ravenclaw"},
+]
+
+houses = set()
+for student in students:
+    houses.add(student["house"])
+
+for house in sorted(houses):
+    print(house)
+    </code>
+</pre>
+set автоматически заботится об отсутствии дубликатов.
+См. <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#set-frozenset">set</a>.
+
+<h2>Глобальные переменные</h2>
+Создадим файл.
+<pre>
+<code class="language-python">
+balance = 0
+
+
+def main():
+    print("Balance:", balance)
+
+
+if __name__ == "__main__":
+    main()
+    </code>
+</pre>
+Мы создали глобальную переменную <code>balance</code>, она определена вне функций.
+Код выполняется без ошибок.
+Наберём следующий код:
+<pre>
+<code class="language-python">
+balance = 0
+
+
+def main():
+    print("Balance:", balance)
+    deposit(100)
+    withdraw(50)
+    print("Balance:", balance)
+
+
+def deposit(n):
+    balance += n
+
+def withdraw(n):
+    balance -= n
+
+
+if __name__ == "__main__":
+    main()
+</code>
+</pre>
+Выполнение этого кода происходит с ошибкой UnboundLocalError.
+Чтобы изменить глобальную переменную в функции надо использовать 
+ключевое слово global.
+<pre>
+<code class="language-python">
+balance = 0
+
+def main():
+    print("Balance:", balance)
+    deposit(100)
+    withdraw(50)
+    print("Balance:", balacne)
+
+def deposit(n):
+    balance += n
+
+def withdraw(n):
+    balance -= n
+
+if __name__ == "__main__":
+    main()
+   </code>
+</pre>
+Создадим класс Account, 
+сделаем баланс свойством объекта. 
+<pre>
+<code class="language-python">
+class Account:
+    def __init__(self):
+        self._balance = 0
+
+
+    @property
+    def balance(self):
+        return self._balance
+
+    def deposit(self, n):
+        self._balance += n
+
+    def withdraw(self, n):
+        self._balance -= n
+
+
+def main():
+    account = Account()
+    print("Balance:", account.balance)
+    account.deposit(100)
+    account.withdraw(50)
+    print("Balance:", account.balance)
+
+if __name__ == "__main__":
+    main()
+</code>
+</pre>
+Желательно избегать использование глобальных переменных.
+
+
+<h2>Константы</h2>
+В некоторых языках можно указать, что переменная не будет
+изменяться, будет константой. В python нет такого механизма.
+Мы будем наберать имена переменных, которые не собираемся изменять
+большими буквами. Наберём код:
+<pre>
+<code class="language-python">
+MEOWS = 3
+for _ in range(MEOWS):
+    print("meow")
+    </code>
+</pre>
+Создадим "константу" класса. Наберём код:
+<pre>
+<code class="language-python">
+class Cat:
+    MEOWS = 3
+    def meow(self):
+        for _ in range(Cat.MEOWS):
+            print("meow")
+
+cat = Cat()
+cat.meow()
+</code>
+</pre>
+Так как MEOWS определена вне методов класса, они
+имеют к ней доступ через Cat.MEOWS.
+
+<h2>Подсказки типов</h2>
+Наберём следующий код:
+<pre>
+<code class="language-python">
+def meow(n):
+    for _ in range(n):
+        print("meow")
+
+number = input("Number: ")
+meow(number)
+</code>
+</pre>
+Запуск программы приводит к ошибке TypeError, тип str не может интерпретироваться
+как тип int.
+Изменим нашу программу, добавим в неё подсказку тип.
+<pre>
+<code class="language-python">
+def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number = input("Number: ")
+meow(number)
+</code>
+</pre>
+Если запустим получим такое же сообщение об ошибке.
+Установим пакет mypy
+<code>
+	pip3 install mypy
+</code>
+Этот пакет помогает проверять типы переменных. Запустим программу,
+выполнив mypy meows.py.
+Добавим подсказку типа в number.
+<pre>
+<code class="language-python">
+def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number: int = input("Number: ")
+meow(number)
+</code>
+</pre>
+Выполним mypy meows.py. Сообщение об ошибке стало ещё более понятным.
+Исправим ошибки и запустим
+<pre>
+<code class="language-python">
+def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+
+number: int = int(input("Number: "))
+meow(number)
+</code>
+</pre>
+
+Введём новую ошибку в код:
+<pre>
+<code class="language-python">
+def meow(n: int):
+    for _ in range(n):
+        print("meow")
+
+number: int = int(input("Number: "))
+meows:  str = meow(number)
+print(meows)
+</code>
+</pre>
+Мы можем добавить подсказку типа для возвращаемого
+значения функции.
+<pre>
+<code class="language-python">
+def meow(n: int)->None:
+    for _ in range(n):
+        print("meow")
+
+number: int = int(input("Number: "))
+meows:  str = meow(number)
+print(meows)
+</code>
+</pre>
+Изменим код, чтобы функция возвращала строку.
+<pre>
+<code class="language-python">
+def meow(n: int)->str:
+    return "meow\n" * n
+
+number: int = int(input("Number: "))
+meows:  str = meow(number)
+print(meows, end="")
+def meow(n: int):
+</code>
+</pre>
+Ошибок нет.
+Справка по <a href="https://mypy.readthedocs.io/en/stable/">mypy</a>.
+Справка по <a href="https://digitology.tech/docs/python_3/library/typing.html">подсказка типов</a>.
+
+<h2>Строка справки</h2>
+Стандартный способ вставки комментарии в функцию. Наберите текст:
+<pre>
+<code class="language-python">
+def meow(n: int)->str:
+    """Meow n times."""
+    return "meow\n" * n
+
+number: int = int(input("Number: "))
+meows:  str = meow(number)
+print(meows, end="")
+</code>
+</pre>
+Создадим новый файл.
+<pre>
+<code class="language-python">
+def meow(n):
+    """
+    Meow n times.
+
+    :param n: Number of times to meow
+    :type n: int
+    :raise TypeError: If n is not an int
+    :return: A string of n meows, one per line
+    :rtype: str
+    """
+    return "meow\n" * n
+
+
+number = int(input("Number: "))
+meows = meow(number)
+print(meows, end="")
+</code>
+</pre>
+
+<h2>argparse</h2>
+Напишем программу, использующую аргументы командной строки:
+<pre>
+<code class="language-python">
+import sys
+
+if len(sys.argv) == 1:
+    print("meow")
+elif len(sys.argv) == 3 and sys.argv[1] == "-n":
+    n = int(sys.argv[2])
+    for _ in range(n):
+        print("meow")
+else:
+    print("usage: meows.py [-n NUMBER]")
+</code>
+</pre>
+Библиотек argparse облегчает обработку аргументов командной строки. Наберите следующий файл:
+<pre>
+<code class="language-python">
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-n")
+args = parser.parse_args()
+
+for _ in range(int(args.n)):
+    print("meow")
+</code>
+</pre>
+Объект parser создали класса ArgumentParser. Метод add_argument сообщает, какие
+аргументы стоит ожидать. parse_args - обрабатывает строку.
+Добавим в программу справочную информацию.
+<pre>
+<code class="language-python">
+import argparse
+
+parser = argparse.ArgumentParser(description="Meow like a cat")
+parser.add_argument("-n", help="number of time meow")
+args = parser.parse_args()
+
+for _ in range(int(args.n)):
+    print("meow")
+</code>
+</pre>
+Выполните python meows.py --help.
+Улучшим далее нашу программу:
+<pre>
+<code class="language-python">
+import argparse
+
+parser = argparse.ArgumentParser(description="Meow like a cat")
+parser.add_argument("-n", default = 1, help="number of time meow", type=int)
+args = parser.parse_args()
+
+for _ in range(args.n):
+    print("meow")
+</code>
+</pre>
+
+См. <a href="https://digitology.tech/docs/python_3/library/argparse.html">argparce</a>.
+
+<h2>Распаковка</h2>
+Наберите код:
+<pre>
+<code class="language-python">
+first, _ = input("What's your name? ").split(" ")
+print(f"hello, {first}")
+</code>
+</pre>
+Программ берёт имя, разбивая строку.
+Существуют другие способы извлечения переменных. Наберите код:
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+print(total(100, 50, 25), "Knuts")
+</code>
+</pre>
+Используем список.
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+coins = [100, 50, 25]
+
+print(total(coins[0], coins[1], coins[2]), "Knuts")
+</code>
+</pre>
+Более удобно распаковывать список, используя <code>*</code>.
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = [100, 50, 25]
+
+print(total(*coins), "Knuts")
+</code>
+</pre>
+Мы можем пересылать имена монет в любом порядке. Наберите код:
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+print(total(galleons=100, sickles=50, knuts=25), "Knuts")
+</code>
+</pre>
+
+Воспользуемся словарём.
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+
+coins = {"galleons": 100, "sickles": 50, "knuts": 25}
+
+print(total(coins["galleons"], coins["sickles"], coins["knuts"]), "Knuts")
+</code>
+</pre>
+Так как функция ожидает три аргумента, мы не можем отправить в неё словарь, но мы
+можем распаковать его.
+<pre>
+<code class="language-python">
+def total(galleons, sickles, knuts):
+    return (galleons * 17 + sickles) * 29 + knuts
+
+coins = {"galleons": 100, "sickles": 50, "knuts": 25}
+
+print(total(**coins), "Knuts")
+</code>
+</pre>
+Заметьте, что <code>**</code> распаковывают словарь.
+
+<h2>args, kwargs</h2>
+Функции могут иметь 
+переменное число аргументов.
+Рассмотрим код:
+<pre>
+<code class="language-python">
+def f(*args, **kwargs):
+    print("Positional:", args)
+
+f(100, 50, 25)
+</code>
+</pre>
+<code>*argc</code> означает, что функция может иметь 
+несколько позиционных аргументов.
+<code>**kwargs</code> означает, что может быть несколько
+именованных аргументов. Позиционные аргументы представлены
+tuple (кортежем).
+
+Наберите следующий код:
+<pre>
+<code class="language-python">
+def f(*args, **kwargs):
+    print("Named:", kwargs)
+
+f(galleons=100, sickles=50, knuts=25)
+</code>
+</pre>
+Мы видим, что именованные аргументы представлены
+dict (словарём). Посмотрим на объявление функции print:
+<pre>
+<code>
+print(*objects, sep=' ', end='\n', file=None, flush=False)
+</code>
+</pre>
+<code>*objects</code> берет любое число позиционных аргументов.
+<code>print</code> имеет переменное число аргументов.
+
+<h2>map</h2>
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
