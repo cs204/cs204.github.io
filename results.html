@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	<head>
+
+	<meta charset = "utf-8">
+		<link rel="icon" href="/images/favicon.ico" type="image/x-icon"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<!-- Bootstrap CSS --> 
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+	<script src='results.js' ></script>
+	</head>
+	<body>
+	<div class='container'>
+		<div class='row'>
+			<select autocomplete='off' 
+				id='houseSelect' name = 'id_house' 
+				required >
+
+				<option  selected disabled value=''>
+				Выберите группу</option>
+						<option value=47>423
+						</option>
+						<option value=51>721</option>
+			</select>
+		</div>
+		<div class='row'>
+			<table class ='table table-success' id='gradesTable'>
+			</table>
+		</div>
+
+		<h2>Задания</h2>
+		<div class='row'>
+			<table class='table table-info' id='psetTable'>
+			</table>
+		</div>
+	</div>	
+	</body>
+</html>
