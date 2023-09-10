@@ -1,0 +1,112 @@
+
+
+{% extends "layout.html" %}
+{% block title %}
+	 Циклы. СитльВерблюда 
+{% endblock %}
+{% block body %}
+<h1>СтильВерблюда</h1>
+<img src="/psets/data/images/camelCase.png">
+<p>
+<a href="https://ru.wikipedia.org/wiki/CamelCase">СтильВерблюда</a>
+стиль написания составных слов, при котором несколько слов 
+пишутся слитно без пробелов, при этом каждое слово 
+внутри фразы пишется с прописной буквы. 
+Стиль получил название стильВерблюда, поскольку прописные 
+буквы внутри слова напоминают горбы верблюда.
+Например, переменную для имени пользователя можно
+назвать firstName.
+</p>
+<p><a href="https://ru.wikipedia.org/wiki/Snake_case">Змеиный_стиль</a> - стиль написания составных слов, 
+при котором несколько слов разделяются символом 
+подчёркивания (_), и не имеют пробелов в записи, 
+причём каждое слово обычно пишется с 
+маленькой буквы — first_name и т. д.
+</p>
+<p>В файле camel.py реализуйте программу, приглашающую 
+ввести имя переменной в верблюжьемСтиле (
+<code class="language-python">input("Верблюжий стиль: ")</code>), и 
+возвращающую имя в змеином_стиле.
+</p>
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+		<li> Как и список, строку можно обрабатывать в цикле. 
+			Например, если <code>s</code> строка, то 
+			мы можем распечатать каждую букву отдельно:
+			<pre>
+			<code class="language-python">
+			for c in s:
+				print(c, end="")
+			</code>
+			</pre>
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-dwXydn5HmdfgvPSRacLpDEvSh" 
+	      src="https://asciinema.org/a/dwXydn5HmdfgvPSRacLpDEvSh.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог camel,  выполнив
+<pre>
+<code>mkdir camel</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd camel</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code camel.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой, запустите программу, выполнив:
+<pre>
+<code>
+python camel.py
+</code>
+</pre>
+Введите firstName и нажмите Enter. Ваша программа должна вывести 
+<pre>
+<code>
+firs_name
+</code>
+</pre>
+Введите prefeeredFirstName и нажмите Enter. Программа должна вернуть
+<pre>
+<code>
+prefeered_first_name
+</code>
+</pre>
+
+
+Вы можеет проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/camel local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/camel</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/camel/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}
