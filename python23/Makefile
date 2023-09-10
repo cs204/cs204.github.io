@@ -1,4 +1,4 @@
 all:
 	python3 join.py
 clean:
-	rm *.html
+	rm -f *.html
