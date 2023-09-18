@@ -1,0 +1,25 @@
+1 files and folders
+app.py
+requirement.txt
+static/
+templates/
+
+2.
+pip install flask
+pip install gunicorn
+
+flask run
+gunicorn app:app
+
+3.
+.gitignore
+__pycache__
+.env
+
+4.
+@app.route("/geet", methods=["POST"]
+request.args.get("name", "world")
+request.form.get("name", "world")
+
+
+render.com
