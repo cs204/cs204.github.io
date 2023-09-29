@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}
+	Турникет
+{% endblock %}
+{% block body %}
+<h1>Турникет</h1>
+<p>Ниже приведена диаграмма переходов состояний для турникета.</p>
+<img  src="/psets/data/images/turnstile.png">
+<p>В файле trunstile.py завершите определение класса Turnstile, замените Q1, Q2, Q3, Q4, Q5, Q6,...</p>
+<pre>
+<code class="language-python">
+class Turnstile1(SM):
+	startState = 'locked'
+	def getNextValues(self, state, inp):
+		if state == 'locked':
+			if inp == 'coin':
+				return (Q1, Q2)
+			else:
+				return (Q3, Q4)
+		else:	# state == 'unlocked'
+			if inp == 'turn':
+				return (Q5, Q6)
+			else:
+				return (Q7, Q8)
+</code>
+</pre>
+Используйте класс SM из файла <a href="/psets/data/sm.py">sm.py</a>.
+
+{% endblock %}
+
