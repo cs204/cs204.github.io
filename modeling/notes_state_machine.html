@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+
+				</ol>
+			</nav>
+			<main>
+				
+<h1>Автоматы</h1>
+<p>Автомат - это метод моделирования системы вывод которой зависит
+от истории ввода.
+Мы можем задать автомат указав:
+<ul>
+	<li>множество состояний, S</li>
+	<li>множество вводов, I</li>
+	<li>множество выводов, O</li>
+	<li>функцию следующего состояния, \(n(i_t, s_t) \mapsto s_{t+1} \), для ввода и состояния 
+		в момент \(t \) задаёт состояние в момент \(t+1\)</li>
+	<li>функцию вывода, \( o(i_t, s_t) \mapsto o_t \), для ввода и состояния в момент \(t\) задаёт вывод в момент \(t\); и</li>
+	<li>начальное состояние, \(s_o\), состояние в момент времени 0.</li>
+</ul>
+
+<h2>Автомат в Python</h2>
+
+<pre>
+<code class="language-python">
+class SM:
+    def start(self):
+        self.state = self.startState
+
+    def step(self, inp):
+        (s, o) = self.getNextValues(self.state, inp)
+        self.state = s
+        return o
+
+    def transduce(self, inputs, verbose = False):
+        self.start()
+	return [self.step(inp) for inp in inputs]
+</code>
+</pre>
+ 
+<h2>Автомат с задержкой</h2>
+
+<pre>
+<code class="language-python">
+class Delay(SM):
+    def __init__(self, v0):
+        self.startState = v0
+
+    def getNextValues(self, state, inp):
+        return (inp, state)
+</code>
+</pre>
+
+<h2>Incrementor</h2>
+
+<pre>
+<code class="language-python">
+class Increment(SM):
+    def __init__(self, incr):
+        self.incr = incr
+
+    def getNextState(self, state, inp):
+        return safeAdd(inp, self.incr)
+</code>
+</pre>
+Вспомогательная функция safeAdd, понадобится для соединения с задержкой.
+<pre>
+<code class="language-python">
+def safeAdd(a, b):
+    if a == 'undefined' or b == 'undefined':
+        return 'undefined'
+    else:
+        return a + b
+</code>
+</pre>
+
+
+
+<h2>Каскадное соединение</h2>
+
+<pre>
+<code class="language-python">
+class Cascade(SM):
+    def __init__(self, sm1, sm2):
+        self.m1 = sm1
+        self.m2 = sm2
+        self.startState = (sm1.startState, sm2.startState)
+
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (newS1, o1) = self.m1.getNextValues(s1, inp)
+        (newS2, o2) = self.m2.getNextValues(s2, o1)
+        return ((newS1, newS2), o2)
+</code>
+</pre>
+
+<h2>Параллельное соединение</h2>
+
+<pre>
+<code class="language-python">
+class Parallel(SM):
+    def __init__(self, sm1, sm2):
+        self.m1 = sm1
+        self.m2 = sm2
+        self.startState = (sm1.startState, sm2.startState)
+
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (newS1, o1) = self.m1.getNextValues(s1, inp)
+        (newS2, o2) = self.m2.getNextValues(s2, inp)
+        return ((newS1, newS2), (o1, o2))
+</code>
+</pre>
+
+
+<pre>
+<code class="language-python">
+class Parallel2(Parallel):
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (i1, i2) = splitValue(inp)
+        (newS1, o1) = self.m1.getNextValues(s1, i1)
+        (newS2, o2) = self.m2.getNextValues(s2, i2)
+        return ((newS1, newS2), (o1, o2))
+</code>
+</pre>
+
+<h2>Автомат обратной связи</h2>
+<pre>
+<code class="language-python">
+class Feedback(SM):
+    def __init__(self, sm):
+        self.m = sm
+        self.startState = self.m.startState
+
+    def getNextValues(self, state, inp):
+        (ignore, o) = self.m.getNextValues(state, 'undefined')
+        (newS, ignore) = self.m.getNextValues(state, o)
+        return (newS, o)
+</code>
+</pre>
+
+<pre>
+<code class="language-python">
+class Feedback2(Feedback):
+    def getNextValues(self, state, inp):
+        (ignore, o) = self.m.getNextValues(state, 'undefined')
+        (newS, ignore) = self.m.getNextValues(state, (inp, o))
+        return (newS, o)
+
+</code>
+</pre>
+
+<h2>Счётчик</h2>
+<pre>
+<code class="language-python">
+def makeCounter(init, step):
+    return sm.Feedback(sm.Cascade(sm.Increment(step), sm.Delay(init)))
+</code>
+</pre>
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
