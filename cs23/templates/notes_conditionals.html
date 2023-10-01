@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block tytle %}
+Ветвления
+{% endblock %}
+
+
+{% block body %}
+
+<h1>Ветвления</h1>
+<h2>Операторы сравнения</h2>
+Используя операции сравнения, мы можем построить логические выражения и 
+использовать их для ветвления в программе. Приведём примеры
+операторов сравнения: 
+<ul>
+	<li><code> > </code> и <code> < </code> - больше и меньше..</li>
+	<li><code> >= </code> - больше или равно.</li>
+	<li><code> <= </code> - меньше или равно.</li>
+	<li><code> == </code> - равенство.</li>
+	<li><code> != </code> - неравно.
+</ul>
+
+<h2>Инструкция <a href="https://digitology.tech/docs/python_3/reference/compound_stmts.html#else">if</a></h2>
+Для ветвления в вычислениях можно использовать инструкцию if.
+<pre>
+<code class="language-python">
+x = int(input("Введите x:"))
+y = int(input("Введите y:"))
+if x < y:
+	print("x меньше чем y")
+elif x == y:
+	print("x равняется y")
+else:
+	print("x больше чем y")
+</code>
+</pre>
+<h2>and, or, not</h2>
+Используя операторы and, or, not, мы можем из простых
+логических выражений строить сложные.
+<pre>
+<code class="language-python">
+score = int(input("Score: "))
+if score >= 90 and score <= 100:
+	print("Grade: A")
+elif score >= 80 and scroe <90:
+	print("Grade: B")
+elif score >=70 and score < 80:
+	print("Grade: C")
+else:
+	print("Grade: D")
+</code>
+</pre>
+
+<h2>Инструкция  <a href="https://docs.python.org/3/reference/compound_stmts.html#the-match-statement">match</a></h2>
+Инструкция match используется для сопоставления с образцом.
+<pre>
+<code class="language-python">
+name = input("What's your name?")
+match name:
+	case "Harry" | "Herminone" | "Ron":
+		print("Gryffindor")
+	case "Draco":
+		print("Slytherin")
+	case _:
+		print("Who?")
+</code>
+</pre>
+
+{% endblock %}
+
