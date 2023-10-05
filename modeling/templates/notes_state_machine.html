@@ -6,8 +6,10 @@
 
 {% block body %}
 <h1>Автоматы</h1>
-<p>Автомат - это метод моделирования системы вывод которой зависит
+<p>Автомат - это метод моделирования системы, вывод которой зависит
 от истории ввода.
+</p>
+<p>
 Мы можем задать автомат указав:
 <ul>
 	<li>множество состояний, S</li>
@@ -18,9 +20,71 @@
 	<li>функцию вывода, \( o(i_t, s_t) \mapsto o_t \), для ввода и состояния в момент \(t\) задаёт вывод в момент \(t\); и</li>
 	<li>начальное состояние, \(s_o\), состояние в момент времени 0.</li>
 </ul>
+</p>
+<h3>Автомат задержки</h3>
+<p>
+Автомат берет ввод и отправляет его на вывод, но
+с задержкой на один шаг.
+</p>
+$$\begin{array}{ccc}
+S &=& anything\\ 
+I &=& anything\\
+O &=& anything\\
+n(s, i) &=& i\\
+o(s, i) &=& s\\
+s_0 &=& 0\\
+\end{array}
+$$
+<p>Дана последовательность \(i_0, i_1, i_2, ..\),
+автомат будет выводить \(0, i_0, i_1, i_2, ..\).
+</p>
+
+<h3>Аккумулятор</h3>
+<p>Вывод из аккумулятора равен сумме всех вводов.
+</p>
+$$\begin{array}{ccc}
+S &=& numbers\\
+I &=& numbers \\
+O &=& numbers \\
+n(s,i) &=& s + i\\
+o(s, i) &=& n(s, i)\\
+s_0 &=& 0
+\end{array}
+$$
+<table class="table table-bordered border-primary">
+	<tr>
+		<td>time</td>
+		<td>0</td>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>input</td>
+		<td>100</td>
+		<td>-3</td>
+		<td>4</td>
+		<td>-123</td>
+	</tr>
+	<tr>
+		<td>state</td>
+		<td>0</td>
+		<td>100</td>
+		<td>97</td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>output</td>
+		<td>100</td>
+		<td>97</td>
+		<td>101</td>
+		<td>-22</td>
+	</tr>
+</table>
 
 <h2>Автомат в Python</h2>
-
+<p>Зададим абстрактный класс SM, он будет родителем
+для остальных классов автоматов.</p>
 <pre>
 <code class="language-python">
 class SM:
@@ -33,13 +97,18 @@ class SM:
         return o
 
     def transduce(self, inputs, verbose = False):
-        self.start()
-	return [self.step(inp) for inp in inputs]
+        self.start() 
+        return [self.step(inp) for inp in inputs]
 </code>
 </pre>
+<p>Метод getNextValues берет состояние и ввод в
+момент t и возвращает состояние в момент t+1
+и вывод в момент t. Метод step берет ввод, изменяет
+состояние автомата и возвращает вывод. Метод transduce
+для последовательности вводов возвращает выводы.
+</p>
  
-<h2>Автомат с задержкой</h2>
-
+<h3>Автомат с задержкой</h3>
 <pre>
 <code class="language-python">
 class Delay(SM):
@@ -51,8 +120,9 @@ class Delay(SM):
 </code>
 </pre>
 
-<h2>Incrementor</h2>
-
+<h3>Incrementor</h3>
+<p>Автомат Incrementor берёт ввод и возвращает 
+его плюс константа incr.
 <pre>
 <code class="language-python">
 class Increment(SM):
@@ -77,7 +147,8 @@ def safeAdd(a, b):
 
 
 <h2>Каскадное соединение</h2>
-
+<p> Две машины соединяем каскадом. Вывод из первой машины направляем на вход второй.
+</p>
 <pre>
 <code class="language-python">
 class Cascade(SM):
