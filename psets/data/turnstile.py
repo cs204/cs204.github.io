@@ -15,6 +15,6 @@ class Turnstile(sm.SM):
 
 if __name__ == "__main__":
     t = Turnstile()
-    print(t.transduce(['coin', 'turn', 'coin']))
+    print(t.transduce(['turn', 'coin', 'turn', 'coin']))
 
 
