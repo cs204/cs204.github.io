@@ -7,6 +7,6 @@ class Delay2Machine(sm.SM):
         pass
 
 
-if __name__ == "__mina__":
+if __name__ == "__main__":
     sm = Delay2Machine(100, 10)
     print(sm.transduce([1, 2, 10, 20, 30, 35]))
