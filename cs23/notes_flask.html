@@ -10,9 +10,8 @@
 	<link href="/python23/data/prism/prism.css" rel="stylesheet">
 
 	<title> 
-		
-Исключения
- 
+		 
+		 
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
 
@@ -55,14 +54,129 @@
 			</nav>
 			<main>
 				
-<header> 
-	<h1>Исключения. Задания.</h1> 
-</header> 
-<ul>
-	<li><a href="/psets/fuel.html">Датчик топлива</a></li>
-	<li><a href="/psets/breakfast.html">Завтрак</a></li>
-	<li><a href="/psets/outdated.html">Устаревший</a></li>
-</ul>
+<h1>Flask</h1>
+<h2>Создание веб-приложения.</h2>
+<p>Создайте директорию site.
+Перейдите в неё. 
+Установите пакеты Flask, Gunicorn,  выполнив:
+<pre>
+<code>
+pip install flask
+pin install gunicorn
+</code>
+</pre>
+</p>
+Создайте файл requirements.txt. Добавьте в него:
+<pre>
+<code>
+Flask
+Gunicorn
+</code>
+</pre>
+
+<p>Создайте app.py файл.</p>
+<pre>
+<code id=app_py class="language-Python">
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/greet", methods=["POST"])
+def greet():
+    name = request.form.get("name", "world")
+    return render_template("greet.html", name=name)
+</code>
+</pre>
+</p>
+	<p>Создайте каталоги templates, static. В папку static поместите gerbtspu118.png.  
+Создайте layout.html файл в папке templates.</p>
+<pre>
+<code id=layout_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/layout.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let layout_html = document.querySelector("#layout_html")
+					layout_html.innerText = data
+				})
+	</script>
+
+
+
+
+
+
+
+	Создайте index.html файл в папке templates.</p>
+<pre>
+<code id=index_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/index.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let index_html = document.querySelector("#index_html")
+					index_html.innerText = data
+				})
+	</script>
+
+<p>Создайте greet.html файл в папке templates.</p>
+<pre>
+<code id=greet_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/greet.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let greet_html = document.querySelector("#greet_html")
+					greet_html.innerText = data
+				})
+	</script>
+
+<p>Запустите ваше приложение, выполнив:</p>
+<pre>
+<code>
+flask run 
+</code>
+</pre>
+Откройте ваше приложение в веб-браузере.
+Остановите приложение выполнив Ctrl-C в терминале.
+Запустите его снова выполнив:
+<pre>
+<code>
+gunicorn app:app
+</code>
+</pre>
+
+<h2>Выложите веб-приложение на render.com</h2>
+<p>Инициализируйте git в каталоге вашего приложения, выполнив:</p>
+<pre>
+<code>
+git init
+</code>
+</pre>
+<p>Создайте файл .gitignore . Добавьте в него строки:</p>
+<pre>
+<code>
+__pycache__
+.env
+</code>
+</pre>
+<p>Эти строки нужны, чтобы git не создавал копии указанных файлов.
+Создайте репозиторий на github. Загрузите в него ваше приложение. 
+Зарегистрируйтесь на <a href="https://render.com">render.com</a>.
+Разместите на нем своё приложение.
+</p>
 
 
 			</main>
