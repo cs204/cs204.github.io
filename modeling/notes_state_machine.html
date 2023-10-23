@@ -50,9 +50,11 @@
 			</nav>
 			<main>
 				
+<p>Материал взят из курса <a href="https://ocw.mit.edu/courses/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/pages/unit-1-software-engineering/state-machines/">6.01</a>.</p>
 <h1>Автоматы</h1>
 <p>Автомат - это метод моделирования системы, вывод которой зависит
 от истории ввода.
+
 </p>
 <p>
 Мы можем задать автомат указав:
@@ -126,6 +128,42 @@ $$
 		<td>-22</td>
 	</tr>
 </table>
+
+<h3>Автомат принимающий язык</h3>
+<img src="/modeling/data/images/language_acceptor.png">
+<p>Рассмотрим автомат, вывод из него True, если вводимая строка удовлетворяет шаблону,
+False в противном случае. Пусть шаблон будет a, b, c, a, b, c, a, b, c, ...
+Автомат использует состояния 0, 1, 2, в которых он ожидает a, b, c соответственно, и 
+он использует состояние 3 для случаев, когда он встретил не то, что ожидал.
+Когда автомат попадает в состояние 3, он ни когда его не покидает.
+</p>
+$$
+\begin{array}{ccc}
+S &=& \{0, 1, 2, 3\}\\
+I &=& \{a, b, c\} \\
+O &=& \{True, False\}\\
+s_0 &=& 0
+\end{array}
+$$
+
+$$
+n(s,i) = \left\{ \begin{array}{ccc}
+1, &if& s=0, i=a\\
+2, &if& s=1, i=b\\
+0, &if& s=2, i=c\\
+3, &&otherwise&\\
+\end{array}\right.
+$$
+
+$$
+o(s, i) = \left\{ \begin{array}{ccc}
+False, &if& n(s,i)=3\\
+True && otherwise\\
+\end{array}\right.
+$$
+<p>
+Диаграмм перехода состояний приведена на рисунке. 
+</p>
 
 <h2>Автомат в Python</h2>
 <p>Зададим абстрактный класс SM, он будет родителем

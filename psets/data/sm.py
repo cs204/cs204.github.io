@@ -83,7 +83,8 @@ class SM:
         Для уникальности имени
         """
         try: 
-            self.name
+            if not self.name:
+                self.name = gensym(self.__class__.__name__)
         except AttributeError:
             self.name = gensym(self.__class__.__name__)
 
@@ -195,6 +196,33 @@ class Parallel2(Parallel):
                 self.m2.printDebugInfo(depth + 4, s2, ns2, i2, o2, debugParams)
 
 
+class ParallelAdd(Parallel):
+    """
+    Как Parallel, но вывод сумма двух машин
+    """
+
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (newS1, o1) = self.m1.getNextValues(s1, inp)
+        (newS2, o2) = self.m2.getNextValues(s2, inp)
+        return ((newS1, newS2), o1 + o2)
+
+    def printDebugInfo(self, depth, state, nextState, inp, out, debugParams):
+        if nextState and len(nextState) == 2:
+            self.guaranteeName()
+            (s1, s2) = state
+            (ns1, ns2) = nextState
+
+            (newS1, o1) = self.m1.getNextValues(s1, inp)
+            (newS2, o2) = self.m2.getNextValues(s2, inp)
+
+            if debugParams.verbose:
+                print(' ' * depth, self.name)
+                self.m1.printDebugInfo(depth + 4, s1, ns1, inp, o1, debugParams)
+                self.m2.printDebugInfo(depth + 4, s2, ns2, inp, o2, debugParams)
+
+
+
 class Feedback(SM):
     def __init__(self, m, name = None):
         self.m = m
@@ -229,6 +257,82 @@ class Feedback2(Feedback):
         if debugParams.verbose:
             print(' ' * depth, self.name)
             self.m.printDebugInfo(depth + 4, state, nextState, (inp, lastOutput) , out, debugParams)
+
+class FeedbackAdd(SM):
+    """
+    Две машины. Вывод m1 отправляется обратно через m2,
+    результат добавляется к вводу и отправляется на вход m1
+    """
+    def __init__(self, m1, m2, name = None):
+        self.m1 = m1
+        self.m2 = m2
+        self.name = name
+        self.startState = (self.m1.startState, self.m2.startState)
+
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (ignore, o1) = self.m1.getNextValues(s1, 'undefined')
+        (ignore, o2) = self.m2.getNextValues(s2, o1)
+        (newS1, output) = self.m1.getNextValues(s1, safeAdd(inp, o2))
+        (newS2, o2) = self.m2.getNextValues(s2, output)
+        return ((newS1, newS2), output)
+
+    def done(self, state):
+        (s1, s2) = state
+        return self.m1.done(s1) or self.m2.done(s2)
+
+    def printDebugInfo(self, depth, state, nextState, inp, out, debugParams):
+        if nextState and len(nextState) == 2:
+            self.guaranteeName()
+            (s1, s2) = state
+            (ns1, ns2) = nextState
+            if debugParams.verbose:
+                print(' ' * depth, self.name)
+            (ignore, o1) = self.m1.getNextValues(s1, inp)
+            (ignore, o2) = self.m2.getNextValues(s2, o1)
+            (ignore, o1) = self.m1.getNextValues(s1, safeAdd(inp, o2))
+            self.m1.printDebugInfo(depth + 4, s1, ns1, inp + o2, o1, debugParams)
+            self.m2.printDebugInfo(depth + 4, s2, ns2, o1, o2, debugParams)
+
+class FeedbackSubtract(SM):
+    """
+    Берет две машины m1, m2. Вывод составной - вывод m1.
+    Вывод m1 отправляется обратно через m2.
+    Этот результат вычитается из ввода. Сигнал вводится в m1.
+    """
+
+    def __init__(self, m1, m2, name = None):
+        self.m1 = m1
+        self.m2 = m2
+        self.name = name
+        self.startState = (self.m1.startState, self.m2.startState)
+
+    def getNextValues(self, state, inp):
+        (s1, s2) = state
+        (ignore, o1) = self.m1.getNextValues(s1, 'undefined')
+        (ignore, o2) = self.m2.getNextValues(s2, o1)
+        (newS1, output) = self.m1.getNextValues(s1, inp - o2)
+        (newS2, o2) = self.m2.getNextValues(s2, output)
+        return ((newS1, newS2), output)
+
+    def done(self, state):
+        (s1, s2) = state
+        return self.m1.done(s1) or self.m2.done(s2)
+
+    def printDebugInfo(self, depth, state, nextState, inp, out, debugParams):
+        if nextState and len(nextState) == 2:
+            self.guaranteeName()
+            (s1, s2) = state
+            (ns1, ns2) = nextState
+            if debugParams.verbose:
+                print(' ' * depth, self.name)
+            (ignore, o1) = self.m1.getNextValues(s1, inp)
+            (ignore, o2) = self.m2.getNextValues(s2, o1)
+            (ignore, o1) = self.m1.getNextValues(s1, inp - o2)
+            self.m1.printDebugInfo(depth + 4, s1, ns1, inp - o2, o1, debugParams)
+            self.m2.printDebugInfo(depth + 4, s2, ns2, o1, o2, debugParams)
+     
+
 
 
 class Switch(SM):
@@ -361,6 +465,65 @@ class Sequence(SM):
                 print(" " * depth, self.name, 'Counter =', counter)
             self.smList[counter].printDebugInfo(depth + 4, smState, nsmState, inp, out, debugParams)
     
+class RepeatUntil(SM):
+    def __init__(self, condition, sm):
+        self.sm = sm
+        self.condition = condition
+        self.startState = (False, self.sm.startState)
+
+    def getNextValues(self, state, inp):
+        (condTrue, smState) = state
+        (smState, o) = self.sm.getNextValues(smState, inp)
+        condTrue = self.condition(inp)
+        if self.sm.done(smState) and not condTrue:
+            smState = self.sm.startState
+        return ((condTrue, smState), o)
+
+    def done(self, state):
+        (condTrue, smState) = state
+        return self.sm.done(smState) and condTrue
+
+    def printDebugInfor(self, depth, state, nextState, inp, out, debugParams):
+        if nextState and len(nextState) == 2:
+            self.guaranteeName()
+            (condTrue, smState) = state
+            (ncondTrue, nsmState) = nextState
+            if debugParams.verobse:
+                print(' ' * depth, self.name, 'Condition =', condTrue)
+            self.sm.printDebugInfo(depth+4, smState, nsmState, inp, out, debugParams)
+
+
+class Until(SM):
+    """
+    Выполняет автомат пока условие не станет Истиной.
+    Условие вычисляется на вход.
+    """
+
+    def __init__(self, condition, sm, name = None):
+        self.sm = sm
+        self.condition = condition
+        self.name = name
+        self.startState = (False, self.sm.startState)
+
+    def getNextValues(self, state, inp):
+        (condTrue, smState) = state
+        (smState, o) = self.sm.getNextValues(smState, inp)
+        return ((self.condition(inp), smState), o)
+
+    def done(self, state):
+        (condTrue, smState) = state
+        return self.sm.done(smState) or condTrue
+
+    def printDebugInfo(self, depth, state, nextState, inp, out, debugParams):
+        if nextState and len(nextState) == 2:
+            self.guaranteeName()
+            (condTrue, smState) = state
+            (ncondTrue, nsmState) = nextState
+            if debugParams.verbose:
+                print(' ' * depth, self.name, 'Condition =', condTrue)
+            self.sm.printDebugInfo(depth + 4, smState, nsmState, inp, out, debugParams)
+
+
 
 class R(SM):
     """
@@ -380,7 +543,15 @@ class R(SM):
 
 Delay = R
 
+class Gain(SM):
+    """
+    Автомат вывод которого это ввод умноженный на k
+    """
+    def __init__(self, k):
+        self.k = k
 
+    def getNextValues(self, state, inp):
+        return (state, safeMul(self.k, inp))
 class Wire(SM):
     """
     Автомат, его вывод равен вводу без задрежки.
@@ -445,4 +616,8 @@ class SymbolGenerator:
 
 gensym = SymbolGenerator().gensym
 
-
+def dotProd(a, b):
+    """
+    Возвращает скалярное произведение двух списков
+    """
+    return sum([ai * bi for (ai, bi) in zip(a, b)])
