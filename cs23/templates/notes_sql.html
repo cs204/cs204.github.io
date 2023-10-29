@@ -1,0 +1,351 @@
+{% extends "layout.html" %}
+{% block tytle %}
+Ветвления
+{% endblock %}
+
+
+{% block body %}
+<h1>SQL</h1>
+<hr>
+<h2>Базы данных</h2>
+<hr>
+<ul>
+	<li>Базы данных можно использовать, чтобы 
+		сохранять, использовать и  манипулировать данными в приложении.</li>
+	<li>SQL (Structured Query Language) - язык, созданный для взаимодействия с базами данных.
+		Мы будем использовать версию PostgreSQL.</li>
+</ul>
+
+<h2>Использование SQL</h2>
+<hr>
+<ul>
+	<li>В базе данных для сохранения данных будем создавать таблицы. 
+		Когда создаём таблицу надо указать типы данных, сохраняемых
+		в столбцах.
+		Некоторые SQL типы данных:
+		<ul>
+			<li><code>INTEGER</code></li>
+			<li><code>DECIMAL</code></li>
+			<li><code>SERIAL</code> : автоматически увеличивающееся целое</li>
+			<li><code>VARCHAR</code> : строка текста, переменной длинны</li>
+			<li><code>TIMESTAMP</code></li>
+			<li><code>BOOLEAN</code></li>
+			<li><code>ENUM</code></li>
+		</ul>
+	</li>
+	<li>В дополнении к типу столбец может иметь ограничения:
+		<ul>
+			<li><code>NOT NULL</code> : поел должно иметь значение; если значение не задано, 
+				запись будет отклонена</li>
+			<li><code>UNIQUE</code> : нет двух полей в столбце имеющих одинаковое значение</li>
+			<li><code>PRIMARY KEY</code> : основной способ индексировать  таблицу</li>
+			<li><code>DEFAULT</code> : установить значение по умолчанию для столбца, если не указано другое занчение</li>
+		</ul>
+	</li>
+	<li>PostgreSQL можно установить на компьютер и запустить, мы будем использовать сервер на render.com.
+	Для отправки на него SQL запросов будем использовать терминальный клиент psql.
+	Для подключения к базе данных будем использовать <code>psql <databaseURL></code>.
+	</li>
+	<li>После подключения psql клиента к базе данных  мы можем вводить SQL команды в терминале.
+		Некоторые другие (не SQL) полезные команды:
+		<ul>
+			<li><code>\d</code> : вывести описание базы данных</li>
+			<li><code>\d table_name </code>: вывести описание таблицы</li>
+			<li><code>\q </code>: выйти из клиента</li>
+
+		</ul>
+	</li>
+</ul>
+
+<h2>Базовые операции</h2>
+<p>Зайдите на <a href="https://render.com">render.com</a>.
+Создайте PostgreSQL базу данных. Скопируйте External Database URL.
+Добавьте в файл ~/.bashrc строку
+<pre>
+<code>
+export DATABASE_URL="ваш External database URL"
+</code>
+</pre>
+Замените в URL postgres на postgresql, иначе вы не сможете из python подключиться.
+Выполните в терминале команду <code>source ~/.bashrc</code>.
+Чтобы подключиться к базе данных выполните <code>psql $DATABASE_URL</code>.
+</p>
+
+<ul>
+	<li>
+		Создание таблицы:
+		<pre>
+		<code class="language-sql">
+		create table flights (
+			id serial primary key,
+			origin varchar not null,
+			destination varchar not null,
+			duration integer not null
+			);
+		</code>
+		</pre>
+	</li>
+	<li>
+		Вставка данных в таблицу:
+		<pre>
+		<code class="language-sql">
+		insert into flights
+			(origin, destination, duration)
+			values ('New York', 'London', 415);
+		</code>
+		</pre>
+		<ul>
+			<li>Заметьте, что нет поля <code>id</code>, оно будет автоматически увеличиваться.</li>
+			<li>Команда может быть введена в одну строку.</li>
+		</ul>
+	</li>
+	<li>
+		Чтение данных из таблицы:
+		<pre>
+		<code class="language-sql">
+		select * from flights;
+		select origin, destination from flights;
+		select * from flights where id = 3;
+		select * from flights where origin = 'New Yourk';
+		select * from flights where duration > 500;
+		select * from flights where destination = 'Paris' and duration > 500;
+		select * from flights where destination = 'Paris' or duration > 500;
+		select avg(duration) from flights where origin = 'New York';
+		select * from flights where origin like '%a%';
+		select * from flights limit 2;
+		select * from flights order by duration asc;
+		select * from flights order by duration asc limit 3;
+		select origin, count(*) from flights group by origin;
+		select origin, count(*) from flights group by origin having count(*) > 1;
+		</code>
+		</pre>
+		<ul>
+			<li>После <code>select</code> указываем столбцы, которые будут выводится.</li>
+			<li>После <code>where</code> указываем ограничения на строки выводимые.</li>
+			<li><code>*</code> означает все столбцы.</li>
+			<li>
+				Если SQL функция применяется к выбираемому столбцу, то 
+				столбец с значениями применения функции будет получен. Полезные функции:
+				<ul>
+					<li> <code>avg(column)</code> : вычисляет среднее</li>
+					<li><code>count(*)</code> : возвращает число строк</li>
+					<li><code>min(column)</code> : минимальное значение</li>
+					<li><code>max(column)</code> : максимальное значение</li>
+				</ul>
+			</li>
+			<li>
+				<code>like</code> использует шаблон строки и возвращает все строки,
+				подходящие под шаблон. <code>%</code> означает любой текст. В примере
+				выше, любая строка с 'a' в  столбце origin.
+			</li>
+			<li><code>limit</code> задаёт максимальное число выводимых строк.</li>
+			<li>
+				<code>order by</code> упорядочивает строки по данному столбцу по
+				возрастанию (<code>asc</code>) или  убыванию (desc). 
+			</li>
+			<li><code>group by</code> группирует строки по общим значениям в заданном столбце.</li>
+			<li>
+				<code>having</code> опциональный указатель для <code>group by</code>, ограничивает 
+				строки выводимые, подобно <code>where</code>.
+			</li>
+		</ul>
+	</li>
+	<li>Обновление данных в таблице:
+		<pre>
+		<code class="language-sql">
+		update flights
+			set duration = 430
+			where origin = 'New York'
+			and destination = 'London';
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>set</code> столбец для всех строк, удовлетворяющих запросу <code>where</code>.
+			</li>
+		</ul>
+	</li>
+	<li>
+		Удаление данных из таблицы:
+		<pre>
+		<code class="language-sql">
+		delete from flights
+			where destination = 'Tokyo';
+		</code>
+		</pre>
+	</li>
+</ul>
+
+<h2>Связь между таблицами</h2>
+<ul>
+	<li>
+		Таблицы могут быть связаны. Приведём пример:
+		<pre>
+		<code class="language-sql">
+		create table passengers(
+			id serial primary key,
+			name varchar not null,
+			flight_id integer references flights.id
+			);
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>flight_id</code> будет внешним ключом для таблицы <code>flights</code>
+				на значения в столбце <code>flights.id</code>. Через внешний ключ мы можем
+				получить для таблицы passengers информацию об рейсе в таблице flights. 
+			</li>
+		</ul>
+	</li>
+	<li>
+		Мы можем сделать запросы к информации из нескольких таблиц:
+		<pre>
+		<code class="language-sql">
+		select origin, destination, name from flights join passengers on passengers.flight_id = flights.id;
+		select origin, destination, name from flights join passengers 
+			on passengers.flight_id = flights.id where name = 'Alice';
+		select origin, destination, name from flights left join passengers on passengers.flight_id = flights.id;
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>join</code> создаёт объединённую таблицу: строки в ней удовлетворяют указанному
+				в <code>on</code> требованию.
+			</li>
+			<li>
+				<code>left join</code> включает строки из первой таблицы даже если нет соответствующих
+				строк во второй таблице (т.е. нет пассажиров на этот рейс). <code>right join</code>
+				действует аналогично (т.е. пассажиры без рейса).
+			</li>
+		</ul>
+	</li>
+	<li>
+		Вложенный запрос - другой способ сделать выбор из нескольких таблиц:
+		<pre>
+		<code class="language-sql">
+		select * from flights where id in 
+			(select flight_id from passenger group by flight_id having count(*) > 1);
+		</code>
+		</pre>
+		<ul>
+			<li>
+				Внутренний запрос создаст таблицу с столбцом <code>flight_id</code> 
+				с числом пассажиров больше 1.
+			</li>
+			<li>
+				Внешний запрос создаст таблицу с строками из таблицы <code>flihghts</code>
+				в которых <code>id</code> есть в таблицы из внутреннего запроса.
+			</li>
+			<li>
+				Иными словами запрос вернёт рейсы с количеством пассажиров больше 1.
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<h2>SQL c Flask</h2>
+<p>Нам понадобится установить пакет psycopg2-binary.
+<pre>
+<code>
+pip install psycopg2-binary
+</code>
+</pre>
+</p>
+<ul>
+	<li>SQLalchemy библиотека Python с её помощью мы можем выполнять SQL запросы.</li>
+	<li>Начнём с кода выводящего информацию из таблицы flights:
+		<pre>
+		<code class="language-python">
+		import os
+
+		from sqlalchemy import create_engine
+		from sqlalchemy.orm import scoped_session, sessionmaker
+
+		engine = create_engine(os.getenv("DATABASE_URL"))
+		db = scoped_session(sessionmaker(bind=engine))
+
+		def main():
+		    flights = db.execute("SELECT origin, destination, duration FROM flights").fetchall()
+		    for flight in flights:
+			print(f"{flight.origin} to {flight.destination}, {flight.duration} minutes.")
+
+		if __name__ == "__main__":
+		    main()
+	   	</code>
+		</pre>
+	</li>
+	<li>
+		Запрос на вставку данных в таблицу из csv файла:
+		<pre>
+		<code class="language-python">
+import csv
+import os
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+
+def main():
+    f = open("flights.csv")
+    reader = csv.reader(f)
+    for origin, destination, duration in reader:
+        db.execute("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)",
+                    {"origin": origin, "destination": destination, "duration": duration})
+        print(f"Added flight from {origin} to {destination} lasting {duration} minutes.")
+    db.commit()
+
+if __name__ == "__main__":
+    main()
+    </code>
+		</pre>
+
+	</li>
+</ul>
+
+<h2>SQL в Flask</h2>
+<ul>
+	<li>Приведём пример кода:
+		<pre>
+		<code class="language-python">
+import os
+
+from flask import Flask, render_template, request
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+app = Flask(__name__)
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+
+@app.route("/")
+def index():
+    flights = db.execute("SELECT * FROM flights").fetchall()
+    return render_template("index.html", flights=flights)
+
+@app.route("/book", methods=["POST"])
+def book():
+    """Book a flight."""
+
+    # Get form information.
+    name = request.form.get("name")
+    try:
+        flight_id = int(request.form.get("flight_id"))
+    except ValueError:
+        return render_template("error.html", message="Invalid flight number.")
+
+    # Make sure the flight exists.
+    if db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).rowcount == 0:
+        return render_template("error.html", message="No such flight with that id.")
+    db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
+            {"name": name, "flight_id": flight_id})
+    db.commit()
+    return render_template("success.html")
+
+</code>
+		</pre>
+	</li>
+</ul>
+{% endblock %}
