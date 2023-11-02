@@ -275,7 +275,7 @@ export DATABASE_URL="ваш External database URL"
 		<pre>
 		<code class="language-sql">
 		select * from flights where id in 
-			(select flight_id from passenger group by flight_id having count(*) > 1);
+			(select flight_id from passengers group by flight_id having count(*) > 1);
 		</code>
 		</pre>
 		<ul>

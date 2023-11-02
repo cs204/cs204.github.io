@@ -45,6 +45,7 @@
 
 					<li><a href="classes.html">Объектно-ориентированное программирование</a></li>
 					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
 
 				</ol>
 			</nav>
@@ -229,145 +230,7 @@ def safeAdd(a, b):
 
 
 
-<h2>Каскадное соединение</h2>
-<img  src="/modeling/data/images/cascade.png">
-<p> Две машины соединяем каскадом. Вывод из первой машины направляем на вход второй.
-</p>
-<pre>
-<code class="language-python">
-class Cascade(SM):
-    def __init__(self, sm1, sm2):
-        self.m1 = sm1
-        self.m2 = sm2
-        self.startState = (sm1.startState, sm2.startState)
 
-    def getNextValues(self, state, inp):
-        (s1, s2) = state
-        (newS1, o1) = self.m1.getNextValues(s1, inp)
-        (newS2, o2) = self.m2.getNextValues(s2, o1)
-        return ((newS1, newS2), o2)
-</code>
-</pre>
-
-<h2>Параллельное соединение</h2>
-<img src="/modeling/data/images/parallel.png">
-<pre>
-<code class="language-python">
-class Parallel(SM):
-    def __init__(self, sm1, sm2):
-        self.m1 = sm1
-        self.m2 = sm2
-        self.startState = (sm1.startState, sm2.startState)
-
-    def getNextValues(self, state, inp):
-        (s1, s2) = state
-        (newS1, o1) = self.m1.getNextValues(s1, inp)
-        (newS2, o2) = self.m2.getNextValues(s2, inp)
-        return ((newS1, newS2), (o1, o2))
-</code>
-</pre>
-
-
-<pre>
-<code class="language-python">
-class Parallel2(Parallel):
-    def getNextValues(self, state, inp):
-        (s1, s2) = state
-        (i1, i2) = splitValue(inp)
-        (newS1, o1) = self.m1.getNextValues(s1, i1)
-        (newS2, o2) = self.m2.getNextValues(s2, i2)
-        return ((newS1, newS2), (o1, o2))
-</code>
-</pre>
-
-<h2>Автомат обратной связи</h2>
-<img src="/modeling/data/images/feedback.png">
-<pre>
-<code class="language-python">
-class Feedback(SM):
-    def __init__(self, sm):
-        self.m = sm
-        self.startState = self.m.startState
-
-    def getNextValues(self, state, inp):
-        (ignore, o) = self.m.getNextValues(state, 'undefined')
-        (newS, ignore) = self.m.getNextValues(state, o)
-        return (newS, o)
-</code>
-</pre>
-
-<pre>
-<code class="language-python">
-class Feedback2(Feedback):
-    def getNextValues(self, state, inp):
-        (ignore, o) = self.m.getNextValues(state, 'undefined')
-        (newS, ignore) = self.m.getNextValues(state, (inp, o))
-        return (newS, o)
-
-</code>
-</pre>
-
-<h2>Счётчик</h2>
-<img src="/modeling/data/images/counter.png">
-<pre>
-<code class="language-python">
-def makeCounter(init, step):
-    return sm.Feedback(sm.Cascade(sm.Increment(step), sm.Delay(init)))
-</code>
-</pre>
-
-<h2>Управление устройством</h2>
-<img src="/modeling/data/images/coupledMachine.png">
-<p>Мы хотим управлять устройством (plant). Выход из устройства (обычно это показания датчиков)
-отправляем на вход в контроллер и выход из контроллера (обычно это действия, управляющие устройством) 
-отправляем на вход устройства.
-</p>
-<p>Рассмотрим робота, двигающегося к стене. Он имеет сенсор определяющий расстояние до стены \(d[t]\).
-Мы хотим, чтобы робот остановился на заданном расстоянии от стены (\( d_{desired} \)).
-На вход робота подаётся скорость \(v[t]\), с которой он должен двигаться. Выход из контроллера:
-</p>
-$$v[t]=k(d_{desired}-d[t]).$$
-<p>
-Выход из робота:
-</p>
-$$
-d[t]=d[t-1]+V[t-1]\delta T,
-$$
-<p>где \(\delta T\) -
-время между командами задания скорости. Реализуем эту систему на python:
-</p>
-
-<pre>
-<code class="language-python">
-import sm
-k = 1.5
-dDesired = 1.0
-class WallContorller(sm.SM):
-    def getNextState(self, state, inp):
-        return sm.safeMul(k, sm.safeAdd(dDesired, sm.safeMul(-1, inp)))
-
-deltaT = 0.1
-class WallWorld(sm.SM):
-    startState = 5
-    def getNextValues(self, state, inp):
-        return (sm.safeAdd(state, sm.safeMul(inp, deltaT)),
-                state)
-
-def coupledMachine(m1, m2):
-    return sm.Feedback(sm.Cascade(m1, m2))
-
-wallSim = coupledMachine(WallContorller(), WallWorld())
-print(wallSim.run(30))
-</code>
-</pre>
-<p>
-Симуляция даёт:
-<br>
-<code>
-[5, 4.4, 3.89, 3.4565, 3.088025, 2.77482125, 2.5085980625, 2.282308353125, 2.08996210015625, 1.9264677851328122, 1.7874976173628905, 1.669372974758457, 1.5689670285446884, 1.483621974262985, 1.4110786781235374, 1.3494168764050067, 1.2970043449442556, 1.2524536932026173, 1.2145856392222247, 1.182397793338891, 1.1550381243380574, 1.131782405687349, 1.1120150448342465, 1.0952127881091096, 1.0809308698927431, 1.0687912394088317, 1.058472553497507, 1.049701670472881, 1.0422464199019488, 1.0359094569166565]
-</code>
-<p>Мы видим, что расстояние до стены монотонно сходится к \(dDesired = 1\).
-</p>
 
 			</main>
 		</div>
