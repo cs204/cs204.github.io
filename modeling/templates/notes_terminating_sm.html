@@ -1,0 +1,304 @@
+{% extends "layout.html" %}
+{% block title %}
+Соединение автоматов
+{% endblock %}
+
+
+{% block body %}
+
+<h2>Завершающийся конечный автомат</h2>
+<p>Иногда удобно рассматривать процесс, как 
+последовательность процессов, один выполняется
+пока не закончится, затем другой стартует.
+Например, робот сначала чистит комнату А, затем
+чистит комнату Б.
+</p>
+<p>Соединение автоматов во времени, образует новый 
+автомат. Наши составляющие машины будут иметь 
+дополнительное свойство: они будут иметь done функцию,
+которая берет состояние и возвращает True, если
+автомат завершил выполнение и False в противном случае.
+Мы добавим в базовый класс SM определение 
+метода по умолчанию, для машин не имеющих окончания.</p>
+<pre>
+<code class="language-python">
+def done(self, state):
+	return False
+	</code>
+</pre>
+<p>Тогда, в определении любого подкласса SM,
+вы можете реализовать свой метод done.
+done метод используется комбинатором,
+который, например, выполняет одно машину, пока она
+не завершит работу, и затем стартует другую.
+</p>
+<p>Например, рассмотрим завершающийся автомат (TSM),
+который принимает поток чисел; его вывод None в 
+первых шагах, на пятом вводе он генерирует сумму
+полученных чисел и заканчивает выполнение.
+Его состояние состоит из двух чисел:
+первое это число шагов выполненных машиной, второе
+это аккумулированное число вводов.</p>
+<pre>
+<code class="language-python">
+class ConsumeFiveValues(sm.SM):
+    def __init__(self, name = None):
+        self.name = name
+
+    startState = (0, 0)
+
+    def getNextValues(self, state, inp):
+        (count, total) = state
+        if count == 4:
+            return ((count + 1, total + inp), total + inp)
+        else:
+            return ((count + 1, total + inp), None)
+
+    def done(self, state):
+        (count, total) = state
+        return count == 5
+</code>
+</pre>
+<p>Здесь результат выполнения этого примера.
+Мы изменили метод transduce в SM, чтобы 
+остановить когда машина закончит.</p>
+<pre>
+<code>
+>>>c5=ConsumveFiveValues()
+>>>c5.transduce([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+[None, None, None, None, 15]
+</code>
+</pre>
+
+<h2>Повторение</h2>
+<p>Repeat TSM комбинатор, который берет заканчивающийся 
+автомат и повторяет его n раз. В примере ниже 
+мы задаём значение None для n, так что если 
+значение n не задано, процесс будут повторяться бесконечно.
+</p>
+<pre>
+<code class="language-python">
+class Repeat(SM):
+    """
+    Дан автомат, создает новый автомат,
+    который будет выполнять его n раз. Если n
+    не заданно, то будет выполнять вечно.
+    """
+    def __init__(self, m, n = None, name = None):
+        self.m = m
+        self.startState = (0, self.m.startState)
+        self.n = n
+        self.name = name
+
+    def advanceIfDone(self, counter, mState):
+        while self.m.done(mState) and not self.done((counter, mState)):
+            counter += 1
+            mState = self.m.startState
+        return (counter, mState)
+
+    def getNextValues(self, state, inp):
+        (counter, mState) = state
+        (mState, o) = self.m.getNextValues(mState, inp)
+        (counter, mState) = self.advanceIfDone(counter, mState)
+        return ((counter, mState), o)
+
+    def done(self, state):
+        (counter, mState) = state
+        return not self.n == None and counter == self.n
+</code>
+</pre>
+<p>Состоянием автомата будет число раз образующая
+машина была выполнена, вместе с текущем состоянием
+образующей машины.</p>
+<p>Если образующий автомат завершил работу,
+тогда мы увеличиваем счётчик числа повторений, и 
+стартуем образующий автомат с начала.
+</p>
+<p>Рассмотрим пример Repeat. Образующая машина
+инициализируется символом. Её состояние указывает
+закончила ли она выполнение. Она стартует в состоянии
+False (не закончила). На первом шаге она переходит
+в состояние True и остаётся в нём. Её вывод всегда
+символ с которым она инициализировалась, полностью
+игнорируется ввод.
+</p>
+<pre>
+<code class="language-python">
+class CharTSM(sm.SM):
+    startState = False
+    def __init__(self, c, name = None):
+        self.c = c
+        self.name = name
+
+    def getNextValues(self, state, inp):
+        return (True, self.c)
+
+    def done(self, state):
+        return state
+</code>
+</pre>
+<pre>
+<code>
+>>> a = CharTSM('a')
+>>> a.run()
+['a']
+</code>
+</pre>
+<p>Автомат заканчивает работу после первого шага.
+Теперь мы повторим его 4 раза.</p>
+<pre>
+<code>
+>>> a4 = sm.Repeat(a, 4)
+>>> a4.run()
+['a', 'a', 'a', 'a']
+</code>
+</pre>
+
+<h2>Последовательность</h2>
+<p>
+Удобно создать машину, которая выполняет
+несколько машин последовательно.
+Она берет список машин, выполняет первую
+пока она не завершится, стартует следующую и так далее.
+Её состояние это пара: число, указывающее какая из
+образующих машин выполняется и состояние текущей машины.
+</p>
+<pre>
+<code class="language-python">
+class Sequence(SM):
+    def __init__(self, smList, name = None):
+        self.smList = smList
+        self.name = name
+        self.startState = (0, self.smList[0].startState)
+        self.n = len(smList)
+
+    def advanceIfDone(self, counter, smState):
+        while self.smList[counter].done(smState) and counter + 1 < self.n:
+            counter = counter + 1 
+            smState = self.smList[counter].startState
+        return (counter, smState)
+
+    def getNextValues(self, state, inp):
+        (counter, smState) = state
+        (smState, o) = self.smList[counter].getNextValues(smState, inp)
+        (counter, smState) = self.advanceIfDone(counter, smState)
+        return ((counter, smState), o)
+
+    def done(self, state):
+        (counter, smState) = state
+        return self.smList[counter].done(smState)
+
+
+</code>
+</pre>
+<p>
+Используем CharTSM для тестирования последовательного
+комбинатора. 
+</p>
+<pre>
+<code>
+>>> m = sm.Sequence([CharTSM('a'), CharTSM('b'), CharTSM('c')])
+>>> m.run()
+['a', 'b', 'c']
+</code>
+</pre>
+
+<h3>RepeatUntil</h3>
+<p>Этот комбинатор в момент инициализации берет
+условие и машину, он выполняет её завершения затем
+проверяет условие на ввод; если условие выполнилось,
+то завершает, иначе запускает образующую машину с начала.
+</p>
+<pre>
+<code class="language-python">
+class RepeatUntil(SM):
+    def __init__(self, condition, sm):
+        self.sm = sm
+        self.condition = condition
+        self.startState = (False, self.sm.startState)
+
+    def getNextValues(self, state, inp):
+        (condTrue, smState) = state
+        (smState, o) = self.sm.getNextValues(smState, inp)
+        condTrue = self.condition(inp)
+        if self.sm.done(smState) and not condTrue:
+            smState = self.sm.startState
+        return ((condTrue, smState), o)
+
+    def done(self, state):
+        (condTrue, smState) = state
+        return self.sm.done(smState) and condTrue
+</code>
+</pre>
+
+<p>RepeatUntil проверяет условие, когда образующая машина завершила работу.
+Иногда мы хотим завершить выполнение образующей машины когда условие
+стало выполняться на любом шаге. Для этого мы зададим комбинатор Until.
+Комбинатор инициализируется условием и образующий автомат.
+Он выполняет образующий автомат и завершает работу если выполнится условие
+или завершится работа образующего автомата.
+</p>
+<pre>
+<code class="language-python">
+class Until(SM):
+    """
+    Выполняет автомат пока условие не станет Истиной.
+    Условие вычисляется на вход.
+    """
+
+    def __init__(self, condition, sm, name = None):
+        self.sm = sm
+        self.condition = condition
+        self.name = name
+        self.startState = (False, self.sm.startState)
+
+    def getNextValues(self, state, inp):
+        (condTrue, smState) = state
+        (smState, o) = self.sm.getNextValues(smState, inp)
+        return ((self.condition(inp), smState), o)
+
+    def done(self, state):
+        (condTrue, smState) = state
+        return self.sm.done(smState) or condTrue
+
+
+</code>
+</pre>
+<p>Приведём примеры применения этих комбинаторов.</p>
+<pre>
+<code>
+def greaterThan10(x):
+	return x > 10
+>>> m = sm.RepeatUntil(greateThan10, cosumeFiveValues())
+>>> m.transduce(range(20))
+[None, None, None, None, 10, None, None, None, None, 35, None, None, None, None, 60]
+</code>
+</pre>
+<p>Применим комбинатор Until на ConsumeFiveValues.</p>
+<pre>
+<code>
+>>> m = sm.Until(greterThan10, ConsumeFiveValues())
+>>> m.transduce(range(20))
+[None, None, None, None, 10]
+</code>
+</pre>
+<p>Условие может выполниться до завершения работы образующего автомата.</p>
+<pre>
+<code>
+>>> m = sm.Until(lambda x: x == 2, ConsumeFive())
+>>> m.transduce(range(20))
+[None, None, None]
+</code>
+</pre>
+
+<p>Зададим повторение ConsumeFiveValues(), пока не выполнится условие,
+используем для этого Until и Repeat.</p>
+<pre>
+<code>
+>>> m = sm.Until(greateThan10, sm.Repeat(ConsumeFiveValues()))
+>>> m.trasduce(range(20))
+[None, None, None, None, 10, None, None, None, None, 35, None, None]
+</code>
+</pre>
+
+{% endblock %}
