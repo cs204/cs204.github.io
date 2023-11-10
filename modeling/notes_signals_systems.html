@@ -54,7 +54,90 @@
 			</nav>
 			<main>
 				
+<h1>Сигналы и системы</h1>
+<img src="/modeling/data/images/signals_systems.png">
+<p>Мы рассматриваем сигнал как функцию независимой переменной (часто времени).
+В этом подходе система описывается тем,
+как она преобразует входной сигнал в выходной.
+Мы используем фрэймворк сигналов и систем 
+для конструирования математических моделей систем.
+</p>
+<h2>Линейные время-инвариантные системы</h2>
+<p>
+В ЛВИ системах:
+<ul>
+	<li>вводы вывод - действительные числа;</li>
+	<li>состояние - состоит из фиксированного числа предыдущих вводов и выводов системы;</li>
+	<li>вывод - линейная комбинация текущего ввода и любых элементов состояния.</li>
+</ul>
+</p>
+<h2>Единичный импульс сигнал</h2>
+$$
+\delta[n]=\left\{ \begin{array}{ccc}
+1& if & n = 0\\
+0& & otherwise\\
+\end{array}\right.
+$$
+<img src="/modeling/data/images/delta.png">
 
+<h2>Комбинация сигналов</h2>
+<p>Первая операция - масштабирование или умножение на скаляр. </p>
+$$
+Y = c X\;\;then\;\;y[n]=cx[n]
+$$
+<p>Здесь пример сигналов \(4\delta\) и \(-3.3\delta\).
+</p>
+<img src="/modeling/data/images/scaling.png">
+<p>Следующая операция - задержка.
+</p>
+$$
+Y=RX\;\;then\;\;y[n]=x[n-1].
+$$
+<img src="/modeling/data/images/delay.png">
+<p>Мы можем сложить сигналы. 
+</p>
+$$
+Y=X_1+X2\;\; then \;\; y[n]=x_1[n]+x_2[n]
+$$
+<img src="/modeling/data/images/scaling_adding_delay.png">
+<h2>Алгебраические свойства сигналов</h2>
+$$
+c(X_1+X_2)=cX_1+cX_2
+$$
+$$
+R(X_1+X_2)=RX_1+RX_2
+$$
+$$
+R(cX)=cRX
+$$
+<p>Эти свойства позволяют записать сигнал в виде полинома по \(R\) применённого к единичному импульсу.</p>
+$$
+(a_0+a_1R^1+a_2R^2...+a_nR^n)\delta
+$$
+<h2>Общий вид ЛВИ системы</h2>
+$$
+y[n]=c_0y[n-1]+c_1y[n-2]+...+c_{k-1}y[n-k]+d_0x[n]+d_1x[n-1]+...+d_jx[n-j]
+$$
+<pre>
+<code class="language-python">
+class LTISM(sm.SM):
+	def __init__(self, dCoeffs, cCoeffs):
+		j = len(dCoeffs) - 1
+		k = len(cCoeffs)
+
+		self.cCoeffs = cCoeffs
+		self.dcoeffs = dCoeffs
+		self.startState = ([0.0]*j, [0.0]*k)
+	def getNextValues(self, state, input):
+		(inputs, outpus) = state
+		inputs = [input] + inputs
+
+		currentOutput = util.dotProd(outputs, self.cCoffs) +uitl.dotProd(inputs, self.dCoeffs)
+
+		return ((inputs[:-1], ([currentOutput] + outputs)[:-1]), currentOutput)
+</code>
+</pre>
+<p>util.dotProd метод берет два равной длинны списка чисел и возвращает сумму произведений их элементов.</p>
 
 
 
