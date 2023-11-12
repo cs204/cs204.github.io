@@ -111,14 +111,14 @@
 <h2>Базовые операции</h2>
 <p>Зайдите на <a href="https://render.com">render.com</a>.
 Создайте PostgreSQL базу данных. Скопируйте External Database URL.
-Добавьте в файл ~/.bashrc строку
+Добавьте в файл ~/.profile строку
 <pre>
 <code>
 export DATABASE_URL="ваш External database URL"
 </code>
 </pre>
 Замените в URL postgres на postgresql, иначе вы не сможете из python подключиться.
-Выполните в терминале команду <code>source ~/.bashrc</code>.
+Выполните в терминале команду <code>source ~/.profile</code>.
 Чтобы подключиться к базе данных выполните <code>psql $DATABASE_URL</code>.
 </p>
 
@@ -396,6 +396,13 @@ def book():
     return render_template("success.html")
 
 </code>
+		</pre>
+	</li>
+	<li>
+		<pre>
+		<code class="language-html">
+		<p>Hello, world</p>
+		</code>
 		</pre>
 	</li>
 </ul>
