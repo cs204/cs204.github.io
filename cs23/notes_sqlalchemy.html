@@ -1,0 +1,235 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="git.html">Неделя 1</a> Git, html, css</li>
+					<li><a href="functions.html">Неделя 2</a> Переменные и функции</li>
+					<li><a href="conditionals.html">Неделя 3</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 4</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 5</a> Исключения</li>
+					<li><a href="flask.html">Неделя 6</a> Flask</li>
+					<li><a href="sql.html">Неделя 7</a> SQL</li>
+					<li><a href="sqlalchemy.html">Неделя 8</a> Sqlalchemy</li>
+
+					<!--
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				
+<h2>Sqlalchemty</h2>
+<p>Нам понадобится установить пакет psycopg2-binary.
+<pre>
+<code>
+pip install psycopg2-binary
+</code>
+</pre>
+</p>
+<ul>
+	<li>SQLalchemy библиотека Python с её помощью мы можем выполнять SQL запросы.</li>
+	<li>Начнём с кода выводящего информацию из таблицы flights:
+		<pre>
+		<code class="language-python">
+		import os
+
+		from sqlalchemy import create_engine
+		from sqlalchemy.orm import scoped_session, sessionmaker
+
+		engine = create_engine(os.getenv("DATABASE_URL"))
+		db = scoped_session(sessionmaker(bind=engine))
+
+		def main():
+		    flights = db.execute("SELECT origin, destination, duration FROM flights").fetchall()
+		    for flight in flights:
+			print(f"{flight.origin} to {flight.destination}, {flight.duration} minutes.")
+
+		if __name__ == "__main__":
+		    main()
+	   	</code>
+		</pre>
+	</li>
+	<li>
+		Запрос на вставку данных в таблицу из csv файла:
+		<pre>
+		<code class="language-python">
+import csv
+import os
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+
+def main():
+    f = open("flights.csv")
+    reader = csv.reader(f)
+    for origin, destination, duration in reader:
+        db.execute("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)",
+                    {"origin": origin, "destination": destination, "duration": duration})
+        print(f"Added flight from {origin} to {destination} lasting {duration} minutes.")
+    db.commit()
+
+if __name__ == "__main__":
+    main()
+    </code>
+		</pre>
+
+	</li>
+</ul>
+
+<h2>Sqlalchemy с Flask</h2>
+<ul>
+	<li>Приведём пример кода:
+		<pre>
+		<code class="language-python">
+import os
+
+from flask import Flask, render_template, request
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+
+app = Flask(__name__)
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+
+@app.route("/")
+def index():
+    flights = db.execute("SELECT * FROM flights").fetchall()
+    return render_template("index.html", flights=flights)
+
+@app.route("/flights") 
+def flights(): 
+	flights = db.execute("SELECT * FROM flights").fetchall()
+	return render_template("flights.html", flights=flights)
+
+@app.route("/book", methods=["POST"])
+def book():
+    """Book a flight."""
+
+    # Get form information.
+    name = request.form.get("name")
+    try:
+        flight_id = int(request.form.get("flight_id"))
+    except ValueError:
+        return render_template("error.html", message="Invalid flight number.")
+
+    # Make sure the flight exists.
+    if db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).rowcount == 0:
+        return render_template("error.html", message="No such flight with that id.")
+    db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
+            {"name": name, "flight_id": flight_id})
+    db.commit()
+    return render_template("success.html")
+
+
+@app.route("/flights/<int:flight_id>")
+  def flight(flight_id):
+      # Make sure flight exists.
+      flight = db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).fetchone()
+      if flight is None:
+          return render_template("error.html", message="No such flight.")
+
+      # Get all passengers.
+      passengers = db.execute("SELECT name FROM passengers WHERE flight_id = :flight_id",
+                              {"flight_id": flight_id}).fetchall()
+      return render_template("flight.html", flight=flight, passengers=passengers)
+
+</code>
+		</pre>
+	</li>
+<li>
+	Создадим flights.html
+
+	<pre>
+	<code id="airline_flights_html" class="language-html">
+	</code>
+	</pre>
+	<script>
+		fetch("data/code_examples/airline_flights.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_flights_html = document.querySelector("#airline_flights_html")
+					airline_flights_html.innerText = data
+				})
+	</script>
+
+</li>
+
+<li>
+Создадим index.html.
+<pre>
+<code id="airline_index_html" class="language-html">
+</code>
+</pre>
+
+	<script>
+		fetch("data/code_examples/airline_index.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_index_html = document.querySelector("#airline_index_html")
+					airline_index_html.innerText = data
+				})
+	</script>
+
+</li>
+</ul>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
