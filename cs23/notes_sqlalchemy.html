@@ -66,27 +66,29 @@ pip install psycopg2-binary
 </pre>
 </p>
 <ul>
-	<li>SQLalchemy библиотека Python с её помощью мы можем выполнять SQL запросы.</li>
+	<li>
+		SQLalchemy библиотека Python с её помощью мы можем выполнять SQL запросы.</li>
 	<li>Начнём с кода выводящего информацию из таблицы flights:
-		<pre>
-		<code class="language-python">
-		import os
+	<pre>
+	<code id="airline_py" class="language-python">
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
+database_url = os.getenv('DATABASE_URL')
+engine = create_engine(database_url)
+db = scoped_session(sessionmaker(bind=engine))
 
-		from sqlalchemy import create_engine
-		from sqlalchemy.orm import scoped_session, sessionmaker
+def main():
+	flights = db.execute(text('SELECT origin, destination, duration FROM flights')).fetchall()
+	for flight in flights:
+		print(f"{flight.origin} to {flight.destination}, {flight.duration} minutes.")
 
-		engine = create_engine(os.getenv("DATABASE_URL"))
-		db = scoped_session(sessionmaker(bind=engine))
-
-		def main():
-		    flights = db.execute("SELECT origin, destination, duration FROM flights").fetchall()
-		    for flight in flights:
-			print(f"{flight.origin} to {flight.destination}, {flight.duration} minutes.")
-
-		if __name__ == "__main__":
-		    main()
-	   	</code>
-		</pre>
+if __name__ == "__main__":
+	main()
+	</code>
+	</pre>
+	
 	</li>
 	<li>
 		Запрос на вставку данных в таблицу из csv файла:
@@ -97,6 +99,7 @@ import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
 
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
@@ -105,7 +108,7 @@ def main():
     f = open("flights.csv")
     reader = csv.reader(f)
     for origin, destination, duration in reader:
-        db.execute("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)",
+        db.execute(text("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)"),
                     {"origin": origin, "destination": destination, "duration": duration})
         print(f"Added flight from {origin} to {destination} lasting {duration} minutes.")
     db.commit()
@@ -127,6 +130,7 @@ import os
 
 from flask import Flask, render_template, request
 from sqlalchemy import create_engine
+from sqlalchemy.sql import text
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
@@ -136,12 +140,12 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
-    flights = db.execute("SELECT * FROM flights").fetchall()
+    flights = db.execute(text("SELECT * FROM flights")).fetchall()
     return render_template("index.html", flights=flights)
 
 @app.route("/flights") 
 def flights(): 
-	flights = db.execute("SELECT * FROM flights").fetchall()
+	flights = db.execute(text("SELECT * FROM flights")).fetchall()
 	return render_template("flights.html", flights=flights)
 
 @app.route("/book", methods=["POST"])
@@ -156,9 +160,9 @@ def book():
         return render_template("error.html", message="Invalid flight number.")
 
     # Make sure the flight exists.
-    if db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).rowcount == 0:
+    if db.execute(text("SELECT * FROM flights WHERE id = :id"), {"id": flight_id}).rowcount == 0:
         return render_template("error.html", message="No such flight with that id.")
-    db.execute("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)",
+    db.execute(text("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)"),
             {"name": name, "flight_id": flight_id})
     db.commit()
     return render_template("success.html")
