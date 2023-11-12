@@ -127,28 +127,22 @@ if __name__ == "__main__":
 		<pre>
 		<code class="language-python">
 import os
-
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 from sqlalchemy.orm import scoped_session, sessionmaker
+database_url = os.getenv("DATABASE_URL")
+engine = create_engine(database_url)
+db = scoped_session(sessionmaker(bind=engine))
 
 app = Flask(__name__)
 
-engine = create_engine(os.getenv("DATABASE_URL"))
-db = scoped_session(sessionmaker(bind=engine))
-
-@app.route("/")
+@app.route('/')
 def index():
-    flights = db.execute(text("SELECT * FROM flights")).fetchall()
-    return render_template("index.html", flights=flights)
+    flights = db.execute(text('select * from flights')).fetchall()
+    return render_template('index.html', flights = flights)
 
-@app.route("/flights") 
-def flights(): 
-	flights = db.execute(text("SELECT * FROM flights")).fetchall()
-	return render_template("flights.html", flights=flights)
-
-@app.route("/book", methods=["POST"])
+@app.route('/book', methods=["POST"])
 def book():
     """Book a flight."""
 
@@ -167,19 +161,22 @@ def book():
     db.commit()
     return render_template("success.html")
 
+@app.route("/flights")
+def flights():
+    """Lists all flights."""
+    flights = db.execute(text("SELECT * FROM flights")).fetchall()
+    return render_template("flights.html", flights=flights)
 
-@app.route("/flights/<int:flight_id>")
-  def flight(flight_id):
-      # Make sure flight exists.
-      flight = db.execute("SELECT * FROM flights WHERE id = :id", {"id": flight_id}).fetchone()
-      if flight is None:
-          return render_template("error.html", message="No such flight.")
+@app.route("/flights/&lt;int:flight_id&gt;")
+def flight(flight_id):
+    """Lists details about a single flight."""
 
-      # Get all passengers.
-      passengers = db.execute("SELECT name FROM passengers WHERE flight_id = :flight_id",
-                              {"flight_id": flight_id}).fetchall()
-      return render_template("flight.html", flight=flight, passengers=passengers)
+    # Make sure flight exists.
+    flight = db.execute(text("SELECT * FROM flights WHERE id = :id"), {"id": flight_id}).fetchone()
+    if flight is None:
+        return render_template("error.html", message="No such flight.")
 
+    # Get all passengers.
 </code>
 		</pre>
 	</li>
@@ -217,6 +214,21 @@ def book():
 				})
 	</script>
 
+</li>
+<li>flight.html
+<pre>
+<code id="airline_flight_html" class="language-html">
+</code>
+</pre>
+
+	<script>
+		fetch("data/code_examples/airline_flight.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_flight_html = document.querySelector("#airline_flight_html")
+					airline_flight_html.innerText = data
+				})
+	</script>
 </li>
 </ul>
 
