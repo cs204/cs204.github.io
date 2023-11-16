@@ -192,21 +192,26 @@ class Rn(Signal):
 
 ###########
 # Проверка
-# Для проверки раскомментируйте строки ниже
 ###########
-print("[-1, 3]")
-#s1 = StepSignal()
+def test():
+    print("[-1, 3]")
+    s1 = StepSignal()
 
-#print(f"StepSignal: {s1.samplesInRange(-1, 4)}")
+    print(f"StepSignal: {s1.samplesInRange(-1, 4)}")
 
-#s2 = ScaledSignal(us, 2)
-#print(f"ScaledSginal(StepSignal, 2): {s2.samplesInRange(-1, 4)}")
+    s2 = ScaledSignal(us, 2)
+    print(f"ScaledSginal(StepSignal, 2): {s2.samplesInRange(-1, 4)}")
 
-#s3 = R(us)
-#print(f"R(us)): {s3.samplesInRange(-1, 4)}")
+    s3 = R(us)
+    print(f"R(us)): {s3.samplesInRange(-1, 4)}")
 
-#s4 = SummedSignal(us, s3)
-#print(f"SummedSignal(us, R(us)): {s4.samplesInRange(-1, 4)}")
+    s4 = SummedSignal(us, s3)
+    print(f"SummedSignal(us, R(us)): {s4.samplesInRange(-1, 4)}")
 
-#s5 = Rn(us, 2)
-#print(f"Rn(us, 2): {s5.samplesInRange(-1, 4)}")
+    s5 = Rn(us, 2)
+    print(f"Rn(us, 2): {s5.samplesInRange(-1, 4)}")
+
+if __name__ == "__main__":
+# Для проверки раскомментируйте строку ниже
+    #test()
+    pass
