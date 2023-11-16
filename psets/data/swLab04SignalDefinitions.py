@@ -4,7 +4,6 @@ Signals, represented implicitly, with plotting and combinations.
 
 import matplotlib.pyplot as plt 
 import math
-import util
 
 
 
