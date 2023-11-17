@@ -53,48 +53,6 @@ class Signal:
    
         
 
-    def period(self, n = None, z = None):
-        """
-        @param n: number of samples to use to estimate the period;  if
-        not provided, it will look for a C{length} attribute of C{self}
-        @param z: zero value to use when looking for zero-crossings of
-        the signal;  will use the mean by default.
-        @return: an estimate of the period of the signal, or
-        'aperiodic' if it can't get a good estimate
-        """
-        if n == None:
-            n = self.length
-        crossingsD = self.crossings(n, z)
-        if len(crossingsD) < 2:
-            return 'aperiodic'
-        else:
-            return listMean(gaps(crossingsD))*2
-
-    def crossings(self, n = None, z = None):
-        """
-        @param n: number of samples to use;  if
-        not provided, it will look for a C{length} attribute of C{self}
-        @param z: zero value to use when looking for zero-crossings of
-        the signal;  will use the mean by default.
-        @return: a list of indices into the data where the signal crosses the
-        z value, up through time n
-        """
-        if n == None: n = self.length
-        if z == None: z = self.mean(n)
-        samples = self.samplesInRange(0, n)
-        return [i for i in range(n-1) if \
-                   samples[i] > z and samples[i+1] < z or\
-                   samples[i] < z and samples[i+1] > z]
-
-    def mean(self, n = None):
-        """
-        @param n: number of samples to use to estimate the mean;  if
-        not provided, it will look for a C{length} attribute of C{self}
-        @return: sample mean of the values of the signal from 0 to n
-        """
-        if n == None: n = self.length
-        return listMean(self.samplesInRange(0, n))
-
     
 
 class CosineSignal(Signal):
