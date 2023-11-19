@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">code.cs50.io</a></li>
+					<li><a href="git.html">Git, html, css</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+
+					<!--
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				
+<h2>Cookie</h2>
+<ul>
+	<li>
+		Файл app.py
+		<pre>
+		<code class="language-python">
+		from flask import Flask, render_template, redirect, request, session
+		from flask_session import Session
+
+		# конфигурируем приложение
+		app = Flask(__name__)
+
+		# Конфигурируем сессию
+		app.config["SESSION_PREMANENT"]  = False
+		app.config["SESSION_TYPE"] = "filesystem"
+		Session(app)
+
+		@app.route("/")
+		def index():
+		    if not session.get("name"):
+			return redirect("/login")
+		    return render_template("index.html")
+
+
+		@app.route("/login", methods=["GET", "POST"])
+		def login():
+		    if request.method == "POST":
+			session["name"] = request.form.get("name")
+			return redirect("/")
+		    return render_template("login.html")
+
+
+		@app.route("/logout")
+		def logout():
+		    session["name"] = None
+		    return redirect("/")
+		</code>
+		</pre>
+	</li>
+
+	<li>
+		Создадим index.html
+		<pre>
+		<code id="index_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/1/index.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let index_html = document.querySelector("#index_html")
+						index_html.innerText = data
+					})
+		</script>
+
+	</li>
+
+	<li>
+		Создадим login.html
+		<pre>
+		<code id="login_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/1/login.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let login_html = document.querySelector("#login_html")
+						login_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Выполним flask run.
+	</li>
+
+</ul>
+
+<h2>Вход с паролем</h2>
+<ul>
+	<li>
+		Создадим файл базы данных
+		<pre>
+		<code class="langauga-sh">
+		sqlite3 hogwarts.db
+		</code>
+		</pre>
+	</li>
+	<li>
+		Создадим таблицу и вставим в данные.
+		<pre>
+		<code>
+create table 'characters' ('id' integer primary key autoincrement, 'username' varchar(255) not null, 'password' varchar(255) not null);
+insert into 'characters' ('username', 'password') values ('potter', '12345');
+insert into 'characters' ('username', 'password') values ('ron', '12345');
+.quit
+</code>
+		</pre>
+	</li>
+	<li>
+		Создадим app.py
+		<pre>
+		<code class="language-python">
+from flask import Flask, render_template, redirect, request, session
+from flask_session import Session
+
+# Соединение с базой данных
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
+url="sqlite:///hogwarts.db"
+engine = create_engine(url)
+db = scoped_session(sessionmaker(bind=engine))
+
+# конфигурируем приложение
+app = Flask(__name__)
+
+# Конфигурируем сессию
+app.config["SESSION_PREMANENT"]  = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+@app.route("/")
+def index():
+    if not session.get("username"):
+        return redirect("/login")
+    return render_template("index.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        row = db.execute(text("select * from 'characters' where username= :username and password=:password"), 
+                {"username": username, "password": password}).fetchone()
+        if row: 
+            session["username"] = row.username
+            session["id"] = row.id
+            return redirect("/")
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session["username"] = None
+    session["id"] = None
+    return redirect("/")
+    		</code>
+		</pre>
+	</li>
+	<li>
+		Файл index.html.
+		<pre>
+		<code id="index2_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/2/index.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let index2_html = document.querySelector("#index2_html")
+						index2_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Создадим login.html
+		<pre>
+		<code id="login2_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/2/login.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let login2_html = document.querySelector("#login2_html")
+						login2_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Создадим файл requirements.txt.
+		<pre>
+		<code>
+		Flask
+		Flask-session
+		Sqlalchemy
+		Gunicorn
+		</code>
+		</pre>
+	</li>
+</ul>
+
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
