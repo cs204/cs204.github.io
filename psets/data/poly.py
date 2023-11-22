@@ -109,5 +109,3 @@ class Polynomial:
 
 
         
-p1 = Polynomial([1, 0, -4])
-print(p1.roots())
