@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+{% block title %}
+	LTISM 
+{% endblock %}
+{% block body %}
+<h1>Задание LTISM</h1>
+<p>В этом задании надо создать класс LTISM.
+Напомним, что разностное уравнение имеет вид
+$$
+y[n]=c_0y[n-1]+c_1y[n-2]+...+c_{k-1}y[n-k]+d_0x[n]+d_1x[n-1]+...+d_jx[n-j]
+$$
+</p>
+<hr>
+<h2>Часть 1: симуляция LTISM</h2>
+<p>Рассмотрите LTISM заданную:
+<pre>
+<code class="language-python">
+m = LTISM([1,2], [1], [3], [4])
+</code>
+</pre>
+Найдите значения, возвращаемые этой машиной для ввода:
+<pre>
+<code>
+o = m.trasduce([1,2,3,4, 5])
+</code>
+</pre>
+<ol>
+	<li>o[0]=</li>
+	<li>o[1]=</li>
+	<li>o[2]=</li>
+	<li>o[3]=</li>
+	<li>o[4]=</li>
+</ol>
+</p>
+<hr>
+<h2>Часть 2: кодирование</h2>
+<p>Ниже заготовка класса LTSIM. Завершите определение метода getNextValues.
+Вам может помочь функция dotProd, приведённая ниже.
+<pre>
+<code class="language-python">
+def dotProd(a, b):
+	if len(a) == 0 or len(b) == 0: return 0
+	if len(a) != len(b):
+		print('dotProd mismatch error ' + str(len(a)) + ' != ' + str(len(b)))
+	return sum([ai*bi for (ai,bi) in zip(a,b)])
+	</code>
+</pre>
+Уже заданна для вас.</p> 
+<pre>
+<code class="language-python">
+class LTISM(sm.SM):
+	def __init__(self, dCoeffs, cCoeffs, previousInputs = [], previosOutputs = []	):
+		j = len(dCoeffs) - 1
+		k = len(cCoeffs)
+
+		self.cCoeffs = cCoeffs
+		self.dCoeffs = dCoeffs
+		# Состояние последние j ввода и последние k вывода
+		self.startState = (previousInputs, previousOutputs)
+	def getNextValues(self, state, input):
+		(inputs, outpus) = state
+		#Ваш код
+</code>
+</pre>
+
+
+{% endblock %}
