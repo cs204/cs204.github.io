@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}
+LITSM системы
+{% endblock %}
+
+
+{% block body %}
+<h2>Линейные время-инвариантные системы (ЛВИ)</h2>
+<p>
+Система \(H\) время-инвариантна, если для всякого входа \(x_1(t)\) имеем:
+$$
+\begin{array}{rcl}
+y_1(t) &=& H x_1(t)\\
+x_2(t) &=& x_1(t - t_0)\\
+y_2(t) &=& H x_2(t)\\
+y_1(t - t_0) &==& y_2(t)\\
+\end{array}
+$$
+В ЛВИ системах:
+<ul>
+	<li>вход и вывод - действительные числа;</li>
+	<li>состояние - состоит из фиксированного числа предыдущих вводов и выводов системы;</li>
+	<li>вывод - линейная комбинация текущего ввода и любых элементов состояния.</li>
+</ul>
+</p>
+
+<h2>Общий вид ЛВИ системы</h2>
+$$
+y[n]=c_0y[n-1]+c_1y[n-2]+...+c_{k-1}y[n-k]+d_0x[n]+d_1x[n-1]+...+d_jx[n-j]
+$$
+<pre>
+<code class="language-python">
+class LTISM(sm.SM):
+	def __init__(self, dCoeffs, cCoeffs):
+		j = len(dCoeffs) - 1
+		k = len(cCoeffs)
+
+		self.cCoeffs = cCoeffs
+		self.dCoeffs = dCoeffs
+		self.startState = ([0.0]*j, [0.0]*k)
+	def getNextValues(self, state, input):
+		(inputs, outpus) = state
+		inputs = [input] + inputs
+
+		currentOutput = util.dotProd(outputs, self.cCoeffs) +uitl.dotProd(inputs, self.dCoeffs)
+
+		return ((inputs[:-1], ([currentOutput] + outputs)[:-1]), currentOutput)
+</code>
+</pre>
+<p>util.dotProd метод берет два равной длинны списка чисел и возвращает сумму произведений их элементов.</p>
+
+{% endblock %}
