@@ -84,7 +84,7 @@ console.log(`Hello, ${name}!`)//в строку подставляется зн�
 
 <h2>Логический тип</h2>
 В логическом типе всего два значения: ture, false.
-На них заданны операции: || (и), && (или), ! (отрицание).
+На них заданны операции: && (и), || (или), ! (отрицание).
 Пример,
 <pre>
 <code class="language-javascript">
@@ -152,7 +152,7 @@ console.log("f3(5) =", f3(5)); // Вызов функции.
 function f3(x){return x * 3}; // Определение функции,
 // такое определение может предшествовать вызову.
 const f2 = function (x) { return x * 2}; // Определение функции
-const add = (a, b) -&gt {return a + b;} // Третий способ определения функциии
+const add = (a, b) =&gt {return a + b;} // Третий способ определения функциии
 console.log("add(6,5)=",add(6,5))
 </code>
 </pre>
@@ -377,9 +377,82 @@ function drawRect(event)
 		ctx5.fillRect(event.offsetX, event.offsetY, 5, 5);
 	}
 </script>
-<br>
+
 Учебник по canvas вы можете посмотреть, например, 
 <a href="https://developer.mozilla.org/ru/docs/Web/API/CanvasRenderingContext2D">здесь</a>. 
 
+<h2>API браузера</h2>
+Пример js кода: он изменяет цвет фона страницы,
+переменной name присваивает значение, введённое
+в поле с id name, выводит приветствие.
+<pre>
+<code class="language-javascript">
+let body = document.querySelector("body");
+let name = document.querySelector("#name")
+let btnGreet = document.geurySelector("#btnGreet")
+
+function greet(){
+	alert("Hello, " + name.value);
+	body.style.backgroundColor="aqua";
+	}
+
+btn.addEventListener('click', greet) 
+</code>
+</pre>
+Используем элемент html script, чтобы добавить код в веб странице.
+Код размещаем в конце страницы, так как элементы html используемые
+в коде должны быть созданы до выполнения кода.
+<br>
+<h2>AJAX</h2>
+JavaScript код, приведённый ниже, отправляет запрос на сервер,
+когда пользователь вводи текст, полученный ответ выводит.
+<pre>
+<code class="language-javascript">
+const nameInput = document.querySelector("#name")
+const pOut = document.querySelector("#pOut")
+
+async function search()
+{
+
+	let data = {"name": nameInput.value}
+
+	let response = await fetch("/search",
+		{
+			method: "POST",
+			headers:
+			{
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+
+	let rows = await response.json()
+
+	html = ''
+	for (let row of rows)
+	{
+		html = html + row["name"] + "&ltbr&gt"
+	}
+	pOut.innerHTML = html
+}
+
+nameInput.addEventListener("input", search)
+</code>
+</pre>
+На сервере запрос обрабатывает следующий код
+<pre>
+<code class="language-python">
+@app.route("/search", methods=["POST"])
+def search():
+    response = json.loads(request.data)
+    name = response["name"]
+    if name:
+        names = db.execute("select * from characters where name like :name", 
+            name = name + "%")
+    else:
+        names = []
+    return json.dumps(names)
+</code>
+</pre>
 
 {% endblock %}
