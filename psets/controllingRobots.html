@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Управление роботом
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>Управление рботом</h1>
+<p>Скачайте и установите 6.01 программное обеспечение</p>
+<pre>
+<code>
+wget https://vaimgb.github.io/psets/data/lib601.zip
+uznip lib601.zip
+cd lib601/
+sudo python2 setup.py install
+</code>
+</pre>
+
+<h2>Простые мозги</h2>
+<p>'brain'- программа задающая поведение робота.
+Процесс конструирования и запуска программы описан
+в <a href="infrastructureGuide.html">руководстве</a>.
+</p>
+<div class="alert alert-light">
+Цель:
+Создать автомат "brain" для контролирования
+робота, сначала в soar симуляторе, зачем реального робота.
+<ul>
+	<li>Запустить brain в soar и записать путь робота</li>
+	<li>Изменить brain, чтобы робот вращался на месте</li>
+	<li>Запустить brain на роботе Pioneer</li>
+</ul>
+</div>
+
+<div class="alert alert-light">
+	Ресурсы:
+	<ul>
+		<li>Скачайте smBrain.py: простой brain робота,
+			он использует 6.01 класс автомата sm.
+			<pre>
+			<code>
+			wget https://vadimgb.github.io/psets/data/smBrain.py
+			</code>
+			</pre>
+		</li>
+	</ul>
+</div>
+
+<p>Детальное руководство:
+<ol>
+	<li>
+		Запустите brain в симуляторе 
+		<ol> 
+			<li>В окне терминала наберите soar &. </li> 
+			<li>Нажмите soar  кнопку Simulator  и дважды щёлкните 
+			файл tutorial.py.  Это загружает в 
+			симулятор робота конкретный виртуальный мир.
+			</li>
+
+			<li> 
+				Нажмите кнопку Brain в Soar, перейдите к 
+				designLab02/smBrain.py и нажмите открыть.  
+				Это загружает определение конечного 
+				автомата в симулятор робота.  Этот конечный 
+				автомат описывает действия, которые робот 
+				предпримет в ответ на полученную информацию 
+				об окружающем его виртуальном мире.
+			</li>
+			<li> 
+				Нажмите кнопку Soar Start и дайте роботу 
+				немного поработать.
+			</li>
+			<li>
+				Нажмите кнопку Stop.
+			</li>
+			<li> 
+				Обратите внимание на полученный график; он 
+				показывает «слизистый след» пути, по которому 
+				следовал робот, пока работал brain.  
+				Можете просто закрыть окно.  
+				(Если вы не хотите, чтобы brain оставлял 
+				следы слизи, вы можете установить для аргумента 
+				drawSlimeTrail конструктора Robot-Graphics в файле 
+				smBrain.py значение False).
+			</li> 
+		</ol>
+	</li>
+	<li>
+		Измените brain и запустите.
+		<ol>
+			<li>
+				Откройте файл smBrain.py в редакторе.
+
+			</li>
+			<li> 
+				Конечный автомат, управляющий действиями 
+				робота, определяется определением MySMClass.  
+				Представьте себе, что этот конечный 
+				автомат принимает сенсорные данные в 
+				качестве входных данных и возвращает 
+				в качестве выходных данных инструкции
+				роботу о том, как себя вести.  
+				Объект io.Action, возвращаемый в 
+				качестве выходных данных методом 
+				getNextValues класса MySmClass, 
+				сообщает роботу, как изменить своё 
+				поведение, и имеет два важных для 
+				нас атрибута:
+				<ul>
+					<li>fvel: определяет скорость
+						движения робота вперед (в метрах в секунду)
+					</li>
+					<li> rvel: указывает скорость вращения робота (в радианах в секунду), 
+						где положительное вращение происходит против часовой стрелки.
+					</li>
+				</ul> 
+			</li> 
+			<li>
+				Найдите в мозгу место, где задаются 
+				скорости, а затем измените его так, 
+				чтобы моделируемый робот вращался на месте.
+			</li>
+			<li>
+				Сохраните файл.
+			</li>
+			<li> 
+				Вернитесь в окно soar и нажмите кнопку Reload brain.
+			</li>
+			<li> 
+				Запустите мозг, нажав кнопку Start, а затем кнопку Stop.
+			</li>
+		</ol>
+	</li>
+	<li>
+		Выполните это на роботе
+		<ol>
+			<li> 
+				Подключите робота к ноутбуку, 
+				убедившись, что кабель закреплён 
+				вокруг ручки в задней части робота.
+			</li>
+			<li> 
+				Включите робота с помощью переключателя на боковой панели.
+			</li>
+			<li> 
+				Нажмите кнопку Pioneer на панели 
+				Soar, чтобы выбрать робота. Вы 
+				должны услышать тикающий звук 
+				датчиков сонара.
+			</li>
+			<li> 
+				Один партнёр должен отвечать за 
+				безопасность робота.  
+				Не допускайте запутывания кабеля 
+				в колёсах робота.  Если робот 
+				начнёт убегать от вас, 
+				поднимите его, а затем выключите с
+				помощью переключателя на роботе.
+			</li>
+			<li> 
+				Нажмите кнопку Start.
+			</li>
+		</ol>
+	</li>
+</ol>
+
+<h2>Сонары</h2>
+
+
+
+
+
+
+
+
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>
