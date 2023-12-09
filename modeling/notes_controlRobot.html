@@ -11,7 +11,7 @@
 
 	<title> 
 		
-Моделирование систем
+Управление роботом
  
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
@@ -57,15 +57,58 @@
 			<main>
 				<div class="container-sm">
 				
-<header>
-</header>
+<h1>Управление роботом через конечный автомат</h1>
+<p>
+В этом разделе даётся обзор того, как управлять роботом с помощью конечного автомата.
+Более подробное описание робота смотри в  <a href="https://vadimgb.github.io/psets/infrastructureGuide.html">руководстве</a>.
+</p>
 
- Большая часть материала взята с <a href="https://cs50.harvard.edu/python/2022/">cs50's Introduction to Programming with Python</a>,
- <a href="https://cs50.harvard.edu/ai/2020/">cs50 ai</a>.
+<p>Мы можем реализовать контроллер робота как автомат ввод которого объект класса
+io.SensorInput, вывод объект io.Action.
+</p>
+<p>Первый пример - автомат, который всегда выводит действие, io.Action(), 
+оно задаёт нулевые скорость движения и вращения.
+Когда выполняется метод setup, создаётся behvior, так мы будем называть 
+автомат, преобразующий io.SensorInputs в io.Action.
+</p>
+Когда нажимаем кнопку Start, метод step:
+<ul>
+	<li>
+		Получает данные от сенсоров, вызывая io.SensorInput();
+	</li>
+	<li>
+		Отправляет эти данные в brain автомат, вызывая его метод step;
+	</li>
+	<li>
+		Берет io.Action возвращённое brain и вызывает execute метод,
+		который действительно посылает моторам робота команды.
+	</li>
+</ul>
+<p>Вы можете поставить флаг verbose в True, если хотите видеть подробный вывод 
+данных.</p>
+<p>Внутри Soar brain, вы имеете доступ к объекту robot, который существует
+всё время выполнения brain, и даёт место для хранения важных объектов (как
+автомат делающий всю работу).
+</p>
+<pre>
+<code class="language-python">
+import lib601.sm as sm
+from soar.io import io
 
- <footer>
-	 Если вы нашли ошибки в тексте, то напишите на vadim@tspu.edu.ru</a>. 
- </footer>
+class StopSM(sm.SM):
+	def getNextValues(self, state, inp):
+		return (None, io.Action())
+
+
+def setup():
+	robot.behavior = StopSM()
+	robot.behavior.start()
+
+def step():
+	robot.behavior.step(io.SensorInpuit(), verbose = False).exectue()
+	</code>
+</pre>
+
 
 				</div>
 			</main>
