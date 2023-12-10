@@ -61,10 +61,12 @@
 <p>
 В этом разделе даётся обзор того, как управлять роботом с помощью конечного автомата.
 Более подробное описание робота смотри в  <a href="https://vadimgb.github.io/psets/infrastructureGuide.html">руководстве</a>.
+Установка программного обеспечения описана в 
+<a href="https://vadimgb.github.io/psets/controllingRobots.html">задании</a>.
 </p>
 
-<p>Мы можем реализовать контроллер робота как автомат ввод которого объект класса
-io.SensorInput, вывод объект io.Action.
+<p>Мы можем реализовать контроллер робота как автомат, ввод которого - объект класса
+io.SensorInput, вывод - объект класса io.Action.
 </p>
 <p>Первый пример - автомат, который всегда выводит действие, io.Action(), 
 оно задаёт нулевые скорость движения и вращения.
@@ -109,6 +111,351 @@ def step():
 	</code>
 </pre>
 
+
+<h2>Вращение</h2>
+<p>Представьте, что мы хотим, чтобы робот поворачивался 
+на фиксированный угол, скажем, на 90 градусов, влево от того места, 
+где он находился, когда он начал выполнять определенное поведение.
+Мы можем использовать одометрию робота для приблизительного измерения 
+его местоположения в произвольной системе координат; но чтобы узнать, 
+насколько оно изменилось с тех пор, как мы начали, нам нужно 
+сохранить некоторую информацию в состоянии.
+</p>
+
+<p>Вот класс, который определяет конечный автомат Rotate.
+Во время инициализации требуется желаемое изменение направления.
+</p>
+<pre>
+<code class="language-python">
+class RotateTSM(sm.SM):
+    rotationalGain = 3.0
+    angleEpsilon = 0.01
+    startState = 'start'
+
+    def __init__(self, headingDelta):
+        self.headingDelta = headingDelta
+</code>
+</pre>
+<p>Когда придёт время запустить эту машину, 
+мы хотели бы посмотреть на текущий курс робота (currentTheta), 
+добавить желаемое изменение курса и сохранить результат 
+в нашем состоянии как желаемый курс.
+Затем, чтобы проверить, выполнено ли поведение, 
+мы хотим увидеть, достаточно ли близок текущие направление к желаемому.
+Поскольку метод done не имеет доступа к входным данным машины 
+(это свойство только состояний), нам необходимо включить 
+текущую тэту в состояние.
+Итак, состояние машины (thetaDesired, thetaLast).
+</p>
+
+<p>Таким образом, метод getNextValues просматривает состояние; 
+если это специальный символ "start", это означает, что у машины 
+ранее не было возможности наблюдать за вводом и видеть текущий курс, 
+поэтому она вычисляет желаемый курс (путём добавления 
+желаемого изменения к текущему курсу, а затем вызов служебной 
+процедуры, чтобы убедиться, что полученный угол находится между 
+плюсом и минусом \(\pi\)), и возвращает его и текущий курс.
+В противном случае мы сохраняем компонент состояния thetaDesired 
+и просто получаем новое значение направления на входе.
+Мы генерируем действие со скоростью вращения, которое будет 
+вращать в направлении желаемого курса со скоростью, 
+пропорциональной величине угловой ошибки.
+</p>
+<pre>
+<code class="language-python">
+def getNextValues(self, state, inp):
+        currentTheta = inp.odometry.theta
+        if state == 'start':
+            thetaDesired = \
+                    util.fixAnglePlusMinusPi(currentTheta + self.headingDelta)
+        else:
+            (thetaDesired, thetaLast) = state
+        newState = (thetaDesired, currentTheta)
+        action = io.Action(rvel = self.rotationalGain *\
+                util.fixAnglePlusMinusPi(thetaDesired - currentTheta))
+        return (newState, action)
+</code>
+</pre>
+<p>
+Наконец, мы должны сказать, для каких состоиний  метод done возваращает True .
+Очевидно, что для состояния 'start' done вернёт False ; 
+но мы закончили, если самая последняя тета из одометрии 
+находится в пределах некоторого допуска self.angleEpsilon 
+от желаемого курса.
+</p>
+<pre>
+<code class="langage-python">
+    def done(self, state):
+        if state == 'start':
+            return False
+        else:
+            (thetaDesired, thetaLast) = state
+            return util.nearAngle(thetaDesired, thetaLast, sefl.angleEpsilon)
+</code>
+</pre>
+<div class="alert alert-light">
+Задание:
+Измените эту машину так, чтобы она вращалась на угол, 
+чтобы вы могли задать ей 2 \(\pi\) или минус 2 \(\pi\), 
+чтобы она делала полный оборот.
+</div>
+
+
+<h2>Вперёд</h2>
+<p>
+Перемещение робота вперёд на фиксированное расстояние 
+происходит аналогично.
+В этом случае мы запоминаем координаты x и y робота при 
+его запуске и движемся прямо вперёд до тех пор, 
+пока расстояние между исходным положением и текущим 
+положением не станет близким к желаемому расстоянию.
+Состояние машины — это исходное положение робота и 
+его текущее положение.
+<pre>
+<code class="langage-python">
+import lib601.sm as sm
+import lib601.util as util
+from soar.io import io
+import math
+
+class ForwardTSM(sm.SM):
+    forwardGain = 1.0
+    distTargetEpsilon = 0.01
+    startState = 'start'
+
+    def __init__(self, delta):
+        self.deltaDesired = delta
+
+    def getNextValues(self, state, inp):
+        currentPos = inp.odometry.point()
+        if state == 'start':
+            print("Starting forward", self.deltaDesired)
+            startPos = currentPos
+        else:
+            (startPos, lastPos) = state
+        newState = (startPos, currentPos)
+        error = self.deltaDesired - startPos.distance(currentPos)
+        action = io.Action(fvel = self.forwardGain * error)
+        return (newState, action)
+
+    def done(self, state):
+        if state == 'start':
+            return False
+        else:
+            (startPos, lastPos) = state
+            return util.within(startPos.distance(lastPos),
+                    self.deltaDesired,
+                    self.distTargetEpsilon)
+
+def setup():
+	robot.behavior = ForwardTSM(1.0)
+	robot.behavior.start(verbose = True)
+
+def step():
+	robot.behavior.step(io.SensorInput()).execute()
+</code>
+</pre>
+
+<h2>Квадратная спираль</h2>
+<p>Представьте, что мы хотели бы, чтобы робот двигался по 
+квадратной спирали, подобной той, что показана на рис.
+
+Один из способов решения этой проблемы — создать машину 
+«низкого уровня», которая может использовать целевую точку 
+и входные данные датчика и двигаться (при отсутствии препятствий) 
+к целевой точке; а затем создать машину «высокого уровня», 
+которая будет отслеживать, где мы находимся на рисунке, 
+и передавать целевые точки машине нижнего уровня.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/spiral.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+		Рисунок:	Квадратная спиральная траектория 
+		робота с использованием методов, описанных в 
+		этом разделе.
+	</figcaption>
+</figure>
+
+<h3>XYDriver</h3>
+<p>Вот класс, который описывает машину, 
+которая принимает в качестве входных данных серию пар 
+целевых точек (выраженных в системе одометрии робота) 
+и входные структуры датчиков.
+
+На выходе он генерирует серию действий.
+
+Эта машина представляет собой почти чисто 
+функциональную машину, которая имеет следующую 
+базовую структуру управления:
+</p>
+
+<ul>
+	<li>
+		Если робот движется к целевой точке, 
+		двигайтесь вперёд.
+	</li>
+	<li> 
+		Если он не направлен к целевой точке, 
+		поверните к целевой точке.
+	</li>
+</ul>
+<p>
+Это решение принимается на каждом шагу и приводит 
+к устойчивой способности двигаться к точке в 
+двумерном пространстве.
+</p>
+<p>
+Для многих применений этой машине не требуется никакого состояния.
+
+Но в некоторых случаях модульность приятнее, если у неё 
+есть осмысленный метод done, который зависит только от состояния.
+
+Итак, мы оставим состояние этой машины таким, 
+независимо от того, выполнено оно или нет.
+
+Ему требуется несколько констант для управления 
+скоростью вращения и движения вперёд, а также 
+допуски для принятия решения о том, достаточно 
+ли он направлен к цели и подошёл ли 
+он достаточно близко к цели.
+</p>
+
+<pre>
+<code class="language-python">
+class XYDriver(sm.SM):
+    forwardGain = 2.0
+    rotationGain = 2.0
+    angleEps = 0.05
+    distEps = 0.02
+    startState = False
+</code>
+</pre>
+
+<p>
+Метод getNextValues воплощает описанную выше структуру управления.
+</p>
+
+<pre>
+<code class="language-python">
+def getNextValues(self, state, inp):
+        (goalPoint, sensors) = inp
+        robotPose = sensors.odometry
+        robotPoint = robotPose.point()
+        robotTheta = robotPose.theta
+
+        if goalPoint == None:
+            return (True, io.Action())
+
+        headingTheta = robotPoint.angleTo(goalPoint)
+        if util.nearAngle(robotTheta, headingTheta, self.angleEps):
+            # Направление верное, двигаемся вперёд
+            r = robotPoint.distance(goalPoint)
+            if  r < self.distEps:
+                # Мы прибыли 
+                return (True, io.Action())
+            else:
+                return (False, io.Action(fvel = r * self.forwardGain))
+        else:
+            # Поворачиваем в сторону цели
+            headingError = util.fixAnglePlusMinusPi(\
+                    headingTheta - robotTheta)
+            return (False, io.Action(rvel = headingError * self.rotationGain))
+</code>
+</pre>
+<p>Состояние машины — это просто логическое значение, указывающее, закончили ли мы.
+</p>
+
+<pre>
+<code class="language-python">
+def done(self, state): 
+	return state
+</code>
+</pre>
+
+
+<h3>Каскадный подход</h3>
+<p>Мы создаём спираль, создавая машину, которая принимает объекты 
+SensorInput в качестве входных данных и генерирует пары подцелей и 
+SensorInput; такую машину можно каскадно объединить с 
+XYDriver для создания спирали.
+</p>
+
+<p>Наша реализация этого — класс назовём SpyroGyra.
+Он принимает приращение (на сколько каждая новая сторона 
+больше предыдущей) во время инициализации.
+Его состояние состоит из трёх компонентов:
+</p>
+<ul>
+	<li> 
+		direction: одно из 'north', 'south', 'east' или 'west', 
+		указывающее, в каком направлении движется робот.
+	</li>
+	<li> 
+		length: длина текущего сегмента линии в метрах.
+	</li>
+	<li> 
+		subGoal: точка в рамке одометрии робота, которая 
+		определяет конец текущего сегмента линии.
+	</li>
+</ul>
+<p>Требуется допуск, чтобы решить, когда будет достигнута 
+текущая подцелевая точка.
+</p>
+<pre>
+<code class="language-python">
+class SpyroGyra(sm.SM):
+    distEps = 0.02
+    def __init__(self, incr):
+        self.incr = incr
+        self.startState = ('south', 0, None)
+</code>
+</pre>
+<p>Если робот находится достаточно близко к подцелевой точке, 
+значит, пришло время изменить состояние.
+
+Мы увеличиваем длину стороны, выбираем следующее направление 
+(против часовой стрелки вокруг основных направлений компаса) и 
+вычисляем следующую подцелевую точку.
+
+Выход — это всего лишь подцель и вход датчика, то есть то, 
+что нужно XYDriver.
+</p>
+<pre>
+<code class="language-python">
+def getNextValues(self, state, inp):
+	(direction, length, subGoal) = state
+	robotPose = inp.odometry
+	robotPoint = robotPose.point()
+        if subGoal == None:
+            subGoal = robotPoint
+        if robotPoint.isNear(subGoal, self.distEps):
+            # Пора изменить состояние
+            length = length + self.incr
+            if direction == 'east':
+                direction = 'north'
+                subGoal.y += length
+            elif direction == 'north':
+                direction = 'west'
+                subGoal.x -= length
+            elif direction == 'west':
+                direction = 'south'
+                subGoal.y -= length
+            else:   # south
+                direction = 'east'
+                subGoal.x += length
+            print('new:', direction, length, subGoal)
+        return ((direction, length, subGoal), (subGoal, inp))
+</code>
+</pre>
+<p>Наконец, чтобы создать спираль, мы просто соединяем эти две машины вместе.
+</p>
+<pre>
+<code class="language-python">
+def spiroFlow(incr):
+    return sm.Cascade(SpyroGyra(incr), XYDriver())
+</code>
+</pre>
 
 				</div>
 			</main>
