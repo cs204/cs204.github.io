@@ -1,0 +1,464 @@
+{% extends "layout.html" %}
+{% block title %}
+Непрерывные системы
+{% endblock %}
+
+
+{% block body %}
+<h1>Непрерывные системы</h1>
+<p>
+Запишем дифференциальное уравнение системы:
+$$
+\frac{dy(t)}{dt}=x(t)+py(t)
+$$
+Блок-схема: иллюстрируют пути прохождения сигналов.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/block_diagram.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>
+Сумма, умножение и интегрирование - представляют систему задаваемую
+линейным дифференциальным уравнением с постоянными коэффициентами.
+Задержка в дискретной системе заменена интегрированием в непрерывной.
+</p>
+
+<p>Операторное представление: анализ системы как полиномов.
+$$
+(1-pA)Y=AX
+$$
+Применение  оператора A к сигналу генерирует новый сигнал, равный
+интегралу первого по времени.
+$$
+Y=AX
+$$
+равно
+$$
+y(t)=\int_{-\infty}^t x(\tau ) d\tau
+$$
+Приведём примеры диаграмм. Так для системы
+$$
+\dot{y}(t)=x(t)+py(t)
+$$
+Блочная схема
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/b_d_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Для уравнения:
+$$
+\dot{y}(t)=px(t)+py(t)
+$$
+Блок схема:
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/b_d_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<h2>Вычисление операторных выражений</h2>
+<p>Как и в случае с R, выражениями A можно манипулировать как полиномами.
+Например:
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/b_d_evaluate.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{split}
+w(t)&=x(t)+\int_{-\infty}^t x(\tau)d\tau\\
+y(t)&=w(t)+\int_{-\infty}^t w(\tau)d\tau\\
+y(t)&=x(t)+\int_{-\infty}^t x(\tau)d\tau + \int_{-\infty}^t x(\tau)d\tau +
+\int_{-\infty}^5 \left( \int_{-\infty}^{\tau_2} x(\tau_1)d\tau_1 \right) d\tau_2\\
+W&=(1+A)X\\
+Y&=(1+A)W=(1+A)(1+A)X=(1+2A+A^2)X
+\end{split}
+$$
+<p>Выражениями в A можно манипулировать, используя правила для полиномов.
+<ul>
+	<li>Коммутативность: \(A(1-A)x=(1-A)AX\)</li>
+	<li>Дистрибутивность:\( A(1-A)X=(A-A^2)X \)</li>
+	<li>Ассоциативность: \((1-A)A)(2-A)X=(1-A)(A(2-A))X\)</li>
+</ul>
+</p>
+<p>Запишем операторное выражение для системы.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/b_d_2_o_e.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+
+\begin{split}
+W&=A(X-0.7W)\\
+Y&=A(W-0.9Y)
+\end{split}   \rightarrow 
+\begin{split}
+&(1+0.7A)W=AX\\
+&(1+0.9A)Y=AW
+\end{split}
+		 \rightarrow 
+\begin{split}
+(1+0.7A)(1+0.9A)Y=A^2X\\
+(1+1.6A + 0.63A^2)Y=A^2X
+\end{split}
+$$
+<p>Запишем операторное выражение для системы.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/b_d_2_o_e_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{split}
+W&=A(X+k_1W+k_2Y)\\
+Y&=AW
+\end{split}
+\rightarrow
+\begin{split}
+&Y=A^2X+k_1AY+k_2A^2Y\\
+&(1-k_1A-k_2A^2)Y=A^2X
+\end{split}
+$$
+
+<h2>Элементарные строительные блоки сигналов</h2>
+<h3>Единичный импульс</h3>
+<p>Единичный импульсный сигнал действует как импульс единичной площади, 
+но нулевой ширины.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/unit_area_3.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Функция единичного импульса представлена стрелкой с цифрой 1, 
+которая представляет её площадь или «вес».
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/delta.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>У неё есть два, казалось бы, противоречивых свойства:
+<ul>
+	<li>она не ноль только в t=0, и</li>
+	<li>её интеграл на \( (-\infty, \infty) \) равен 1!</li>
+</ul>
+Оба эти свойства следуют из представления о \(\delta(t)\) как о пределе:
+$$ 
+\delta(t)=\lim_{\epsilon \rightarrow 0} p_\epsilon (t)
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/unit_area.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<h2>Единичный импульс и единичная ступенька</h2>
+$$
+u(t)=\int_{-\infty}^t \delta(\lambda)d\lambda=\left\{ \begin{split}1;&\; t \ge 0\\
+0;& \; otherwise\end{split} \right.
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/step.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Оператор A преобразует \(\delta\) в u.</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/d_A_u.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<h2>Отклик не циклической системы на импульс</h2>
+<p>Если блок-схема системы ВН (время-непрерывной) 
+не имеет обратной связи (т. е. циклов), 
+то соответствующее операторное выражение является «императивным».
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/acyclic.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+Y=(1+A)(1+A)X=(1+2A+A^2)X
+$$
+<p>Если \(x(t)=\delta(t)\), то
+$$
+y(t)=(1+2A+A^2)\delta(t)=\delta(t) + 2u(t) + tu(t)
+$$
+</p>
+<h2>ВН c обратной связью</h2>
+<p>Найдём отклик ВН системы с обратной связью на импульс.</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/feedback.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Метод первый: найдём дифференциальное уравнение и решим его.
+$$
+\dot{y}(t)=x(t)+py(t)
+$$
+Линейное, первого порядка дифференциальное уравнение 
+с постоянными коэффициентами. Будем искать решение 
+в виде 
+$$
+y(t)=Ce^{\alpha t}u(t).
+$$
+Тогда
+$$
+\dot{y}(t)=\alpha C e^{\alpha t} u(t) + C e^{\alpha t}\delta(t)=\alpha C e^{\alpha t}u(t) + C \delta(t).
+$$
+Подставляя, получаем
+$$
+\begin{split}
+&\alpha C e^{\alpha t} u(t)+C\delta(t)=\delta(t)+ pCe^{\alpha t}u(t).\\
+&\alpha=p \\
+&C= 1\\
+&y(t)=e^{pt}u(t)
+\end{split}
+$$
+</p>
+
+<p>
+Метод второй: используем операторы.
+$$
+\begin{split}
+Y&=A(X+pY)\\
+\frac{Y}{X}&=\frac{A}{1-pA}
+\end{split}
+$$
+Теперь разложим по возрастанию в А:
+$$
+\frac{Y}{X}=A(1+pA+p^2A^2+p^3A^3+...)
+$$
+Если \(x(t)=\delta(t) \), то
+$$
+\begin{split}
+y(t)&=A(1+pA+p^2A^2+p^3A^3+...) \delta(t)\\
+&=(1+pt+\frac{1}{2}p^2t^2+\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+</p>
+<p>Мы можем визуализировать обратную связь, отслеживая 
+каждый цикл по пути циклического сигнала.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{split}
+y(t)&=(\textcolor{red}{A}+pA^2+p^2A^3+p^3A^4+...)\delta(t)\\
+&=(\textcolor{red}{1}+pt+\frac{1}{2}p^2t^2+\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+
+
+<p>Мы можем визуализировать обратную связь, отслеживая 
+каждый цикл по пути циклического сигнала.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{split}
+y(t)&=(\textcolor{red}{A + pA^2}+p^2A^3+p^3A^4+...)\delta(t)\\
+&=(\textcolor{red}{1+pt}+\frac{1}{2}p^2t^2+\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<p>Мы можем визуализировать обратную связь, отслеживая 
+каждый цикл по пути циклического сигнала.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_4.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{split}
+y(t)&=(\textcolor{red}{A + pA^2+p^2A^3+p^3A^4}+...)\delta(t)\\
+&=(\textcolor{red}{1+pt+\frac{1}{2}p^2t^2+\frac{1}{6}p^3t^3}+...)u(t)=\textcolor{red}{e^{pt}u(t)}
+\end{split}
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_n.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<p>Если p станет отрицательным, результат будет сходиться (а не расходиться).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/negative_p.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+$$
+\begin{split}
+y(t)&=(A-pA^2+p^2A^3-p^3A^4+...)\delta(t)\\
+&=(1-pt+\frac{1}{2}p^2t^2-\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+
+
+<p>Если p станет отрицательным, результат будет сходиться (а не расходиться).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/negative_p_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+$$
+\begin{split}
+y(t)&=(\textcolor{red}{A}-pA^2+p^2A^3-p^3A^4+...)\delta(t)\\
+&=(\textcolor{red}{1}-pt+\frac{1}{2}p^2t^2-\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<p>Если p станет отрицательным, результат будет сходиться (а не расходиться).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/negative_p_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+$$
+\begin{split}
+y(t)&=(\textcolor{red}{A-pA^2}+p^2A^3-p^3A^4+...)\delta(t)\\
+&=(\textcolor{red}{1-pt}+\frac{1}{2}p^2t^2-\frac{1}{6}p^3t^3+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_2_negative.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<p>Если p станет отрицательным, результат будет сходиться (а не расходиться).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/negative_p_4.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+$$
+\begin{split}
+y(t)&=(A-pA^2+p^2A^3-\textcolor{red}{p^3A^4}+...)\delta(t)\\
+&=(\textcolor{red}{1-pt+\frac{1}{2}p^2t^2-\frac{1}{6}p^3t^3}+...)u(t)=e^{pt}u(t)
+\end{split}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_4_negative.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<h2>Зависимость сходимость и расходимость от полюсов</h2>
+<p>Основная мода, связанная с p, сходится, если \(p <0\) и
+расходится, если \(p > 0\).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/convergent_divergent.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+$$
+p<0
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_4_negative.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+$$
+p>0
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/cycle_y_n.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<br>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/re_p.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+<p>В ВН каждый цикл добавляет новое интегрирование.
+В ДВ каждый цикл создаёт вывод в следующий момент.
+</p>
+
+<h2>Масса на пружине</h2>
+<p>Используйте оператор A для решения системы массы и пружины.
+</p>
+$$
+F=K(x(t)-y(t))=M\ddot{y}(t)
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/spring.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<br>
+<figure class="figure">
+	<img src="/modeling/data/images/continuous_time/spring_bd.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\frac{Y}{X}=\frac{\frac{K}{M}A^2}{1+\frac{K}{M}A^2}
+$$
+<p>Находим полюса.
+$$
+\begin{split}
+\frac{Y}{X}&=\frac{\frac{K}{M}A^2}{(1-p_0A)(1-p_1A)}\\
+p_0&=j\sqrt{\frac{K}{M}} \\
+p_1&=-j\sqrt{\frac{K}{M}} \\
+\end{split}
+$$
+
+{% endblock %}

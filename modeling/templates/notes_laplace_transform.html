@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block title %}
+Преобразование Лапласа
+{% endblock %}
+
+
+{% block body %}
+<h1>
+Преобразование Лапласа
+</h1>
+<div class="alert alert-success">
+	Преобразование Лапласа отображает функцию отв времени t
+	на функцию от s.
+	$$
+	X(s)=\int_{-\infty}^{\infty} x(t) e^{-st}dt
+	$$
+</div>
+
+<p>Найдём преобразование Лапласа для функции \(x_1(t)\):
+$$
+x_1(t) = \left\{ 
+\begin{array}{ll}
+e^{-t}& \; if\; t \ge 0\\
+0 & \; otherwise
+\end{array}
+\right.
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/laplace_e_t.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Получаем:
+$$
+\begin{split}
+X_1(s)&=\int_{-\infty}^{\infty}x_1(t)e^{-st}dt=\int_0^{\infty} e^{-t}e^{-st}dt\\
+&=\left. \frac{e^{-(s+1)t}}{-(s+1)}\right|_0^{\infty} = \frac{1}{s+1}
+\end{split}
+$$
+при условии, что Re(s + 1) > 0, откуда следует, что Re(s) > −1.
+$$
+\frac{1}{s+1};\; Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Найдём преобразование Лапласа для 
+$$
+x_2=\left\{ \begin{array}{ll}
+e^{-t} - e^{-2t} & if\; t \ge 0\\
+0& otherwise
+\end{array}
+\right.
+$$
+Получаем:
+$$
+\begin{split}
+X_2(s)&=\int_0^\infty (e^{-t}-e^{-2t})e^{-st}dt\\
+&=\int_0^\infty e^{-(1+s)t}dt + \int_0^\infty e^{-(2+s)t} dt\\
+&=\frac{1}{s+1}-\frac{1}{s+2}=\frac{1}{(s+1)(s+2)}
+\end{split}
+$$
+Эти уравнения сходятся, если Re(s + 1) > 0 и Re(s + 2) > 0, т. е. Re(s) > −1.
+$$
+\frac{1}{(s+1)(s+2)}; \;Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+
+{% endblock %}
+

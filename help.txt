@@ -1,0 +1,4 @@
+&\alpha C e^{\alpha t} u(t)+C\delta(t)=\delta(t)+ pCe^{\alpha t}u(t).\\
+$\alpha=p \; C= 1\\
+&y(t)=e^{pt}u(t)
+\

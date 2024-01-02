@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Преобразование Лапласа
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+
+					<li><a href="libraries.html">Библиотеки</a></li>
+
+					<li><a href="classes.html">Объектно-ориентированное программирование</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Системынй функции</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>
+Преобразование Лапласа
+</h1>
+<div class="alert alert-success">
+	Преобразование Лапласа отображает функцию отв времени t
+	на функцию от s.
+	$$
+	X(s)=\int_{-\infty}^{\infty} x(t) e^{-st}dt
+	$$
+</div>
+
+<p>Найдём преобразование Лапласа для функции \(x_1(t)\):
+$$
+x_1(t) = \left\{ 
+\begin{array}{ll}
+e^{-t}& \; if\; t \ge 0\\
+0 & \; otherwise
+\end{array}
+\right.
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/laplace_e_t.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Получаем:
+$$
+\begin{split}
+X_1(s)&=\int_{-\infty}^{\infty}x_1(t)e^{-st}dt=\int_0^{\infty} e^{-t}e^{-st}dt\\
+&=\left. \frac{e^{-(s+1)t}}{-(s+1)}\right|_0^{\infty} = \frac{1}{s+1}
+\end{split}
+$$
+при условии, что Re(s + 1) > 0, откуда следует, что Re(s) > −1.
+$$
+\frac{1}{s+1};\; Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Найдём преобразование Лапласа для 
+$$
+x_2=\left\{ \begin{array}{ll}
+e^{-t} - e^{-2t} & if\; t \ge 0\\
+0& otherwise
+\end{array}
+\right.
+$$
+Получаем:
+$$
+\begin{split}
+X_2(s)&=\int_0^\infty (e^{-t}-e^{-2t})e^{-st}dt\\
+&=\int_0^\infty e^{-(1+s)t}dt + \int_0^\infty e^{-(2+s)t} dt\\
+&=\frac{1}{s+1}-\frac{1}{s+2}=\frac{1}{(s+1)(s+2)}
+\end{split}
+$$
+Эти уравнения сходятся, если Re(s + 1) > 0 и Re(s + 2) > 0, т. е. Re(s) > −1.
+$$
+\frac{1}{(s+1)(s+2)}; \;Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t_2.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
