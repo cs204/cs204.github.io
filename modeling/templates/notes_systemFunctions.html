@@ -2,6 +2,77 @@
 {% block title %}
 Системные функции
 {% endblock %}
+<h2>Системный функционал</h2>
+<pre>
+<code class="language-python">
+class SystemFunction:
+    """
+    Represent a system function as a ratio of polynomials in R
+    """
+
+    def __init__(self, numeratorPoly, denominatorPoly):
+        """
+        @param numeratorPoly: C{Polynomial}
+        @param denominatorPoly: C{Polynomial}
+        """
+        self.numerator = numeratorPoly
+        self.denominator = denominatorPoly
+
+    def poles(self):
+        """
+        @returns: a list of the poles of the system
+        """
+        num = util.reverseCopy(self.numerator.coeffs)
+        den = util.reverseCopy(self.denominator.coeffs)
+        while len(num) > 1 and num[0] == 0:
+            num = num[1:]
+
+        while len(den) > 1 and den[0] == 0:
+            den = den[1:]
+
+        while len(num) > 0 and len(den) > 0 and num[-1] == den[-1] == 0:
+            num = num[:-1]
+            den = den[:-1]
+
+        return poly.Polynomial(den).roots()
+
+    def poleMagnitudes(self):
+        """
+        @returns: a list of the magnitudes of the poles of the system
+        """
+        return [ abs(r) for r in self.poles() ]
+
+    def dominantPole(self):
+        """
+        @returns: the pole with the largest magnitude
+        """
+        return util.argmax(self.poles(), abs)
+
+    def differenceEquation(self):
+        """
+        @returns: a C{DifferenceEquation} representation of this same system
+        """
+        k = self.denominator.order
+        j = self.numerator.order
+        a0 = float(self.denominator.coeffs[-1])
+        assert not a0 == 0, 'Coefficient of y[n] must be non-zero'
+        cCoeffs = [ -a / a0 for a in util.reverseCopy(self.denominator.coeffs[:-1])
+                  ]
+        dCoeffs = [ b / a0 for b in util.reverseCopy(self.numerator.coeffs)
+                  ]
+        return DifferenceEquation(dCoeffs, cCoeffs)
+
+    def __add__(self, other):
+        return Sum(self, other)
+
+    def __str__(self):
+        return 'SF(' + self.numerator.__str__('R') + '/' + self.denominator.__str__('R') + ')'
+
+    __repr__ = __str__
+
+</code>
+</pre>
+
 
 
 {% block body %}
