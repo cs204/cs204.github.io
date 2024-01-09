@@ -113,6 +113,13 @@ e^{-t} - e^{-2t} & if\; t \ge 0\\
 \end{array}
 \right.
 $$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_2.png" class="figure-img img-fluid">
+</figure>
+
+<p>
 Получаем:
 $$
 \begin{split}
@@ -128,12 +135,138 @@ $$
 </p>
 <figure class="figure">
 	<img src="/modeling/data/images/laplace_transform/roc_e_t_2.png" class="figure-img img-fluid">
-	<figcaption class="figure-caption"> 
-	</figcaption>
+</figure>
+
+<h2>Область сходимости</h2>
+<p>
+Рассмотрим левосторонний сигнал.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_3.png" class="figure-img img-fluid">
+</figure>
+
+$$
+x_3(t)=\left\{ \begin{array}{ll}
+-e^{-t} & if \; t\le 0\\
+0& otherwise
+\end{array}\right.
+$$
+Запишем преобразование Лапласа:
+$$
+\begin{split}
+X_3(s)& = \int_{-\infty}^{\infty} x_3 (t) e^{-st} dt=\int_{-\infty}^0-e^{-t}e^{-st}dt\\
+&=\left. \frac{-e^{-(s+1)t}}{-(s+1)} \right\vert_{-\infty}^0=\frac{1}{s+1}
+\end{split}
+$$
+<p>
+для сходимости надо \(Re(s+1)<0\), что влечёт \(Re(s)<-1\).
+$$
+\frac{1}{s+1};\; \; Re(s)<-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_x3.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим сигнал
+$$
+x_4(t)=e^{-|t|}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_4.png" class="figure-img img-fluid">
+</figure>
+<p>
+Получим преобразование Лапласа
+$$
+\begin{split}
+X_4(s)&=\int_{-\infty}^{\infty}e^{-|t|}e^{-st}dt\\
+&=\int_{-\infty}^{0}e^{(1-s)t}dt+\int_{0}^{\infty}e^{-(1+s)t}dt\\
+&=\left. \frac{e^{(1-s)t}}{1-s}\right\vert_{-\infty}^{0} + \left. \frac{e^{-(1+s)t}}{-(1+s)}\right\vert_0^{\infty}\\
+&=\frac{1}{1-s} + \frac{1}{1+s}\\
+&=\frac{2}{1-s^2}
+\end{split}
+$$
+Область сходимости пересечение \(Re(s)<1\) и \(Re(s)>-1\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_4.png" class="figure-img img-fluid">
 </figure>
 
 
+<h2>Решение дифференциальных уравнений</h2>
+<p>Решите следующее дифференциальное уравнение:
+$$
+\dot{y}(t)+y(t)=\delta(t)
+$$
+Возьмём преобразование Лапласа от уравнения.
+$$
+L(\dot{y}(t)+y(t))=L(\delta(t))
+$$
+Преобразование Лапласа суммы - это сумма преобразований Лапласа.
+$$
+L(\dot{y}(t))+L(y(t))=L(\delta(t))
+$$
+Чему равно преобразование Лапласа производной?
+</p>
+<p>
+Предположим, что X(s) - преобразование Лапласа от x(t)
+$$
+X(s)=\int_{-\infty}^{\infty}x(t)e^{-st}dt
+$$
+Найдем преобразование Лапласа для производной от x(t). 
+$$
+\begin{split}
+&\int_{-\infty}^{\infty} \dot{x}(t)e^{-st}dt\\
+&=\left. x(t)e^{-st} \right\vert_{-\infty}^{\infty}-\int_{-\infty}^{\infty}x(t)(-se^{-st})dt\\
+&=s\int_{-\infty}^{\infty}x(t)e^{-st}dt=sX(s)
+\end{split}
+$$
+</p>
+<p>Получили, что \(sY(s)\)- преобразование Лапласа для \(\dot{y}(t)\).
+$$
+sY(s)+Y(s)=L(\delta(t))
+$$
+Преобразование Лапласа для \(\delta(t)\).
+$$
+\begin{split}
+X(s)&=\int_{-\infty}^\infty\delta(t)e^{-st}dt\\
+&=\int_{-\infty}^\infty \delta(t) \left. e^{-st}\right\vert_{t=0}dt\\
+&=\int_{-\infty}^\infty \delta(t) 1 dt=1
+\end{split}
+$$
+Подставляя получаем
+$$
+sY(s)+Y(s)=1
+$$
+Это простое алгебраическое выражение.Разрешаем для Y(s):
+$$
+Y(s)=\frac{1}{s+1}
+$$
+Мы видели это преобразование Лапласа раньше
+$$
+y(t)=e^{-t}u(t)
+$$
+</p>
 
+<p>Пример 2. Рассмотрим уравнение
+$$
+\ddot{y}(t)+3\dot{y}(t)+2y(t)=\delta(t)
+$$
+Преобразование Лапласа:
+$$
+s^2Y(s)+3sY(s)+2Y(s)=1
+$$
+Решаем:
+$$
+Y(s)=\frac{1}{(s+1)(s+2)}=\frac{1}{s+1}-\frac{1}{s+2}
+$$
+Обратное преобразование Лапласа:
+$$
+y(t)=(e^{-t}-e^{-2t})u(t)
+$$
 
 				</div>
 			</main>
