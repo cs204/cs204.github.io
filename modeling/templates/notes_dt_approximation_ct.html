@@ -158,4 +158,81 @@ $$
 <p>Для получения аппроксимации мы будем все интеграторы в CT
 системе заменять на вперёд Эйлера модель. Подставлять DT операторы вместо A.
 </p>
+<p>Найдём системную функцию для  интегратора:
+$$
+A\rightarrow \frac{1}{s}
+$$
+Найдём системную функцию для дискретной аппроксимации Эйлера вперёд:
+$$
+\frac{TR}{1-R} \rightarrow \frac{\frac{T}{z}}{1-\frac{1}{z}}=\frac{T}{z-1}
+$$
+Получаем отображение 
+$$
+z=1+sT
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/forward_euler_poles.png" class="figure-img img-fluid">
+</figure>
+<p>Стабильность DT: полюс CT должен находиться внутри круга радиуса 1/T 
+в точке s = −1/T .
+</p>
+<h2>Метод Эйлера назад</h2>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/backward.png" class="figure-img img-fluid">
+</figure>
+<p>Используя эту аппроксимацию  вместо дифференциального уравнения получим:
+$$
+\frac{\tau}{T}(y_d[n]-y_d[n-1])=x_[n]-y_d[n]
+$$
+Решаем:
+$$
+\left( 1 + \frac{T}{\tau}\right)y_d[n]-y_d[n-1]=\frac{T}{\tau}x_d[n]
+$$
+Найдём z преобразование:
+$$
+\left( 1+\frac{T}{\tau}\right) Y_d(z)-z^{-1}Y_d(z)=\frac{T}{\tau}X_d(z)
+$$
+Системная функция:
+$$
+H(z)=\frac{\frac{T}{\tau}z}{\left(1+\frac{T}{\tau}\right)z-1}
+$$
+Полюс в 
+$$
+z=\frac{1}{1+\frac{T}{\tau}.
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/tank_backward_poles.png" class="figure-img img-fluid">
+</figure>
+
+<p>Почему эта аппроксимация лучше себя ведёт?
+</p>
+<p>Построим блок-схему для метода Эйлера назад:
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/b_d_backward.png" class="figure-img img-fluid">
+</figure>
+<p>
+Найдём системную функцию:
+$$
+\frac{T}{1-R}\rightarrow \frac{T}{1-\frac{1}{z}}
+$$
+Находим связь между полюсами:
+$$
+z=\frac{1}{1-sT}
+$$
+Так для бака получаем
+$$
+z=\frac{1}{1-sT}=\frac{1}{1+\frac{T}{\tau}}
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/backward_poles.png" class="figure-img img-fluid">
+</figure>
+<p>
+Вся левая полуплоскость отображается внутри круга радиуса 1/2 в точке z = 1/2.
+Если система CT стабильна, то и система DT также стабильна.
+
 {% endblock %}
