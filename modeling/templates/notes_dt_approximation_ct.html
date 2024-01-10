@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+{% block title %}
+Дискретная аппроксимация непрерывных систем
+{% endblock %}
+
+
+{% block body %}
+<h1>
+Дискретная аппроксимация непрерывных систем
+</h1>
+<p>Пример: поток жидкости из бака
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/tank.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Какой будет отклик этой системы на сигнал ступенька?
+Начнём с решения дифференциального уравнения:
+$$
+\begin{split}
+\tau \dot{r}_1(t)=&u(t)-r_1(t)\\
+t<0:& \; r_1(t)=0\\
+t>0:&\;r_1(t)=c_1+c_2e^{-t/ \tau}\\
+&\dot{r}_1(t)=-\frac{c_2}{\tau}e^{-t/\tau}
+\end{split}
+$$
+Для t>0 подставим в дифференциальное уравнение:
+$$
+\tau(-\left( \frac{c_2}{\tau}\right) e^{-t/\tau}=1-c_1-c_2e^{-t/\tau}
+$$
+Находим \(c_1=1\). Объединим t<0 и t>0:
+$$
+\begin{split}
+r_1(t)&=u(t)+c_2e^{-t/\tau}u(t)\\
+\dot{r}_1(t)&=\delta(t)+c_2\delta(t)-\frac{c_2}{\tau}e^{-t/\tau}u(t)
+\end{split}
+$$
+</p>
+<p>
+Подставим в дифференциальное уравнение:
+$$
+r(1+c_2)\delta(t)-\tau \frac{c_2}{\tau} e^{-t/\tau} u(t)=u(t)-u(t)-c_2e^{-t/\tau}u(t)
+$$
+Получаем \(c_2=0\).
+$$
+r_1(t)=(1-e^{-t/\tau})u(t)
+$$
+</p>
+
+<p>Альтернативный поиск:
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/tank_sol.png" class="figure-img img-fluid">
+</figure>
+$$
+s(t)=\int_{-\infty}^{t} \frac{1}{\tau}e^{-t'/\tau}u(t')dt'=\int_0^t \frac{1}{\tau}e^{-t'/\tau}dt'=(1-e^{-t/\tau})u(t)
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/y_tank.png" class="figure-img img-fluid">
+</figure>
+
+<h2>Вперёд аппроксимация Эйлера</h2>
+<p>
+Аппроксимация непрерывных сигналов дискретными сигналами:
+$$
+\begin{split}
+x_d[n]&=x_c(nT)\\
+y_d[n]&=y_c(nT)
+\end{split}
+$$
+Приблизительная производная при t = nT, если смотреть вперед во времени:
+$$
+\dot{y}_c(nT)\approx \frac{y_d[n+1]-y_d[n]}{T}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/euler.png" class="figure-img img-fluid">
+</figure>
+
+<p>Подставим в дифференциальное уравнение, получим
+$$
+\frac{\tau}{T}(y_d[n+1]-y_d[n])=x_d[n]-y_d[n].
+$$
+Решаем:
+$$
+y_d[n+1]-\left( 1- \frac{T}{\tau} \right) y_d[n]=\frac{T}{\tau}x_d[n]
+$$
+Построим.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/tank_approximation.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Почему это приближение плохо работает при больших \(T/\tau\)?
+Найдём полюс. Выполним z преобразование.
+$$
+zY_d(z)-\left(1-\frac{T}{\tau}\right) Y_d(z)=\frac{T}{\tau}X_d(z)
+$$
+Выразим системную функцию:
+$$
+H(z)=\frac{Y_d(z)}{X_d(z)}=\frac{\frac{T}{\tau}}{z-\left(1-\frac{T}{\tau}\right)}
+$$
+Полюс в 
+$$
+z=1-\frac{T}{\tau}
+$$
+</p>
+<p>Полюс CT(continuous time) был зафиксирован (\(s = −1/τ\)). Почему меняется полюс DT?
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/tank_poles.png" class="figure-img img-fluid">
+</figure>
+
+<h2>Зависимость полюса DT от размера шага</h2>
+<p>
+Зависимость полюса DT от T является общим свойством метода Эйлера вперёд.
+Подход: создать системную модель метода Эйлера вперёд.
+Блок-схемы СТ: сумматоры, коэффициенты усиления и интеграторы:
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/b_d_A.png" class="figure-img img-fluid">
+</figure>
+
+$$
+\dot{y}(t)=x(t)
+$$
+Вперёд аппроксимация Эйлера
+$$
+\frac{y[n+1]-y[n]}{T}=x[n]
+$$
+<p>
+Эквивалентна системе:
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/b_d_A_approximation.png" class="figure-img img-fluid">
+</figure>
+<p>В блок-схеме бака
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/b_d_tank.png" class="figure-img img-fluid">
+</figure>
+
+<p>Заменим интегратор правилом Эйлера вперёд:</p>
+<figure class="figure">
+	<img src="/modeling/data/images/dt_approximation_of_ct/b_d_tank_approximation.png" class="figure-img img-fluid">
+</figure>
+<p>Запишем системный функционал:
+$$
+\frac{Y}{X}=\frac{\frac{T}{\tau}\frac{R}{1-R}}{1+\frac{T}{\tau}\frac{R}{1-R}}=\frac{\frac{T}{\tau}R}{1-R+\frac{T}{\tau}R}=\frac{\frac{T}{\tau}R}{1-(R-\frac{T}{\tau})R}
+$$
+Что эквивалентно ранее полученному разностному уравнению.
+</p>
+<p>Для получения аппроксимации мы будем все интеграторы в CT
+системе заменять на вперёд Эйлера модель. Подставлять DT операторы вместо A.
+</p>
+{% endblock %}
