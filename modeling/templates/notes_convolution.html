@@ -1,0 +1,206 @@
+{% extends "layout.html" %}
+{% block title %}
+Свёртка
+{% endblock %}
+
+
+{% block body %}
+
+<h1>Свёртка</h1>
+<p>
+Рассмотри систему
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd1.png" class="figure-img img-fluid">
+</figure>
+<p>Найти выход системы, если ввод</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/x1.png" class="figure-img img-fluid">
+</figure>
+<p>Разобьём входной сигнал на аддитивные части и просуммируйем ответы на эти части.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/additive_parts.png" class="figure-img img-fluid">
+</figure>
+
+<h3>Линейность</h3>
+<p>Система является линейной, если ее реакция на взвешенную 
+сумму входных данных равна взвешенной сумме ее реакций 
+на каждый из входных данных.
+</p>
+<p>Дано</p>
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd_p1.png" class="figure-img img-fluid">
+</figure>
+<p>и</p>
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd_p2.png" class="figure-img img-fluid">
+</figure>
+<p>Система линйна если</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd_sum.png" class="figure-img img-fluid">
+</figure>
+<p>выполняется для всех \(\alpha \) и \(\beta\).</p>
+<p>Суперпозиция работает, если система линейна.</p>
+
+
+<h3>Инвариантность во времени</h3>
+<p>Система является инвариантной ко времени, 
+если задержка ввода в систему просто задерживает вывод на такое же время.
+</p>
+<p>
+Дано</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd_x_y.png" class="figure-img img-fluid">
+</figure>
+<p>система инвариантна во времени, если</p>
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/bd_time_invariance.png" class="figure-img img-fluid">
+</figure>
+<p>истино для всех \(n_0\).</p>
+<p>Суперпозиция проста, если система линейна и время-инвариантна.</p>
+
+<h2>Структура суперозиции</h2>
+<p>Если система является линейной и инвариантной во времени (LTI), 
+то ее выходной сигнал представляет собой сумму взвешенных и сдвинутых 
+ответов на единичный импульс.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/superposition.png" class="figure-img img-fluid">
+</figure>
+
+<h2>Свёртка</h2>
+<p>Реакция системы LTI на произвольный ввод.
+$$
+y[n]=\sum_{k=-\infty}^\infty x[k]h[n-k]=(x*h)[n]
+$$
+Эта операция называется свёрткой.
+</p>
+$$
+y[\textcolor{red}{n}]=\sum_{k=-\infty}^\infty x[k]h[\textcolor{red}{n}-k]
+$$
+
+$$
+y[\textcolor{red}{0}]=\sum_{k=-\infty}^\infty x[k]h[\textcolor{red}{0}-k]
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/y_n_0.png" class="figure-img img-fluid">
+</figure>
+$$
+y[\textcolor{red}{1}]=\sum_{k=-\infty}^\infty x[k]h[\textcolor{red}{1}-k]
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/y_n_1.png" class="figure-img img-fluid">
+</figure>
+
+<p>Найдите свёртку</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/convolution_example.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+\left(\left(\frac{2}{3}\right)^nu[n]\right)*\left(\left(\frac{2}{3}\right)^nu[n]\right)&=\sum_{k=-\infty}^\infty \left(\left(\frac{2}{3}\right)^ku[k]\right)\left(\left(\frac{2}{3}\right)^{n-k}u[n-k]\right)\\
+&=\sum_{k=0}^n \left(\frac{2}{3}\right)^k\left(\frac{2}{3}\right)^{n-k}\\
+&=\sum_{k=0}^n \left(\frac{2}{3}\right)^n=\left(\frac{2}{3}\right)^n\sum_{k=0}^n 1\\
+&=(n+1)\left(\frac{2}{3}\right)^n u[n]\\
+&=1,\; \frac{4}{3},\; \frac{4}{3},\; \frac{32}{27},\; \frac{80}{81},\; ...
+\end{split}
+$$
+<p>Представление системы LTI одним сигналом.</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/signal_system.png" class="figure-img img-fluid">
+</figure>
+<p>Ответ  на единичный импульс h[n] представляет 
+собой полное описание системы LTI.
+</p>
+<p>Учитывая h[n], можно вычислить реакцию y[n] на любой 
+произвольный входной сигнал x[n]:
+</p>
+$$
+y[n]=(x*h)[n]=\sum_{k=-\infty}^\infty x[k]h[n-k]
+$$
+
+<h2>Свёртка непрерывных сигналов</h2>
+<p>Те же рассуждения применимы и к CT сигналам.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/ct_signal.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+$$
+x(t)=\lim_{\Delta \rightarrow 0} \sum_{k}x(k\Delta )p(t-k \Delta)\Delta
+$$
+где</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/ct_delta.png" class="figure-img img-fluid">
+</figure>
+Устремляя \(\Delta\rightarrow 0\), \(p(t)\rightarrow \delta(t)\):
+$$
+x(t)\rightarrow \int_{-\infty}^\infty x(\tau ) \delta (t - \tau)d\tau
+$$
+
+<p>Если система линейна и инвариантна ко времени (LTI), 
+то ее выходной сигнал представляет собой интеграл взвешенных и 
+сдвинутых откликов на единичный импульс.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/ct_superposition.png" class="figure-img img-fluid">
+</figure>
+
+<p>Свертка сигналов CT аналогична свертке сигналов DT.
+</p>
+$$
+\begin{split}
+DT:&\;y[n]=(x*h)[n]=\sum_{k=-\infty}^\infty x[k]h[n-k]\\
+CT:& \;y(t)=(x*h)(t)=\int_{-\infty}^\infty x(\tau)h(t-\tau)d\tau
+\end{split}
+$$
+
+<p>Найдите свёрку
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/ct_convolution_example.png" class="figure-img img-fluid">
+</figure>
+
+$$
+\begin{split}
+\left(e^{-t}u(t)\right)*(\left(e^{-t}u(t)\right)&=\int_{-\infty}^\infty e^{-\tau}u(t)e^{-(t-\tau)}u(t-\tau)d\tau\\
+&=\int_0^t e^{-\tau}e^{-(t-\tau)}d\tau = e^{-t}\int_0^t d\tau=te^{-t}u(t)
+\end{split}
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/convolution/ct_example_y.png" class="figure-img img-fluid">
+</figure>
+
+<p>Свёртка важный инструмент вычислений.
+<ul>
+	<li>Находим отклик системы на единичный импульс h[n].</li>
+	<li>Рассчитайте результат для произвольного входа, используя свертку:
+		$$ 
+		y[n]=(x*h)[n]=\sum_{k=-\infty}^\infty x[k]h[n-k]\\
+		$$
+
+	</li>
+</ul>
+</p>
+
+
+{% endblock %}
