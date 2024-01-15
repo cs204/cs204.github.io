@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}
+Преобразования Лапласа
+{% endblock %}
+{% block body %}
+<p>Определите преобразования Лапласа (включая области сходимости) каждого из следующих сигналов:
+</p>
+<ol> 
+	<li>
+		$$
+		x_1(t)=e^{-2(t-3)}u(t-3)
+		$$
+		<br>
+		\(X_1=\)<input>
+		<br>
+		ROC:<input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			$$
+			\begin{split}
+			X_1(s)&=\int_{-\infty}^\infty x_1(t)e^{-st} dt= \int_{-\infty}^\infty e^{-2(t-3)}u(t-3)e^{-st}dt=e^6\int_3^\infty e^{-(s+2)t}dt\\
+			&=e^6\left. \frac{e^{-(s+2)t}}{-(s+2)} \right|_3^\infty=\frac{e^{-3s}}{s+2}; \; Re(s)>-2
+			\end{split}
+			$$
+		</details>
+
+	</li>
+</ol>
+
+
+{% endblock %}
+

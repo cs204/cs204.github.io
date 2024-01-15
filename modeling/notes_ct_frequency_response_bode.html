@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Частотная характеристика, график Боде
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>
+Логарифмическая амплитудно-фазовая частотная характеристика (график Боде)
+</h1>
+<h2>Асимптотическое поведение: изолированный ноль</h2>
+<p>Отклик LTI системы на косинус будет косинус: такой же частоты,
+но возможно другой амплитуды и фазы.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/cosinus.png" class="figure-img img-fluid">
+</figure>
+<p>Построим асимптоты амплитуды отклика на высоких и низких частотах.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z_1.png" class="figure-img img-fluid">
+</figure>
+<p>Две асимптоты обеспечивают хорошее приближение на логарифмических осях.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/bode_z_1.png" class="figure-img img-fluid">
+</figure>
+
+$$
+\begin{split}
+\lim_{\omega \rightarrow 0}|H(j\omega)|&=|z_1|\\
+\lim_{\omega \rightarrow \infty}|H(j\omega)|&=\omega
+\end{split}
+$$
+
+<h2>Асимптотическое поведение: изолированный полюс</h2>
+<p>Построим асимптоты амплитуды отклика на высоких и низких частотах.
+</p>
+<br>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/p_1.png" class="figure-img img-fluid">
+</figure>
+<br>
+
+<p>Две асимптоты обеспечивают хорошее приближение на логарифмических осях.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/bode_p_1.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+\lim_{\omega \rightarrow 0}|H(j\omega)|&=\frac{9}{|p_1|}\\
+\lim_{\omega \rightarrow \infty}|H(j\omega)|&=\frac{9}{\omega}
+\end{split}
+$$
+
+<p>Сравним логарифмические графики частотных характеристик
+следующие системные функции:
+$$
+\begin{split}
+H_1(s)&=\frac{1}{s+1}\\
+H_2(s)&=\frac{1}{s+10}
+\end{split}
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/h1_h2.png" class="figure-img img-fluid">
+</figure>
+<p>Эти графики сдвинуты горизонтально и вертикально,
+но форма у них одинаковая.</p>
+<h2>Асимптотическое поведение более сложных систем</h2>
+$$
+H(s_0)=K\farc{\prod_{q=1}(s_0-z_1)}{\prod_{p=1}(s_0-p_1)}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1.png" class="figure-img img-fluid">
+</figure>
+<p>Амплитуда произведения равна произведению амплитуд.
+$$
+|H(s_0)|=\left|K\farc{\prod_{q=1}(s_0-z_1)}{\prod_{p=1}(s_0-p_1)}\right|=|K|\farc{\prod_{q=1}r|s_0-z_1|}{\prod_{p=1}|s_0-p_1|}
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/magnitudes.png" class="figure-img img-fluid">
+</figure>
+<p>Логарифм произведения амплитуд равен сумме логарифмов.
+$$
+\log|H(j\omega)|=\log |K| + \sum_{q=1} \log|j\omega-z_q|-\sum_{p=1}\log |j\omega-p_p|
+$$
+На диаграмме Боде мы складываем вместо умножения.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_1.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_2.png" class="figure-img img-fluid">
+</figure>
+
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_3.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_4.png" class="figure-img img-fluid">
+</figure>
+
+<p>Угловая характеристика проста на низких и высоких частотах.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_angle.png" class="figure-img img-fluid">
+</figure>
+<p>Три прямые линии обеспечивают хорошее приближение по сравнению с log ω.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_angle_approximate.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+\lim_{\omega \rightarrow 0} \angle H(j\omega)&=0\\
+\lim_{\omega \rightarrow \infty} \angle H(j\omega)&=\pi / 2\\
+\end{split}
+$$
+<p>Аналогично для полюса
+$$
+H(s)=\frac{9}{s-p_1}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/p1_angle.png" class="figure-img img-fluid">
+</figure>
+<p>Угол произведения равен сумме углов
+$$
+\angle H(s_0)=\angle \left( K\farc{\prod_{q=1}(s_0-z_1)}{\prod_{p=1}(s_0-p_1)}\right) = \angle K + \sum_{q=1} \angle(s_0 -z_q) -\sum_{q=1} \angle (s_0-p_p)
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_angles.png" class="figure-img img-fluid">
+</figure>
+
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_angles.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_angles_2.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_angles_3.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/z1_p1_p2_angles_4.png" class="figure-img img-fluid">
+</figure>
+<h2>Диаграмма Боде: Децибелы</h2>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/db_1.png" class="figure-img img-fluid">
+</figure>
+
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/db_2.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/db_3.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/bode/db_4.png" class="figure-img img-fluid">
+</figure>
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

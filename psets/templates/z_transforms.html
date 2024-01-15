@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block title %}
+z-преобразования
+{% endblock %}
+{% block body %}
+<h1>z-преобразования</h1>
+<p>Определите Z-преобразование (включая область сходимости) 
+для каждого из следующих сигналов:
+<ol>
+	<li>
+		$$
+		x_1[n]=\left(\frac{1}{2}\right)^nu[n-3]
+		$$
+		<br>
+		\(X_1=\)<input>
+		<br>
+		ROC:<input>
+		<br>
+
+		<details> 
+			<summary>Подсказка</summary> 
+			$$
+			X_1(z)=\sum_n x_1[n]z^{-n}=\sum_{3}^\infty (1/2)^nz^{-n}
+			$$
+			Пусть \(l=n-3\). Тогда
+			$$
+			X_1(z)=\sum_{l=0}^\infty \left(\frac{z^{-1}}{2}\right)^{l+3}=\frac{(z^{-1}/2)^3}{1-(z^{-1}/2)}=\frac{1}{8z^2\left(z-\frac{1}{2}\right)}.
+			$$
+			ROC \(|z|>1/2\).  
+		</details>
+		</li>
+		<li>
+			$$
+			x_2[n]=(1+n)\left(\frac{1}{3}\right)^nu[n]
+			$$ 
+			<br> 
+			\(X_2=\)<input> 
+			<br> 
+			ROC:<input> 
+			<br>
+
+			<details> 
+				<summary>Подсказка</summary> 
+				<p>Начнём с определения:
+				$$
+				X(z)=\sum_{-\infty}^\infty x[n]z^{-n}
+				$$
+				Дифференцируя обе части по z получаем:
+				$$
+				\frac{dX(z)}{dz}=\sum_{-\infty}^\infty x[n](-n)z^{-n-1}=-z\sum_{-\infty}^\infty x[n]z^{-n}
+				$$
+				Это показывает, что 
+				$$
+				nx[n] \leftrightarrow -z\frac{dX(z)}{dz}
+				$$
+				Так как
+				$$
+				\left(\frac{1}{3}\right)^n u[n] \leftrightarrow \frac{z}{z-\frac{1}{3}}, \; |z|>\frac{1}{3}.
+				$$
+				Следует
+				$$
+				n\left(\frac{1}{3}\right)^nu[n] \leftrightarrow -z \frac{d}{dz} \left(\frac{z}{z-\frac{1}{3}}\right)=\frac{\frac{1}{3}z}{\left(z-\frac{1}{3}\right)^2}, \;|z|>\frac{1}{3}.
+				$$
+				$$
+				X_2(z)=\frac{z}{z-\frac{1}{3}}+\frac{\frac{1}{3}z}{\left(z-\frac{1}{3}\right)^2}, \; |z|>\frac{1}{3}.
+				$$
+
+				</p>
+			</details>
+		</li>
+</ol>
+
+{% endblock %}

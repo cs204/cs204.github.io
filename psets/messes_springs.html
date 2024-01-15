@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Масса на пружинке
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>
+Масса на пружинке
+</h1>
+<p>На следующем рисунке показана система - масса на пружинке.
+Входные данные x(t) представляют положение верхнего конца пружины.
+Выходные данные y(t) представляют положение массы.
+</p>
+
+<figure class="figure">
+	<img src="data/images/spring.png" class="figure-img img-fluid">
+</figure>
+<p>
+Масса M = 1 кг, жёсткость пружины K = 1 Н/м.
+Предположим, что пружина подчиняется закону Гука и что исходное 
+положения определено так, что если входной сигнал x(t) равен нулю, 
+то положение покоя y(t) также равно нулю.
+</p>
+<ol>
+	<li>Определите дифференциальное уравнение, связывающее входной сигнал x(t) и выходной сигнал y(t).  
+		<details> 
+			<summary>Подсказка</summary> 
+			<p>Закон Ньютона гласит, что сила, действующая на массу, 
+			равна произведению её массы на ускорение,	
+			$$
+			F=M\frac{d^2y(t)}{dt^2}.
+			$$
+			Закон Гука гласит, что сила, действующая на пружину, 
+			пропорциональна её удлинению:
+			$$
+			F=K(x(t)-y(t)).
+			$$
+			Соединяя,
+			$$
+			M\frac{d^2y(t)}{dt^2}+Ky(t)=Kx(t)
+			$$
+			Так как M=K=1,
+			$$
+			\frac{d^2y(t)}{dt^2}+y(t)=x(t)
+			$$
+			</p>
+		</details>
+
+	</li>
+	<li>
+		Вычислите отклик на вход ступенька.
+		<details> 
+			<summary>Подсказка</summary> 
+			<p>
+			Общее решение уравнения
+			$$
+			\frac{d^2y(t)}{dt^2}+y(t)=0
+			$$
+			имеет вид
+			$$
+			y_g=Ae^{jt}+Be^{-jt}
+			$$
+			Частное решение для уравнения
+			$$
+			\frac{d^2y(t)}{dt^2}+y(t)=x(t)
+			$$
+			имеет вид
+			$$
+			y_p(t)=1
+			$$
+			Получаем, что общее решение для уравения
+			имеет вид
+			$$
+			s(t)=Ae^{jt}+Be^{-jt}+1; \; t>0
+			$$
+			Отклик на ступеньку, когда система изначально находится 
+			в состоянии покоя.  
+			Покой  означает, что s(t) = 0 при t < 0.  
+			Если s(t) равно нулю при t < 0, то и ее производная 
+			по времени равна нулю в начальный момент, 
+			поскольку сила пружины конечна.  Таким образом
+			$$
+			\begin{split}
+			s(0)&=A+B +1\\
+			\dot{s}(0)&=A-B=0\\
+			A&=B=-0.5\\
+			\end{split}
+			 $$
+			Резульат
+			$$
+			s(t)=(1-0.5e^{jt}-0.5e^{-jt})u(t)=(1-cos(t))u(t).
+			 $$
+			</p>
+		</details>
+	</li>
+
+	<li>
+		Используйте приближение Эйлера для численной аппроксимации решения, 
+		для отклика на ступеньку.
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<p>Начнём с уравнения 
+
+			$$
+			\frac{d^2y(t)}{dt^2}+y(t)=x(t)
+			$$
+			Обозначим
+			$$
+			z(t)=\frac{dy(t)}{dt}
+			$$
+			получаем
+			$$
+			\frac{dz}{dt}+y(t)=x(t).  
+			$$
+			Сделаем подстановку Эйлера вперед
+			$$
+			\frac{z[n+1]-z[n]}{T}+y[n]=x[n]
+			$$
+			Представим что z обозначает аппроксимацию 
+			производной назад от y
+			$$
+			z[n]=\frac{y[n] - y[n-1]}{T}
+			$$
+			Подставляя получаем:
+			$$
+			\begin{split}
+			&\frac{y[n+1]-y[n]}{T}-\frac{y[n]-y[n-1]}{T}+Ty[n]=Tx[n]\\
+			&y[n+1]-(2-T^2)y[n]+y[n-1]=T^2x[n]\\
+			\end{split}
+			$$
+			</p>
+		</details>
+	</li>
+
+</ol>
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>
