@@ -26,6 +26,36 @@
 		</details>
 
 	</li>
+	<li>
+		$$
+		x_2(t)=(1-(1-t)e^{-3t})u(t)
+		$$
+		\(X_2=\)<input>
+		<br>
+		ROC:<input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			$$
+			\begin{split}
+			x_2(t)&=x_{2a}(t)+x_{2b}+x_{2c}\\
+			x_{2a}(t)&=u(t)\\
+			x_{2b}(t)&=-e^{-3t}u(t)\\
+			x_{2c}(t)&=te^{-3t}u(t)\\
+			X_{2a}(s)&=\int_0^\infty e^{-st}dt=\left. \frac{e^{-st}}{-s} \right|_0^\infty=\frac{1}{s};\; Re(s)>0\\
+			X_{2b}(s)&=\int_0^\infty -e^{-3t}e^{-st}dt=\left.
+			\frac{-e^{-(s+3)t}}{-(s+3)}\right|_0^\infty=-\frac{1}{s+3}; \; Re(s)>-3\\
+			X_{2c}(s)&=\int_0^\infty t e^{-3t}e^{-st}dt=t\left. \frac{e^{-(s+3)t}}{-(s+3)}\right|_0^\infty - \int_0^\infty \frac{e^{-(s+3)t}}{-(s+3)}dt=\frac{1}{(s+3)^2};\;Re(s)>-3
+			\end{split}
+			$$
+			Преобразование Лапласа суммы равна сумме преобразований
+			$$
+			X_2(s)=\frac{1}{s}-\frac{1}{s+3}+\frac{1}{(s+3)^2}=\frac{4s+9}{s(s+3)^2}
+			$$
+			Область сходимости \(Re(s)>0\).
+
+		</details>
+	</li>
 </ol>
 
 
