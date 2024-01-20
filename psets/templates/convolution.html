@@ -41,6 +41,7 @@ $$
 		</details>
 	
 	</li>
+				
 	<li>
 		$$
 		y_b[n]=u[n]*\left(\frac{1}{2}\right)^nu[n]
@@ -247,14 +248,179 @@ yy.crop((3,3,yy.size[0]-3,yy.size[1]-3)).save('zebraBilinear.jpg')
 		</details>
 			</li>
 </ol>
+<h2>Улыбка</h2>
+<p>Рассмотрим последовательность единиц и -1, показанную ниже как x[n].
+</p> 
+<figure class="figure"> 
+	<img src="/psets/data/images/convolution/smiley_x_n.png" class="figure-img img-fluid"> 
+</figure>
+<p>В этом x[n] имеется единственное вхождение шаблона −1, −1, 1.
+Это происходит начиная с n = 1 и заканчивая n = 3.
+Один из методов автоматического обнаружения определённых шаблонов 
+этого типа называется «согласованной фильтрацией».
+Пусть p[n] представляет интересующий шаблон, перевёрнутый вокруг n = 0.
+Тогда экземпляры шаблона можно найти, определив моменты 
+времени, когда y[n] = (p * x)[n] максимизируется.
+</p>
+<ol>
+	<li>
+		Определите согласованный фильтр p[n], который будет 
+		находить вхождения последовательности: −1, −1, 1.  
+		Спроектируйте p[n] так, чтобы (p ∗ x)[n] имело максимумы в 
+		точках, центрированных на желаемом шаблоне, т. е. в точке n = 2 
+		для приведённой выше последовательности.
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert"> 
+				<figure class="figure"> 
+					<img src="/psets/data/images/convolution/smiley_p_n.png" class="figure-img img-fluid"> 
+				</figure>
+			</div>
+		</details>
+	</li>
+</ol>
+
+<p>
+	Тот же подход можно использовать для поиска шаблонов на изображениях 
+	путём обобщения оператора свёртки на два измерения:
+</p>
+$$
+y[n,m]=(x*p)[n,m]=\sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty x[k,l]p[n-k, m-l].
+$$
+<p>Файл <a href="/psets/data/images/convolution/findsmiley.jpg">findsmiley.jpg</a>
+содержит случайный набор белых пикселей (код 255) и чёрных пикселей (0), 
+а также один экземпляр следующего смайлика:
+</p>
+<figure class="figure"> 
+	<img src="/psets/data/images/convolution/smiley.png" class="figure-img img-fluid"> 
+</figure>
+
+<ol start="2"> 
+	<li>
+<p>Найдите строку и столбец findsmiley, соответствующий носу смайлика.
+Примечание. Согласованная фильтрация будет работать лучше всего, 
+если совпадение белых пикселей И совпадение чёрных пикселей 
+положительно повлияют на ответ.
+По этой причине 255 и 0 могут быть не оптимальным выбором для значений, 
+связанных с белыми и чёрными пикселями.
+</p> 
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert"> 
+		<p>
+		Файл <a href="/psets/data/images/convolution/findsmiley.jpg">smiley.jpg"</a> 
+		содержит искомое изображение. Обратите внимание, что перед 
+		применением операции свертки из каждого значения пикселя 
+		вычитается 127.5.  Это приводит к следующим возможным 
+		результатам (на пиксель):
+		<table class="table">
+			<tr>
+				<th>image pixel</th>
+				<th>smiley pixel</th>
+				<th>result</th>
+			</tr>
+			<tr>
+				<td>
+					black
+				</td>
+				<td>
+					black
+				</td>
+				<td>
+					(-127.5)*(-127.5)=+127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					white
+				</td>
+				<td>
+					white
+				</td>
+				<td>
+					(127.5)*(127.5)=+127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					black
+				</td>
+				<td>
+					white
+				</td>
+				<td>
+					(-127.5)*(127.5)=-127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					white
+				</td>
+				<td>
+					black
+				</td>
+				<td>
+					(127.5)*(-127.5)=-127.5<sup>2</sup>
+				</td>
+			</tr>
+		</table>
+		<p>которые были выбраны так, чтобы оба типа совпадений 
+		давали одинаковый результат, оба типа несоответствий 
+		давали одинаковый результат, а совпадения и несоответствия 
+		давали противоположные знаки.
+		</p>
+		<p> 
+		Кроме того, к результату было добавлено 127.5, чтобы результат 
+		свёртки можно было рассматривать как изображение yy.
+		</p>
+		<pre>
+		<code class="language-python">
+from PIL import Image as im
+xx = im.open('findsmiley.jpg')
+xwidth,xheight = xx.size
+ww = im.open('smiley.jpg')
+wwidth,wheight = ww.size
+yy = im.new('L',(xwidth-wwidth+1,xheight-wheight+1))
+ywidth,yheight = yy.size
+xpix = xx.load()
+wpix = ww.load()
+ypix = yy.load()
+xmax = -10000
+coords = [0,0]
+for j in range(xheight-wheight+1): 
+    for i in range(xwidth-wwidth+1): 
+        ss = 0 
+        for jj in range(wheight): 
+            for ii in range(wwidth): 
+                ss += (xpix[i+ii,j+jj]-127.5)*(wpix[ii,jj]-127.5)/127.5+127.5 
+        ypix[i,j] = int(ss/wwidth/wheight)
+        if ss>xmax: 
+            xmax = ss 
+            coords = [i,j]
+
+print(coords[0]+3,coords[1]+3)
+yy.save('answer.jpg')
+</code>
+		</pre>
+		<p>
+		Ответ: столбец=765, строка=432
+		</p>
+	</div> 
+</details>
+	</li>
+</ol>
+
 <h2>Приложение</h2>
 
 <p>Установите библиотеку</p>
+
 <pre>
 <code>
 pip install Pillow
 </code>
 </pre>
+
 <p>Пример кода</p>
 <pre>
 <code class="language-python">
@@ -267,9 +433,8 @@ for j in range(yy.size[1]):	 # loop over rows
     for i in range(yy.size[0]): # loop over columns 
         ypix[i, j] = xpix[int(i/3), int(j/3)] # copy pixles 
 yy.save('zebraZOH.jpg')
-		</code>
-		</pre>
+</code>
+</pre>
 
-		
 
 {% endblock %}
