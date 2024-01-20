@@ -198,7 +198,53 @@ $$
 		на <a href="/psets/data/images/convolution/zebra.jpg">сайте</a>.  
 		В приложении содержится пример кода Python.
 		</p>
+		<details> 
+			<summary>Подсказка</summary> 
+<pre>
+<code class="language-python">
+from PIL import Image as im
+xx = im.open('zebra.jpg')
+# original image
+xpix = xx.load()
+aa = im.new('L',(xx.size[0]+2,xx.size[1]+2),0) # zero-pad edges
+aa.paste(xx,(1,1))
+apix = aa.load()
+bb = im.new('L',(3*aa.size[0]-2,aa.size[1]),0) # horiz stretch
+bpix = bb.load()
+cc = im.new('L',(3*aa.size[0]-2,aa.size[1]),0) # horiz interpolated
+cpix = cc.load()
+dd = im.new('L',(3*aa.size[0]-2,3*aa.size[1]-2),0) # vertical stretch
+dpix = dd.load()
+yy = im.new('L',(3*aa.size[0]-2,3*aa.size[1]-2),0) # final answer
+ypix = yy.load()
+for j in range(aa.size[1]): 
+    for i in range(aa.size[0]):     # stretch image horizontally 
+        bpix[3*i,j] = apix[i,j] 
+    for i in range(2,bb.size[0]-2): # convolve with triangle 
+        cpix[i,j] = int(0.333*bpix[i-2,j]+0.666*bpix[i-1,j]+bpix[i,j]+0.666*bpix[i+1,j]+0.333*bpix[i+2,j] )
 
+for i in range(cc.size[0]): 
+    for j in range(cc.size[1]): # stretch image vertically 
+        dpix[i,3*j] = cpix[i,j] 
+    for j in range(2,dd.size[1]-2): # convolve with triangle 
+        ypix[i,j] = int(0.333*dpix[i,j-2]+0.666*dpix[i,j-1]+dpix[i,j] +0.666*dpix[i,j+1]+0.333*dpix[i,j+2] )
+
+yy.crop((3,3,yy.size[0]-3,yy.size[1]-3)).save('zebraBilinear.jpg')
+</code>
+</pre>
+<p>Изображение создано с помощью кода, приведенного в приложении.
+</p>
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/zebraZOH.jpg" class="figure-img img-fluid"> 
+		</figure>	
+<p>Изображение получено методом билинейной интерполяции.</p>
+
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/zebraBilinear.jpg" class="figure-img img-fluid"> 
+		</figure>	
+<p>Это изображение имеет меньше неровных краёв.
+</p>
+		</details>
 			</li>
 </ol>
 <h2>Приложение</h2>
@@ -207,11 +253,11 @@ $$
 <pre>
 <code>
 pip install Pillow
-<code>
+</code>
 </pre>
 <p>Пример кода</p>
 <pre>
-<code class="lanagage-python">
+<code class="language-python">
 from PIL import Image 	#Python Imagine Library
 xx = Image.open('zebra.jpg')	#open input picture
 yy = Image.new('L', (3*xx.size[0], 3*xx.size[1]), 0) #create new picture 3x
