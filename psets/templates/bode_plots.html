@@ -1,0 +1,388 @@
+{% extends "layout.html" %}
+{% block title %}
+Боде диаграммы
+{% endblock %}
+{% block body %}
+<h2>Системы второго порядка</h2>
+<p>Отклик на импульс CT системы имеет вид
+$$
+h(t)=e^{-\sigma t} \cos(\omega_dt+\phi)u(t)
+$$
+где параметры \(\sigma\), \(\omega_d\) и \(\phi\) связаны с параметрами 
+характеристического полинома системы: \(s^2 + Bs + C\).
+</p>
+<ol>
+	<li>
+		<p>Определите выражения для \(\sigma\) и \(\omega_d\)  
+		(не \(\phi\))  через B и C.
+		</p>
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+				<p>Выразите импульсную характеристику через 
+				комплексную экспоненту:
+				$$
+				\begin{split}
+h(t)&=\frac{1}{2}e^{-\sigma t}\left(e^{j\omega_d t+j\phi}+e^{-j\omega_d -j\phi}\right)u(t) \\
+&=\frac{1}{2}e^{j\phi}e^{(-\sigma+j\omega_d)t}u(t)+\frac{1}{2}e^{-j\phi}e^{(-\sigma - j\omega_d)t}u(t)
+\end{split}
+$$
+Импульсная характеристика представляет собой взвешенную сумму мод 
+вида \(e^{s_0 t}\) и \(e^{s_1 t}\) , где \(s_0\) и \(s_1\) — полюса.
+Таким образом, полюса системы находятся в точке \(s = −\sigma \pm  j\omega_d\).
+Характеристический многочлен имеет вид 
+$$
+s^2 + Bs + C = (s + \sigma + j\omega_d )(s + \sigma − j\omega_d ) = (s + \sigma)^2 + \omega_d^2.
+$$
+Таким образом, \(B = 2\sigma\) и \(C = \sigma^22 + \omega_d^2\). 
+Решая, мы находим, что
+$$
+\begin{split}
+\sigma &= \frac{B}{2}\\
+\omega_d &= \sqrt{C-\frac{1}{4}B^2}
+\end{split}
+$$
+
+			</div>
+		</details>
+	</li>
+	<li>
+		Определите
+
+		<ul>
+			<li>время, необходимое для того, чтобы \(e^{-\sigma t}\) 
+				функции h(t) уменьшилась в e раз,</li>
+			<li> период колебаний h(t), и</li>
+			<li>число периодов колебаний перед h(t) уменьшается в 
+				e раз.
+			</li>
+		</ul> 
+		Выразите результаты только как функции B и C.
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+
+				<p>Время затухания в е раз равно
+				$$
+				\frac{1}{\sigma}=\frac{B}{2}
+				$$
+				</p>
+				<p>Период
+				$$
+				\frac{2\pi}{\omega_d}=\frac{2\pi}{\sqrt{C-\frac{1}{4}B^2}}.
+				$$
+				Число периодов до уменьшения в е раз равно
+				</p>
+				$$
+\frac{
+	\frac{2}{B}
+	}
+	{
+		\frac{
+			2\pi
+			}
+			{ 
+				\sqrt{
+					C-\frac{1}{4}B^2
+				}
+			}
+	}
+		=
+		\frac{ \sqrt{C-\frac{1}{4}B^2}}
+		{\pi B}
+				$$
+				Обратите внимание, что этот последний ответ 
+				эквивалентен \(Q/\pi\), где \(Q =\frac{\omega_d}{2\sigma}\).
+			</div>
+		</details>
+	</li>
+	<li>
+		<p>
+		Оцените параметры в 2 задании для CT системы с 
+		следующими полюсами:
+		</p>
+<figure class="figure">
+	<img src="/psets/data/images/bode/10_100_poles.png" class="figure-img img-fluid">
+</figure>
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert">
+<p>Из рисунка \(\sigma=10\) и \(\omega_d=100\).
+	<p>Время затухания в е раз равно 0.1.
+	</p>
+	<p>Период
+	$$
+	\frac{2\pi}{\omega_d}=\frac{2\pi}{100}=0.0628.
+	$$
+	Число периодов до уменьшения в е раз равно
+	</p>
+	$$
+	\frac{10}{2\pi}\approx 1.6
+	$$
+	</div>
+</details>
+	</li>
+</ol>
+
+<p>Отклик на единичный импульс DT системы имеет вид
+$$
+h[n]=r_0^n\cos(\Omega_0n+\Phi)u[n]
+$$
+где параметры \(r_0\), \(\Omega_0\), \(\Phi\) связаны 
+с параметрами характеристического полинома системы:
+\(z^2+Dz+E\).
+<ol start=4>
+	<li> Определите выражение для 
+		\(r_0\), \(\Omega_0\) (не \(\Phi\))
+		в терминах D, E.
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert"> 
+	Выразите ответ единичного  импульса через комплексные 
+	экспоненты:
+	$$
+	\begin{split}
+h[n]&=r_0^n\left(
+	\frac{1}{2}e^{j\Omega_0n+j\Phi}+\frac{1}{2}e^{-j\Omega_0n-j\Phi}
+	\right)\\
+	&=\frac{1}{2}e^{j\Phi}r_0^nj^{j\Omega_0n}u[n]+\frac{1}{2}r_0^ne^{-j\Omega_0 n}u[n]
+	\end{split}
+	$$
+	Полюса имеют вид
+	$$
+	\begin{split}
+	z&=r_0e^{j\Omega_0}\\
+	z&=r_pe^{-j\Omega_0}.
+	\end{split}
+	$$
+	Характеристическое уравнение:
+	$$
+	z^2+Dz+E=(z-r_0e^{j\Omega_0})(z-r_0e^{-j\Omega_0}=z^2-2r_0\cos \Omega_0 r_0^2.
+	$$
+	Таким образом \(D=-2r_0\cos \Omega_0\) и \(E=r_0^2\).
+	Решая, получаем
+	$$
+	\begin{split}
+	r_0&=\sqrt{E}\\
+	\Omega_0&=\cos^{-1}\frac{-D}{2\sqrt{E}}
+	\end{split}
+	$$
+	</div>
+</details>
+	</li>
+	<li>
+		<p>Определите 
+		<ul>
+			<li>оцените время необходимое чтобы \(r_0^n\)
+				уменьшился в e раз.
+			</li>
+			<li>
+				период осцилляций (т.е., \(2\pi/\Omega_0\)) в h[n], и
+			</li>
+			<li>
+				число периодов в h[n] до уменьшения в e.
+			</li>
+		</ul> 
+		Выразите свои результаты только как функции D и E.
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+<p>Время уменьшения в е раз равно
+$$
+r_0^n=\frac{1}{e}.
+$$
+Взяв ln от обеих частей, получаем \(n \ln r_0=-1\), так что время равно
+$$
+-\frac{1}{\ln r_0}=-\frac{1}{\ln \sqrt{E}}
+$$
+Период 
+$$
+\frac{2\pi}{\Omega_0}=\frac{2\pi}{\cos^{-1}\frac{-D}{2\sqrt{E}}}
+$$
+Число периодов до уменьшения в e
+$$
+\frac{ \frac{-1}{\ln r_0}}{\frac{2\pi}{\cos{-1}\frac{-D}{2\sqrt{E}}}}=\frac{\frac{-1}{\ln \sqrt{E}} \cos^{-1} \frac{-D}{2\sqrt{E}}}{2\pi}
+$$
+</p>
+			</div>
+		</details>
+	</li>	
+	<li>
+		<p>Оцените параметры в части 5 для системы DT со 
+		следующими полюсами:</p>
+<figure class="figure">
+	<img src="/psets/data/images/bode/09_01_poles.png" class="figure-img img-fluid">
+</figure>
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert">
+
+<p>
+Из рисунка
+$$
+\begin{split}
+\Omega_0&=\tan^{-1}\frac{0.149}{0.938}\approx 0.16 радиан\\
+r_0&=\sqrt{0.149^2+0.938^2}\approx 0.95
+\end{split}
+$$
+Время уменьшения в e
+$$
+\frac{-1}{\ln 0.95}\approx 19.5
+$$
+Число циклов до уменьшения в e
+$$
+\frac{19.5}{39.3}\approx 0.5
+$$
+</p>
+	</div>
+</details>
+	</li>
+
+</ol>
+
+<h2>Соответствия</h2>
+<p>На следующих графиках показаны диаграммы полюс-ноль, импульсные характеристики, графики величины Боде и графики угла Боде для шести причинных систем CT LTI.
+Определите, что чему соответствует, и заполните следующую таблицу.
+<table class="table">
+	<tr>
+		<th></th>
+		<th>h(t)</th>
+		<th>Модуль</th>
+		<th>Угол</th>
+	</tr>
+	<tr>
+		<td>PZ diagram 1:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<tr>
+		<td>PZ diagram 2:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<tr>
+		<td>PZ diagram 3:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<tr>
+		<td>PZ diagram 4:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<tr>
+		<td>PZ diagram 5:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+<tr>
+		<td>PZ diagram 6:</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+</table>
+
+<figure class="figure">
+	<img src="/psets/data/images/bode/matches.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/psets/data/images/bode/matches_h_t.png" class="figure-img img-fluid">
+</figure>
+
+
+<figure class="figure">
+	<img src="/psets/data/images/bode/matches_bode_magnitude.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/psets/data/images/bode/matches_bode_angle.png" class="figure-img img-fluid">
+</figure>
+
+<details> 
+<summary>Подсказка</summary> 
+<div class="alert alert-secondary" role="alert">
+	<p>
+	<b>Pole-zero diagram 1</b> имеет один полюс в нуле. 
+	Импульсная характеристика системы с одним полюсом 
+в нуле представляет собой единичную ступенчатую функцию (3).
+Мы оцениваем частотную характеристику, рассматривая частоты 
+вдоль оси \(j\omega\).
+По мере удаления от полюса в начале координат логарифмическая 
+величина линейно убывает (5).
+Фаза постоянна, поскольку угол между полюсом и любой точкой 
+вдоль положительной стороны оси \(j\omega\) остаётся 
+постоянным и составляет \(\pi/2\).
+Следовательно, угол частотной характеристики равен \(-\pi/2\) (4).
+	</p>
+	<p>
+	<b>Pole-zero diagram 4</b> имеет один полюс в s=-1.
+Импульсная характеристика имеет вид 
+$$
+e^{st}u(t)=e^{-t} u(t)(2).
+$$
+Двигаясь вдоль оси \(j\omega\), мы удаляемся от полюса в 
+начале координат, и логарифмическая величина в конечном 
+итоге будет линейно убывать.
+Поскольку полюс не находится точно в начале координат, 
+это уменьшение незначительно до тех пор, пока \(\omega=1\) (6).
+Фаза начинается с 0 и в конечном итоге переходит к \(-\pi/2\).
+Заметим, что при дальнейшем движении вверх по оси \(j\omega\) 
+эта система ведёт себя подобно системе диаграммы 1 (2).
+	</p>
+
+<p>
+<b>Pole-zero diagram 3</b> добавляет нуль в начало.
+Ноль в начале координат соответствует взятию производной, 
+поэтому мы берём импульсную характеристику диаграммы 
+полюс-ноль 4 (2) и берём её производную (4).
+Когда \(\omega\) мало, ноль является доминирующим.
+По мере удаления от \(\omega = 0\) влияние нуля уменьшается, 
+а логарифмическая величина линейно возрастает.
+При достаточно большом \(\omega\) мы находимся достаточно 
+далеко, чтобы казалось, что ноль и полюс компенсируют друг 
+друга, и величина становится постоянной (3).
+Ноль в начале координат означает, что мы берем 
+фазовую характеристику диаграммы полюс-ноль 4 (2) и 
+добавляем к ней \(pi/2\) (6).
+</p>
+
+<p>
+<b>Pole-zero diagram 2</b> содержит комплексно сопряжённые полюса
+$$
+\begin{split}
+H(s)&=\frac{K}{(s+\sigma+j\omega_d)(s+\sigma-j\omega_d)}\\
+&=\frac{jA}{s+\sigma+j\omega_d}-\frac{jA}{s+\sigma-j\omega_d}
+\end{split}
+$$
+Импульсная характеристика имеет вид:
+$$
+h(t)\propto e^{-\sigma t}(e^{j\omega_dt}-e^{-j\omega_dt})\propto e^{-\sigma t}\sin\omega_dt
+$$
+что является ответом (1). Амплитудный отклик в конечном итоге 
+будет затухать в два раза быстрее, чем на диаграмме полюс-ноль 4 (6).
+Поскольку полюсов два, в районе \(\omega = 1\) будет неровность (2).
+
+В начале координат угловые вклады двух полюсов компенсируют друг 
+друга, поэтому угол равен нулю.
+По мере продвижения вверх по оси \(j\omega\) углы в сумме 
+составляют \(−\pi\), при этом вклад каждого полюса составляет \(\pi/2\) (3).
+</p>
+</div>
+</details>
+
+
+
+{% endblock %}
+
