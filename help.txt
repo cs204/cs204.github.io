@@ -1,7 +1,0 @@
-
-x(t)=\sum_{k=-\infty}^{\infty}a_k e^{j\frac{2\pi}{T} k t }
-
-\rightarrow y(t)=\sum_{k=-\infty}^{\infty} a_k H(j \frac{2\pi}{T} k)e^{j\frac{2\pi}{T} k t}
-
-
-
