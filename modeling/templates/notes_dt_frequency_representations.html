@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+{% block title %}
+Частотная характеристика дискретных систем
+{% endblock %}
+
+{% block body %}
+<h1>Частотная характеристика дискретных систем</h1>
+<h2>Комплексная геометрическая последовательность</h2>
+
+<p>
+Комплексные геометрические последовательности - 
+собственные функции DT LTI системы.
+</p>
+<p>Найдём отклик DT LTI системы (h[n]) на \(x[n]=z^n\).
+$$
+y[n]=(h*x)[n]=\sum_{k=-\infty}^\infty h[k]z^{n-k}
+=z^n \sum_{k=-\infty}^\infty h[k] z^{-k}=H(z)z^n
+$$
+</p>
+<p>Комплексные геометрические (DT): аналоги комплексных экспонент (CT).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/ct_dt_analog.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Система, описываемая линейным разностным уравнением с постоянными коэффициентами, тогда  системная функция, представляет собой отношение многочленов от z.
+</p>
+<p>Пример:
+$$
+\begin{split}
+y[n-2]+3y[n-1]+4y[n]=2x[n-2]+7x[n-1]+8x[n]\\
+H(z)=\frac{2z^{-2}+7x^{-1}+8}{z^{-2}+3z{-1}+4}
+=\frac{2+7z+8z^2}{1+3z+4z^2}=\frac{N(z)}{D(z)}
+\end{split}
+$$
+Факторируйте числитель и знаменатель системной функции, 
+чтобы сделать полюсы и нули явными.
+$$
+H(z_0)=K\frac{(z_0-q_0)(z_0-q_1)(z_0-q_2)...}{(z_0-p_0)(z_0-p_1)(z_0-p_2)...}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/z_p_vectors.png" class="figure-img img-fluid">
+</figure>
+<p>Каждый множитель в числителе/знаменателе соответствует 
+вектору от нуля/полюса (здесь \(q_0/p_0\))  до z0, 
+интересующей точки на плоскости z.
+</p>
+<p>
+Векторные диаграммы для DT аналогичны диаграммам для CT.
+</p>
+
+<p>
+Значение H(z) при z = z0 можно определить путём объединения 
+вкладов векторов, связанных с каждым из полюсов и нулей.
+</p>
+
+<p>
+Модуль равен произведению модулей.
+$$
+|H(z_0)|=|K|\frac{|(z_0-q_0)||(z_0-q_1)||(z_0-q_2)|...}{|(z_0-p_0)||(z_0-p_1)||(z_0-p_2)|...}
+$$
+</p>
+<p>
+Угол определяется суммой углов.
+$$
+\angle H(z_0)=\angle K + \angle (z_0-q_0)+\angle (z_0-q_1) .. -\angle (z_0-p_0)-\angle (z_0-p_1)-....
+$$
+</p>
+
+<h2>DT частотная характеристика</h2>
+<p>
+Отклик на синус.  Пусть \(x[n]=\cos \Omega_0 n\):
+$$
+x[n]=\frac{1}{2}\left( e^{j\Omega_0 n}+e^{-j \Omega_0 n}\right)
+=\frac{1}{2}\left( z_0^n+z_1^n\right)
+$$
+где \(z_0=e^{j\Omega_0}\) и \(z_1=e^{-j\Omega_0}\).
+</p>
+<p>
+Отклик на сумму является суммой откликов:
+$$
+\begin{split}
+y[n]&=\frac{1}{2} \left(H(z_0) z_0^n + H(z_1)z_1^n \right)\\
+&=\frac{1}{2}\left( H(e^{j\Omega_0})e^{j\Omega_0 n} + H(e^{-j\Omega_0}) e^{-j\Omega_0 n}\right)
+\end{split}
+$$
+</p>
+<p>
+Для физических систем комплексно-сопряженное \(H(e^{j\Omega})\) 
+есть \(H(e^{-j\Omega})\).
+
+</p>
+<p>
+Системная функция представляет собой Z-преобразование 
+отклика системы на единичный импульс:
+$$
+H(z)=\sum_{n=-\infty}^\infty h[n]z^{-n}
+$$
+где h[n] — действительная функция от n для физических систем.
+$$
+\begin{split}
+H(e^{j\Omega})&=\sum_{n=-\infty}^\infty h[n]e^{-j\Omega n}\\
+H(e^{-j\Omega})&=\sum_{n=-\infty}^\infty h[n]e^{j\Omega n}=H(e^{j\Omega})^*\\
+\end{split}
+$$
+</p>
+<p>
+Отклик на синусойду. 
+$$
+\begin{split}
+y[n]&=\frac{1}{2}\left(H(e^{j\Omega_0})e^{j\Omega_0 n}+H(e^{-j\Omega_0})e^{-j\Omega_0 n}\right) \\
+&=Re\left\{ H(e^{j\Omega_0})e^{j\Omega_0 n}\right\}\\
+&=Re\left\{ |H(e^{j\Omega_0})|e^{j\angle H(e^{j\Omega_0})}e^{j\Omega_0 n}\right\}\\
+&=|H(e^{j\Omega_0})|Re\left\{ e^{j\Omega_0 n+ j \angle H(e^{j\Omega_0})} \right\}\\
+y[n]&=|H(e^{j\Omega_0})|\cos \left( e^{j\Omega_0 n+ j \angle H(e^{j\Omega_0})} \right)\\
+\end{split}
+$$
+</p>
+<p>
+Амплитуда и фаза реакции системы на косинусный сигнал — это 
+амплитуда и фаза системной функции, оценённой на единичном круге.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/cos_n_omega.png" class="figure-img img-fluid">
+</figure>
+{% endblock %}

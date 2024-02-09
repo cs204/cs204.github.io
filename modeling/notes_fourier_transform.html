@@ -57,6 +57,7 @@
 					<li><a href="fourier_representations.html">Представление Фурье</a></li>
 					<li><a href="fourier_series.html">Ряды Фурье</a></li>
 					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
 					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
 				</ol>
 			</nav>
@@ -297,6 +298,109 @@ $$
 
 <figure class="figure">
 	<img src="/modeling/data/images/fourier_transform/fourier_transform_square_pulse.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим сигнал \(x_2(t)\) и его Фурье преобразование.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/square_pulse_2.png" class="figure-img img-fluid">
+</figure>
+<br>
+$$
+\begin{split}
+X_2(j\omega)&= \int_{-2}^2 e^{j\omega t}dt=\left. \frac{e^{-j\omega t}}{-j \omega}\right|_{-2}^2 \\
+&= \frac{2 \sin 2\omega}{\omega}
+=\frac{4 \sin 2\omega}{2 \omega}
+\end{split}
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/fourier_transform_square_pulse_2.png" class="figure-img img-fluid">
+</figure>
+<p>Растяжение времени сжимает частоту.
+Найдём общее правило масштабирования. Пусть \(x_2(t)=x_1(at)\).
+</p>
+$$
+X_2(j \omega)=\int_{-\infty}^\infty x_2(t) e^{-j\omega t}
+=\int_{-\infty}^\infty x_1(at) e^{-j\omega t}dt
+$$
+Пусть \(\tau=at\) (a>0).
+$$
+X_2(j\omega)=\int_{-\infty}^\infty x_1(\tau)e^{-j\omega \tau /a}\frac{1}{a} d\tau = \frac{1}{a} X_1 \left(\frac{j\omega}{a} \right)
+$$
+<p>
+Если \(a<0\) знак \(d\tau\) изменится вместе с границами интегрирования. В общем случае
+$$
+x_1(at) \leftrightarrow \frac{1}{|a|}X_a\left(\frac{j\omega}{a}\right)
+$$
+</p>
+<p>Если время растягивается (a < 1), то частота сжимается, 
+а амплитуда увеличивается (сохраняя площадь).
+</p>
+
+<h2>Импульс</h2>
+<p>Значение \(X(j \omega)\) при \(\omega= 0\) представляет 
+собой интеграл от x(t) по времени t.
+$$
+X(j\omega)|_{\omega=0} = \int_{-\infty}^\infty x(t)e^{-j\omega t}dt=\int_{-\infty}^\infty x(t) e^{j0t}dt=\int_{-\infty}^\infty x(t) dt
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_w_0.png" class="figure-img img-fluid">
+</figure>
+<p>Значение \(x(0)\) представляет собой интеграл от 
+\(X(j \omega)\), деленный на \(2\pi\).
+$$
+x(0)=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\omega) e^{j\omega t}d\omega=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\omega) d\omega
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_t_0_area.png" class="figure-img img-fluid">
+</figure>
+<p>
+Растяжение по времени, сжимает частоту и увеличивает амплитуду 
+(сохраняя площадь).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_w_1_2_3.png" class="figure-img img-fluid">
+</figure>
+<p>
+Новый способ думать об импульсе!
+</p>
+<h2>Обратное Фурье преобразование</h2>
+<p>
+Найдите импульсную характеристику «идеального» фильтра нижних частот.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/filter.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+h(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty H(j\omega)e^{j\omega t}d\omega
+=\frac{1}{2\pi} \int_{-\omega_0}^{\omega_0} e^{j\omega t}d\omega=\\
+&=\frac{1}{2\pi} \left. \frac{e^{j\omega t}}{jt} \right|_{-\omega_0}^{\omega_0}
+=\frac{\sin \omega_0 t}{\pi t}
+\end{split}
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/filter_h_t.png" class="figure-img img-fluid">
+</figure>
+<h2>Импульс</h2>
+<p>
+Фурье преобразование запаздывающего импульса: \(\delta(t-T)\leftrightarrow e^{-j\omega T}\).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/delta_T.png" class="figure-img img-fluid">
+</figure>
+$$
+X(j\omega)=\int_{-\infty}^\infty \delta(t-T)e^{-j\omega t}dt=e^{-j\omega T}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/delta_fourier_transform.png" class="figure-img img-fluid">
 </figure>
 
 				</div>

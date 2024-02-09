@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Частотная характеристика дискретных систем
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+					<li><a href="fourier_representations.html">Представление Фурье</a></li>
+					<li><a href="fourier_series.html">Ряды Фурье</a></li>
+					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
+					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>Частотная характеристика дискретных систем</h1>
+<h2>Комплексная геометрическая последовательность</h2>
+
+<p>
+Комплексные геометрические последовательности - 
+собственные функции DT LTI системы.
+</p>
+<p>Найдём отклик DT LTI системы (h[n]) на \(x[n]=z^n\).
+$$
+y[n]=(h*x)[n]=\sum_{k=-\infty}^\infty h[k]z^{n-k}
+=z^n \sum_{k=-\infty}^\infty h[k] z^{-k}=H(z)z^n
+$$
+</p>
+<p>Комплексные геометрические (DT): аналоги комплексных экспонент (CT).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/ct_dt_analog.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Система, описываемая линейным разностным уравнением с постоянными коэффициентами, тогда  системная функция, представляет собой отношение многочленов от z.
+</p>
+<p>Пример:
+$$
+\begin{split}
+y[n-2]+3y[n-1]+4y[n]=2x[n-2]+7x[n-1]+8x[n]\\
+H(z)=\frac{2z^{-2}+7x^{-1}+8}{z^{-2}+3z{-1}+4}
+=\frac{2+7z+8z^2}{1+3z+4z^2}=\frac{N(z)}{D(z)}
+\end{split}
+$$
+Факторируйте числитель и знаменатель системной функции, 
+чтобы сделать полюсы и нули явными.
+$$
+H(z_0)=K\frac{(z_0-q_0)(z_0-q_1)(z_0-q_2)...}{(z_0-p_0)(z_0-p_1)(z_0-p_2)...}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/z_p_vectors.png" class="figure-img img-fluid">
+</figure>
+<p>Каждый множитель в числителе/знаменателе соответствует 
+вектору от нуля/полюса (здесь \(q_0/p_0\))  до z0, 
+интересующей точки на плоскости z.
+</p>
+<p>
+Векторные диаграммы для DT аналогичны диаграммам для CT.
+</p>
+
+<p>
+Значение H(z) при z = z0 можно определить путём объединения 
+вкладов векторов, связанных с каждым из полюсов и нулей.
+</p>
+
+<p>
+Модуль равен произведению модулей.
+$$
+|H(z_0)|=|K|\frac{|(z_0-q_0)||(z_0-q_1)||(z_0-q_2)|...}{|(z_0-p_0)||(z_0-p_1)||(z_0-p_2)|...}
+$$
+</p>
+<p>
+Угол определяется суммой углов.
+$$
+\angle H(z_0)=\angle K + \angle (z_0-q_0)+\angle (z_0-q_1) .. -\angle (z_0-p_0)-\angle (z_0-p_1)-....
+$$
+</p>
+
+<h2>DT частотная характеристика</h2>
+<p>
+Отклик на синус.  Пусть \(x[n]=\cos \Omega_0 n\):
+$$
+x[n]=\frac{1}{2}\left( e^{j\Omega_0 n}+e^{-j \Omega_0 n}\right)
+=\frac{1}{2}\left( z_0^n+z_1^n\right)
+$$
+где \(z_0=e^{j\Omega_0}\) и \(z_1=e^{-j\Omega_0}\).
+</p>
+<p>
+Отклик на сумму является суммой откликов:
+$$
+\begin{split}
+y[n]&=\frac{1}{2} \left(H(z_0) z_0^n + H(z_1)z_1^n \right)\\
+&=\frac{1}{2}\left( H(e^{j\Omega_0})e^{j\Omega_0 n} + H(e^{-j\Omega_0}) e^{-j\Omega_0 n}\right)
+\end{split}
+$$
+</p>
+<p>
+Для физических систем комплексно-сопряженное \(H(e^{j\Omega})\) 
+есть \(H(e^{-j\Omega})\).
+
+</p>
+<p>
+Системная функция представляет собой Z-преобразование 
+отклика системы на единичный импульс:
+$$
+H(z)=\sum_{n=-\infty}^\infty h[n]z^{-n}
+$$
+где h[n] — действительная функция от n для физических систем.
+$$
+\begin{split}
+H(e^{j\Omega})&=\sum_{n=-\infty}^\infty h[n]e^{-j\Omega n}\\
+H(e^{-j\Omega})&=\sum_{n=-\infty}^\infty h[n]e^{j\Omega n}=H(e^{j\Omega})^*\\
+\end{split}
+$$
+</p>
+<p>
+Отклик на синусойду. 
+$$
+\begin{split}
+y[n]&=\frac{1}{2}\left(H(e^{j\Omega_0})e^{j\Omega_0 n}+H(e^{-j\Omega_0})e^{-j\Omega_0 n}\right) \\
+&=Re\left\{ H(e^{j\Omega_0})e^{j\Omega_0 n}\right\}\\
+&=Re\left\{ |H(e^{j\Omega_0})|e^{j\angle H(e^{j\Omega_0})}e^{j\Omega_0 n}\right\}\\
+&=|H(e^{j\Omega_0})|Re\left\{ e^{j\Omega_0 n+ j \angle H(e^{j\Omega_0})} \right\}\\
+y[n]&=|H(e^{j\Omega_0})|\cos \left( e^{j\Omega_0 n+ j \angle H(e^{j\Omega_0})} \right)\\
+\end{split}
+$$
+</p>
+<p>
+Амплитуда и фаза реакции системы на косинусный сигнал — это 
+амплитуда и фаза системной функции, оценённой на единичном круге.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/dt_frequency_representations/cos_n_omega.png" class="figure-img img-fluid">
+</figure>
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
