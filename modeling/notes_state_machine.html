@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Автоматы
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+					<li><a href="fourier_representations.html">Представление Фурье</a></li>
+					<li><a href="fourier_series.html">Ряды Фурье</a></li>
+					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
+					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<p>Материал взят из курса <a href="https://ocw.mit.edu/courses/6-01sc-introduction-to-electrical-engineering-and-computer-science-i-spring-2011/pages/unit-1-software-engineering/state-machines/">6.01</a>.</p>
+<h1>Автоматы</h1>
+<p>Автомат - это метод моделирования системы, вывод которой зависит
+от истории ввода.
+
+</p>
+<p>
+Мы можем задать автомат указав:
+<ul>
+	<li>множество состояний, S</li>
+	<li>множество вводов, I</li>
+	<li>множество выводов, O</li>
+	<li>функцию следующего состояния, \(n(i_t, s_t) \mapsto s_{t+1} \), для ввода и состояния 
+		в момент \(t \) задаёт состояние в момент \(t+1\)</li>
+	<li>функцию вывода, \( o(i_t, s_t) \mapsto o_t \), для ввода и состояния в момент \(t\) задаёт вывод в момент \(t\); и</li>
+	<li>начальное состояние, \(s_o\), состояние в момент времени 0.</li>
+</ul>
+</p>
+<h3>Автомат задержки</h3>
+<p>
+Автомат берет ввод и отправляет его на вывод, но
+с задержкой на один шаг.
+</p>
+$$\begin{array}{ccc}
+S &=& anything\\ 
+I &=& anything\\
+O &=& anything\\
+n(s, i) &=& i\\
+o(s, i) &=& s\\
+s_0 &=& 0\\
+\end{array}
+$$
+<p>Дана последовательность \(i_0, i_1, i_2, ..\),
+автомат будет выводить \(0, i_0, i_1, i_2, ..\).
+</p>
+
+<h3>Аккумулятор</h3>
+<p>Вывод из аккумулятора равен сумме всех вводов.
+</p>
+$$\begin{array}{ccc}
+S &=& numbers\\
+I &=& numbers \\
+O &=& numbers \\
+n(s,i) &=& s + i\\
+o(s, i) &=& n(s, i)\\
+s_0 &=& 0
+\end{array}
+$$
+<table class="table table-bordered border-primary">
+	<tr>
+		<td>time</td>
+		<td>0</td>
+		<td>1</td>
+		<td>2</td>
+		<td>3</td>
+	</tr>
+	<tr>
+		<td>input</td>
+		<td>100</td>
+		<td>-3</td>
+		<td>4</td>
+		<td>-123</td>
+	</tr>
+	<tr>
+		<td>state</td>
+		<td>0</td>
+		<td>100</td>
+		<td>97</td>
+		<td>101</td>
+	</tr>
+	<tr>
+		<td>output</td>
+		<td>100</td>
+		<td>97</td>
+		<td>101</td>
+		<td>-22</td>
+	</tr>
+</table>
+
+<h3>Автомат принимающий язык</h3>
+<img src="/modeling/data/images/language_acceptor.png">
+<p>Рассмотрим автомат, вывод из него True, если вводимая строка удовлетворяет шаблону,
+False в противном случае. Пусть шаблон будет a, b, c, a, b, c, a, b, c, ...
+Автомат использует состояния 0, 1, 2, в которых он ожидает a, b, c соответственно, и 
+он использует состояние 3 для случаев, когда он встретил не то, что ожидал.
+Когда автомат попадает в состояние 3, он ни когда его не покидает.
+</p>
+$$
+\begin{array}{ccc}
+S &=& \{0, 1, 2, 3\}\\
+I &=& \{a, b, c\} \\
+O &=& \{True, False\}\\
+s_0 &=& 0
+\end{array}
+$$
+
+$$
+n(s,i) = \left\{ \begin{array}{ccc}
+1, &if& s=0, i=a\\
+2, &if& s=1, i=b\\
+0, &if& s=2, i=c\\
+3, &&otherwise&\\
+\end{array}\right.
+$$
+
+$$
+o(s, i) = \left\{ \begin{array}{ccc}
+False, &if& n(s,i)=3\\
+True && otherwise\\
+\end{array}\right.
+$$
+<p>
+Диаграмм перехода состояний приведена на рисунке. 
+</p>
+
+<h2>Автомат в Python</h2>
+<p>Зададим абстрактный класс SM, он будет родителем
+для остальных классов автоматов.</p>
+<pre>
+<code class="language-python">
+class SM:
+    def start(self):
+        self.state = self.startState
+
+    def step(self, inp):
+        (s, o) = self.getNextValues(self.state, inp)
+        self.state = s
+        return o
+
+    def transduce(self, inputs, verbose = False):
+        self.start() 
+        return [self.step(inp) for inp in inputs]
+</code>
+</pre>
+<p>Метод getNextValues берет состояние и ввод в
+момент t и возвращает состояние в момент t+1
+и вывод в момент t. Метод step берет ввод, изменяет
+состояние автомата и возвращает вывод. Метод transduce
+для последовательности вводов возвращает выводы.
+</p>
+ 
+<h3>Автомат с задержкой</h3>
+<pre>
+<code class="language-python">
+class Delay(SM):
+    def __init__(self, v0):
+        self.startState = v0
+
+    def getNextValues(self, state, inp):
+        return (inp, state)
+</code>
+</pre>
+
+<h3>Incrementor</h3>
+<p>Автомат Incrementor берёт ввод и возвращает 
+его плюс константа incr.
+<pre>
+<code class="language-python">
+class Increment(SM):
+    def __init__(self, incr):
+        self.incr = incr
+
+    def getNextState(self, state, inp):
+        return safeAdd(inp, self.incr)
+</code>
+</pre>
+Вспомогательная функция safeAdd, понадобится для соединения с задержкой.
+<pre>
+<code class="language-python">
+def safeAdd(a, b):
+    if a == 'undefined' or b == 'undefined':
+        return 'undefined'
+    else:
+        return a + b
+</code>
+</pre>
+
+
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

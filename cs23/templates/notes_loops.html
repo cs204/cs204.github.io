@@ -1,0 +1,301 @@
+{% extends "layout.html" %}
+{% block title %}
+Циклы
+{% endblock %}
+
+
+{% block body %}
+
+<h1>Циклы</h1>
+Циклы - это способ  сделать что-то несколько раз.
+Например, мы можем 3 раза напечатать мяу, не используя цикл:
+<pre>
+<code class="language-python">
+print("мяу")
+print("мяу")
+print("мяу")
+</code>
+</pre>
+Код с использованием цикла будет удобнее писать, читать, изменять.
+
+<h2>while цикл</h2>
+<pre>
+<code class="language-python">
+i = 3
+while i != 0:
+	print("мяу")
+	i = i - 1
+</code>
+</pre>
+<code>+=, -=</code> - операторы удобны для изменения переменных, 
+так <code>i = i - 1</code> можно записать <code>i -= 1</code>
+<pre>
+<code class="language-py">
+i = 0
+while i < 3:
+	print("мяу")
+	i += 1
+</code>
+</pre>
+
+<h2>for цикл</h2>
+<pre>
+<code class="language-python">
+for i in [0, 1, 2]:
+	print(i, "мяу")
+</code>
+</pre>
+i последовательно принимает значения из списка <code>[0, 1, 2]</code>.
+Тип данных <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#list">list</a> (список).
+В цикле for удобно использовать неизменяемый тип 
+<a href="https://digitology.tech/docs/python_3/library/stdtypes.html#typesseq-range">range</a> (диапазон).
+<pre>
+<code>
+class range(stop)
+class range(start, stop[,step])
+</code>
+</pre>
+С использованием range получим:
+<pre>
+<code class="language-python">
+for i in range(3):
+	print(i, "мяу")
+</code>
+</pre>
+
+<h2>Тест ввода пользователя</h2>
+Допустим, программа ждёт от пользователя положительное
+целое число. Можно использовать цикл для организации проверки
+правильности ввода
+<pre>
+<code class="language-python">
+while True: 
+    n = int(input("Введите n: ")) 
+    if n > 0: 
+        break 
+    else: 
+        continue
+ 
+for i in range(n): 
+    print("мяу")
+</code>
+</pre>
+<code>continue</code> - начать следующую итерацию цикла.
+<code>break</code> - выйти из цикла. 
+<pre>
+<code class="language-python">
+def main():
+	number = get_number()
+	meow(number)
+
+def get_number():
+	while True:
+		n = int(input("Введите n: "))
+		if n > 0:
+			break
+	return n
+
+def meow(n):
+	for i in range(n):
+		print("мяу")
+
+main()
+</code>
+</pre>
+
+
+<h2>Тип данных <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#list">list</a> (список)</h2>
+<pre>
+<code class="language-python">
+students = ["Гермиона", "Гарри", "Рон"]
+print(students[0])
+print(students[1])
+print(students[2])
+</code>
+</pre>
+Список удобно обрабатывать в цикле.
+<pre>
+<code class="language-python">
+students = ["Гермиона", "Гарри", "Рон"]
+for student in students:
+	print(student)
+</code>
+</pre>
+
+<h2>len</h2>
+<code>len</code> - функция возвращает  числу элементов.
+Следующий код печатает имя студента и его положение в списке.
+<pre>
+<code class="language-python">
+students = ["Гермиона", "Гарри", "Рон"]
+n = len(students)
+for i in range(n):
+	print(i, students[i])
+</code>
+</pre>
+<h2><a href="https://digitology.tech/docs/python_3/library/stdtypes.html#dict">dict</a> тип данных (словарь) </h2>
+
+dict - структура данных для связывания ключей с значениями.
+
+<table class="table table-bordered">
+	<tr> 
+		<th>Гермиона</th>
+		<th>Гарри</th>
+		<th>Рон</th>
+		<th>Драко</th>
+	</tr>
+	<tr>
+		<td>Гриффиндор</td>
+		<td>Гриффиндор</td>
+		<td>Гриффиндор</td>
+		<td>Слизерин</td>
+	</tr>
+</table>
+
+Сопоставим студентам Хогвартса факультеты, используя
+dict.
+<pre>
+<code class="language-python">
+students={
+	"Гермиона": "Гриффиндор",
+	"Гарри": "Гриффиндор",
+	"Рон": "Гриффиндор",
+	"Драко": "Слизерин"
+	}
+print(students["Гермиона"])
+print(students["Гарри"])
+print(students["Рон"])
+print(students["Драко"])
+</code>
+</pre>
+Для итерации по списку мы можем использовать цикл.
+<pre>
+<code class="language-python">
+students={
+	"Гермиона": "Гриффиндор",
+	"Гарри": "Гриффиндор",
+	"Рон": "Гриффиндор",
+	"Драко": "Слизерин"
+	}
+
+for student in students:
+	print(student, students[student], sep=", ")
+</code>
+</pre>
+Переменная student пробегает множество ключей из словаря.
+Запись students["Ron"]   по ключу возвращает значение.
+<p>Что если мы хотим иметь больше информации о студентах.</p>
+<table class="table table-bordered">
+	<tr>
+		<th></ht>
+		<th>имя</th>
+		<th>факультет</th>
+		<th>патронус</th>
+	</tr>
+	<tr>
+		<td>0</td>
+		<td>Гермиона</td>
+		<td>Гриффиндор</td>
+		<td>Выдра</td>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>Гарри</td>
+		<td>Гриффиндор</td>
+		<td>Олень</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>Рон</td>
+		<td>Гриффиндор</td>
+		<td>Джек Рассел терьер</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>Драко</td>
+		<td>Слизерин</td>
+		<td></td>
+	</tr>
+</table>
+Мы можем составить список из словарей.
+<pre>
+<code class="language-python">
+students = [
+	{"имя": "Гермиона", "факультет": "Гриффиндор", "патронус":"выдра"},
+	{"имя": "Гарри", "факультет": "Гриффиндор", "патронус": "Олень"},
+	{"имя": "Драко", "факультет": "Слизерин", "патронус": None}
+	]
+
+for student in students:
+	print(student["имя"], student["факультет"], student["патронус"], sep=", ")
+</code>
+</pre>
+
+<h2>Марио</h2>
+В игре Марио прыгает через препятствия. Давайте создадим 
+текстовый представление игры.
+<br>
+<img src="/cs23/data/images/mario.png">
+<br>
+Закодируем такой столбец:
+<pre>
+<code class="language-python">
+def main():
+	print_column(3)
+
+def print_column(height):
+	for i in range(height):
+		print("#")
+main()
+</code>
+</pre>
+Давайте теперь создадим горизонтальный ряд.
+<pre>
+<code class="language-python">
+def main():
+	print_row(4)
+
+def print_row(width):
+	print("?" * width)
+
+main()
+</code>
+</pre>
+Далее реализуем построение из строк и столбцов
+<pre>
+<code class="language-python">
+def main():
+	print_square(3)
+
+def print_square(size):
+	#Для каждой строки в квадрате
+	for i in range(size):
+		# Для каждого кирпича в строке
+		for j in range(size):
+			print("#", end="")
+		#Печатаем пустую строку
+		print()
+
+main()
+</code>
+</pre>
+Можно так реализовать код:
+<pre>
+<code class="language-python">
+def main():
+    print_square(3)
+
+
+def print_square(n):
+    for i in range(3):
+        print_row(3)
+
+
+def print_row(n):
+    print("#"*n)
+
+main()
+</code>
+</pre>
+{% endblock %}
+

@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block title %}
+	Объединение счетов
+{% endblock %}
+
+{% block body %}
+<h1> Объединение счетов </h1>
+<p>
+	Рассмотрим два разных типа банковских счетов:
+	<ul>
+		<li>	B1: комиссия в размере 100$ за 
+			каждый (ненулевой) депозит и вывод средств;
+			2% годовых за каждый временной шаг.
+
+
+			<pre>
+			<code class ="language-python">
+			class BA1(sm.SM):
+			    startState = 0
+			    def getNextValues(self, state, inp):
+				if inp != 0:
+				    newState = state * 1.02 + inp - 100
+				else:
+				    newState = state * 1.02
+				return (newState, newState)
+
+			</code>
+			</pre>
+		</li>
+		<li>
+			B2: отсутствие  комиссии за транзакцию; 1% за временной шаг.
+			<pre>
+			<code class="language-python">
+			class BA2(sm.SM):
+			    startState = 0 
+			    def getNextValues(self, state, inp):
+				newState = state * 1.01 + inp
+				return (newState, newState)
+			</code>
+			</pre>
+		</li>
+	</ul>
+</p>
+<hr>
+<p>Создайте автомат, который вычисляет баланс обоих типов, но выводит максимальный из двух.
+</p>
+<p>
+Входными данными для автомата являются числа (положительные - это депозиты, отрицательные - это
+выплаты); вывод представляет максимум из двух балансов.
+</p>
+<p>Начните с создания автомата, вход которого число, а выход tuple из двух балансов: баланс первого типа счета
+после ввода и баланс второго после ввода.
+Объедините эту машину с экземпляром pureFunction (определённой в предыдущем задании).
+Необходимые комбинаторы возьмите из модуля sm: sm.Cascade, sm.Parrallel, sm.Paralle2.
+</p>
+
+
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. 
+Сделайте рабочим каталогом вашу Codespace.
+Создайте каталог bankAccounts,  выполнив
+<pre>
+<code>mkdir bankAccounts</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd bankAccounts</code>
+</pre>
+Закачайте файлы sm.py, bankAccounts.py выполнив
+<pre>
+<code>
+wget https://vadimgb.github.io/psets/data/sm.py 
+wget https://vadimgb.github.io/psets/data/bankAccounts.py 
+</code>
+</pre>
+Откройте файл bankAccounts.py, выполнив
+<pre>
+<code>
+code bankAccounts.py
+</code>
+</pre>
+Дополните файл.
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/bankAccounts local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/bankAccounts</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/bankAccounts/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}
+
+

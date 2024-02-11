@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+flask
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="cs50_dev.html">cs50.dev</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<!--
+
+					<li><a href="git.html">Git, html, css</a></li>
+
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+					<li><a href="JavaScript.html">JavaScript, API</a><li>
+					<li><a href="/psets/finance.html">Финансы</a></li>
+					<li><a href="machineLearning.html">Обучение</a></li>
+
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				<div class="container-sm">
+
+					
+<h1>Flask</h1>
+<h2>Создание веб-приложения.</h2>
+<p>Создайте директорию site.
+Перейдите в неё. 
+Установите пакеты Flask, Gunicorn,  выполнив:
+<pre>
+<code>
+pip install flask
+pip install gunicorn
+</code>
+</pre>
+</p>
+Создайте файл requirements.txt. Добавьте в него:
+<pre>
+<code>
+Flask
+Gunicorn
+</code>
+</pre>
+
+<p>Создайте app.py файл.</p>
+<pre>
+<code id=app_py class="language-Python">
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route("/greet", methods=["POST"])
+def greet():
+    name = request.form.get("name", "world")
+    return render_template("greet.html", name=name)
+</code>
+</pre>
+</p>
+	<p>Создайте каталоги templates, static. В папку static поместите gerbtspu118.png.  
+Создайте layout.html файл в папке templates.</p>
+<pre>
+<code id=layout_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/layout.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let layout_html = document.querySelector("#layout_html")
+					layout_html.innerText = data
+				})
+	</script>
+
+
+
+
+
+
+
+	Создайте index.html файл в папке templates.</p>
+<pre>
+<code id=index_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/index.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let index_html = document.querySelector("#index_html")
+					index_html.innerText = data
+				})
+	</script>
+
+<p>Создайте greet.html файл в папке templates.</p>
+<pre>
+<code id=greet_html>
+</code>
+</pre>
+
+	<script>
+		fetch("static/flask/hello/templates/greet.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let greet_html = document.querySelector("#greet_html")
+					greet_html.innerText = data
+				})
+	</script>
+
+<p>Запустите ваше приложение, выполнив:</p>
+<pre>
+<code>
+flask run 
+</code>
+</pre>
+Откройте ваше приложение в веб-браузере.
+Остановите приложение выполнив Ctrl-C в терминале.
+Запустите его снова выполнив:
+<pre>
+<code>
+gunicorn app:app
+</code>
+</pre>
+
+<h2>Выложите веб-приложение на render.com</h2>
+<p>Инициализируйте git в каталоге вашего приложения, выполнив:</p>
+<pre>
+<code>
+git init
+</code>
+</pre>
+<p>Создайте файл .gitignore . Добавьте в него строки:</p>
+<pre>
+<code>
+__pycache__
+.env
+</code>
+</pre>
+<p>Эти строки нужны, чтобы git не создавал копии указанных файлов.
+Создайте репозиторий на github. Загрузите в него ваше приложение. 
+Зарегистрируйтесь на <a href="https://render.com">render.com</a>.
+Разместите на нем своё приложение.
+</p>
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

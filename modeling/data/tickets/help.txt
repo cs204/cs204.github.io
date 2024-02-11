@@ -1,0 +1,2 @@
+
+\includegraphics[width=8cm]{~/students/vadimgb.github.io/psets/data/images/convolution/zebra.jpg}

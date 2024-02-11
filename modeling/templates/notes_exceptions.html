@@ -1,0 +1,165 @@
+
+{% extends "layout.html" %}
+{% block title %}
+Ошибки и исключения
+{% endblock %}
+
+
+{% block body %}
+
+<h1>Ошибки и исключения</h1>
+Документация Python об <a href="https://digitology.tech/docs/python_3/tutorial/errors.html">ошибках и исключениях</a>.
+
+<h2>SyntaxError, RunTimeError</h2>
+Введите код и запустите.
+<pre>
+<code class="language-python">
+print("Hello, World!)
+</code>
+</pre>
+Вы получите сообщение о синтаксической ошибке.
+
+<h2>Исключения, инструкция try.</h2>
+Исключения помогают разделить место в программе, где 
+обнаружена ошибка, от  места, где принимается решение по
+дальнейшим действиям. 
+Рассмотрим код:
+<pre>
+<code class="language-python">
+x = int(input("Введите x: ")) 
+print(f"x = {x}")
+</code>
+</pre>
+Если мы введём, например, кот.
+Функция int не сможет преобразовать ввод
+в число, создаст исключение ValueError.
+Создатель функции определил, при
+каких условиях будет генерироваться исключение.
+Тот, кто вызывает функцию int, может принять решение:
+как обработать возникшее исключение.
+Для этого он использует составную инструкцию try:
+<pre>
+<code class="language-python">
+try: 
+    x = int(input("Введите x: ")) 
+    print(f"x = {x}")
+except ValueError:
+    print("x не целое число")
+</code>
+</pre>
+Встретив исключение интерпретатор переходит
+в блок except. Другой способ записи:
+<pre>
+<code class="language-python">
+try: 
+    x = int(input("Введите x: ")) 
+except ValueError:
+    print("x не целое число")
+else:
+    print(f"x = {x}")
+</code>
+</pre>
+
+<h2>Создадим функцию для ввода целого числа</h2>
+<pre>
+<code class="language-python">
+while True:
+    try:
+        x = int(input("x: "))
+    except ValueError:
+        print("x не целое число")
+    else:
+        break
+
+print(f"x = {x}")
+</code>
+</pre>
+
+Создадим функцию.
+<pre>
+<code class="language-python">
+def main():
+    x = get_int()
+    print(f"x = {x}")
+
+def get_int():
+    while True:
+        try:
+            return int(input("x: "))
+        except ValueError:
+            print("x не целое число")
+
+main()
+</code>
+</pre>
+<h2>pass</h2>
+Инструкция pass ничего не делает.
+Используем эту инструкцию, для примера рассмотренного
+выше:
+<pre>
+<code class="language-python">
+def main():
+    x = get_int()
+    print(f"x = {x}")
+
+def get_int():
+    while True:
+        try:
+            return int(input("x: "))
+        except ValueError:
+            pass
+
+main()
+</code>
+</pre>
+Изменим код.
+<pre>
+<code class="language-python">
+def main():
+    x = get_int("Введите x: ")
+    print(f"x = {x}")
+
+def get_int(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            pass
+
+main()
+</code>
+</pre>
+Вы можете посмотреть документацию Python об инструкции 
+<a href="https://digitology.tech/docs/python_3/tutorial/controlflow.html#pass">pass</a>. 
+
+<h2>raise</h2>
+raise бросает исключение, например:
+<pre>
+<code class="language-python">
+def main():
+    n = get_pos_number()
+    meow(n)
+
+def get_pos_number():
+    while True:
+        try:
+            n = int(input("Введите положительное число: "))
+            if n <= 0:
+                raise ValueError
+            return n
+        except ValueError:
+            pass
+
+def meow(n):
+    for i in range(n):
+        print("мяу")
+
+main()
+</code>
+</pre>
+
+
+Справка по <a href="https://digitology.tech/docs/python_3/tutorial/errors.html#tut-raising">raise</a>.
+
+{% endblock %}
+

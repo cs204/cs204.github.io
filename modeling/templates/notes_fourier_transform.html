@@ -1,0 +1,346 @@
+{% extends "layout.html" %}
+{% block title %}
+Преобразование Фурье
+{% endblock %}
+
+
+{% block body %}
+<h1>Преобразование Фурье </h1>
+<p>
+Апериодический сигнал можно рассматривать как периодический с бесконечным периодом.
+Пусть x(t) представляет собой апериодический сигнал.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_t_1.png" class="figure-img img-fluid">
+</figure>
+<p>«Периодическое продление»:
+$$
+x_T(t)=\sum_{k=-\infty}^\infty x(t+kT)
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_t_T.png" class="figure-img img-fluid">
+</figure>
+<p>Тогда 
+$$
+x(t)=\lim_{T \rightarrow \infty} x_T(t).
+$$
+Представим \(x_T (t)\) его рядом Фурье.
+$$
+\begin{split}
+a_k&=\frac{1}{T}\int_{-T/2}^{T/2} x_T(t) e^{-j\frac{2\pi}{T}kt}dt\\
+&=\frac{1}{T} \int_{-S}^S e^{-j\frac{2\pi}{T}kt} dt
+=\frac{\sin \frac{2\pi k S}{T}}{\pi k}=\frac{2}{T} \frac{\sin \omega S}{\omega}
+\end{split}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/a_k_w_T.png" class="figure-img img-fluid">
+</figure>
+<p>
+Удвоение периода удваивает число гармоник в данном интервале частот.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_t_2T.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/a_k_w_2T.png" class="figure-img img-fluid">
+</figure>
+
+$$
+\begin{split}
+\lim_{T \rightarrow \infty} T a_k &
+= \lim_{T \rightarrow \infty} \int_{-T/2}^{T/2} x(t) e^{-j\omega t}dt
+=\frac{2}{\omega}\sin \omega S = E(\omega)\\
+x(t)&=\sum_{k=-\infty}^\infty \underbrace{\frac{1}{T}E(\omega)}_{a_k} e^{j\frac{2\pi}{T}kt}
+=\sum_{k=-\infty}^\infty \frac{\omega_0}{2\pi} E(\omega) e^{j\omega t}
+\rightarrow \frac{1}{2\pi}\int_{-\infty}^\infty E(\omega)e^{j\omega t} d\omega
+\end{split}
+$$
+<p>
+Замена \(E(\omega)\) на \(X(j\omega)\) даёт преобразование Фурье.
+$$
+E(\omega)=X(j\omega)
+$$
+Преобразование Фурье
+$$
+\begin{split}
+X(j\omega)&=\int_{-\infty}^\infty x(t)e^{-j\omega t}dt\\
+x(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\omega)e^{j\omega t}d\omega
+\end{split}
+$$
+Форма аналогична ряду Фурье.
+Обеспечивает альтернативный вид сигнала.
+</p>
+<h2>Связь между преобразованиями Фурье и Лапласа</h2>
+<p>
+Если преобразование Лапласа сигнала существует и если 
+ROC включает в себя ось \(j\omega\), то преобразование 
+Фурье равно преобразованию Лапласа, оцененному по оси \(j\omega\).
+</p>
+<p>
+Преобразование Лапласа:
+$$
+X(s)=\int_{-\infty}^\infty x(t) e^{-st}dt
+$$
+Преобразование Фурье:
+$$
+X(j\omega)=\int_{-\infty}^\infty x(t) e^{-j\omega t}dt=\left. X(s)\right|_{s=j\omega}
+$$
+</p>
+<p>
+Преобразование Фурье «наследует» свойства преобразования Лапласа.
+</p>
+<table class="table">
+	<tr>
+		<td>Свойства</td>
+		<td>\(x(t)\)</td>
+		<td>\(X(s)\)</td>
+		<td>\(X(j\omega)\)</td>
+	</tr>
+	<tr>
+		<td>
+			Линейность
+		</td>
+		<td>
+			\(ax_1(t)+bx_2(t)\)
+		</td>
+		<td>
+			\(aX_1(s)+bX_2(s)\)
+		</td>
+		<td>
+			\(aX_1(j\omega)+bX_2(j \omega)\)
+		</td>
+	</tr>
+	<tr>
+		<td> 
+			Задержка на T
+		</td>
+		<td>
+			\(x(t-t_0)\)
+		</td>
+		<td>
+			\(X(s)e^{-st_0}\)
+		</td>
+		<td>
+			\(X(j \omega)e^{-j\omega t_0}\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Умножение на t
+		</td>
+		<td>
+			\(tx(t)\)
+		</td>
+		<td>
+			\(-\frac{dX(s)}{ds}\) 
+		</td>
+		<td>
+			\(-\frac{1}{j}\frac{dX(j\omega)}{d\omega}\) 
+		</td> 
+	</tr>
+	<tr>
+		<td>
+			Дифференцирование по t
+		</td>
+		<td>
+			\(\frac{dx(t)}{dt}\)
+		</td>
+		<td>
+			\(sX(s)\)
+		</td>
+		<td>
+			\(j\omega X(j \omega)\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Свертка по t
+		</td>
+		<td>
+			\(\int_{-\infty}^\infty x_1(\tau)x_2(t-\tau)d\tau\)
+		</td>
+		<td>
+			\(X_1(s)X_2(s)\)
+		</td>
+		<td>
+			\(X_1(j \omega)X_2(j \omega)\)
+		</td>
+	</tr>
+</table>
+<p>
+Есть и важные различия.
+</p>
+<p>
+Сравните преобразования Фурье и Лапласа \(x(t) = e^{−t} u(t)\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/e_m_t.png" class="figure-img img-fluid">
+</figure>
+<p>
+Преобразование Лапласа
+$$
+X(s)=\int_{-\infty}^\infty e^{-t}u(t)e^{-st}dt=\int_0^\infty e^{-(s+1)t}dt=\frac{1}{1+s}; \; Re(s)>-1
+$$
+комплексная функция комплексной области определения.
+</p>
+<p>
+Фурье преобразование
+$$
+X(j\omega)=\int_{-\infty}^\infty e^{-t}u(t)e^{-j\omega t}dt=\int_0^\infty e^{-(j\omega + 1)t} dt=\frac{1}{1+j\omega}
+$$
+комплексная функция действительного домена.
+</p>
+<p>
+Преобразование Лапласа отображает функцию времени t в комплексную функцию комплексной области s.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/laplace_transform.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Преобразование Фурье отображает функцию времени t в 
+комплексную функцию действительной области \(\omega\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/fourier_transform.png" class="figure-img img-fluid">
+</figure>
+
+<p>Сравним преобразования Лапласа и Фурье квадратного импульса
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/square_pulse.png" class="figure-img img-fluid">
+</figure>
+<p>Преобразование Лапласа:
+$$
+X_1(s)=\int_{-1}^1 e^{-st}dt
+=\left. \frac{e^{-st}}{-s}\right|_{-1}^1 =
+\frac{1}{s} (e^s-e^{-s}); \; [функция\; от\; s=\sigma + j \omega]
+$$
+
+Преобразование Фурье:
+$$
+X_1(j\omega)=\int_{-1}^{1}e^{-j\omega t}dt=\left. 
+\frac{e^{-j\omega t}}{-j\omega}\right|_{-1}^1
+=\frac{2\sin \omega}{\omega} \;[функция\; от\; \omega]
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/laplace_transform_square_pulse.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/fourier_transform_square_pulse.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим сигнал \(x_2(t)\) и его Фурье преобразование.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/square_pulse_2.png" class="figure-img img-fluid">
+</figure>
+<br>
+$$
+\begin{split}
+X_2(j\omega)&= \int_{-2}^2 e^{j\omega t}dt=\left. \frac{e^{-j\omega t}}{-j \omega}\right|_{-2}^2 \\
+&= \frac{2 \sin 2\omega}{\omega}
+=\frac{4 \sin 2\omega}{2 \omega}
+\end{split}
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/fourier_transform_square_pulse_2.png" class="figure-img img-fluid">
+</figure>
+<p>Растяжение времени сжимает частоту.
+Найдём общее правило масштабирования. Пусть \(x_2(t)=x_1(at)\).
+</p>
+$$
+X_2(j \omega)=\int_{-\infty}^\infty x_2(t) e^{-j\omega t}
+=\int_{-\infty}^\infty x_1(at) e^{-j\omega t}dt
+$$
+Пусть \(\tau=at\) (a>0).
+$$
+X_2(j\omega)=\int_{-\infty}^\infty x_1(\tau)e^{-j\omega \tau /a}\frac{1}{a} d\tau = \frac{1}{a} X_1 \left(\frac{j\omega}{a} \right)
+$$
+<p>
+Если \(a<0\) знак \(d\tau\) изменится вместе с границами интегрирования. В общем случае
+$$
+x_1(at) \leftrightarrow \frac{1}{|a|}X_a\left(\frac{j\omega}{a}\right)
+$$
+</p>
+<p>Если время растягивается (a < 1), то частота сжимается, 
+а амплитуда увеличивается (сохраняя площадь).
+</p>
+
+<h2>Импульс</h2>
+<p>Значение \(X(j \omega)\) при \(\omega= 0\) представляет 
+собой интеграл от x(t) по времени t.
+$$
+X(j\omega)|_{\omega=0} = \int_{-\infty}^\infty x(t)e^{-j\omega t}dt=\int_{-\infty}^\infty x(t) e^{j0t}dt=\int_{-\infty}^\infty x(t) dt
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_w_0.png" class="figure-img img-fluid">
+</figure>
+<p>Значение \(x(0)\) представляет собой интеграл от 
+\(X(j \omega)\), деленный на \(2\pi\).
+$$
+x(0)=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\omega) e^{j\omega t}d\omega=\frac{1}{2\pi}\int_{-\infty}^\infty X(j\omega) d\omega
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_t_0_area.png" class="figure-img img-fluid">
+</figure>
+<p>
+Растяжение по времени, сжимает частоту и увеличивает амплитуду 
+(сохраняя площадь).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/x_w_1_2_3.png" class="figure-img img-fluid">
+</figure>
+<p>
+Новый способ думать об импульсе!
+</p>
+<h2>Обратное Фурье преобразование</h2>
+<p>
+Найдите импульсную характеристику «идеального» фильтра нижних частот.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/filter.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+h(t)&=\frac{1}{2\pi}\int_{-\infty}^\infty H(j\omega)e^{j\omega t}d\omega
+=\frac{1}{2\pi} \int_{-\omega_0}^{\omega_0} e^{j\omega t}d\omega=\\
+&=\frac{1}{2\pi} \left. \frac{e^{j\omega t}}{jt} \right|_{-\omega_0}^{\omega_0}
+=\frac{\sin \omega_0 t}{\pi t}
+\end{split}
+$$
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/filter_h_t.png" class="figure-img img-fluid">
+</figure>
+<h2>Импульс</h2>
+<p>
+Фурье преобразование запаздывающего импульса: \(\delta(t-T)\leftrightarrow e^{-j\omega T}\).
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/delta_T.png" class="figure-img img-fluid">
+</figure>
+$$
+X(j\omega)=\int_{-\infty}^\infty \delta(t-T)e^{-j\omega t}dt=e^{-j\omega T}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_transform/delta_fourier_transform.png" class="figure-img img-fluid">
+</figure>
+{% endblock %}

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/white.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				
+<section>
+<h2>z преобразование</h2>
+Пусть h[n] - ответ на импульс, тогда z - преобразование:
+$$
+H(z)=\sum_{n=-\infty}^{\infty} h[n] z^{-n}
+$$
+</section>
+
+
+<section>
+Запишем z-преобразование для импульса:
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/d_n.png" class="figure-img img-fluid">
+</figure>
+
+$$
+\begin{array}{ccl}
+x[n]&=&\delta[n]\\
+X(z)&=&\sum_{n=-\infty}^{\infty}x[n]z^{-n}=x[0]z^0=1\\
+\end{array}
+$$
+
+</section>
+
+
+<section>
+Для отложенного импульса z-преобразование:
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/d_n_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{array}{ccl}
+x[n]&=&\delta[n-1]\\
+X(z)&=&\sum_{n=-\infty}^{\infty}x[n]z^{-n}=x[1]z^{-1}=z^{-1}\\
+\end{array}
+$$
+</section>
+
+
+<section>
+<p>Для сигнала 
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/7_8.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+x[n]=\left( \frac{7}{8} \right)^n u[n]
+$$
+</section>
+
+<section>
+z-преобразование имеет вид
+$$
+X(z)=\sum_{n=-\infty}^{\infty} \left(\frac{7}{8}\right)^n z^{-n}=\frac{1}{1-\frac{7}{8}z^{-1}}
+$$
+Сумма сходится для
+$$
+\left| \frac{7}{8}z^{-1} \right| < 1
+$$
+</section>
+
+
+<section>
+Говорим, что z преобразование X(z) - это функция от z, заданная для всех z в области сходимости
+(ROC Region of Convergence).
+$$
+\begin{split}
+x[n]&=\left( \frac{7}{8} \right)^n u[n] \leftrightarrow X(z)=\frac{1}{1-\frac{7}{8}z^{-1}}; \\ 
+|z|&>\frac{7}{8}
+\end{split}
+$$
+</section>
+
+<section>
+<h3>Линейность:</h3>
+Если
+$$
+\begin{array}{ccl}
+x_1[n] &\leftrightarrow& X_1(z) \; for\; z\; in\; ROC_1\\
+x_2[n] &\leftrightarrow& X_2(x)\; for\; z\;in \;ROC_2\\
+\end{array}
+$$
+То
+$$
+\begin{split}
+&x_1[n]+x_2[n] \leftrightarrow X_1(z)+X_2(z)\\
+&for\;z\;in\;(ROC_1 \bigcap ROC_2)
+\end{split}
+$$
+</section>
+
+<section>
+Если y[n]=x<sub>1</sub>[n]+x<sub>2</sub>[n], то
+$$
+\begin{array}{lll}
+Y(z)&=&\sum_{n=-\infty}^\infty y[n]z^{-n}\\
+&=&\sum_{n=-\infty}^{\infty} (x_1[n]+x_2[n])z^{-n}\\
+&=&\sum x_1[n]z^{-n} + \sum x_x[n]z^{-n}\\
+&=&X_1(z)+X_2(z)\\
+\end{array}
+$$
+
+</section>
+
+<section>
+
+</section>
+
+
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+<!-- добавил для формул -->
+<script src="plugin/math/math.js"></script>
+<script>
+  Reveal.initialize({ plugins: [ RevealMath.KaTeX ] });
+</script>
+
+	</body>
+</html>

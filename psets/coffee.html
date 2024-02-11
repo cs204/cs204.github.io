@@ -1,0 +1,159 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Циклы. Кофе. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>Кофе</h1>
+<p>
+Аппарат продаёт кофе за 50 рублей стакан
+и принимает только монеты по 50, 20, 10, 5 рублей.
+</p>
+<p>
+В файле coffee.py реализуйте программу, 
+она приглашает
+пользователя вставить монету (coin = input("Вставьте монету: ")), 
+каждый раз информирую пользователя
+о нужной сумме (например, print(f"Нужная сумма: {amount_due}")). 
+Как только пользователь ввёл не менее 50 рублей,
+программа выводит сумму сдачи (например, print(f"Ваша сдача: {change_owed}")).
+</p>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-wuIuRgcs99raaMiH4aWyHAhcg" 
+	      src="https://asciinema.org/a/wuIuRgcs99raaMiH4aWyHAhcg.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+<ul>
+	<li>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог coffee,  выполнив
+<pre>
+<code>mkdir coffee</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd coffee</code>
+</pre>
+</li>
+<li>
+Откройте редактор 
+<pre>
+<code>
+code coffee.py
+</code>
+</pre>
+Создайте вашу программу.
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой. Запустите программу 
+<pre>
+<code>
+python coffee.py
+</code>
+</pre>
+Программа должна вывести:
+<pre>
+<code>
+Нужная сумма: 50
+Вставьте монету: 
+</code>
+</pre>
+Введите 20. Программ должна вывести:
+<pre>
+<code>
+Нужная сумма: 30
+Вставьте монету: 
+</code>
+</pre>
+Введите 34. Программа должна вывести:
+<pre>
+<code>
+Нужная сумма: 30
+Вставьте монету: 
+</code>
+</pre>
+Введите 50. Программа выводит:
+<pre>
+<code>
+Ваша сдача: 20
+</code>
+</pre>
+</li>
+</ul>
+
+Вы можеет проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/coffee local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/coffee</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/coffee/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

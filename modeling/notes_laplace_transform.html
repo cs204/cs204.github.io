@@ -1,0 +1,418 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Преобразование Лапласа
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+					<li><a href="fourier_representations.html">Представление Фурье</a></li>
+					<li><a href="fourier_series.html">Ряды Фурье</a></li>
+					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
+					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>
+Преобразование Лапласа
+</h1>
+<div class="alert alert-success">
+	Преобразование Лапласа отображает функцию отв времени t
+	на функцию от s.
+	$$
+	X(s)=\int_{-\infty}^{\infty} x(t) e^{-st}dt
+	$$
+</div>
+
+<p>Найдём преобразование Лапласа для функции \(x_1(t)\):
+$$
+x_1(t) = \left\{ 
+\begin{array}{ll}
+e^{-t}& \; if\; t \ge 0\\
+0 & \; otherwise
+\end{array}
+\right.
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/laplace_e_t.png" class="figure-img img-fluid">
+</figure>
+<p>Получаем:
+$$
+\begin{split}
+X_1(s)&=\int_{-\infty}^{\infty}x_1(t)e^{-st}dt=\int_0^{\infty} e^{-t}e^{-st}dt\\
+&=\left. \frac{e^{-(s+1)t}}{-(s+1)}\right|_0^{\infty} = \frac{1}{s+1}
+\end{split}
+$$
+при условии, что Re(s + 1) > 0, откуда следует, что Re(s) > −1.
+$$
+\frac{1}{s+1};\; Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+<p>Найдём преобразование Лапласа для 
+$$
+x_2=\left\{ \begin{array}{ll}
+e^{-t} - e^{-2t} & if\; t \ge 0\\
+0& otherwise
+\end{array}
+\right.
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_2.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Получаем:
+$$
+\begin{split}
+X_2(s)&=\int_0^\infty (e^{-t}-e^{-2t})e^{-st}dt\\
+&=\int_0^\infty e^{-(1+s)t}dt + \int_0^\infty e^{-(2+s)t} dt\\
+&=\frac{1}{s+1}-\frac{1}{s+2}=\frac{1}{(s+1)(s+2)}
+\end{split}
+$$
+Эти уравнения сходятся, если Re(s + 1) > 0 и Re(s + 2) > 0, т. е. Re(s) > −1.
+$$
+\frac{1}{(s+1)(s+2)}; \;Re(s)>-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_e_t_2.png" class="figure-img img-fluid">
+</figure>
+
+<h2>Область сходимости</h2>
+<p>
+Рассмотрим левосторонний сигнал.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_3.png" class="figure-img img-fluid">
+</figure>
+
+$$
+x_3(t)=\left\{ \begin{array}{ll}
+-e^{-t} & if \; t\le 0\\
+0& otherwise
+\end{array}\right.
+$$
+Запишем преобразование Лапласа:
+$$
+\begin{split}
+X_3(s)& = \int_{-\infty}^{\infty} x_3 (t) e^{-st} dt=\int_{-\infty}^0-e^{-t}e^{-st}dt\\
+&=\left. \frac{-e^{-(s+1)t}}{-(s+1)} \right\vert_{-\infty}^0=\frac{1}{s+1}
+\end{split}
+$$
+<p>
+для сходимости надо \(Re(s+1)<0\), что влечёт \(Re(s)<-1\).
+$$
+\frac{1}{s+1};\; \; Re(s)<-1
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_x3.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим сигнал
+$$
+x_4(t)=e^{-|t|}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/x_4.png" class="figure-img img-fluid">
+</figure>
+<p>
+Получим преобразование Лапласа
+$$
+\begin{split}
+X_4(s)&=\int_{-\infty}^{\infty}e^{-|t|}e^{-st}dt\\
+&=\int_{-\infty}^{0}e^{(1-s)t}dt+\int_{0}^{\infty}e^{-(1+s)t}dt\\
+&=\left. \frac{e^{(1-s)t}}{1-s}\right\vert_{-\infty}^{0} + \left. \frac{e^{-(1+s)t}}{-(1+s)}\right\vert_0^{\infty}\\
+&=\frac{1}{1-s} + \frac{1}{1+s}\\
+&=\frac{2}{1-s^2}
+\end{split}
+$$
+Область сходимости пересечение \(Re(s)<1\) и \(Re(s)>-1\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/laplace_transform/roc_4.png" class="figure-img img-fluid">
+</figure>
+
+
+<h2>Решение дифференциальных уравнений</h2>
+<p>Решите следующее дифференциальное уравнение:
+$$
+\dot{y}(t)+y(t)=\delta(t)
+$$
+Возьмём преобразование Лапласа от уравнения.
+$$
+L(\dot{y}(t)+y(t))=L(\delta(t))
+$$
+Преобразование Лапласа суммы - это сумма преобразований Лапласа.
+$$
+L(\dot{y}(t))+L(y(t))=L(\delta(t))
+$$
+Чему равно преобразование Лапласа производной?
+</p>
+<p>
+Предположим, что X(s) - преобразование Лапласа от x(t)
+$$
+X(s)=\int_{-\infty}^{\infty}x(t)e^{-st}dt
+$$
+Найдем преобразование Лапласа для производной от x(t). 
+$$
+\begin{split}
+&\int_{-\infty}^{\infty} \dot{x}(t)e^{-st}dt\\
+&=\left. x(t)e^{-st} \right\vert_{-\infty}^{\infty}-\int_{-\infty}^{\infty}x(t)(-se^{-st})dt\\
+&=s\int_{-\infty}^{\infty}x(t)e^{-st}dt=sX(s)
+\end{split}
+$$
+</p>
+<p>Получили, что \(sY(s)\)- преобразование Лапласа для \(\dot{y}(t)\).
+$$
+sY(s)+Y(s)=L(\delta(t))
+$$
+Преобразование Лапласа для \(\delta(t)\).
+$$
+\begin{split}
+X(s)&=\int_{-\infty}^\infty\delta(t)e^{-st}dt\\
+&=\int_{-\infty}^\infty \delta(t) \left. e^{-st}\right\vert_{t=0}dt\\
+&=\int_{-\infty}^\infty \delta(t) 1 dt=1
+\end{split}
+$$
+Подставляя получаем
+$$
+sY(s)+Y(s)=1
+$$
+Это простое алгебраическое выражение.Разрешаем для Y(s):
+$$
+Y(s)=\frac{1}{s+1}
+$$
+Мы видели это преобразование Лапласа раньше
+$$
+y(t)=e^{-t}u(t)
+$$
+Выполнили  обратное преобразование Лапласа (распознав форму преобразования).
+</p>
+<p>
+Узнав форму...
+Есть ли более систематический способ выполнить обратное преобразование Лапласа?
+Да и нет.
+</p>
+<p>Формально,
+$$
+x(t)=\frac{1}{2\pi j}\int_{\sigma -j \infty}^{\sigma + j\infty}X(s)e^{st}ds
+$$
+но этот интеграл обычно нелегко вычислить.
+Это уравнение может быть полезно для доказательства теорем.
+Мы будем использовать другие способы (например, простейшие дроби) для вычисления обратных преобразований для обычных систем.
+</p>
+
+
+
+<p>Пример 2. Рассмотрим уравнение
+$$
+\ddot{y}(t)+3\dot{y}(t)+2y(t)=\delta(t)
+$$
+Преобразование Лапласа:
+$$
+s^2Y(s)+3sY(s)+2Y(s)=1
+$$
+Решаем:
+$$
+Y(s)=\frac{1}{(s+1)(s+2)}=\frac{1}{s+1}-\frac{1}{s+2}
+$$
+Обратное преобразование Лапласа:
+$$
+y(t)=(e^{-t}-e^{-2t})u(t)
+$$
+</p>
+
+<h2>Свойства преобразования Лапласа </h2>
+
+<table class="table">
+	<tr>
+		<td>Свойства</td>
+		<td>x(t)</td>
+		<td>X(s)</td>
+		<td>ROC</td>
+	</tr>
+	<tr>
+		<td>
+			Линейность
+		</td>
+		<td>
+			\(ax_1(t)+bx_2(t)\)
+		</td>
+		<td>
+			\(aX_1(s)+bX_2(s)\)
+		</td>
+		<td>
+			\( \supset (R_1 \cap R_2 )\) 
+		</td>
+	</tr>
+	<tr>
+		<td> 
+			Задержка на T
+		</td>
+		<td>
+			\(x(t-T)\)
+		</td>
+		<td>
+			\(X(s)e^{-sT}\)
+		</td>
+		<td>
+			\(R\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Умножение на t
+		</td>
+		<td>
+			\(tx(t)\)
+		</td>
+		<td>
+			\(-\frac{dX(s)}{ds}\) 
+		</td>
+		<td>
+			\(R\)
+		</td> 
+	</tr>
+	<tr>
+		<td>
+			Умножение на \(e^{-\alpha t}\)
+		</td>
+		<td>
+			\(x(t)e^{-\alpha t}\)
+		</td>
+		<td>
+			\(X(s+\alpha)\)
+		</td>
+		<td>
+			сдвиг R на \(-\alpha\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Дифференцирование по t
+		</td>
+		<td>
+			\(\frac{dx(t)}{dt}\)
+		</td>
+		<td>
+			\(sX(s)\)
+		</td>
+		<td>
+			\(\supset R\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Интегрирование по t
+		</td>
+		<td>
+			\(\int_{-\infty}^t x(\tau) d\tau \)
+		</td>
+		<td>
+			\(\frac{X(s)}{s}\)
+		</td>
+		<td>
+			\(\supset (R \cap (Re(s) > 0))\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Свертка по t
+		</td>
+		<td>
+			\(\int_{-\infty}^\infty x_1(\tau)x_2(t-\tau)d\tau\)
+		</td>
+		<td>
+			\(X_1(s)X_2(s)\)
+		</td>
+		<td>
+			\(\supset (R_1 \cap R_2)\)
+		</td>
+	</tr>
+</table>
+
+
+
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Построение сигналов 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h2>
+	Построение сигналов 
+</h2>
+
+<p>
+Задайте функцию polyR(s, p), которая берёт s, экземпляр
+подкласса Signal,  и p, экземпляр класса Polynomial; 
+возвращает новый сигнал, преобразованный полиномом от R сигнал s. 
+Так, например, если p экземпляр класса Polynomial с
+p.coeffs = [3, 2, 10], то результат polyR(s, p) сигнал
+$$
+3RRs+2Rs+10s
+$$
+В вашей реализации вы можете использовать любой реализованный
+вами <a href="https://vadimgb.github.io/psets/signalDefinitions.html">ранее</a> конструктор сигналов, включая Rn. 
+</p>
+<p>
+Класс Polynomial задан в файле <a href="/psets/data/poly.py">poly.py</a>.
+</p>
+<p>
+Задайте сигналы, используя конструкторы сигналов, определённые 
+в предыдущем задании.
+</p>
+<ul>
+	<li>
+		step1: сигнал равен 3.0 для \(t \ge 3\) 
+		и 0 для других \(t\).
+	</li>
+	<li>
+		step2: сигнал равен -3.0 для \(t \ge 7\) и 0 для 
+		других \(t\).
+	</li>
+	<li>
+		stepUpDown: сигнал равен 3.0 для \( 3 \le t \le 6 \)
+		и 0 для других \(t\).
+	</li>
+	<li>
+		stepUpDownPoly: используйте polyR, чтобы построить 
+		сигнал, который имеет значение 1.0 в \( t=1 \),
+		значение 3 в \(t=3\), значение 5.0 в момент 5 
+		и ноль в других \(t\).
+	</li>
+</ul>
+<h2>Шаги выполнения</h2>
+<ul>
+	<li>Скачайте архив:
+		<pre>
+		<code>
+		wget https://vadimgb.github.io/psets/data/constructSignals.zip
+		</code>
+		</pre>
+	</li>
+	<li>Распакуйте:
+		<pre>
+		<code>
+		unzip constructSignals.zip
+		</code>
+		</pre>
+	</li>
+	<li>
+		Перейдите в каталог:
+		<pre>
+		<code>
+		cd constructSignals
+		</code>
+		</pre>
+	</li>
+	<li>
+	Файл signalDefinitions.py подобен  созданному вами в <a href="https://vadimgb.github.io/psets/signalDefinitions.html">задании</a>.
+	</li>
+	<li>
+
+		Откройте файл constructSignals.py.
+		<pre>
+		<code>
+		code constructSignals.py
+		</code>
+		</pre>
+		Введите в него ваш код.
+	</li>
+</ul>
+
+<h2>Проверка</h2>
+<p>
+Вы можете проверить правильность выполнения задания, выполнив команду
+
+<pre>
+<code>npx cs204 2023/constructSignals local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/constructSignals</code>
+</pre>
+</p>
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/constructSignals/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

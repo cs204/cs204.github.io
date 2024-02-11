@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% block title %}
+sqlalchemy
+{% endblock %}
+
+
+{% block body %}
+<h2>Sqlalchemty</h2>
+<p>Нам понадобится установить пакет psycopg2-binary.
+<pre>
+<code>
+pip install psycopg2-binary
+</code>
+</pre>
+</p>
+<ul>
+	<li>
+		SQLalchemy библиотека Python с её помощью мы можем выполнять SQL запросы.</li>
+	<li>Начнём с кода выводящего информацию из таблицы flights:
+	<pre>
+	<code id="airline_py" class="language-python">
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
+database_url = os.getenv('DATABASE_URL')
+engine = create_engine(database_url)
+db = scoped_session(sessionmaker(bind=engine))
+
+def main():
+	flights = db.execute(text('SELECT origin, destination, duration FROM flights')).fetchall()
+	for flight in flights:
+		print(f"{flight.origin} to {flight.destination}, {flight.duration} minutes.")
+
+if __name__ == "__main__":
+	main()
+	</code>
+	</pre>
+	
+	</li>
+	<li>
+		Запрос на вставку данных в таблицу из csv файла:
+		<pre>
+		<code class="language-python">
+import csv
+import os
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
+
+engine = create_engine(os.getenv("DATABASE_URL"))
+db = scoped_session(sessionmaker(bind=engine))
+
+def main():
+    f = open("flights.csv")
+    reader = csv.reader(f)
+    for origin, destination, duration in reader:
+        db.execute(text("INSERT INTO flights (origin, destination, duration) VALUES (:origin, :destination, :duration)"),
+                    {"origin": origin, "destination": destination, "duration": duration})
+        print(f"Added flight from {origin} to {destination} lasting {duration} minutes.")
+    db.commit()
+
+if __name__ == "__main__":
+    main()
+    </code>
+		</pre>
+
+	</li>
+</ul>
+
+<h2>Sqlalchemy с Flask</h2>
+<ul>
+	<li>Приведём пример кода:
+		<pre>
+		<code class="language-python">
+import os
+from flask import Flask, render_template, request, url_for
+from sqlalchemy import create_engine
+from sqlalchemy.sql import text
+from sqlalchemy.orm import scoped_session, sessionmaker
+database_url = os.getenv("DATABASE_URL")
+engine = create_engine(database_url)
+db = scoped_session(sessionmaker(bind=engine))
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    flights = db.execute(text('select * from flights')).fetchall()
+    return render_template('index.html', flights = flights)
+
+@app.route('/book', methods=["POST"])
+def book():
+    """Book a flight."""
+
+    # Get form information.
+    name = request.form.get("name")
+    try:
+        flight_id = int(request.form.get("flight_id"))
+    except ValueError:
+        return render_template("error.html", message="Invalid flight number.")
+
+    # Make sure the flight exists.
+    if db.execute(text("SELECT * FROM flights WHERE id = :id"), {"id": flight_id}).rowcount == 0:
+        return render_template("error.html", message="No such flight with that id.")
+    db.execute(text("INSERT INTO passengers (name, flight_id) VALUES (:name, :flight_id)"),
+            {"name": name, "flight_id": flight_id})
+    db.commit()
+    return render_template("success.html")
+
+@app.route("/flights")
+def flights():
+    """Lists all flights."""
+    flights = db.execute(text("SELECT * FROM flights")).fetchall()
+    return render_template("flights.html", flights=flights)
+
+@app.route("/flights/&lt;int:flight_id&gt;")
+def flight(flight_id):
+    """Lists details about a single flight."""
+
+    # Make sure flight exists.
+    flight = db.execute(text("SELECT * FROM flights WHERE id = :id"), {"id": flight_id}).fetchone()
+    if flight is None:
+        return render_template("error.html", message="No such flight.")
+
+    # Get all passengers.
+</code>
+		</pre>
+	</li>
+<li>
+	Создадим flights.html
+
+	<pre>
+	<code id="airline_flights_html" class="language-html">
+	</code>
+	</pre>
+	<script>
+		fetch("data/code_examples/airline_flights.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_flights_html = document.querySelector("#airline_flights_html")
+					airline_flights_html.innerText = data
+				})
+	</script>
+
+</li>
+
+<li>
+Создадим index.html.
+<pre>
+<code id="airline_index_html" class="language-html">
+</code>
+</pre>
+
+	<script>
+		fetch("data/code_examples/airline_index.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_index_html = document.querySelector("#airline_index_html")
+					airline_index_html.innerText = data
+				})
+	</script>
+
+</li>
+<li>flight.html
+<pre>
+<code id="airline_flight_html" class="language-html">
+</code>
+</pre>
+
+	<script>
+		fetch("data/code_examples/airline_flight.html")
+				.then(responce => responce.text())
+				.then(data=>{
+					let airline_flight_html = document.querySelector("#airline_flight_html")
+					airline_flight_html.innerText = data
+				})
+	</script>
+</li>
+</ul>
+
+{% endblock %}

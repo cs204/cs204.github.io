@@ -1,0 +1,489 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+z-преобразования
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+					<li><a href="fourier_representations.html">Представление Фурье</a></li>
+					<li><a href="fourier_series.html">Ряды Фурье</a></li>
+					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
+					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>z-преобразования</h1>
+<div class="alert alert-success">
+Z-преобразование.
+<br>
+Пусть h[n] - ответ на импульс, тогда z - преобразование:
+$$
+H(z)=\sum_{n=-\infty}^{\infty} h[n] z^{-n}
+$$
+</div>
+<p>Запишем z-преобразование для импульса:
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/d_n.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+
+$$
+\begin{array}{ccl}
+x[n]&=&\delta[n]\\
+X(z)&=&\sum_{n=-\infty}^{\infty}x[n]z^{-n}=x[0]z^0=1\\
+\end{array}
+$$
+</p>
+
+<p>Для отложенного импульса z-преобразование:
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/d_n_1.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+\begin{array}{ccl}
+x[n]&=&\delta[n-1]\\
+X(z)&=&\sum_{n=-\infty}^{\infty}x[n]z^{-n}=x[1]z^{-1}=z^{-1}\\
+\end{array}
+$$
+</p>
+
+<p>Для сигнала 
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/7_8.png" class="figure-img img-fluid">
+	<figcaption class="figure-caption"> 
+	</figcaption>
+</figure>
+$$
+x[n]=\left( \frac{7}{8} \right)^n u[n]
+$$
+z-преобразование имеет вид
+$$
+X(z)=\sum_{n=-\infty}^{\infty} \left(\frac{7}{8}\right)^n z^{-n}=\frac{1}{1-\frac{7}{8}z^{-1}}
+$$
+Сумма сходится для
+$$
+\left| \frac{7}{8}z^{-1} \right| < 1
+$$
+т.е. \( |z|>7/8\).
+</p>
+
+<p>Говорим, что z преобразование X(z) - это функция от z, заданная для всех z в области сходимости
+(ROC Region of Convergence).
+$$
+
+x[n]=\left( \frac{7}{8} \right)^n u[n] \leftrightarrow X(z)=\frac{1}{1-\frac{7}{8}z^{-1}}; \; |z|>\frac{7}{8}
+$$
+</p>
+
+<h2>Свойства z преобразования</h2>
+<h3>Линейность:</h3>
+$$
+\begin{array}{ccl}
+if\; x_1[n] &\leftrightarrow& X_1(z) \; for\; z\; in\; ROC_1\\
+and \; x_2[n] &\leftrightarrow& X_2(x)\; for\; z\;in \;ROC_2\\
+then\; x_1[n]+x_2[n]&\leftrightarrow&X_1(z)+X_2(z)\; for\;z\;in\;(ROC_1 \bigcap ROC_2)\\
+\end{array}
+$$
+
+<p>Если y[n]=x<sub>1</sub>[n]+x<sub>2</sub>[n], то
+$$
+\begin{array}{lll}
+Y(z)&=&\sum_{n=-\infty}^\infty y[n]z^{-n}\\
+&=&\sum_{n=-\infty}^{\infty} (x_1[n]+x_2[n])z^{-n}\\
+&=&\sum x_1[n]z^{-n} + \sum x_x[n]z^{-n}\\
+&=&X_1(z)+X_2(z)\\
+\end{array}
+$$
+</p>
+
+<h3>Задержка</h3>
+<p>
+Если \(x[n] \leftrightarrow X(z) \) для z в ROC, тогда \(x[n-1] \leftrightarrow z^{-1}X(z)\)
+для z в ROC.
+Например,
+$$
+\begin{array}{ccc}
+\delta[n] &\leftrightarrow &1\\
+\delta[n-1] & \leftrightarrow & z^{-1}\\
+\end{array}
+$$
+</p>
+
+<p>В общем случае
+$$
+X(z)=\sum_{n=-\infty}^{\infty} x[n]z^{-n}
+$$
+Пусть y[n]=x[n-1], тогда
+$$
+Y(z)=\sum_{n=-\infty}^{\infty} y[n] z^{-n}=\sum_{n=-\infty}^{\infty}x[n-1]z^{-n}
+$$
+Заменим m=n-1
+$$
+Y(z)=\sum_{m=-\infty}^{\infty} x[m]z^{-m-1}=z^{-1}X(z)
+$$
+</p>
+
+<h3>Рациональные полиномы</h3>
+<p>
+Система, которую можно описать линейным разностным уравнением с 
+постоянными коэффициентами, также может быть описана Z-преобразованием, 
+которое представляет собой отношение многочленов от z
+
+$$
+b_0y[n]+b_1y[n-1]+b_2y[n-2]+...=a_0x[n]+a_1x[n-1]+a_2x[n-2]...
+$$
+
+Взяв Z-преобразование обеих сторон и применив свойство задержки
+
+$$
+b_0 Y(z)+b_1 z^{-1} Y(z) + b_2 z^{-2} Y(z)+...=a_0 X(z)+a_1 z^{-1} X(z)+a_2 z^{-2} X(z)+...
+$$
+
+Запишем системную функцию:
+
+$$
+\begin{split}
+H(z)& = \frac{Y(z)}{X(z)} \\ 
+&= \frac{a_0+a_1 z^{-1} + a_2 z^{-2}+...}{b_0+b_1 z^{-1} + b_2 z^{-2}+...}\\
+&=\frac{a_0 z^k+a_1 z^{k-1} + a_2 z^{k-2} + ...}{b_0 z^k+b_1 z^{k-1}+b_2 z^{k-2}+...}\\
+\end{split}
+$$
+
+</p>
+
+<p>
+Представим полиномы как произведения
+$$
+\begin{split}
+H(z)&=\frac{a_0 z^k+a_1 z^{k-1} + a_2 z^{k-2} + ...}{b_0 z^k+b_1 z^{k-1}+b_2 z^{k-2}+...}\\
+&=\frac{(z-z_0)(z-z_1)...(z-z_k)}{(z-p_0)(z-p_1)...(z-p_k)}\\
+\end{split}
+$$
+
+корни называют полюсами и нулями.
+</p>
+
+<p>Области сходимости Z-преобразования ограничены 
+кружками в Z-плоскости. Края кругов находятся на полюсах.
+</p>
+<p>Например: \(x[n]=\alpha^nu[n]\)
+
+$$
+\begin{split}
+X(z)&=\sum_{n=-\infty}^\infty \alpha^nu[n]z^{-n}=\sum_{n=0}^{\infty} \alpha^nz^{-n}\\
+&=\frac{1}{1-\alpha z^{-1}}; \;\left|\alpha z^{-1}\right| < 1 \\
+		    &=\frac{z}{z-\alpha};\; |z|>|\alpha|
+\end{split}
+$$
+
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/roc.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Рассмотрим уравение
+$$
+y[n-1]-\frac{7}{8}y[n]=x[n+1].
+$$
+Решим его через итерации в обратном направлении по времени:
+$$
+y[n]=\frac{8}{7}(y[n+1]-x[n+1])
+$$
+Начнём с "покоя":
+</p>
+<table class="table">
+	<tr>
+		<td>
+			n
+		</td>
+		<td>
+			x[n]
+		</td>
+		<td>
+			y[n]
+		</td>
+	</tr>
+	<tr>
+		<td>
+			>0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	<tr>
+		<td>
+			0
+		</td>
+		<td>
+			1
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	<tr>
+		<td>
+			-1
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			\(-\left(\frac{8}{7} \right) \)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			-2
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			\( - \left( \frac{8}{7} \right)^2 \)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			n
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			\( - \left( \frac{8}{7} \right)^{-n}\)
+		</td>
+	</tr>
+</table>
+
+<p>
+Запишем решение 
+$$
+y[n]=-\left(\frac{7}{8}\right)^nu[-1-n]
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/7_8_left.png" class="figure-img img-fluid">
+</figure>
+<p>
+Найдём z-преобразование 
+$$
+\begin{split}
+Y(z)&=-\sum_{n=-\infty}^{\infty}\left(\frac{7}{8}\right)^nu[-1-n]z^{-n}\\
+&=-\sum_{n=-\infty}^{-1}\left(\frac{8}{7} z\right)^{-n}\\
+&=-\sum_{n=1}^{\infty} \left(\frac{8}{7}z\right)^{n}\\
+&=1-\sum_{n=0}^{\infty} \left(\frac{8}{7}z\right)^{n}\\
+&=1-\frac{1}{1-\frac{8}{7}z}\\
+&=\frac{z}{z-\frac{7}{8}}\\
+&|\frac{8}{7}z|<1\;\;|z|<\frac{7}{8}
+\end{split}
+$$
+Сходится к той же функции, но область сходимости внутри круга 7/8.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/roc7_8_left.png" class="figure-img img-fluid">
+</figure>
+
+<p>Найдём обратное преобразование для
+$$
+X(z)=\frac{-3z}{2z^2-5z+2}
+$$
+область сходимости содержит единичный круг.
+Разложим на дробри:
+$$
+X(z)=\frac{z}{z-\frac{1}{2}}-\frac{z}{z-2}
+$$
+полюса в 1/2, 2.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/roc_l_r.png" class="figure-img img-fluid">
+</figure>
+<p>
+Область сходимости снаружи полюса 1/2, внутри полюса 2.
+$$
+x[n]= \left( \frac{1}{2} \right)^n u[n] + 2^n u[-1-n]
+$$
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/z_transform/x_n_l_r.png" class="figure-img img-fluid">
+</figure>
+
+
+
+
+
+<h2>Решение дифференциальных уравнений с использованием z преобразования</h2>
+<p>Начнём с дифференциального уравнения:
+$$
+y[n]-\frac{1}{2}y[n-1]=\delta[n]
+$$
+Запишем z преобразование уравнения:
+$$
+Y(z)-\frac{1}{2}z^{-1}Y(z)=1
+$$
+Выразим Y(z):
+$$
+Y(z)=\frac{1}{1 - \frac{1}{2} z^{-1}}
+$$
+Запишем обратное z преобразование (узнав вид преобразования):
+$$
+y[n]=\left(\frac{1}{2}\right)^n u[n]
+$$
+</p>
+<p>Обратное Z-преобразование определяется интегралом, 
+$$
+x[n]=\frac{1}{2\pi j}\int_C X(z)z^{n-1}dz
+$$
+решить который не так-то просто.
+Это уравнение может быть полезно для доказательства теорем.
+Мы будем использовать другие способы (например, простейшие дроби) 
+для вычисления обратных z- преобразований для обычных систем.
+</p>
+
+<h2>Свойства z преобразования</h2>
+
+<table class="table">
+	<tr>
+		<td>Свойства</td>
+		<td>x[n]</td>
+		<td>X[z]</td>
+		<td>ROC</td>
+	</tr>
+	<tr>
+		<td>
+			Линейность
+		</td>
+		<td>
+			\(ax_1[n]+bx_2[n]\)
+		</td>
+		<td>
+			\(aX_1(z)+bX_2(z)\)
+		</td>
+		<td>
+			\( \supset (R_1 \cap R_2 )\) 
+		</td>
+	</tr>
+	<tr>
+		<td> 
+			Задержка 
+		</td>
+		<td>
+			\(x[n-1]\)
+		</td>
+		<td>
+			\(z^{-1}X(z)\)
+		</td>
+		<td>
+			\(R\)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Умножение на n
+		</td>
+		<td>
+			\(nx[n]\)
+		</td>
+		<td>
+			\(-z\frac{dX(z)}{dz}\) 
+		</td>
+		<td>
+			\(R\)
+		</td> 
+	</tr>
+	<tr>
+		<td>
+			Свертка по n
+		</td>
+		<td>
+			\(\sum_{m=-\infty}^\infty x_1[m]x_2[n-m]\)
+		</td>
+		<td>
+			\(X_1(z)X_2(z)\)
+		</td>
+		<td>
+			\(\supset (R_1 \cap R_2)\)
+		</td>
+	</tr>
+</table>
+
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

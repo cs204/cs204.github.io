@@ -1,0 +1,146 @@
+
+{% extends "layout.html" %}
+{% block title %}
+	Поиск. Крестики-нолики
+{% endblock %}
+{% block body %}
+<h1>
+	Крестики-нолики
+</h1>
+<p>
+Закачайте 
+<a href="https://vadimgb.github.io/python23/data/tictactoe.zip">дистрибутив 
+	игры</a>, распакуйте. 
+В нем два основных файла: runner.py, tictactoe.py.  
+runner.py был уже создан для вас, 
+он содержит код, создающий графический
+интерфейс игры. tictactoe.py содержит логику игры, вам надо закончить 
+определение необходимых функции.
+После этого  выполните в терминале python runner.py, чтобы
+запустить игру.
+</p>
+
+<img  src="/python23/data/images/tictactoe.png" >
+
+<h2>Шаги выполнения</h2>
+<ul>
+	<li>
+		Зайдите на <a href="https://code.cs50.io">https://code.cs50.io</a>.
+	</li>
+	<li>
+		Загрузите дистрибутив.
+		<pre>
+		<code> 
+		wget https://vadimgb.github.io/python23/data/tictactoe.zip
+		</code>
+		</pre>
+	</li>
+	<li>
+		Распакуйте.
+		<pre>
+		<code>
+		unzip ticktactoe.zip
+		</code>
+		</pre>
+	</li>
+	<li>
+		Сделайте папку tictactoe рабочей.
+		<pre>
+		<code>
+		cd tictactoe
+		</code>
+		</pre>
+	</li>
+	<li>
+		Установите необходимые пакеты.
+		<pre>
+		<code>
+		pip3 install -r requirements.txt
+		</code>
+		</pre>
+	</li>
+	<li>
+		Завершите реализацию player, actions, result, winner, terminal,
+		utility, minimax.
+	</li>
+</ul> 
+
+<h2>Пояснения</h2>
+<ul> 
+	<li> 
+		player для заданного состояния возвращает, кто
+		ходит X или O.
+		Начинают игру X.
+	</li>
+	<li>
+				action для заданного состояния игры должна возвращать
+				set (множество) возможных действий.
+				Каждое действие должно быть представлено
+				как (i, j),  i- строка и j - столбец  
+				пустой ячейки. 
+			</li>
+			<li>
+				result для состояния и действия, возвращает новое
+				состояние, не изменяет входное. Создаём копию 
+				входного состояние,
+				в указанную действием ячейку помещаем знак
+				ходящего игрока. Для создания копии используйте
+				команду <a href="https://digitology.tech/docs/python_3/library/copy.html#copy.deepcopy">copy.deepcopy</a>.
+			</li>
+			<li>
+				winner для заданного состояния возвращает 
+				победителя, если есть. Если X игрок победил, 
+				возвращает X. Если победил O, возвращает O.
+				Победит тот, кто сделает три хода в 
+				строке, столбце или по диагонали.
+				Если нет победителя, то функция должна вернуть
+				None.
+			</li>
+			<li>
+				terminal для состояния возвращает True, если 
+				игра закончена, иначе - False.
+				Игра закончена, если кто-то выиграл, или все
+				ячейки были заполнены. 
+			</li>
+			<li>
+				utility для терминального состояния возвращает
+				-1, если выиграл O. 
+				Возвращает 0, если игра закончилась в ничью.
+				1, если выиграл X. Предполагаем, что функция
+				будет вызываться только на состояния, для которых
+				terminal(board) даёт True.
+			</li>
+			<li>
+				minimax для состояния возвращает оптимальный ход
+				для игрока.
+				Ход в виде пары (j, j). Если состояние терминальное,
+				то возвращает None.
+			</li>
+</ul>
+
+
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой.
+</p>
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/tictactoe local</code>
+</pre>
+
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/tictactoe</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/tictactoe/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+<iframe width="640" height="498" src="https://www.youtube.com/embed/hSJd6TK49A8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<br>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+
+{% extends "layout.html" %}
+{% block title %}
+	Функции. Скорость воспроизведения
+{% endblock %}
+{% block body %}
+<h1>Скорость воспроизведения</h1>
+<p>
+В файле playback.py реализуйте программу, которая считывает ввод пользователя
+и возвращает его, заменив все пробелы на ...(на три точки).
+</p>
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Напомним, что input возвращает тип str, см. 
+					<a href="https://digitology.tech/docs/python_3/library/functions.html#input">https://digitology.tech/docs/python_3/library/functions.html#input</a>
+		</li>
+		<li> 
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+	</ul>
+</details>
+
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-e84aULELhtD9uTccNuRFIbojm" 
+	src="https://asciinema.org/a/e84aULELhtD9uTccNuRFIbojm.js" 
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. Выполните команду: 
+<pre>
+<code>cd </code>
+</pre>
+<p>
+<pre>
+Создайте каталог playback,  выполнив
+<pre>
+<code>mkdir playback</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd playback</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code playback.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой, запустите программу, выполнив:
+<pre>
+<code>
+python playback.py
+</code>
+</pre>
+Введите мама мыла раму и нажмите Enter. Ваша программа должна вывести мама...мыла...раму.
+
+Вы можеет проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/playback local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/playback</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/playback/c"  target="_blank">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080" target="_blank">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}

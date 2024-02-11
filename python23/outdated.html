@@ -1,0 +1,205 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Исключения. Устаревший 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					<li><a href="flask.html">Неделя 14</a> Flask</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Устаревший</h1>
+Месяц.день.год (мм.дд.гггг)- это устаревший формат записи даты.
+Современный международный стандарт  даты
+<a href="https://ru.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+(<a href="https://docs.cntd.ru/document/1200159341">ГОСТ</a>)
+имеет формат год-месяц-день (гггг-мм-дд). 
+<br>
+В файле outdated.py реализуйте программу, она приглашает
+ввести дату (input("Дата: ")) в старом формате, например,
+11.12.1968 или 11 декабрь 1968, где месяц имеет любое значение
+из списка:
+<pre>
+<code>
+["январь", "февраль", "март", "апрель",
+     "май", "июнь", "июль", "август", "сентябрь", "октябрь",
+     "ноябрь", "декабрь"]
+</code>
+</pre>
+Затем программа возвращает дату в формате гггг-мм-дд.
+Если дата введена неправильно, программа просит ввести снова.
+Предположим, что день принимает значения от 1 до 31; не надо
+учитывать, что некоторые месяца могут иметь меньше дней.
+Если месяц задан числом, то оно в должно быть 1-12.
+
+
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+		<li>Тип данных list имеет много методов, см 
+			<a href="https://digitology.tech/docs/python_3/tutorial/datastructures.html#tut-morelists">https://digitology.tech/docs/python_3/tutorial/datastructures.html#tut-morelists</a>,
+			 среди них метод index.
+		</li>
+		<li>
+			Заметьте, что вы можете форматировать вывод числа с
+			нулем впереди 
+			<pre>
+			<code class="language-python">
+			print(f"{n:02}")
+			</code>
+			</pre>
+			где n - одна цифра, ей будет предшевствовать 0.
+		</li>
+
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-lGPjaFNNhLLoiBoINpZ6s3lpq" 
+	      src="https://asciinema.org/a/lGPjaFNNhLLoiBoINpZ6s3lpq.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог breakfast,  выполнив
+<pre>
+<code>mkdir outdated</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd outdated</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code outdated.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой.
+</p>
+<ul>
+	<li>
+Запустите программу python outdated.py.
+Введите <code>8 март 2023</code> и нажмите Enter,
+Ваша программа должна вывести: 
+<pre>
+<code>
+2023-03-08
+</code>
+</pre>
+	</li>
+	<li>
+Запустите программу python outdated.py.
+Введите <code>8.3.2023</code> и нажмите Enter,
+Ваша программа должна вывести: 
+<pre>
+<code>
+2023-03-08
+</code>
+</pre>
+	</li>
+	<li>
+ Запустите программу python outdated.py.
+Введите <code>8.23.2023</code> и нажмите Enter,
+Программ должна повтроить пргилашение. 
+	</li>
+ 
+<li>
+Запустите программу python outdated.py.
+Введите <code>март 8 2023</code> и нажмите Enter,
+Программ должна повтроить пргилашение. 
+	</li>
+
+
+</ul>
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/outdated local</code>
+
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/outdated</code>
+
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/outdated/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

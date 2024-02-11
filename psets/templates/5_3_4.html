@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}
+	5.3.4	
+{% endblock %}
+{% block body %}
+<h2>Модель следующего за препятствием</h2>
+<p>Используйте sf.R, sf.Gain, sf.Cascade, sf.FeedbackAdd и 
+sf.FeedbackSubtract для построения функции роботизированной 
+системы поиска стен. Эти процедуры описаны в модуле <a href="http://ocw.mit.edu/ans7870/6/6.01sc/documentation/sf-module.html">sf</a> 
+документации по программному обеспечению.
+</p>
+<p>Определите процедуру Python под названием wallFollowerModel, 
+которая принимает три аргумента:
+</p>
+<ul>
+	<li> 
+		пропорциональный коэффициент k, применяемый к ошибке.
+	</li>
+	<li> 
+		длительность временного шага T
+	</li>
+	<li> 
+		поступательная скорость V
+	</li>
+</ul>
+<p>и которая возвращает системную функцию для системы, 
+входные данные которой — желаемое расстояние, 
+а выходные данные — фактическое расстояние до стены.
+</p>
+<p>Их можно отладить в  файле designLab05Work.py.
+</p>
+<div class="form-floating">
+  <textarea class="form-control"  id="floatingTextarea" 
+	  style="height:500pt">
+  </textarea>
+  <label for="floatingTextarea">Ваш код</label>
+</div>
+
+{% endblock %}
+

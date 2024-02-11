@@ -5,6 +5,7 @@ SQL
 
 {% block body %}
 <h1>SQL</h1>
+<p>
 Технология баз данных используется для сохранения данных на дисках, 
 поиска нужной информации. Хранящиеся данные мы будем называть базой данных.
 Мы создадим базу данных,  в которой будем сохранять оценки студентов.
@@ -12,41 +13,37 @@ SQL
 систему управления базами данных (СУБД) PostgreSQL.
 Сервер PostgreSQL - запускается на компьютере на котором хранятся и сами данные.
 Сервер принимает запросы от программ клиентов, написанные на языке SQL, и возвращает ответы.
-
-<h2>Создание базы данных на heroku</h2>
+</p>
+<h2>Создание базы данных на render.com</h2>
 <p>Мы могли бы установить postgresql локально,
-но мы разместим нашу базу данных на Heroky,
+но мы разместим нашу базу данных на render.com,
 online web hosting service.</p>
 <ol>
-	<li> Зайдите на <a href="https://www.heroku.com/">https://www.heroku.com/</a>, создайте аккаунт, если его ещё нет.</li>
-	<li>На dashboard heroku кликните "New" и выберите "Create new app".</li>
-	<li>Дайте название вашему приложению(app-name) и кликните "Create app".</li>
-	<li>Перейдите на вкладку  "Resources".</li>
-	<li>В поле Quickly add .. наберите или выберите Heroku Postgres.</li>
-	<li>Выберите "Hobby Dev - Free" план, кликните "Submit Order Form".</li>
-	<li>Кликните "Heroku Postgres" ссылку</li>
-	<li>Вы оказались на странице "Overview", выберите "Settings" и "View Credentials". Там находится информация, необходимая для подключения к созданной для вас базе данных. Скопируйте URI, мы будем использовать его.</li>
+	<li> Зайдите на <a href="https://render.com/">https://render.com/</a>, создайте аккаунт, если его ещё нет.</li>
+	<li>На dashboard   "New" и выберите "PostgreSQL".</li>
+	<li>Поле Name задайте значение hogwarts. Нажмите конопку Create Database</li>
+	<li>Скопируйте в ide значения internal Database URL, External Database URL.</li>
 </ol>
 
-В URI  указан протокол postgres, имя пользователя, пароль, адрес сервера, название базы данных.
-Нам будет удобно сохранить URI  в переменную окружения, чтобы иметь к ней доступ из разных программ.
+<p>В URL  указан протокол postgres, имя пользователя, пароль, адрес сервера, название базы данных.
+Нам будет удобно сохранить external URL  в переменную окружения, чтобы иметь к ней доступ из разных программ.
 Перейдите в ide.cs50.io, создайте в домашнем каталоге файл с именем .profile .
-В этом файле введите строку
+В этом файле введите строку</p>
 <pre>
 <code>
-export DATABASE_URL=ваш_uri
+export DB_URL=ваш_url
 </pre>
 </code>
-Закройте терминал, откройте снова. Когда мы открываем терминал,
+<p>Закройте терминал, откройте снова. Когда мы открываем терминал,
 он считывает ~/.profile и выполняет команды в нём. Написанная нами
 строчка создаёт переменную окружения. Проверьте, что терминал имеет к ней
-доступ, для этого введите в терминале 
+доступ, для этого введите в терминале </p>
 <pre>
 <code>
-echo $DATABASE_URL
+echo $DB_URL
 </code>
 </pre>
-В терминале должен появиться ваш URI.
+В терминале должен появиться ваш URL.
 
 <h2>psql</h2>
 Выполните в терминале 
@@ -55,74 +52,104 @@ echo $DATABASE_URL
 psql $DATABASE_URL
 </code>
 </pre>
-Если все прошло удачно, то перед нами окно, в котором мы можем вводить 
+<p>Если все прошло удачно, то перед нами окно, в котором мы можем вводить 
 запросы к серверу.
 Нам надо освоить четыре вида запросов на языке SQL: создать, прочитать, изменить и удалить.
-Начнём с создать. Создадим таблицу  задания.
+Начнём с создать. Создадим таблицу  задания.</p>
 <pre>
 <code>
-create table задания(id serial, название text, primary key(id));
+create table задание(задание  serial primary key, название text);
 </code>
 </pre>
-Первый столбец таблицы мы назвали id, тип данных serial - это
-целые числа автоматически увеличивающиеся, столбец id будет primary key (первичный ключ), мы будем использовать значения из него 
+<p>Первый столбец таблицы  имеет тип serial - это
+целые числа, автоматически увеличивающиеся, столбец  будет primary key (первичный ключ), мы будем использовать 
+значения из него 
 для ссылки из других таблиц. 
-Столбец называние будет содержать данные типа текст. 
-Добавим данные в таблицу.
+Столбец название будет содержать данные типа текст. 
+Добавим данные в таблицу.</p>
 <pre>
 <code>
-insert into задания(название) values ('Приворотное зелье'), ('Напиток живой смерти');
+insert into задание(название) values ('Приворотное зелье'), ('Напиток живой смерти');
 </code>
 </pre>
-Это было запрос на изменение таблиц. Выполним запрос на чтение.
+Выполним запрос на вывод из таблицы.
 <pre>
 <code>
-select * from задания;
+select * from задание;
 </code>
 </pre>
-Удалить таблицу можно выполнив запрос.
+Удалить таблицу можно, выполнив запрос:
 <pre>
 <code>
 drop table if exists имя_таблицы;
 </code>
 </pre>
-Создадим таблицы студенты и оценки.
+Создадим таблицы.
 <pre>
 <code>
-create table студенты (id serial, фамилия text, имя text, primary key(id));
-
-create table оценки(id_студента int,  
-id_задания int , оценка int,
-foreign key(id_студента) references студенты(id),
-foreign key(id_задания) references задания(id),
-primary key(id_студента, id_задания));
+create table факультет(факультет serial primary key, название text);
+insert into факультет(название) values ('Гриффиндор'), 
+('Слизерин'), ('Когтевран'), ('Пуффендуй');
+select * from факультет;
+create table роль(роль serial primary key, название text);
+insert into роль (название) values ('профессор'), ('ученик');
+select * from роль;
+create table герой(герой serial primary key, фамилия text, имя text,
+с_факультета int references факультет(факультет), 
+выполняет_роль int references роль(роль),
+username text, password text);
+insert into герой (фамилия, имя, с_факультета, 
+выполняет_роль, username, password) values
+('Поттер', 'Гарри', 1, 2, 'potter', '12345'),
+('Грейнждер', 'Гермиона', 1, 2, 'germiona', '12345'),
+('Уизли', 'Рон', 1, 2, 'uron', '12345'),
+('Снегг', 'Северус', 2, 1, 'snegg', '12345');
+select фамилия, имя, факультет.название from герой, факультет where 
+герой.с_факультета = факультет.факультет and герой.с_факультета=1;
+create table журнал(выполнил_задание int references задание(задание), 
+оцениваем int references герой(герой), получил_оценку int, 
+primary key(выполнил_задание, оцениваем));
+insert into журнал (выполнил_задание, оцениваем, получил_оценку) values
+(1, 1, 5), (2, 1, 5), (1, 2, 5), (2, 2, 5), (1, 3, 4), (2, 3, 3);
+select * from  журнал;
+select герой.фамилия, задание.название, получил_оценку 
+from журнал, герой, задание where 
+журнал.оцениваем = герой.герой and 
+журнал.выполнил_задание = задание.задание;
 </code>
 </pre>
-Для таблицы оценки первичный ключ состоит из двух полей, 
+Для таблицы журнал первичный ключ состоит из двух полей, 
 за одно задание студент получает одну оценку.
-Для выхода из psql введите <kbd>Ctrl+d</kbd>.
+Для выхода из psql введите <kbd>\q</kbd>.
 
 <h2>SQL запросы из nodejs</h2>
 Создайте папку hogwarts. Перейдите в неё.
 Инициализируйте npm, выполнив <kbd>npm init -y</kbd>.
-Для работы с PostgreSQL утсановите модуль pg.
+Добавим в конец файл package.json текст
 <pre>
 <code>
-npm install pg
+"type":"module"
+</code>
+</pre>
+
+Для работы с PostgreSQL утсановите модуль pg. 
+<pre>
+<code>
+npm install pg 
 </code>
 </pre>
 Создайте файл pgConfig.js
 <pre>
 <code>
 //Импортируем класс Pool из модуля pg
-const {Pool} = require("pg")
+import dotenv from 'dotenv'
+import pg from "pg";
+dotenv.config()
 
 //Создаём пул соединений с сервером.
-const pool = new Pool({connectionString: process.env.DATABASE_URL,
+export const pool = new pg.Pool({connectionString: process.env.DB_URL,
 	    ssl: { rejectUnauthorized: false}
 })
-
-module.exports.pool = pool 
 </code>
 </pre>
 <p>Объект process, предоставляет информацию о текущем процессе.
@@ -130,25 +157,25 @@ module.exports.pool = pool
 </p>
 <p>Создайте файл test.js.
 <pre>
-<code>
-const {pool} = require('./pgConfig')
-pool.query('select * from задания;', (err, res)=>
-	{
-		if(err) console.log('Ошибка:', err)
-		else
-		{
-			console.log(res.rows)
-			pool.end()
-		}
+import {pool} from "./pgConfig.js"
+const sql = "select s1.фамилия, задание.название, \
+	s1.получил_оценку from \
+	(select герой.фамилия, журнал.получил_оценку, журнал.выполнил_задание \
+	from журнал join герой on \
+	журнал.оцениваем = герой.герой where герой.фамилия = $1) \
+	as s1 join задание on s1.выполнил_задание = задание.задание;"
+
+async function f(){
+	const results = await pool.query(sql, ["Поттер"]);
+	pool.end();
+	console.log(results.rows);
 	}
-)
+f();
+<code>
 </code>
 </pre>
 Выполним в терминале команду <kbd>node test.js</kbd>.
 Мы получим список строк, каждая строка представлена объектом.
-query - это асинхронная функция, её первый аргумент - sql 
-запрос, второй - функция обратного вызова. Она будет вызываться
-node, после получения ответа от сервера.
 
 <h2>Связь веб приложения с БД.</h2>
 Для создания веб приложения, установим модули.
@@ -159,52 +186,67 @@ npm install express ejs body-parser
 </pre>
 Создайте файл index.js
 <pre>
-<code>
-const express = require('express')
-const {pool} = require('./pgConfig')
-const port = process.env.PORT || 8080
-const app = express()
-
-app.get('/', (req, res) =>
-{
-    const sql1 = `select * from задания;`
-
-    pool.query(sql1, (err, resp) =>
-    {
-        if(err)
-            console.log('Error:', err)
-        else
-        {
-            res.render('problemset.ejs', {rows: resp.rows})
-        }
-    })
-
-})
-
-app.listen(port, ()=>
-    console.log('Приложение слушает порт:', port)
-    )
-</code>
-</pre>
-Мы создаём объект app, если он получает запрос методом get 
-на маршрут /, то делает запрос к базе данных, возвращает 
-страницу построенную с использованием данных из БД.
-<br>
-Создадим каталог views, в нём мы будем сохранять шаблоны веб страниц.
-Создайте в нём файл problemset.ejs.
-<pre>
-<code id=pset_html>
+<code id=index_js>
 </code>
 </pre>
 
 	<script>
-		fetch("static/sql/pset.html")
+		fetch("static/sql/index.js")
 				.then(responce => responce.text())
 				.then(data=>{
-					let pset_html = document.querySelector("#pset_html")
+					let pset_html = document.querySelector("#index_js")
 					pset_html.innerText = data
 				})
 	</script>
+
+<br>
+Создайте файл gradebook.js
+<pre>
+<code id=gradebook_js>
+</code>
+</pre>
+
+	<script>
+		fetch("static/sql/gradebook.js")
+				.then(responce => responce.text())
+				.then(data=>{
+					let pset_html = document.querySelector("#gradebook_js")
+					pset_html.innerText = data
+				})
+	</script>
+
+	<p>
+Создадим каталог views, в нём мы будем сохранять шаблоны веб страниц.
+Создайте в нём файл index.ejs.</p>
+<pre>
+<code id=index_ejs>
+</code>
+</pre>
+
+	<script>
+		fetch("static/sql/index.ejs")
+				.then(responce => responce.text())
+				.then(data=>{
+					let pset_html = document.querySelector("#index_ejs")
+					pset_html.innerText = data
+				})
+	</script>
+Этот файл выводит форму, данные с неё отправляются на роут /gradebook.
+Шаблон страницы gradebook.ejs приведён ниже.
+<pre>
+<code id=gradebook_ejs>
+</code>
+</pre>
+
+	<script>
+		fetch("static/sql/gradebook.ejs")
+				.then(responce => responce.text())
+				.then(data=>{
+					let pset_html = document.querySelector("#gradebook_ejs")
+					pset_html.innerText = data
+				})
+	</script>
+
 Выполним <kbd>node index.js</kbd>.
 Зайдите на свой сайт. 
 

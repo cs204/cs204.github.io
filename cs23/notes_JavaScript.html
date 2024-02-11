@@ -1,0 +1,537 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+JavaScript
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="cs50_dev.html">cs50.dev</a></li>
+
+					<!--
+					<li><a href="git.html">Git, html, css</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+					<li><a href="JavaScript.html">JavaScript, API</a><li>
+					<li><a href="/psets/finance.html">Финансы</a></li>
+					<li><a href="machineLearning.html">Обучение</a></li>
+
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				<div class="container-sm">
+
+					
+<h1>Javascript</h1>
+<p>Для выполнения программ мы будем использовать nodejs.
+Создайте файл из примера ниже, сохраните его в файле
+test.js. Перейдите в консоль и выполните
+</p>
+<pre>
+<code>
+node test.js
+</code>
+</pre>
+Javascript код можно выполнить в консоли браузера,
+для этого в браузере надо нажать клавишу <kbd>F12</kbd>,
+в открывшемся наборе инструментов разработчика выбрать
+консоль и в ней ввести код.
+<p>Программа на javascript - 
+это последовательность инструкции.
+Инструкции разделяются точкой с запятой или
+начинают с разных строк.
+В состав инструкций могут входить выражения.
+Выражения возвращают значения.
+Например,
+</p>
+<pre>
+<code class="language-javascript">
+let r = 5.4;
+let area = Math.PI * r**2;
+console.log(area);
+</code>
+</pre>
+<p>
+Первая и вторая инструкции объявляют переменные.
+Последняя печатает в консоль значение переменной.
+</p>
+<p>По умолчанию инструкции выполняются по
+порядку расположения в тексте. Для изменения порядка
+выполнения используют инструкции контроля: ветвления,
+циклы, переходы.</p>
+<p>Рассмотрим инструкции объявления,
+они объявляют или определяют переменные и 
+функции. Они вводят имя которое будет использоваться
+позже и присваивают ему значение.
+В примере выше, в первой строке, мы имеем литерное
+высказывание <kbd>5.4</kbd>, оно прямо вводит числовое значение. 
+Во второй строке, с права
+от знака равно, находится высказывание, содержащее оператор умножения,
+возведение в степень и переменные.
+Ключевое слово let вводит изменяемую переменную.
+Ключевое слово const вводит неизменяемую переменную.
+</p>
+<h2>Числа</h2>
+number- тип значений встроенный. Пример,
+<pre>
+<code class="language-javascipt">
+console.log("24 * 5 =", 24 * 5);
+console.log("25 / 5 =", 25 / 5);
+console.log("24 + 5 =", 24 + 5);
+console.log("24 - 5 =", 24 - 5);
+console.log("5 % 2 =", 5 % 2);
+console.log("5 &lt 6", 5 &lt 6);
+console.log("5 === 6", 5 === 6);
+console.log("5 !== 6", 5 !== 6);
+
+let x = parseFloat("3.14")//преобразуем строку текста в число
+console.log(typeof x) // typeof возвращает тип значения
+</code>
+</pre>
+Встроенных в язык операции над числами немного, но есть библиотеки,
+в которых, наверное, есть нужная вам функция.
+<h2>Строки</h2>
+Встроенный тип значений - string. Для строковых литер можно использовать  двойные
+кавычки, одинарные левые или правые кавычки. Пример,
+<pre>
+<code>
+let name = "Bob" //строковая литерал
+console.log(`Hello, ${name}!`)//в строку подставляется значение переменной
+</code>
+</pre>
+
+<h2>Логический тип</h2>
+В логическом типе всего два значения: ture, false.
+На них заданны операции: && (и), || (или), ! (отрицание).
+Пример,
+<pre>
+<code class="language-javascript">
+let x = 5
+console.log("x &lt 6 || x &gt 3 ", x &lt 6 || x &gt 3) 
+console.log("!(x &lt 6) = ", !(x &lt 6))
+</code>
+</pre>
+<h2>Задание ветвления</h2>
+Пример,
+<pre>
+<code>
+let x = 5
+if (x &lt 0)
+{
+	console.log(`${x} - отрицательное.`)
+}
+esle if( x === 0)
+{
+	console.log(`${x} - ноль.`)
+}
+else
+{
+	console.log(`${x} - положительно.`)
+}
+</code>
+</pre>
+
+<h2>Циклы</h2>
+Пример,
+<pre>
+<code>
+for(let i = 0; i < 5;++)
+{
+	console.log(i)
+}
+</code>
+</pre>
+<h2>Массивы</h2>
+Элемент массива мы можем получить, указав в квадратных скобках индекс элемента.
+Нумерация элементов начинается с нуля. Свойство length - число элементов в массиве. Пример,
+<pre>
+<code>
+let l = [1, 5, "Bob", 6] //литерал массива
+l.push(9)//Добавляет новый элемент в конец массива
+for (let i = 0; i &lt l.length; i++)
+{
+	console.log(`l[${i}]=${l[i]}`)
+}
+//Более удобный способ обработки массива
+for(const elem of l)
+	console.log(elem);
+
+l.reverse();//меняет порядок элементов
+console.log(l);
+let l2 = l.slice(1, 4)//создает новый массив с элементами с первого по 3 
+console.log(l2)
+</code>
+</pre>
+
+<h2>Функции</h2>
+<pre>
+<code class="language-javascript">
+console.log("f3(5) =", f3(5)); // Вызов функции.
+function f3(x){return x * 3}; // Определение функции,
+// такое определение может предшествовать вызову.
+const f2 = function (x) { return x * 2}; // Определение функции
+const add = (a, b) =&gt {return a + b;} // Третий способ определения функциии
+console.log("add(6,5)=",add(6,5))
+</code>
+</pre>
+
+<h2>Объекты</h2>
+Объект состоит из пар ключ, значение.
+Чтобы получить значение свойства объекта, 
+можно использовать точку, или квадратные скобки. 
+В следующем примере мы создаём объект, используя литеру объекта.
+<pre>
+<code class="language-javasciprt">
+let person = {name: "Лена", age: 18}//Создали объект
+console.log("Привет, ", person.name, "!")
+console.log("Привет, ", person["name"], "!")
+</code>
+</pre>
+
+<h2>Модули</h2>
+Мы можем разбить наш код на отдельные файлы, как 
+в примере ниже.
+Создадим файл help.mjs.
+<pre>
+<code class="language-javascript">
+function add(a, b)
+{
+	return a + b;
+}
+
+const speedOfLight = 3 * 10**8;
+
+export {speedOfLight, add};
+</code>
+</pre>
+Создадим файл main.mjs
+<pre>
+<code class="language-javascript">
+import {speedOfLight, add} from "./help.mjs"
+console.log("add(4, 3) ", add(4,3))
+console.log("скорость света =", speedOfLight);
+</code>
+</pre>
+Запуситм программу, выполнив
+<pre>
+<code>
+node main.mjs
+</code>
+</pre>
+
+<h2>Классы</h2>
+Классы - удобный способ создавать объекты.
+<pre>
+<code class="language-javascript">
+// Class
+class Person
+{
+    constructor(name)
+    {
+        this.name = name
+    }
+
+    describe()
+    {
+        return 'Person named ' + this.name;
+    }
+}
+
+const jane = new Person("Jane");
+console.log(jane.describe())
+</code>
+</pre>
+
+
+<h2>Canvas</h2>
+<p>canvas - элемент html, мы будем рисовать на нём.
+Создайте папку canvas, перейдите в неё.
+Создайте в ней файл canvas.html. </p>
+<pre>
+<code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;body&gt;
+		&lt;canvas width=300 height=300 id="canvas"&gt;&lt;/canvas&gt;
+		&lt;script src="./js/main.js" type="module"&gt;&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+
+В папке создайте каталог js, в нем файл main.js.
+<pre>
+<code id="script">
+</code>
+</pre>
+<script>
+document.querySelector("#script").innerText=`
+const canvas = document.querySelector("#canvas")
+canvas.style.backgroundColor = 'lightgray'
+//создаем графический контекст
+const ctx = canvas.getContext('2d')
+//определеяме цвет заливки
+ctx.fillStyle = 'green'
+//рисуем прямоугольник шириной 50, высотой 70 
+ctx.fillRect(10, 20, 50, 70)`
+</script>
+
+
+fillRect(x, y, ширина, высота) рисует, закрашенный прямоугольник,
+верхний левый угол прямоугольника имеет координаты x, y. 
+x - число пикселей вправо, y - число пикселей вниз от левого
+верхнего угла канваса.
+<p>Запустите http-server, выполнив команду http-server. Результат приведён ниже.
+<br>
+
+<canvas width=300 height=300 id="canvas"></canvas>
+	<script>
+		const canvas = document.querySelector("#canvas")
+		canvas.style.backgroundColor = 'lightgray'
+		//создаём графический контекст
+		const ctx = canvas.getContext('2d')
+		//определяем цвет заливки
+		ctx.fillStyle = 'green'
+		//рисуем прямоугольник шириной 50, высотой 70 
+		ctx.fillRect(10, 20, 50, 70)
+	</script>
+<br>
+Следующий пример создаёт текст на canvas
+<pre>
+<code>
+ctx.font = `20px Arial`//размер шрифта 20 пикселей, шрифт Arial
+ctx.fillStyle = 'blue' //цвет текста голубой
+ctx.textAlign = 'center'//выравнивание по горизонтали
+ctx.textBaseline = 'middle'//выравнивание по вертикали
+ctx.fillText('Hello, World', 50, 70) // положение текста 50 пикселйе вправо, 70 вниз 
+</code>
+</pre>
+Ниже то, что мы получили
+<br>
+<canvas width=300 height=300 id="canvas2"></canvas>
+<script>
+	const canvas2 = document.querySelector("#canvas2")
+	canvas2.style.backgroundColor = 'lightgray'
+	//создаём графический контекст
+	const ctx2 = canvas2.getContext('2d')
+	ctx2.font = `$20px Arial`//размер шрифта 20 пикселей, шрифт Arial
+	ctx2.fillStyle = 'blue' //цвет текста голубой
+	ctx2.textAlign = 'center'//выравнивание по горизонтали
+	ctx2.textBaseline = 'middle'//выравнивание по вертикали
+	ctx2.fillText('Hello, World', 50, 70) // положение текста 50 пикселйе вправо, 70 вниз 
+</script>
+<br>
+Нарисуем прямоугольный контур.
+<pre>
+<code>
+ctx.strokeStyle = 'yellow' //цвет контура жёлтый
+ctx.lineWidth = 5//задаём толщину контура в 5 пикселей
+ctx.strokeRect(10, 20, 50, 70)
+</pre>
+</code>
+Ниже то, что мы получили
+<br>
+<canvas width=300 height=300 id="canvas3"></canvas>
+<script>
+	const canvas3 = document.querySelector("#canvas3")
+	canvas3.style.backgroundColor = 'lightgray'
+	const ctx3 = canvas3.getContext('2d')
+	ctx3.strokeStyle = 'yellow'
+	ctx3.lineWidth = 5
+	ctx3.strokeRect(10, 20, 50, 70)
+</script>
+<br>
+Рисуем линии
+<pre>
+<code>
+ctx.strokeStyle = 'red'
+ctx.lineWidth = 5
+ctx.beginPath()//начало пути
+ctx.moveTo(10, 10)//ставим карандаш в точку 10, 10 пикселей
+ctx.lineTo(290, 10)//чертим прямую до точки 290 вправо и 10 вниз пикселей  
+ctx.lineTo(10, 290)//чертим прямую до точки 10 вправо и 290 вниз пикселей  
+ctx.stroke()//линия появляется на экране
+</code>
+</pre>
+Получаем.
+<br>
+<canvas width=300 height=300 id="canvas4"></canvas>
+<script>
+	const canvas4 = document.querySelector("#canvas4")
+	canvas4.style.backgroundColor = 'lightgray'
+	const ctx4 = canvas4.getContext('2d')
+	ctx4.strokeStyle = 'red'
+	ctx4.linewidth = 5
+	ctx4.beginPath()//начало пути
+	ctx4.moveTo(10, 10)//ставим карандаш в точку 10, 10 пикселей
+	ctx4.lineTo(290, 10)//чертим прямую до точки 290 вправо и 10 вниз пикселей  
+	ctx4.lineTo(10, 290)//чертим прямую до точки 10 вправо и 290 вниз пикселей  
+	ctx4.stroke()//линия появляется на экране
+</script>
+<br>
+<p>Рассмотрим,  как можно обработать нажатие на клавишу мышки.
+<pre>
+<code>
+canvas.addEventListener('click', drawRect);
+
+function drawRect(event)
+{
+	ctx.fillStyle = 'red';
+	ctx.fillRect(event.offsetX, event.offsetY, 5, 5);
+}
+</code>
+</pre>
+</p>
+<canvas width=300 height=300 id="canvas5"></canvas>
+<script>
+	const canvas5 = document.querySelector("#canvas5")
+	canvas5.style.backgroundColor = 'lightgray'
+	const ctx5 = canvas5.getContext('2d')
+	canvas5.addEventListener('click', drawRect);
+
+	function drawRect(event)
+	{
+		ctx5.fillStyle = 'red';
+		ctx5.fillRect(event.offsetX, event.offsetY, 5, 5);
+	}
+</script>
+
+Учебник по canvas вы можете посмотреть, например, 
+<a href="https://developer.mozilla.org/ru/docs/Web/API/CanvasRenderingContext2D">здесь</a>. 
+
+<h2>API браузера</h2>
+Пример js кода: он изменяет цвет фона страницы,
+переменной name присваивает значение, введённое
+в поле с id name, выводит приветствие.
+<pre>
+<code class="language-javascript">
+let body = document.querySelector("body");
+let name = document.querySelector("#name")
+let btnGreet = document.geurySelector("#btnGreet")
+
+function greet(){
+	alert("Hello, " + name.value);
+	body.style.backgroundColor="aqua";
+	}
+
+btn.addEventListener('click', greet) 
+</code>
+</pre>
+Используем элемент html script, чтобы добавить код в веб странице.
+Код размещаем в конце страницы, так как элементы html используемые
+в коде должны быть созданы до выполнения кода.
+<br>
+<h2>AJAX</h2>
+JavaScript код, приведённый ниже, отправляет запрос на сервер,
+когда пользователь вводи текст, полученный ответ выводит.
+<pre>
+<code class="language-javascript">
+const nameInput = document.querySelector("#name")
+const pOut = document.querySelector("#pOut")
+
+async function search()
+{
+
+	let data = {"name": nameInput.value}
+
+	let response = await fetch("/search",
+		{
+			method: "POST",
+			headers:
+			{
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+
+	let rows = await response.json()
+
+	html = ''
+	for (let row of rows)
+	{
+		html = html + row["name"] + "&ltbr&gt"
+	}
+	pOut.innerHTML = html
+}
+
+nameInput.addEventListener("input", search)
+</code>
+</pre>
+На сервере запрос обрабатывает следующий код
+<pre>
+<code class="language-python">
+@app.route("/search", methods=["POST"])
+def search():
+    response = json.loads(request.data)
+    name = response["name"]
+    if name:
+        names = db.execute("select * from characters where name like :name", 
+            name = name + "%")
+    else:
+        names = []
+    return json.dumps(names)
+</code>
+</pre>
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

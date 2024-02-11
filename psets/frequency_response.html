@@ -1,0 +1,320 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Частотная характеристика
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>Частотная характеристика</h1>
+<h2>Максимальное значение</h2>
+<p>Для каждой из следующих систем найдите частоту \(\omega_m\), 
+для которой величина усиления наибольшая.
+</p>
+<ol>
+	<li>
+		$$
+		\frac{1}{1+s+s^2}
+		$$
+		\(\omega_m=\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+				<p>
+				Система имеет полюса в 
+				$$
+				s=\frac{1}{2}\pm j\frac{\sqrt{3}}{2}
+				$$
+				</p> 
+				<figure class="figure"> 
+					<img src="/psets/data/images/frequency_response/p1.png" class="figure-img img-fluid"> 
+				</figure>
+				<p>Мы должны минимизировать произведение длин 
+				двух векторов.  Произведение квадратов длин равно
+				$$
+\left( 
+	\left( 
+		\omega - \frac{\sqrt{3}}{2} 
+	\right)^2 + 
+	\left(
+		\frac{1}{2}
+	\right)^2
+\right) 
+\left( 
+	\left(
+		\omega + \frac{\sqrt{3}}{2}
+	\right)^2+
+	\left(
+		\frac{1}{2}
+	\right)^2
+\right) =1-\omega^2+\omega^4
+				$$ Минимизируйте, взяв производную по \(\omega\) 
+				и приравняв ее нулю:
+				$$
+				-2\omega+4\omega^3=2\omega(2\omega^2-1)=0
+				$$
+				Решения: \(\omega = 0\) (что соответствует 
+				локальному максимуму произведения длин) и 
+				\(\omega = \pm \sqrt{1/2} \). Таким образом, 
+				искомое решение
+				$$
+				\omega=\pm \sqrt{\frac{1}{2}}
+				$$
+
+				</p>
+
+			</div>
+		</details>
+	</li>
+	<li>
+	$$
+	\frac{s}{1+s+s^2}
+	$$
+	\(\omega_m=\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+				<p>Теперь есть добавленный вектор из нуля в 
+				точке s = 0.
+				</p>
+
+				<figure class="figure"> 
+					<img src="/psets/data/images/frequency_response/p2.png" class="figure-img img-fluid"> 
+				</figure>
+				<p> Вектор, связанный с нулем, находится в 
+				числителе, а вектор, связанный с полюсами, 
+				находится в знаменателе.  Квадратное частное 
+				длин равно
+				$$
+				\frac{\omega^2}{1-\omega^2+\omega^4}
+				$$ 
+				Максимизируйте, взяв производную по 
+				\(\omega\) и приравняв ее нулю: 
+				$$
+				\frac{2\omega(\omega^4-1)}{(1-\omega+\omega^4)^2}=0
+				$$ Решениями являются \(\omega = 0\) 
+				(что соответствует минимуму величины усиления), 
+				либо \(\omega = \pm 1\), либо \(\omega = \pm j\).  
+				Желаемое решение является действительным 
+				и положительным:
+				$$
+				\omega=1
+				$$
+				</p>
+	</li>
+</ol>
+<h2>Автомобильная подвеска</h2>
+<p>Колеса прикреплены к автомобилю через систему подвески, 
+предназначенную для минимизации вибраций салона, возникающих 
+при движении по неровной местности.
+Система подвески состоит из пружины и амортизатора, которые 
+сжимаются при проезде колеса по неровностям, поэтому резкое 
+движение колеса не передается напрямую в салон.
+Пружина создает силу, удерживающую салон на нужном расстоянии 
+от поверхности дороги, а амортизатор добавляет фрикционное демпфирование.
+В этой задаче вы определите, какое демпфирование желательно, 
+проанализировав простую модель системы подвески автомобиля, показанную ниже.
+</p> 
+<figure class="figure"> 
+	<img src="/psets/data/images/frequency_response/car.png" class="figure-img img-fluid"> 
+</figure>
+<p>Модель состоит из массы M, которая представляет массу автомобиля, 
+которая соединена с колесом через пружину и амортизатор.
+Вертикальное смещение колеса от его положения равновесия принимается 
+в качестве входных данных x(t).
+Вертикальное смещение массы из положения равновесия принимается за выходной сигнал y(t).
+Предполагается, что пружина подчиняется закону Гука, так что создаваемая 
+ею сила равна константе, умноженной на величину сжатия пружины относительно 
+ее равновесного сжатия.
+Предполагается, что амортизатор создает силу, которая является постоянной 
+величиной, умноженной на скорость, с которой амортизатор сжимается.
+Обратите внимание, что, относя x(t) и y(t) к их положениям равновесия, 
+силой гравитации можно пренебречь.
+Предположим, что M = 1 и K = 1.
+</p>
+<ol>
+	<li>Определите дифференциальное уравнение, связывающее входной 
+		сигнал x(t) и выходной сигнал y(t).
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert">
+<p>Начните с закона Ньютона: F = M a, где M представляет массу автомобиля, а 
+a представляет ускорение автомобиля.
+На автомобиль действуют две важные силы: сила пружины  \(K (x(t) − y(t))\) и сила, 
+создаваемая амортизатором  \( B(\dot{x}(t) − \dot{y}(t))\) .
+Объединив их, мы находим, что
+$$
+K(x(t)-y(t))+B(\dot{x}(t)-\dot{y}(t))=M\ddot{y}(t)
+$$
+или
+$$
+\ddot{y}(t)+B\dot{y}(t)+y(t)=x(t)+B\dot{x}(t)
+$$
+Так как M=K=1
+</p>
+	</div>
+</details>
+	</li>
+	<li>
+		<p>
+Определите и постройте импульсную характеристику системы, когда B = 0.
+На основе этого результата дайте физическое объяснение проблемы, 
+которая возникла бы, если бы в системе не было амортизатора.
+		</p>
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert">
+		<p>
+		Если B=0, то преобразование Лапласа:
+		$$
+		H(s)=\frac{1}{s^2+1}=\frac{\frac{1}{2j}}{s-j}-\frac{\frac{1}{2j}}{s+j}.
+		$$
+		Соответствующий отклик на импульс:
+		$$
+		h(t)=\frac{1}{2j}\left(e^{jt}-e^{-jt}\right) u(t)=\sin(t)u(t)
+		$$
+		как построено ниже.
+		</p>
+<figure class="figure"> 
+	<img src="/psets/data/images/frequency_response/sin_t.png" class="figure-img img-fluid"> 
+</figure>
+<p>Без амортизатора не происходит рассеивания энергии, 
+и автомобиль будет вечно раскачиваться после наезда на неровность.
+</p>
+	</div>
+</details>
+	</li>
+	<li> 
+		<p>Определите выражение для наименьшей положительной 
+		постоянной затухания B, при которой полюса системы имеют 
+		действительные значения.  
+		Нарисуйте импульсную характеристику системы для этого значения B.  
+		На основе этого результата дайте физическое объяснение тому, 
+		как амортизатор улучшает работу системы подвески.
+		</p>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+				<p>В общем случае преобразование Лапласа выглядит так:
+				$$
+				H(s)=\frac{2s+1}{s^2+2s+1}				$$
+Полюсы будут иметь действительные значения, если \(B \ge 2\). 
+Когда B = 2, в точке s = −1 имеется два полюса. Таким образом
+$$
+H(s)=\frac{2}{s+1}-\frac{1}{(s+1)^2}
+$$
+Соответствующая импульсная характеристика равна
+$$
+h(t)=(2-t)e^{-t}u(t)
+$$
+				</p>
+
+				<figure class="figure"> 
+					<img src="/psets/data/images/frequency_response/car_b_2.png" class="figure-img img-fluid"> 
+				</figure>
+				<p>Амортизатор улучшает работу системы, гася колебания, которые в противном случае могли бы возникнуть.
+				</p>
+	</div>
+</details>
+
+	</li>
+	<li>
+		<p>
+Представьте, что произошло бы, если бы B было очень большим.
+Нарисуйте импульсную характеристику системы, если B = 100.
+Опишите, почему этот ответ может быть менее желательным, чем ответ в части 3.
+Дайте физическое объяснение тому, как жесткий амортизатор может ухудшить 
+производительность системы.
+		</p>
+
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert">
+		<p>
+Если B = 100, то полюса примерно равны s = −100 и s = −0,01,
+$$
+H(s)=\frac{100s+1}{s^2+100s+1}\approx \frac{100s+1}{(s+100)(s+0.01)}\approx \frac{100}{s+100}.
+$$
+Соответствующая импульсная характеристика равна
+$$
+h(t)=100e^{-100t}u(t)
+$$
+		</p>
+
+<figure class="figure"> 
+	<img src="/psets/data/images/frequency_response/car_b_100.png" class="figure-img img-fluid"> 
+</figure>
+<p>Постоянная времени этого ответа составляет 10 миллисекунд, 
+что слишком мало, чтобы это можно было увидеть на графике выше.
+С точки зрения пассажира, эта реакция очень быстрая.
+Поскольку интеграл от h(t) равен
+$$
+\int_{-\infty}^\infty h(t)dt=\int_{-\infty}^\infty 100e^{-100t}u(t)dt=1
+$$
+Отсюда следует, что h(t) является хорошим приближением импульса \(\delta(t)\).
+Таким образом, выход y(t) почти равен входу x(t).
+Демпфирование настолько велико, что все вибрации колес передаются автомобилю.
+С таким же успехом системы подвески могло бы и не быть!
+</p>
+
+	</div>
+</details>
+	</li>
+</ol>
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

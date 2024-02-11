@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	 LTSI  
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+
+<h2>Задачи: LTISM</h2>
+<p>Мы увидели, как создавать сложные автоматы из примитивов, и показали, что можем их запускать. Единственная проблема с таким способом работы заключается в том, что у нас никогда не бывает явного представления всей системы в виде разностного уравнения. Позже мы автоматически вычислим разностные уравнения для систем, созданных с помощью комбинаторов; сейчас мы будем создавать автоматы непосредственно из коэффициентов разностного уравнения.
+</p>
+<p>Для каждой из этих систем, чтобы она была правильно  заданным автоматом, 
+мы должны задать начальное состояние, оно может быть
+охарактеризовано как k значений предыдущих выводов и j
+предыдущих вводов. Напомним вид разностного уравнения:
+$$
+y[n]=c_0y[n-1]+c_1y[n-2]+...+c_{k-1}y[n-k]+d_0x[n]+d_1x[n-1]+...+d_jx[n-j]
+$$
+</p>
+<p>
+Мы имеем заданный класс автоматов LTISM, его можно использовать
+чтобы реализовать любой автомат такого типа.  Инициализатор имеет вид:
+<pre>
+<code>
+LTISM(dCoeffs, cCoeffs, previousInputs, previousOutputs)
+</code>
+</pre>
+где
+<ul>
+	<li>dCoeffs - список коэффициентов от \(d_0\) до \(d_j\),  в таком же порядке.</li>
+	<li>cCoeffs - список коэффициентов от \(c_0\) до \(c_{k-1}\), в таком же порядке.</li>
+	<li>previousInputs - список от \(x[-1]\) до \(x[-j]\), в таком же порядке.
+	</li>
+	<li>previousOutputs - список \(y[-1]\) до \(y[-k]\), в таком же порядке.</li>
+</ul>
+</p>
+<p>Здесь Python выражения, которые создают экземпляры LTISM:
+<ul>
+	<li>Вывод в момент n равен 3 умножить на ввод в момент n:
+		<pre>
+		<code class="language-python">
+		# y[n] = 3 x[n]
+		LTISM([3], [])
+		</code>
+		</pre>
+	</li>
+	<li>
+		Вывод в момент n есть ввод в n-1 (наш старый друг, 
+		автомат задержки):
+		<pre>
+		<code class="language-python">
+		# y[n] = x[n-1]
+		LTISM([0, 1], [], [0], [])
+		</code>
+		</pre>
+		Здесь мы задали, что \(x[-1]=0\).
+	</li>
+	<li>
+		Вывод в момент n есть 2 умножить на ввод в n-2:
+		<pre>
+		<code class="language-python">
+		# y[n] = 2 * x[n-2]
+		LTISM([0, 0, 2], [], [4, 10], [])
+		</code>
+		</pre>
+		Здесь мы задали x[-1]=4, x[-2] = 10.
+	</li>
+	<li>
+		Вывод в момент n равен 2 умножить на вывод в момент n-1:
+		<pre>
+		<code class="language-python">
+		# y[n] = 2 y[n-1]
+		LTISM([], [2], [], [1])
+		</code>
+		</pre>
+		Здесь мы задали \(y[-1]=1\). (Что произойдёт, если мы сделаем его  равным 0?)
+	</li>
+
+	<li>Вывод в n равен вывод в момент n-1 плюс вывод в момент n-2:
+		<pre>
+		<code class="language-python">
+		# y[n] = y[n-1] + y[n-2]
+		LTISM([], [1, 1], [], [1, 1])
+		</code>
+		</pre>
+		Здесь мы задали y[-1]=1 и y[-2] = 1. Эта формула
+		генерирует знакомую последовательность. Узнали её?
+	</li>
+</ul>
+<p>Покажите, как создать следующие автоматы как экземпляр 
+класса LTISM. Ниже вам нужно будет ввести элементы четырёх 
+списков, необходимые для создания экземпляра:
+<pre>
+<code class="language-python">
+LTISM(dCoeffs, cCoeffs, previousInputs, previousOutputs)
+</code>
+</pre>
+</p>
+<p>Если любой аргумент пуст, введите none, иначе
+последовательность чисел разделённых пробелами (нет запятых, скобок).
+</p>
+<ol>
+	<li>
+	Машина вывод которой в момент n есть сумма вводов до момента n
+	включительно. Предположим y[-1] = 10.
+	<form>
+		<label>dCoeffs(input):</label>
+		<input>
+		<br>
+		<label>cCoeffs(output):</label>
+		<input>
+		<br>
+		<label>previousInputs</label>
+		<input>
+		<br>
+		<label>previousOutput</label>
+		<input>
+	</form>
+	</li>
+	<li>
+		Автомат вывод которого в момент n равен сумме вводов до момента n-1 
+		включительно. Предположим y[-1]=10 и x[-1]=0.
+		<form>
+		<label>dCoeffs(input):</label>
+		<input>
+		<br>
+		<label>cCoeffs(output):</label>
+		<input>
+		<br>
+		<label>previousInputs</label>
+		<input>
+		<br>
+		<label>previousOutput</label>
+		<input>
+	</form>
+	</li>
+	<li>
+		Автомат вывод которого в момент n равен сумме вводов
+		до момента n-1, умноженных на 0.1. Предположим y[-1]=1 и
+		x[-1]=0.
+		<form>
+		<label>dCoeffs(input):</label>
+		<input>
+		<br>
+		<label>cCoeffs(output):</label>
+		<input>
+		<br>
+		<label>previousInputs</label>
+		<input>
+		<br>
+		<label>previousOutput</label>
+		<input>
+		</form>
+	</li>
+</ol>
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<% if(rows.length > 0) {%>
+			<%=rows[0].фамилия%>
+			<%} else{%>
+				Нет оценок
+				<%}%>
+		<ul>
+			<% for(let i=0; i < rows.length; i++){%>
+			<li><%= rows[i].название %> <%= rows[i].получил_оценку%></li>
+			<%}%>
+		</ul>
+		<a href="/">Главная страница</a>
+	</body>
+</html>

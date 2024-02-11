@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	5.1.2	
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+
+<h2>Каскад систем</h2>
+<p>Пусть H<sub>1</sub> это система с входом x и выходом w, 
+определяемая следующим образом:
+$$
+w[n]-w[n-1]=x[n]-2x[n-1]
+$$
+и пусть H<sub>2</sub> — система с входом w и выходом y, 
+определяемая следующим образом:
+$$
+y[n]-y[n-1]=w[n]+w[n-2]
+$$
+Предположим, мы формируем каскад H<sub>1</sub> и H<sub>2</sub>, чтобы получить 
+систему, входом которой является x, а выходом — y.
+</p>
+
+<p>Ниже необходимо указать несколько системных функций.
+Сделайте это, записав коэффициенты полиномов в R для числителя и 
+знаменателя системных функций.
+Введите коэффициенты в том порядке, в котором они будут предоставлены 
+для построения полинома (сначала наибольшая степень).
+Два полинома для системной функции проверяются вместе, поскольку 
+именно их соотношение имеет смысл.
+</p>
+<p>Чтобы указать системную функцию, введите последовательность 
+коэффициентов для полинома числителя, за которой следует косая 
+черта (/) и ещё одна последовательность коэффициентов для знаменателя.
+Не вводите запятых, просто цифры, разделённые пробелами и одинарной 
+косой чертой.
+Числа должны быть целыми числами или с плавающей запятой.
+Вот пример ответа:
+<pre>
+1 -2 0.3 / 3 0.1
+</pre>
+он представляет 
+$$
+\frac{R^2-2R+0.3}{3R+0.1}
+$$
+
+<p>Обратите внимание, что первый коэффициент полинома 
+(самой высокой степени) никогда не должен быть равен нулю.
+</p>
+<ol>
+	<li>
+		Запишите системную функцию для H<sub>1</sub>
+		<br>
+		Числитель/Знаменатель:<input >
+	</li>
+	<li>
+		Запишите системную функцию для H<sub>2</sub>
+		<br>
+		Числитель/Знаменатель:<input >
+	</li>
+	<li> 
+		Напишите системную функцию каскада H1 и H2.
+		<br>
+	</li>
+		Числитель/Знаменатель:<input >
+
+
+</ol>
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

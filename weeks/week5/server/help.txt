@@ -1,3 +1,0 @@
-sudo -u postgres pg_dump --no-onwer --no-priveleges register > register.db
-sudo -u postgres psql register < regsiter.db
-grant all privileges on students to vadim;

@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Представления Фурье
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+				</ul>
+					<hr>
+					
+
+				<ol>
+					<li><a href="code_cs50_io.html">cs50.dev</a></li>
+					<li><a href="python.html">Python</a></li>
+					<li><a href="programming_styles.html">Стили программирования</a></li>
+					<li><a href="state_machine.html">Автоматы</a></li>
+					<li><a href="combination_sm.html"> Соединения автоматов</a></li>
+
+					<li><a href="terminating_sm.html"> Завершающиеся автоматы</a></li>
+					<li><a href="controlRobot.html">Управление роботом</a>
+					<li><a href="signals_systems.html"> Сигналы и системы</a></li>
+					<li><a href="ltism.html">LTISM</a></li>
+					<li><a href="systemFunctions.html">Обратная связь, полюса и моды</a></li>
+					<li><a href="continuous_time.html">Непрерывные сисетмы</a></li>
+					<li><a href="z_transform.html">z-преобразования</a></li>
+					<li><a href="laplace_transform.html">Преобразование Лапласа</a></li>
+					<li><a href="dt_approximation_ct.html">Дискретная аппроксимация непрерывных систем</a></li>
+					<li><a href="convolution.html">Свёртка</a></li>
+					<li><a href="frequency_response.html">Частотная характеристика</a></li>
+					<li><a href="bode_plots.html">График Боде</a></li>
+					<li><a href="fourier_representations.html">Представление Фурье</a></li>
+					<li><a href="fourier_series.html">Ряды Фурье</a></li>
+					<li><a href="fourier_transform.html">Преобразование Фурье</a></li>
+					<li><a href="dt_frequency_representations.html">Частотное представление DT систем</a></li>
+					<li><a href="data/tickets/tickets.pdf">Билеты</a></li>
+				</ol>
+			</nav>
+			<main>
+				<div class="container-sm">
+				
+<h1>
+
+Представления Фурье
+</h1>
+<p>Ряды Фурье представляют сигналы в виде синусоид. Ведут 
+к представлению системы в терминах синусоид.
+</p>
+<p>Представление сигналов через их  гармонические компоненты.
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/harmonics.png" class="figure-img img-fluid">
+</figure>
+<p>Гармоническое содержание — это естественный способ 
+описания некоторых видов сигналов.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/instruments.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/instruments_harmonic.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/instruments_harmonic_3.png" class="figure-img img-fluid">
+</figure>
+
+<p>Какие сигналы можно представить суммами гармонических составляющих?
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/example_1.png" class="figure-img img-fluid">
+</figure>
+<p>
+Только периодические сигналы: все гармоники \(\omega_0\) 
+периодически по \(T=2\pi/\omega_0\).
+</p>
+
+<h2>Разделение гармонических компонент</h2>
+<p>Свойства.
+<ol>
+	<li>
+		Умножение двух гармоник дает новую гармонику 
+		с той же основной частотой:
+		$$
+		e^{jk\omega_0t}e^{jl\omega_0t}=e^{j(k+l)\omega_0t}.
+		$$
+	</li> 
+	<li> 
+		Интеграл от гармоники за любой интервал времени 
+		длиной, равной периоду T, равен нулю, если только 
+		гармоника не находится на постоянном токе:
+		$$
+		\int_{t_0}^{t_0+T}e^{jk\omega_0t}dt=\int_T e^{jk\omega_0t}dt=\left\{ \begin{split}
+		0,&\; k \neq0\\
+		T,&\; k=0\end{split}\right.=T\delta[k]
+		$$
+	</li>
+</ol>
+
+<p>Предположим, что x(t) периодична по T и состоит из 
+взвешенной суммы гармоник \(\omega_0=2\pi/T\).
+$$
+x(t)=x(t+T)=\sum_{k=-\infty}^{\infty} a_k e^{j\omega_0kt}
+$$
+Тогда
+$$
+\begin{split}
+\int_T x(t)e^{-jl\omega_0t}dt&=\int_T \sum_{k=-\infty}^\infty a_ke^{j\omega_0kt}e^{-j\omega_0lt}dt\\
+&=\sum_{k=-\infty}^\infty a_k \int_T e^{j\omega_o(k-l)t}dt\\
+&=\sum_{k=-\infty}^{\infty}a_kT\delta[k-l]=Ta_l
+\end{split}
+$$
+Получаем
+$$
+a_k=\frac{1}{T}\int_T x(t) e^{-j\omega_0kt}dt=\frac{1}{T}\int_T x(t)e^{-j\frac{2\pi}{T}kt}dt
+$$
+</p>
+<p>Найдите коэффициенты Фурье ряда 
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/square.png" class="figure-img img-fluid">
+</figure>
+$$
+\begin{split}
+a_k&=\int_T x(t)e^{-j\frac{2\pi}{T}kt}dt=-\frac{1}{2}\int_{-\frac{1}{2}}^0 e^{-j2\pi kt}dt+\frac{1}{2}\int_0^{\frac{1}{2}}e^{-j2\pi k t}dt\\
+&=\frac{1}{j 4\pi k} \left( 2-e^{j\pi k}-e^{-j\pi k} \right)\\
+&=\left\{\begin{split}
+\frac{1}{j \pi k};& \; если  \; k \; нечётное\\
+0;& \; иначе
+\end{split}
+\right.
+\end{split}
+$$
+<p>Если взять производную по времени от сигнала , то 
+его коэффициенты Фурье умножаются на \(j \frac{2\pi}{ T} k\).
+$$
+\dot{x}(t)=\sum_{k=-\infty}^\infty \left(j\frac{2\pi}{T}ka_k\right)e^{j\frac{2\pi}{T}kt}
+$$
+
+Найдём \(b_k\) коэффициенты треугольной волны.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/triangle_wave.png" class="figure-img img-fluid">
+</figure>
+<p>Треугольная форма волны является интегралом прямоугольной волны.
+Следовательно, коэффициенты Фурье треугольного сигнала равны  \(\frac{1}{j2\pi k}\) умножить на коэффициенты прямоугольного сигнала.
+$$
+b_k=\frac{1}{jk\pi}\frac{1}{j2\pi k}=\frac{-1}{2k^2 \pi^2};\; k \;нечётное
+$$
+</p>
+<p>Можно визуализировать сходимость ряда Фурье, 
+постепенно добавляя члены.
+</p>
+<p>Пример: треугольная волна
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/triangle_wave_1.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/triangle_wave_3.png" class="figure-img img-fluid">
+</figure>
+
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/triangle_wave_19.png" class="figure-img img-fluid">
+</figure>
+<p>Представления функций с разрывными наклонами в ряды 
+Фурье сходятся к функциям с разрывными наклонами.
+</p>
+
+<p>Пример: квадратная волна
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/square_wave_1.png" class="figure-img img-fluid">
+</figure>
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/square_wave_5.png" class="figure-img img-fluid">
+</figure>
+
+<figure class="figure">
+	<img src="/modeling/data/images/fourier_representations/square_wave_rings.png" class="figure-img img-fluid">
+</figure>
+<p>Частичные суммы рядов Фурье разрывных функций «звенят» 
+вблизи разрывов: феномен Гиббса.
+Этот звон возникает потому, что величина коэффициентов 
+Фурье уменьшается только как \(1/k\) (в то время как для 
+треугольника они уменьшались на \(1/k^2\)).
+</p>
+
+<h2>Фильтрация</h2>
+<p>Выход LTI системы представляют собой «отфильтрованную» 
+версию входных данных.
+</p>
+<p>Комплексная экспонента: собственная функция LTI системы.
+$$
+e^{j\frac{2\pi}{T} k t} \rightarrow H(j\frac{2\pi}{T}k)e^{j\frac{2\pi}{T}kt}
+$$
+Выход: те же собственные функции, амплитуды/фазы заданны системой.
+</p>
+$$
+x(t)=\sum_{k=-\infty}^{\infty} a_k e^{j\frac{2\pi}{T} k t} 
+\rightarrow y(t)=\sum_{k=-\infty}^{\infty} a_k H(j \frac{2\pi}{T} k)e^{j\frac{2\pi}{T} k t}
+$$
+<p>Понятие фильтра.
+</p>
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

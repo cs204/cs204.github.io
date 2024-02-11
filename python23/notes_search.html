@@ -1,0 +1,232 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					<li><a href="flask.html">Неделя 14</a> Flask</li>
+				</ul>
+			</nav>
+			<main>
+				
+
+<h1>
+	Поиск
+</h1>
+<h2>Решение задачи поиска</h2>
+<hr>
+Для решения задачи поиска представим на python:
+<ul>
+	<li> 
+		Состояния системы.
+	</li>
+	<li>
+		<code>Results(s, a)</code>  находит состояние в которое переходит состояние <var>s</var> под 
+		действием <var>a</var>.
+
+	</li>
+
+	<li>
+		<code>Actions(s)</code> для состояния <var>s</var> возвращает возможные 
+		действия.
+	</li> 
+	<li>
+		<code>GoalTest(s)</code>  возвращает <code>true</code>, если состояние <var>s</var> цель, 
+		иначе возвращает </code>false</code>.
+	</li>
+	<li>
+		<code>PathCost(p)</code> возвращает числовое значение для пути <var>p</par>.
+	</li>
+</ul>
+Решение - это последовательность действий, переводящих из начального в целевое состояние.
+Оптимальное решение имеет минимальную цену пути.
+<br>
+Для решения задачи мы будем строить дерево поиска решений.
+Узел дерева будет содержать:
+<ul>
+	<li>
+		Состояние
+	</li>
+	<li>
+		Ссылку на узел родитель
+	</li>
+	<li>
+		Действие, которое привело в текущий узел.
+	</li>
+</ul>
+Представим узел в виде класса Python.
+<pre>
+<code>
+class Node: 
+    def __init__(self, action, state, parent): 
+        self.action = action 
+        self.state = state 
+        self.parent = parent 
+
+    def path(self): 
+        if self.parent == None: 
+            return [{"action": self.action, "state": self.state}] 
+        else: 
+            h1 = self.parent.path() 
+            h2 = {"action": self.action, "state": self.state} 
+            h1.append(h2) 
+            return h1
+</code>
+</pre>
+Запишем алгоритм поиска.
+<pre>
+<code class="language-python">
+def search(initialState, goalTest, actions, results, typeFrontier="stack", printPath=False):
+    frontier = Frontier(typeFrontier)
+    explored = Explored()
+    initialNode = Node(None, initialState, None)
+    numTest = 0
+    frontier.add(initialNode)
+
+    while True: 
+        if frontier.isEmpty():
+            raise Exception("No solution")
+        parent = frontier.get()
+        numTest += 1
+        parentS = parent.state 
+        if goalTest(parentS): 
+            if printPath: 
+                print("Soluten:", parent.strPath() ) 
+                print("num =", numTest) 
+            return parent.path()
+
+        if printPath: 
+            print(parent.strPath())
+        explored.add(parentS)
+
+        for action in actions(parentS):
+            newS = results(parentS, action)
+            newN = Node(action, newS, parent) 
+            if not explored.hasState(newS):
+                frontier.add(newN)
+</code>
+</pre>
+
+<h2>Состязательный поиск</h2>
+Состязательный алгоритм ищет путь к цели, 
+учитывая, что его соперник стремиться достичь
+противоположной цели.
+<h3>Минимакс</h3>
+<img class="w-50" src="/python23/data/search/minimax_tictactoe.png">
+<br>
+Рассмотрим игру крестики-нолики. Введём функцию <code>utility(state)</code>. 
+Если X победили, функция возвращает 1. Если O победили, возвращает -1.
+Возвращает 0, если игра закончилась в ничью.
+Определим функцию <code>minimax(state)</code>, она для состояния возвращает оптимальное действие.
+Запишем псевдокод действия <code>minimax</code> :
+<ul>
+	<li>Дано состояние s.
+		<ul>
+			<li>Если ход Х, то он будет выбирать то <code>a</code> действие ,
+				среди <code>actions(s)</code>, которое будет давать
+				максимальное 
+				значение для minValue(reslut(s, a)).
+			</li>
+			<li>
+				Если ход O, то он будет выбирать то <code>a</code>
+				действие среди <code>actions(s)</code>, которое
+				даёт минимальное значение maxValue(result(s, a)).
+			</li>
+		</ul>
+
+	</li>
+	<li>
+		Функция maxValue(state)
+		<ul>
+			<li>v = -\(\infty\)</li>
+			<li>if terminal(state):
+				return utility(state)
+			</li>
+			<li>
+				for action in actions(state):
+				v = max(v, minValue(result(state, action)))
+			</li>
+			<li>
+				return v
+			</li>
+		</ul>
+	</li>
+	<li>
+		Функция minValue(state)
+		<ul>
+			<li>v = \(\infty\)</li>
+			<li>if terminal(state):
+				return utility(state)
+			</li>
+			<li>
+				for action in actions(state):
+				v = min(v, minValue(result(state, action)))
+			</li>
+			<li>
+				return v
+			</li>
+		</ul>
+	</li>
+</ul>
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

@@ -1,0 +1,127 @@
+
+
+{% extends "layout.html" %}
+{% block title %}
+	Ветвления. Банк. 
+{% endblock %}
+{% block body %}
+<h1>Банк.</h1>
+<iframe width="384" height="307" src="https://dzen.ru/embed/vuEgFVy21OiU?from_block=partner&from=zen&backoffice=1&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" frameborder="0" scrolling="no" allowfullscreen=""></iframe>
+<p>
+В 7 сезоне, эпизод 24 сериала Сайнфелд, Крамер
+заходит в банк, который обещал дать $100 тому,
+кого не встретят с "здравствуйте". 
+Крамера встретили  с "здрасте", а не "здравствуйте",
+и он потребовал $100. Менеджер банка предложил
+компромис:"Вы получили приветствие начиналось оно с "з",
+$20?" Крамер принял предложение.</p>
+
+<p>В файле bank.py, реализуйте программу, запрашивающую
+у пользователя приветствие(<code>input("Приветствие: ")</code>). Если приветствие начинается
+с "здравствуйте", то вывод $0. Если приветствие начинается
+с "з"(но не здравствуйте), вывод $20. В других случаях 
+вывод $100.
+</p>
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li>
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>
+		</li>
+		<li>
+			$0 выводим, не только для "здравствуйте", но и для "здравствуйте Крамер", и тому подобное.
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-NIOqSnbwHBCBnweAsy3zI71Rb" 
+	src="https://asciinema.org/a/NIOqSnbwHBCBnweAsy3zI71Rb.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Сделайте рабочим каталогом вашу Codespace.
+Создайте каталог bank,  выполнив
+<pre>
+<code>mkdir bank</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd bank</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code bank.py
+</code>
+</pre>
+чтобы создать файл bank.py, в котором вы будете писать вашу программу.
+
+<h2>Как проверить</h2>
+<ul>
+	<li>
+	Сделайте рабочим каталог с программой, 
+	</li>
+	<li>
+	Запустите программу, выполнив <code>python bank.py</code>.
+	Введите здравствуйте и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	$0
+	</code>
+	</pre>
+	</li>
+	<li>
+		Запустите программу, выполнив <code>python bank.py</code>.
+	Введите здравствуйте, человек  и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	$0
+	</code>
+	</pre>
+	</li>
+	<li>
+		Запустите программу, выполнив <code>python bank.py</code>.
+	Введите здрасте  и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	$20
+	</code>
+	</pre>
+	</li>
+	<li>
+		Запустите программу, выполнив <code>python bank.py</code>.
+	Введите привет  и нажмите Enter. Программа должна 
+	вывести:
+	<pre>
+	<code>
+	$100
+	</code>
+	</pre>
+	</li>
+</ul>
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/bank local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/bank</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/bank/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}

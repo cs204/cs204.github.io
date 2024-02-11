@@ -1,0 +1,440 @@
+{% extends "layout.html" %}
+{% block title %}
+Свёртка
+{% endblock %}
+{% block body %}
+<h1>Свёртка DT</h1>
+<p>Пусть y представляет сигнал DT, который получается, когда f свернут с g, т. е.
+$$
+y[n]=(f*g)[n]
+$$
+Определите выражения закрытой формы для каждого из следующих действий:
+</p>
+<ol>
+	<li> 
+		$$
+		y_a[n]=u[n]*u[n]
+		$$
+		\(y_a[n] \; для\; n \ge 0\) <input>
+		<br>
+		\(y_a[n] \; для\; n < 0\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+			$$
+			y_a[n]=\sum_{k=-\infty}^\infty u[k]u[n-k]
+			$$
+			u[k]=0, если k<0, и u[n-k]= 0, если n-k < 0. Поэтому 
+			$$
+			y_a[n]=\sum_{k=0}^{n} 1 = \left\{ \begin{split}
+			n+1&\;если\; n\ge 0\\
+			0&\;иначе
+			\end{split}
+			\right.
+			$$
+			$$
+			y_a[n]=(n+1)u[n]
+			$$
+
+			</div>
+		</details>
+	
+	</li>
+				
+	<li>
+		$$
+		y_b[n]=u[n]*\left(\frac{1}{2}\right)^nu[n]
+		$$
+		\(y_b[n] \;  для \; n \ge 0\) <input>
+		<br>
+		\(y_b[n] \;  для \; n < 0\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+			$$
+			y_b[n]=\sum_{k=-\infty}^\infty u[k]\left(\frac{1}{2}\right)^{n-k}=
+			\sum_{k=0}^{n} \left(\frac{1}{2}\right)^{n-k}=\sum_{m=0}^n\left(\frac{1}{2}\right)^m=\frac{1-\left(\frac{1}{2}\right)^{n+1}}{1-\frac{1}{2}}=2-\frac{1}{2}
+			$$
+			$$
+			y_b[n]=\left(2-\left(\frac{1}{2}\right)^n\right)u[n]
+			$$
+
+			</div>
+		</details>
+	</li>
+
+	<li>
+		$$
+		y_b[n]=\left(\frac{1}{2}\right)^n u[n]*\left(\frac{1}{3}\right)^nu[n]
+		$$
+		\(y_c[n] \;  для \; n \ge 0\) <input>
+		<br>
+		\(y_c[n] \;  для \; n < 0\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+			$$
+			y_c[n]=\sum_{k=-\infty}^\infty \left(\frac{1}{3}\right)^k u[k] \left(\frac{1}{2}\right)^{n-k}u[n-k]=\sum_{k=0}^{n}\left(\frac{1}{3}\right)^k \left(\frac{1}{2}\right)^{n-k}=\left(\frac{1}{2}\right)^n \sum_{k=0}^{n} \left(\frac{2}{3}\right)^k=\left(\frac{1}{2}\right)^n \frac{1-\left(\frac{2}{3}\right)^{n+1}}{1-\frac{2}{3}}
+			$$
+			$$
+			y_c[n]=\left(3\left(\frac{1}{2}\right)^n-2\left(\frac{1}{3}\right)^n\right)u[n]
+			$$
+
+			</div>
+		</details>
+	</li>
+	
+</ol>
+	
+
+<h1>Свёртка CT</h1>
+<p>Пусть y представляет сигнал CT, который получается в результате свертки f с g, т. е.
+$$
+y(t)=(f*g)(t)
+$$
+Определите выражения замкнутой формы для каждого из следующих действий:
+</p>
+<ol>
+	<li>
+		$$
+		y_a(t)=u(t)*u(t)
+		$$
+		\(y_a(n) \;  для \; n \ge 0\) <input>
+		<br>
+		\(y_a(n) \;  для \; n < 0\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+			$$
+			y_a(t)=\int_{-\infty}^{\infty} u(\tau)u(t - \tau) d\tau=\int_0^{t}d\tau=
+			\left. \tau \right|_0^t=t u(t)
+			$$
+			$$
+			y_a(t)=tu(t)
+			$$
+
+			</div>
+		</details>
+	</li>
+	<li>
+		$$
+		y_b(t)=u(t)*e^{-t}u(t)
+		$$
+		\(y_b(n) \;  для \; n \ge 0\) <input>
+		<br>
+		\(y_b(n) \;  для \; n < 0\) <input>
+		<br>
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert">
+			$$
+			y_b(t)=\int_{-\infty}^{\infty} u(\tau)e^{-(t-\tau)}u(t - \tau) d\tau=e^{-t}\int_0^{t}e^{\tau}d\tau=
+			\left. e^{-t}(e^\tau \right|_0^t= e^{-t}(e^t-1)=(1-e^{-t})u(t) 
+			$$
+			$$
+			y_b(t)=(1-e^{-t})u(t)
+			$$
+
+			</div>
+		</details>
+	</li>
+		
+</ol>
+
+<h1>Повышение дискретизации</h1>
+<p>Один из способов увеличить изображение — повысить 
+дискретизацию с помощью линейной интерполяции следующим образом.
+</p>
+<ol>
+	<li>Рассмотрим одномерный сигнал x[n], чьи ненулевые выборки 
+		пронумерованы от 0 до N (здесь показано для N = 3).
+		<br> 
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/x_n.png" class="figure-img img-fluid"> 
+		</figure>
+		<p>Сначала создайте новый сигнал w[n], определенный как
+		</p>
+		$$
+		w[n]=\left\{ \begin{split}
+		x\left[\frac{n}{3}\right] & \; n=0,3,6,...3N\\
+		0&\; иначе
+		\end{split}\right.
+		$$
+		<br>
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/x_n_3.png" class="figure-img img-fluid"> 
+		</figure>
+		<p>Затем сверните w[n] с f[n], чтобы получить \(y[n] = (w*f)[n]\).
+		</p>
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/x_w_n.png" class="figure-img img-fluid"> 
+		</figure>
+		<p>Определите f[n].</p>
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert"> 
+				<figure class="figure"> 
+					<img src="/psets/data/images/convolution/f_n.png" class="figure-img img-fluid"> 
+				</figure>
+			</div>
+		</details>
+	</li>
+	<li>
+		<p>Расширьте метод линейной интерполяции на два измерения.  
+		Напишите программу, которая использует этот метод для 
+		увеличения следующего изображения с его текущих размеров 
+		(212 × 216) в три раза.  
+		Сравните результат линейной интерполяции с результатом 
+		повторения каждого значения пикселя 3×3 раза (см. приложение).
+		</p>
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/zebra.jpg" class="figure-img img-fluid"> 
+		</figure>
+		<p>Цифровая форма этого изображения доступна 
+		на <a href="/psets/data/images/convolution/zebra.jpg">сайте</a>.  
+		В приложении содержится пример кода Python.
+		</p>
+		<details> 
+			<summary>Подсказка</summary> 
+<pre>
+<code class="language-python">
+from PIL import Image as im
+xx = im.open('zebra.jpg')
+# original image
+xpix = xx.load()
+aa = im.new('L',(xx.size[0]+2,xx.size[1]+2),0) # zero-pad edges
+aa.paste(xx,(1,1))
+apix = aa.load()
+bb = im.new('L',(3*aa.size[0]-2,aa.size[1]),0) # horiz stretch
+bpix = bb.load()
+cc = im.new('L',(3*aa.size[0]-2,aa.size[1]),0) # horiz interpolated
+cpix = cc.load()
+dd = im.new('L',(3*aa.size[0]-2,3*aa.size[1]-2),0) # vertical stretch
+dpix = dd.load()
+yy = im.new('L',(3*aa.size[0]-2,3*aa.size[1]-2),0) # final answer
+ypix = yy.load()
+for j in range(aa.size[1]): 
+    for i in range(aa.size[0]):     # stretch image horizontally 
+        bpix[3*i,j] = apix[i,j] 
+    for i in range(2,bb.size[0]-2): # convolve with triangle 
+        cpix[i,j] = int(0.333*bpix[i-2,j]+0.666*bpix[i-1,j]+bpix[i,j]+0.666*bpix[i+1,j]+0.333*bpix[i+2,j] )
+
+for i in range(cc.size[0]): 
+    for j in range(cc.size[1]): # stretch image vertically 
+        dpix[i,3*j] = cpix[i,j] 
+    for j in range(2,dd.size[1]-2): # convolve with triangle 
+        ypix[i,j] = int(0.333*dpix[i,j-2]+0.666*dpix[i,j-1]+dpix[i,j] +0.666*dpix[i,j+1]+0.333*dpix[i,j+2] )
+
+yy.crop((3,3,yy.size[0]-3,yy.size[1]-3)).save('zebraBilinear.jpg')
+</code>
+</pre>
+<p>Изображение создано с помощью кода, приведенного в приложении.
+</p>
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/zebraZOH.jpg" class="figure-img img-fluid"> 
+		</figure>	
+<p>Изображение получено методом билинейной интерполяции.</p>
+
+		<figure class="figure"> 
+			<img src="/psets/data/images/convolution/zebraBilinear.jpg" class="figure-img img-fluid"> 
+		</figure>	
+<p>Это изображение имеет меньше неровных краёв.
+</p>
+		</details>
+			</li>
+</ol>
+<h2>Улыбка</h2>
+<p>Рассмотрим последовательность единиц и -1, показанную ниже как x[n].
+</p> 
+<figure class="figure"> 
+	<img src="/psets/data/images/convolution/smiley_x_n.png" class="figure-img img-fluid"> 
+</figure>
+<p>В этом x[n] имеется единственное вхождение шаблона −1, −1, 1.
+Это происходит начиная с n = 1 и заканчивая n = 3.
+Один из методов автоматического обнаружения определённых шаблонов 
+этого типа называется «согласованной фильтрацией».
+Пусть p[n] представляет интересующий шаблон, перевёрнутый вокруг n = 0.
+Тогда экземпляры шаблона можно найти, определив моменты 
+времени, когда y[n] = (p * x)[n] максимизируется.
+</p>
+<ol>
+	<li>
+		Определите согласованный фильтр p[n], который будет 
+		находить вхождения последовательности: −1, −1, 1.  
+		Спроектируйте p[n] так, чтобы (p ∗ x)[n] имело максимумы в 
+		точках, центрированных на желаемом шаблоне, т. е. в точке n = 2 
+		для приведённой выше последовательности.
+
+		<details> 
+			<summary>Подсказка</summary> 
+			<div class="alert alert-secondary" role="alert"> 
+				<figure class="figure"> 
+					<img src="/psets/data/images/convolution/smiley_p_n.png" class="figure-img img-fluid"> 
+				</figure>
+			</div>
+		</details>
+	</li>
+</ol>
+
+<p>
+	Тот же подход можно использовать для поиска шаблонов на изображениях 
+	путём обобщения оператора свёртки на два измерения:
+</p>
+$$
+y[n,m]=(x*p)[n,m]=\sum_{k=-\infty}^\infty \sum_{l=-\infty}^\infty x[k,l]p[n-k, m-l].
+$$
+<p>Файл <a href="/psets/data/images/convolution/findsmiley.jpg">findsmiley.jpg</a>
+содержит случайный набор белых пикселей (код 255) и чёрных пикселей (0), 
+а также один экземпляр следующего смайлика:
+</p>
+<figure class="figure"> 
+	<img src="/psets/data/images/convolution/smiley.png" class="figure-img img-fluid"> 
+</figure>
+
+<ol start="2"> 
+	<li>
+<p>Найдите строку и столбец findsmiley, соответствующий носу смайлика.
+Примечание. Согласованная фильтрация будет работать лучше всего, 
+если совпадение белых пикселей И совпадение чёрных пикселей 
+положительно повлияют на ответ.
+По этой причине 255 и 0 могут быть не оптимальным выбором для значений, 
+связанных с белыми и чёрными пикселями.
+</p> 
+<details> 
+	<summary>Подсказка</summary> 
+	<div class="alert alert-secondary" role="alert"> 
+		<p>
+		Файл <a href="/psets/data/images/convolution/findsmiley.jpg">smiley.jpg"</a> 
+		содержит искомое изображение. Обратите внимание, что перед 
+		применением операции свертки из каждого значения пикселя 
+		вычитается 127.5.  Это приводит к следующим возможным 
+		результатам (на пиксель):
+		<table class="table">
+			<tr>
+				<th>image pixel</th>
+				<th>smiley pixel</th>
+				<th>result</th>
+			</tr>
+			<tr>
+				<td>
+					black
+				</td>
+				<td>
+					black
+				</td>
+				<td>
+					(-127.5)*(-127.5)=+127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					white
+				</td>
+				<td>
+					white
+				</td>
+				<td>
+					(127.5)*(127.5)=+127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					black
+				</td>
+				<td>
+					white
+				</td>
+				<td>
+					(-127.5)*(127.5)=-127.5<sup>2</sup>
+				</td>
+			</tr> 
+			<tr>
+				<td>
+					white
+				</td>
+				<td>
+					black
+				</td>
+				<td>
+					(127.5)*(-127.5)=-127.5<sup>2</sup>
+				</td>
+			</tr>
+		</table>
+		<p>которые были выбраны так, чтобы оба типа совпадений 
+		давали одинаковый результат, оба типа несоответствий 
+		давали одинаковый результат, а совпадения и несоответствия 
+		давали противоположные знаки.
+		</p>
+		<p> 
+		Кроме того, к результату было добавлено 127.5, чтобы результат 
+		свёртки можно было рассматривать как изображение yy.
+		</p>
+		<pre>
+		<code class="language-python">
+from PIL import Image as im
+xx = im.open('findsmiley.jpg')
+xwidth,xheight = xx.size
+ww = im.open('smiley.jpg')
+wwidth,wheight = ww.size
+yy = im.new('L',(xwidth-wwidth+1,xheight-wheight+1))
+ywidth,yheight = yy.size
+xpix = xx.load()
+wpix = ww.load()
+ypix = yy.load()
+xmax = -10000
+coords = [0,0]
+for j in range(xheight-wheight+1): 
+    for i in range(xwidth-wwidth+1): 
+        ss = 0 
+        for jj in range(wheight): 
+            for ii in range(wwidth): 
+                ss += (xpix[i+ii,j+jj]-127.5)*(wpix[ii,jj]-127.5)/127.5+127.5 
+        ypix[i,j] = int(ss/wwidth/wheight)
+        if ss>xmax: 
+            xmax = ss 
+            coords = [i,j]
+
+print(coords[0]+3,coords[1]+3)
+yy.save('answer.jpg')
+</code>
+		</pre>
+		<p>
+		Ответ: столбец=765, строка=432
+		</p>
+	</div> 
+</details>
+	</li>
+</ol>
+
+<h2>Приложение</h2>
+
+<p>Установите библиотеку</p>
+
+<pre>
+<code>
+pip install Pillow
+</code>
+</pre>
+
+<p>Пример кода</p>
+<pre>
+<code class="language-python">
+from PIL import Image 	#Python Imagine Library
+xx = Image.open('zebra.jpg')	#open input picture
+yy = Image.new('L', (3*xx.size[0], 3*xx.size[1]), 0) #create new picture 3x
+xpix = xx.load()	# array-type access
+ypix = yy.load()
+for j in range(yy.size[1]):	 # loop over rows 
+    for i in range(yy.size[0]): # loop over columns 
+        ypix[i, j] = xpix[int(i/3), int(j/3)] # copy pixles 
+yy.save('zebraZOH.jpg')
+</code>
+</pre>
+
+
+{% endblock %}

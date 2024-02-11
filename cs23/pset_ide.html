@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+ide. Задание. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="cs50_dev.html">cs50.dev</a></li>
+
+					<!--
+					<li><a href="git.html">Git, html, css</a></li>
+					<li><a href="functions.html">Переменные и функции</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+					<li><a href="JavaScript.html">JavaScript, API</a><li>
+					<li><a href="/psets/finance.html">Финансы</a></li>
+					<li><a href="machineLearning.html">Обучение</a></li>
+
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				<div class="container-sm">
+
+					
+<header> 
+	<h1>ide. Задание.</h1> 
+</header> 
+<h2>Создайте пару ключей.</h2>
+<p>
+Зайдите в <a href="https://cs50.dev">cs50.dev</a>. Выполните в термниале
+<pre>
+<code>
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+</code>
+</pre>
+Скопируйте распечатанный публичный ключ.
+Перейдите на <a href="https://github.com/settings/keys">https://github.com/settings/keys</a>, создайте новый
+ssh ключ, в поле key вставьте скопировынный публичный ключ, нажмите add ssh key. 
+
+<h2>Регистрация на сайте учета заданий</h2>
+Используя учётную запись на github, зайдите на сайт
+<a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+Вам будет отправлено письмо с темой cs203. 
+В веб-браузере устройства, на котором будете 
+смотреть письмо, надо  войти  на github.
+Примите находящееся в письме 
+приглашение (View Invitation -> Accept Invitation). 
+Письмо может попасть в спам.
+
+Для вас был создан репозиторий, вы будете
+отправлять в него свой работы на проверку.
+Имя репозитория имеет вид https://github.com/cs204/{username}.git, где {username} замените на имя пользователя на github. 
+Так если пользователь имеет имя в github vadimgb1, 
+то репозиторий будет
+называться https://github.com/cs204/vadimgb1.git, где cs204 - это имя организации. 
+</p>
+
+<h2>Выполнение первого задания</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. 
+Создайте каталог и перейдите в него.
+<pre>
+<kbd>mkdir hello</kbd>
+<kbd>cd hello</kbd>
+</pre>
+Создайте файл hello.py
+<pre>
+<code>
+code hello.py
+</code>
+</pre>
+Набирете в нем текст 
+<pre>
+<code>
+print('Hello, World!')
+</code>
+</pre>
+Выполните команду в терминале
+<pre>
+<kbd>python hello.py</kbd>
+</pre>
+Интерпретатор python выполнил вашу программу и вывел на экран приветствие.
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>npx cs204 2023/hello_py local</kbd>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<kbd>npx cs204 2023/hello_py</kbd>
+</pre>
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/hello_py/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+</br>
+
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

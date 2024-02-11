@@ -1,0 +1,258 @@
+{% extends "layout.html" %}
+{% block title %}
+Частотная характеристика
+{% endblock %}
+
+
+{% block body %}
+<h1>Частотная характеристика</h1>
+<p>
+Если на входе линейной, время-инвариантной  системы 
+находится синусоида, то на выходе также будет синусоида:
+<ul>
+	<li>та же частота</li>
+	<li>возможно, разная амплитуда и</li>
+	<li>возможно, другой фазовый угол.</li>
+</ul>
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/sin_in_sin_out.png" class="figure-img img-fluid">
+</figure>
+<p>Частотная характеристика представляет собой 
+график зависимости амплитуды M и угла φ от частоты ω.
+</p>
+<p>Измерьте частотную характеристику системы массы, 
+пружины с движущимся подвесом.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/spring.png" class="figure-img img-fluid">
+</figure>
+<p>
+Рассчитайте частотную характеристику.
+</p>
+<p>
+Методы:
+<ul>
+	<li>
+		найти решение дифференциального уравнения для \(x(t)=cos(\omega_0t)\);
+	</li>
+	<li>
+		найти отклик системы на импульс, выполнить свёртку с \(x(t)=cos(\omega_0t)\) .
+	</li>
+</ul>
+Новый метод:
+<ul>
+	<li>использовать собственные функции и собственные значения.
+	</li>
+</ul>
+</p>
+<h2>Собственные функции</h2>
+<p>Если выходной сигнал является умноженным на скаляр входным 
+сигналом, мы называем сигнал собственной функцией, 
+а множитель — собственным значением.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/eigenfunction.png" class="figure-img img-fluid">
+</figure>
+
+<h2>Комплексная экспонента</h2>
+<p>Комплексные экспоненты являются собственными функциями систем LTI.
+</p>
+<p> Если \(x(t)=e^{st}\) и h(t) отклик на импульс, то
+$$
+y(t)=(h*x)(t)=\int_{-\infty}^\infty h(\tau) e^{s(t-\tau)}d\tau = e^{st}\int_{-\infty}^\infty h(\tau)e^{-s\tau}d\tau=H(s)e^{st}
+$$
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/e_s_t_lti.png" class="figure-img img-fluid">
+</figure>
+<p>Более того, собственное значение, связанное с \(e^{st}\), 
+равно H(s) !
+</p>
+<p>Синусоиды представляют собой суммы комплексных экспонент.
+</p>
+$$
+\cos \omega_0 t= \frac{1}{2} \left(e^{j\omega_0 t}+e^{-j\omega_0 t}\right)
+$$
+</p>
+
+<h2>Рациональные системные функции</h2>
+<p>Собственные значения особенно легко вычислить для систем, 
+представленных линейными дифференциальными уравнениями 
+с постоянными коэффициентами.
+Тогда системная функция представляет собой отношение многочленов от s.
+</p>
+<p>Пример:
+$$
+\ddot{y}(t)+3\dot{y}(t)+4y(t)=2\ddot{x}(t)+7\dot{x}(t)+8x(t)
+$$
+Тогда
+$$
+H(s)=\frac{2s^2+7s+8}{s^2+3s+4}=\frac{N(s)}{D(s)}.
+$$
+</p>
+
+
+<h2>Векторные диаграммы</h2>
+<p>Значение H(s) в точке s = s0 можно определить 
+графически с помощью векторного анализа.
+</p>
+<p>Факторируйем числитель и знаменатель системной функции, 
+чтобы сделать полюсы и нули явными.
+</p>
+$$
+H(s_0)=K\frac{(s_0-z_0)(s_0-z_1)(s_0-z_2)...}{(s_0-p_0)(s_0-p_1)(s_0-p_2)...}
+$$
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/s_plane.png" class="figure-img img-fluid">
+</figure>
+
+<p>Каждый множитель в числителе/знаменателе соответствует 
+вектору от нуля/полюса (здесь \(z_0\)) до \(s_0\), 
+точки интереса на s-плоскости.
+</p>
+<p>Пример: Найдите отклик системы, описанной
+$$
+H(s)=\frac{1}{s+2},
+$$
+на ввод \(x(t)=e^{2jt}\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/s_plane_2j.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Знаменатель \(H(s)|_{s=2j} \) равен \(2j + 2\), 
+вектор длины \(2\sqrt{2}\) и угол \(\pi/4\).
+Таким образом, отклик системы:
+$$
+y(t)=H(2j)e^{2jt}=\frac{1}{2\sqrt{2}}e^{-\frac{j\pi}{4}}e^{2jt}.
+$$
+</p>
+
+<p>
+Значение H(s) в точке s = s0 можно определить, 
+объединив вклады векторов, связанных 
+с каждым из полюсов и нулей.
+$$
+H(s_0)=K\frac{(s_0-z_0)(s_0-z_1)(s_0-z_2)...}{(s_0-p_0)(s_0-p_1)(s_0-p_2)...}
+$$
+Модуль определяется произведением модулей.
+$$
+|H(s_0)|=|K|\frac{|(s_0-z_0)||(s_0-z_1)||(s_0-z_2)|...}{|(s_0-p_0)||(s_0-p_1)||(s_0-p_2)|...}
+$$
+Угол определяется суммой углов.
+$$
+\angle H(s_0)=\angle K + \angle (s_0-z_0)+\angle (s_0-z_1) + ... -\angle(s_0-p_0) - (\angle (s_0 - p1)...
+$$
+</p>
+
+<h2>Частотный отклик</h2>
+<p>Отклик на синусоидальный ввод.
+Пусть \(x(t)=\cos \omega_0 t\). Тогда
+$$
+x(t)=\frac{1}{2} \left( e^{j\omega_0 t}+ e^{-j\omega_0 t} \right)
+$$
+и отклик на сумму равен сумме откликов.
+$$
+y(t)=\frac{1}{2}\left(H(j\omega_0)e^{j\omega t}+H(-j\omega_o)e^{-j\omega_0 t}\right)
+$$
+</p>
+
+<p>Комплексно-сопряжённым \(H(j\omega)\) является \(H(-j\omega)\).
+Системная функция представляет собой преобразование 
+Лапласа импульсной характеристики:
+$$
+H(s)=\int_{-\infty}^\infty h(t) e^{-st}dt
+$$
+где h(t) — действительная функция t для физических систем.
+$$
+\begin{split}
+H(j\omega)&=\int_{-\infty}^\infty h(t) e^{-j\omega t}dt\\
+H(-j\omega)&=\int_{-\infty}^\infty h(t) e^{j\omega t}dt=(H(j\omega))^\ast\\
+\end{split}
+$$
+</p>
+
+<p>
+Отклик на синусойдальный  ввод
+$$
+\begin{split}
+y(t)&=\frac{1}{2}\left(H(j\omega_0)e^{j\omega_0 t} + H(-j\omega_0)e^{-j\omega_0t}\right)\\
+&=Re\left\{H(j\omega_0)e^{j\omega_0t}\right\}\\
+&=Re\left\{ |H(j\omega_0)|e^{j\angle H(j\omega_0)}e^{j\omega_0t}\right\}\\
+&=|H(j\omega_0)| Re\left\{e^{j\omega_0t+j\angle H(j\omega_0)}\right\}\\
+y(t)&=|H(j\omega_0)|\cos (\omega_0 t + \angle H(j\omega_0)).
+\end{split}
+$$
+</p>
+<p>Модуль и фаза реакции системы на косинусный сигнал — 
+это модуль и фаза функции системы, вычисленная для \(s=j\omega\).
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/cosinus.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим систему с одним нулём \(z_1=-2\)
+</p>
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/frequency_z1_2.png" class="figure-img img-fluid">
+</figure>
+
+<p>Рассмотрим систему с одним полюсом.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/frequency_p1.png" class="figure-img img-fluid">
+</figure>
+
+<p>
+Рассмотрим систему с полюсом и нулём.
+</p>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/frequency_z1_p1.png" class="figure-img img-fluid">
+</figure>
+
+<h3>Пример: масса на пружинке.</h3>
+$$
+\begin{split}
+&F=Ma=M\ddot{y}(t)=K(x(t)-y(t))-B\dot{y}(t)\\
+&M\ddot{y}(t)+B\dot{y}(t)+Ky(t)=Kx(t)\\
+&(s^2M+sB+K)Y(s)=KX(s)\\
+&H(s)=\frac{K}{s^2M+sB+K}
+\end{split}
+$$
+<br>
+
+<figure class="figure">
+	<img src="/modeling/data/images/frequency_response/frequency_spring.png" class="figure-img img-fluid">
+</figure>
+
+
+<h2>Заключение</h2>
+<p>
+Системы LTI можно охарактеризовать реакцией на синусоиды.
+Многие системы естественным образом описываются 
+их частотной характеристикой:
+<ul>
+	<li>аудиосистемы,</li>
+	<li>масса на пружине.</li>
+</ul>
+</p>
+<p>
+Частотную характеристику легко рассчитать по системной функции.
+</p>
+<p>
+Частотная характеристика находится на оси \(j\omega\) 
+преобразования Лапласа.
+</p>
+{% endblock %}
+
+
