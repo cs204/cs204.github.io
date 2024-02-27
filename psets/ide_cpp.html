@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+ide. Задание. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<header> 
+	<h1>ide. Задание.</h1> 
+</header> 
+<h2>Создайте пару ключей.</h2>
+<p>
+Зайдите в <a href="https://cs50.dev">cs50.dev</a>. Выполните в терминале
+<pre>
+<code>
+ssh-keygen
+cat ~/.ssh/id_rsa.pub
+</code>
+</pre>
+Скопируйте распечатанный публичный ключ.
+Перейдите на <a href="https://github.com/settings/keys">https://github.com/settings/keys</a>, создайте новый
+ssh ключ, в поле key вставьте скопированный публичный ключ, нажмите add ssh key. 
+
+<h2>Регистрация на сайте учета заданий</h2>
+Используя учётную запись на github, зайдите на сайт
+<a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+Вам будет отправлено письмо с темой cs203. 
+В веб-браузере устройства, на котором будете 
+смотреть письмо, надо  войти  на github.
+Примите находящееся в письме 
+приглашение (View Invitation -> Accept Invitation). 
+Письмо может попасть в спам.
+
+Для вас был создан репозиторий, вы будете
+отправлять в него свой работы на проверку.
+Имя репозитория имеет вид https://github.com/cs204/{username}.git, где {username} замените на имя пользователя на github. 
+Так если пользователь имеет имя в github vadimgb1, 
+то репозиторий будет
+называться https://github.com/cs204/vadimgb1.git, где cs204 - это имя организации. 
+</p>
+
+<h2>Выполнение первого задания</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. 
+Создайте каталог и перейдите в него.
+<pre>
+<kbd>mkdir hello</kbd>
+<kbd>cd hello</kbd>
+</pre>
+Создайте файл hello.cpp
+<pre>
+<code>
+code hello.cpp
+</code>
+</pre>
+Наберите в нем текст 
+<pre>
+<code class="language-cpp">
+#include &lt;iostream&gt;
+
+class World
+{
+	public:
+		World(){ std::cout &lt;&lt; "Hello!\n";}
+		~World(){std::cout &lt;&lt "Good bye!\n";}
+};
+
+World TheWorld;
+
+int main()
+{}
+</code>
+</pre>
+Выполните команду в терминале
+<pre>
+<kbd>g++ -o hello hello.cpp</kbd>
+</pre>
+Компилятор c++ создаст выполняемый файл. 
+Выполните созданную вами программу.
+<pre>
+<kbd>./hello
+</pre>
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>npx cs204 cpp/hello local</kbd>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<kbd>npx cs204 cpp/hello</kbd>
+</pre>
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/cpp/hello/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+</br>
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>
