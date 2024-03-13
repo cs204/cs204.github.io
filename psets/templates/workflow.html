@@ -6,15 +6,26 @@
 <h1>
 	Open source workflow.
 </h1>
-<p>Зайдите на <a href="https://github.com/cs203/413">https://github.com/cs203/413</a>. Нажмите на кнопку Fork.  У вас будет создана копия репозитория. Скопируйте его адрес, перейдите в домашний каталог, сколонируйте его.
+<p>Зайдите на <a href="https://github.com/cs203/413">https://github.com/cs203/413</a>. Нажмите на кнопку Fork.  
+У вас будет создана копия репозитория. Скопируйте его адрес. Зайдите в cs50.dev. 
+Отключите плагин gitdoc. 
+Перейдите в домашний каталог, сколонируйте репозиторий.
 <pre>
 <code>
 cd ~
 git clone адрес
 </code>
 </pre>
-Отключите плагин gitdoc. Перейдите в каталог 413. Создайте свою веб страницу
-на любую тему, сделайте на нее ссылку из index.html. 
+Перейдите в каталог 413.  Создайте ветку dev,  перейдите в неё.
+<pre>
+<code>
+cd 413
+git branch dev
+git checkout dev
+</code>
+</pre>
+Создайте свою веб страницу
+на любую тему, сделайте на неё ссылку из index.html. 
 Выполните
 <pre>
 <code>
@@ -22,10 +33,11 @@ git add .
 git commit -m "ваше название"
 </code>
 </pre>
-Добавьте информацию об основном репозитории
+Добавьте информацию об основном репозитории. Перейдите в ветку main.
 <pre>
 <code>
 git remote add upstream https://github.com/cs203/413.git 
+git checkout main
 </code>
 </pre>
 Закачайте изменения. Соедините их с вашими. Загрузите результат.
@@ -33,7 +45,8 @@ git remote add upstream https://github.com/cs203/413.git
 <code>
 git fetch upstream
 git merge upstream
-git push origin ветка 
+git merge dev
+git push origin main 
 </code>
 </pre>
 Зайдите на github, создайте pull request.
