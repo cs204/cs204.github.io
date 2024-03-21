@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		
+	Поиск. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li> <a href="week0.html">Неделя 0</a> code.cs50.io</li>
+					<li> <a href="virtualbox.html">virtualbox</a></li>
+					<li> <a href="week1.html">Неделя 1</a> HTML, CSS</li>
+					<li> <a href="week2.html">Неделя 2</a> Git, Github</li>
+
+					<li> <a href="week3.html">Неделя 3</a> Javascript, Nodejs</li>
+					<li> <a href="week4.html">Неделя 4</a> Задача о рюкзаке</li>
+					<li> <a href="canvas.html">Неделя 5</a> Canvas</li>
+					<li> <a href="week7.html">Неделя 6</a> Поиск</li>
+					<li> <a href="logic.html">Неделя 7</a> Логика</li>
+					<li> <a href="express.html">Неделя 8</a> Express</li>
+					<li> <a href="sql.html">Неделя 9</a> БД, SQL</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Поиск</h1>
+<p>В лекции реализован алгоритм поиска в ширину.
+Измените его, чтобы  реализовать поиск в глубину.
+</>
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://ide.cs50.io">ide.cs50.io</a>. Перейдите в домашний каталог
+<pre>
+<kbd>cd ~</kbd>
+</pre>
+<p>Скачайте исходный код к лекции.
+<pre>
+<kbd>wget https://vadimgb.github.io/cs21/data/search.zip</kdb>
+</pre>
+Распакуйте архив, удалите архив
+<pre>
+<kbd>unzip search.zip</kbd>
+<kbd>rm -f search.zip</kbd>
+</pre>
+Перейдите в каталог.
+<pre>
+<kbd>cd search</kbd>
+</pre>
+<p>Для реализации поиска в глубину, вам надо изменить файл agenda.js.
+Класс Agenda надо сделать стеком.
+Для этого измените в нем метод getNode. Напоминаю, что в стеке узел надо 
+брать с конца. </p>
+<p>Запустите программу, выполнив
+<pre>
+<kbd>node main.js</kbd>
+</pre>
+Чтобы проверить правильность выполнения задания, выполните команду
+<pre>
+<kbd>npx check204 2021/search local</kbd>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<kbd>npx check204 2021/search</kbd>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2021/search/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>

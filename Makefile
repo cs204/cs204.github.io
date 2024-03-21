@@ -1,5 +1,5 @@
 all:
-#	@(echo $(DIVIDER); cd cs21; $(MAKE) -k)
+	@(echo $(DIVIDER); cd cs21; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd csAndTech; $(MAKE) -k)
 	@(echo $(DIVIDER); cd cs24; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd python23; $(MAKE) -k)
