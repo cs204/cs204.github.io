@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li> <a href="week0.html">Неделя 0</a> code.cs50.io</li>
+					<li> <a href="virtualbox.html">virtualbox</a></li>
+					<li> <a href="week1.html">Неделя 1</a> HTML, CSS</li>
+					<li> <a href="week2.html">Неделя 2</a> Git, Github</li>
+
+					<li> <a href="week3.html">Неделя 3</a> Javascript, Nodejs</li>
+					<li> <a href="week4.html">Неделя 4</a> Задача о рюкзаке</li>
+					<li> <a href="canvas.html">Неделя 5</a> Canvas</li>
+					<li> <a href="week7.html">Неделя 6</a> Поиск</li>
+					<li> <a href="logic.html">Неделя 7</a> Логика</li>
+					<li> <a href="express.html">Неделя 8</a> Express</li>
+					<li> <a href="sql.html">Неделя 9</a> БД, SQL</li>
+				</ul>
+			</nav>
+			<main>
+				
+<h1>Canvas</h1>
+<p>canvas - элемент html, мы будем рисовать на нём.
+Создайте папку canvas, перейдите в неё.
+Создайте в ней файл canvas.html. </p>
+<pre>
+<code>
+&lt;!doctype html&gt;
+&lt;html&gt;
+	&lt;body&gt;
+		&lt;canvas width=300 height=300 id="canvas"&gt;&lt;/canvas&gt;
+		&lt;script src="./js/main.js" type="module"&gt;&lt;/script&gt;
+	&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+
+В папке создайте каталог js, в нем файл main.js.
+<pre>
+<code id="script">
+</code>
+</pre>
+<script>
+document.querySelector("#script").innerText=`
+const canvas = document.querySelector("#canvas")
+canvas.style.backgroundColor = 'lightgray'
+//создаем графический контекст
+const ctx = canvas.getContext('2d')
+//определеяме цвет заливки
+ctx.fillStyle = 'green'
+//рисуем прямоугольник шириной 50, высотой 70 
+ctx.fillRect(10, 20, 50, 70)`
+</script>
+
+
+fillRect(x, y, ширина, высота) рисует, закрашенный прямоугольник,
+верхний левый угол прямоугольника имеет координаты x, y. 
+x - число пикселей вправо, y - число пикселей вниз от левого
+верхнего угла канваса.
+<p>Запустите http-server, выполнив команду http-server. Результат приведён ниже.
+<br>
+
+<canvas width=300 height=300 id="canvas"></canvas>
+	<script>
+		const canvas = document.querySelector("#canvas")
+		canvas.style.backgroundColor = 'lightgray'
+		//создаём графический контекст
+		const ctx = canvas.getContext('2d')
+		//определяем цвет заливки
+		ctx.fillStyle = 'green'
+		//рисуем прямоугольник шириной 50, высотой 70 
+		ctx.fillRect(10, 20, 50, 70)
+	</script>
+<br>
+Следующий пример создаёт текст на canvas
+<pre>
+<code>
+ctx.font = `20px Arial`//размер шрифта 20 пикселей, шрифт Arial
+ctx.fillStyle = 'blue' //цвет текста голубой
+ctx.textAlign = 'center'//выравнивание по горизонтали
+ctx.textBaseline = 'middle'//выравнивание по вертикали
+ctx.fillText('Hello, World', 50, 70) // положение текста 50 пикселйе вправо, 70 вниз 
+</code>
+</pre>
+Ниже то, что мы получили
+<br>
+<canvas width=300 height=300 id="canvas2"></canvas>
+<script>
+	const canvas2 = document.querySelector("#canvas2")
+	canvas2.style.backgroundColor = 'lightgray'
+	//создаём графический контекст
+	const ctx2 = canvas2.getContext('2d')
+	ctx2.font = `$20px Arial`//размер шрифта 20 пикселей, шрифт Arial
+	ctx2.fillStyle = 'blue' //цвет текста голубой
+	ctx2.textAlign = 'center'//выравнивание по горизонтали
+	ctx2.textBaseline = 'middle'//выравнивание по вертикали
+	ctx2.fillText('Hello, World', 50, 70) // положение текста 50 пикселйе вправо, 70 вниз 
+</script>
+<br>
+Нарисуем прямоугольный контур.
+<pre>
+<code>
+ctx.strokeStyle = 'yellow' //цвет контура жёлтый
+ctx.lineWidth = 5//задаём толщину контура в 5 пикселей
+ctx.strokeRect(10, 20, 50, 70)
+</pre>
+</code>
+Ниже то, что мы получили
+<br>
+<canvas width=300 height=300 id="canvas3"></canvas>
+<script>
+	const canvas3 = document.querySelector("#canvas3")
+	canvas3.style.backgroundColor = 'lightgray'
+	const ctx3 = canvas3.getContext('2d')
+	ctx3.strokeStyle = 'yellow'
+	ctx3.lineWidth = 5
+	ctx3.strokeRect(10, 20, 50, 70)
+</script>
+<br>
+Рисуем линии
+<pre>
+<code>
+ctx.strokeStyle = 'red'
+ctx.lineWidth = 5
+ctx.beginPath()//начало пути
+ctx.moveTo(10, 10)//ставим карандаш в точку 10, 10 пикселей
+ctx.lineTo(290, 10)//чертим прямую до точки 290 вправо и 10 вниз пикселей  
+ctx.lineTo(10, 290)//чертим прямую до точки 10 вправо и 290 вниз пикселей  
+ctx.stroke()//линия появляется на экране
+</code>
+</pre>
+Получаем.
+<br>
+<canvas width=300 height=300 id="canvas4"></canvas>
+<script>
+	const canvas4 = document.querySelector("#canvas4")
+	canvas4.style.backgroundColor = 'lightgray'
+	const ctx4 = canvas4.getContext('2d')
+	ctx4.strokeStyle = 'red'
+	ctx4.linewidth = 5
+	ctx4.beginPath()//начало пути
+	ctx4.moveTo(10, 10)//ставим карандаш в точку 10, 10 пикселей
+	ctx4.lineTo(290, 10)//чертим прямую до точки 290 вправо и 10 вниз пикселей  
+	ctx4.lineTo(10, 290)//чертим прямую до точки 10 вправо и 290 вниз пикселей  
+	ctx4.stroke()//линия появляется на экране
+</script>
+<br>
+<p>Рассмотрим,  как можно обработать нажатие на клавишу мышки.
+<pre>
+<code>
+canvas.addEventListener('click', drawRect);
+
+function drawRect(event)
+{
+	ctx.fillStyle = 'red';
+	ctx.fillRect(event.offsetX, event.offsetY, 5, 5);
+}
+</code>
+</pre>
+</p>
+<canvas width=300 height=300 id="canvas5"></canvas>
+<script>
+	const canvas5 = document.querySelector("#canvas5")
+	canvas5.style.backgroundColor = 'lightgray'
+	const ctx5 = canvas5.getContext('2d')
+	canvas5.addEventListener('click', drawRect);
+
+	function drawRect(event)
+	{
+		ctx5.fillStyle = 'red';
+		ctx5.fillRect(event.offsetX, event.offsetY, 5, 5);
+	}
+</script>
+<br>
+Учебник по canvas вы можете посмотреть, например, 
+<a href="https://developer.mozilla.org/ru/docs/Web/API/CanvasRenderingContext2D">здесь</a>. 
+
+<p><a href="/cs21/data/notes6.zip">Здесь</a> вы можете закачать исходный код к заметкам.</p>
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>
