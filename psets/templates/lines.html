@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+{% block title %}
+    Файловый ввод. Строки кода.
+{% endblock %}
+{% block body %}
+<h1>Строки коад</h1>
+Один из способов оценить сложность программы - посчитать количество
+строк кода, исключиая пустые строки и комментарии. Например программа hello.py:
+    <pre>
+    <code class="language-python">
+    #пробный файл для lines.py
+
+    name = input("Waht's you name? ")
+    print(f"hello, {name}")
+    </code>
+    </pre>
+  имеет всего две строки кода.
+  <p>В файле lines.py реализуйте программу, которая ожидает один аргумент
+  командной строки, имя файла python, возвращает число строк, исключая
+  пустые строки и комментарии.
+  Если пользователь не указывает точно один аргумент командной строки,
+  или файл имеет расширение не py, или файла с указанным именем нет, программа
+  заканчивает работу через вызов sys.exit.
+  </p>
+  <p>Предполагаем, что срока комментария начинается с #. Создайте файл hello.py:
+<pre>
+    <code class="language-python">
+    #пробный файл для lines.py
+
+    name = input("Waht's you name? ")
+    print(f"hello, {name}")
+    </code>
+    </pre>
+    Он нужен для проверки.
+  </p>
+
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li> 
+			Тип str имеет много методов, см <a href="https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods">https://digitology.tech/docs/python_3/library/stdtypes.html#string-methods</a>,
+            включая lstrip и startswith.
+		</li>
+		<li> 
+        Функция open бросает исключение FileNotFoundError, см <a href="https://digitology.tech/docs/python_3/library/exceptions.html#FileNotFoundError">https://digitology.tech/docs/python_3/library/exceptions.html#FileNotFoundError</a>.
+		</li>
+	</ul>
+</details>
+
+<h2>Демонстрация</h2>
+<script async 
+    id="asciicast-aiOiXrEwpce7zS4z50u1DnjKV" src="https://asciinema.org/a/aiOiXrEwpce7zS4z50u1DnjKV.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог lines,  выполнив
+<pre>
+<code>mkdir lines</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd lines</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code lines.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+Создайте файл hello.py с текстом, приведенным выше.
+
+
+<h2>Как проверить</h2>
+<p>Сделайте рабочим каталог с программой.
+</p>
+<ul>
+	<li>
+Запустите программу python lines.py.
+Ваша программа должна завершить работу с sys.exit
+и вывести сообщение:
+<pre>
+<code>
+Слишком мало аргументов в командной строке
+</code>
+</pre>
+	</li>
+	<li>
+    Создайте две программы hello.py и
+    goodbye.py. Выполните в терминале команду
+    python lines.py hello.py goodbye.py.
+    Ваша программа должна завершить работу с sys.exit,
+    выести сообщение:
+<pre>
+<code>
+Слишком много аргументов в командной строке
+</code>
+</pre>
+	</li>
+
+	<li>
+    Создайте файл invalid_extension.txt. Выполните python lines.py invalid_extension.txt. Программа должна завершить через sys.exit,
+    вывести:
+<pre>
+<code>
+Не python файл
+</code>
+</pre>
+	</li>
+	<li>
+Запустите программу python non_existen_file.py.  Предполагается, что 
+такого файла нет в папке, программа должна обработать исключение и завершить
+работу через sys.exit, вывести сообщение:
+    <pre>
+    <code>
+    Файл не существует
+    </code>
+    </pre>
+	</li>
+	<li>
+    Создайте файл hello.py. Как указано ниже.
+    <pre>
+    <code class="language-python">
+    #пробный файл для lines.py
+
+    name = input("Waht's you name? ")
+    print(f"hello, {name}")
+    </code>
+    </pre>
+    Запустите python lines.py hello.py. Программа должна вывести:
+        <pre>
+        <code>
+        2
+        </code>
+        </pre>
+	</li>
+</ul>
+
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/lines local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/lines</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/lines/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}
