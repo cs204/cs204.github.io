@@ -1,0 +1,166 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Тестирование. Назад в банк. 
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>Назад в банк.</h1>
+
+<p>В файле bank.py, реализуйте программу из задания <a href="bank.html">банк</a>, изменив её,
+как показано ниже, где функция value ожидает строку приветствия  и 
+если приветствие начинается
+с "здравствуйте", то возвращает чилсо 0, если приветствие начинается
+с "з"(но не здравствуйте), возращает 20. В других случаях 
+возвращает 100. Печать осуществляет main.
+<pre>
+<code class="language-python">
+def main():
+	...
+
+def value(greeting):
+	....
+
+if __name__ == "__main__":
+	main()
+</code>
+</pre>
+В файле test_bank.py реализуйте функции тестирующие value.
+Запустите pytest test_bank.py.
+
+<details> 
+	<summary>Подсказка</summary> 
+	<ul> 
+		<li>
+			Не забудьте в начало файла включить 
+<pre>
+<code class="language-python">
+import bank
+</code>
+</pre>
+или
+<pre>
+<code class="language-python">
+from bank imoprt value
+</code>
+</pre>
+		</li>
+		<li>
+			value должна использовать return, а не print. print вызывает main.
+		</li>
+	</ul>
+</details>
+
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://code.cs50.io">code.cs50.io</a>. 
+Сделайте рабочим каталогом вашу Codespace.
+Создайте каталог test_bank,  выполнив
+<pre>
+<code>mkdir test_bank</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd test_bank</code>
+</pre>
+Создайте файл bank.py, реализуйте программу. Выполните 
+<pre>
+<code>
+code test_bank.py
+</code>
+</pre>
+чтобы создать файл test_bank.py, в котором вы будете писать тест.
+
+<h2>Как проверить</h2>
+	Сделайте рабочим каталог с программой, 
+	Запустите программу, выполнив <code>pytest test_bank.py</code>.
+	Попробуйте правильные и неправильные версии файла bank.py, чтобы
+	посмотреть как работают ваши тесты:
+	<ul>
+		<li>
+			Убедитесь, что файл bank.py корректный. Запустите тест,
+			выполнив pytest test_bank.py. pytest должен показать, что
+			программа прошла тест без ошибок.
+		</li>
+		<li>
+			Измените bank.py, поменяв значения, возвращаемые на приветствия,
+		       	например, чтобы программа выдавала $100, 
+			если приветствие начинается на "здравствуйте".
+			Запустите, выполнив pytest test_bank.py. pytest должен показать 
+			ошибки.
+		</li> 
+	</ul>
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду
+<pre>
+<code>npx cs204 2023/test_bank local</code>
+</pre>
+Для отправки на проверку выполните команду
+<pre>
+<code>npx cs204 2023/test_bank</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/test_bank/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>

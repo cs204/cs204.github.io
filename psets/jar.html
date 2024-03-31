@@ -1,0 +1,157 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Баночка для печенья
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>
+Баночка для печенья
+</h1>
+<p>
+Предположим, вы хотите реализовать баночку  для хранения хранения печенья. 
+В файле jar.py реализуйте класс Jar со следующими методами:
+</p>
+<ul>
+	<li>__init__ должен инициализировать баночку для печенья заданной ёмкостью, 
+		которая представляет собой максимальное количество печений, которые могут 
+		поместиться в банку. Однако если ёмкость не является неотрицательным целым числом, 
+		__init__ вместо этого должен вызвать ValueError.
+	</li>
+	<li>
+		__str__ должен возвращать строку с n 🍪, где n — количество печений в банке. Например, если в банке 
+		3 печенья, __str__ должна вернуть «🍪🍪🍪».
+	</li>
+	<li> 
+		deposit должен добавить n печений в банку. Однако, если добавление такого количества печений превысит емкость банки, 
+		вместо этого deposit должен вызвать ошибку ValueError.
+	</li>
+	<li> 
+		withdraw должна удалить n печений из банки. Ням ням ням. Однако, если в банке не так много печений, при withdraw 
+		вместо этого должен вызвать ошибка ValueError.
+	</li>
+	<li>
+		capacity должен вернуть емкость банки с печеньем.
+	</li>
+	<li> size должен возвращать количество печений, находящихся на самом деле в банке, первоначально 0.
+	</li>
+</ul>
+<p>Структурируйте свой класс согласно приведенному ниже. Вы не можете изменять параметры этих методов, 
+но можете добавлять свои собственные методы.</p>
+
+<pre>
+<code class="language-python">
+
+
+
+</code>
+</pre>
+
+<h2>Демонстрация</h2>
+<script async id="asciicast-45jjwhx88TiLcr9qnalz9jUCB" 
+	      src="https://asciinema.org/a/45jjwhx88TiLcr9qnalz9jUCB.js"
+	data-autoplay="true" data-loop="true" data-rows="10" data-cols="80">
+</script>
+
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. 
+Используя команду cd, сделайте рабочим каталогом codespace.
+Создайте каталог jar,  выполнив
+<pre>
+<code>mkdir jar</code>
+</pre>
+Перейдите в каталог.
+<pre>
+<code>cd jar</code>
+</pre>
+Выполните 
+<pre>
+<code>
+code jar.py
+</code>
+</pre>
+чтобы открыть редактор, и напишите вашу программу.
+
+<h2>Как проверить</h2>
+<ul>
+	<li>
+		Сделайте рабочим каталог с программой. 
+	</li>
+	<li>	
+		Запустите программу python jar.py.  
+	<li>
+</ul>
+
+
+Вы можете проверить правильность выполнения задания, выполнив команду:
+<pre>
+<code>npx cs204 2023/jar local</code>
+</pre>
+Для отправки на проверку выполните команду:
+<pre>
+<code>npx cs204 2023/jar</code>
+</pre>
+
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2023/jar/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>
