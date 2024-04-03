@@ -11,7 +11,7 @@
 
 	<title> 
 		
-cs50.dev
+	Open source workflow.
  
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
@@ -73,30 +73,54 @@ cs50.dev
 			<main>
 				<div class="container-sm">
 				
-<header>
+<h1>
+	Open source workflow.
+</h1>
+<p>Зайдите на <a href="https://github.com/cs203/calc">https://github.com/cs203/calc</a>. Нажмите на кнопку Fork.  
+У вас будет создана копия репозитория. Скопируйте его адрес. Зайдите в cs50.dev. 
+Отключите плагин gitdoc. 
+Перейдите в домашний каталог, сколонируйте репозиторий.
+<pre>
+<code>
+cd ~
+git clone адрес
+</code>
+</pre>
+Перейдите в каталог calc.  Создайте ветку dev2,  перейдите в неё.
+<pre>
+<code>
+cd calc 
+git branch dev2
+git checkout dev2
+</code>
+</pre>
+Добавьте свою фамилию в readme.md
+<pre>
+<code>
+git add .
+git commit -m "ваше название"
+</code>
+</pre>
+Добавьте информацию об основном репозитории. Перейдите в ветку master.
+<pre>
+<code>
+git remote add upstream https://github.com/cs203/calc
+git checkout master 
+</code>
+</pre>
+Закачайте изменения. Соедините их с вашими. Загрузите результат.
+<pre>
+<code>
+git fetch upstream
+git merge upstream
+git merge dev2
+git push origin master 
+</code>
+</pre>
+Зайдите на github, создайте pull request.
+</p>
 
-</header>
-<h1>cs50.dev</h1>
 
-<ul>
-	<li>
-	Зарегистрируйтесь на <a href="https://github.com">github.com</a>.
-	<br>
-		<iframe width="640" height="498" src="https://www.youtube.com/embed/UjuIHfZnsdQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-	</li>
-	<br>
-	<li>Первый вход на <a href="https://cs50.dev">cs50.dev</a>.
-		<br>
-
-		<iframe width="640" height="498" src="https://www.youtube.com/embed/69vzN7va_is" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-		</li>
-
-	<li>Настройки для отправки работ на проверку.<br>
-		<iframe width="640" height="498" src="https://www.youtube.com/embed/8mC2w69RP_I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-	</li>
-	<li><a href ="notes_ide.html">Заметки</a></li> 
-	<li><a href="/psets/ide_cpp.html" target="_blank">Задания</a></li>
-</ul>
 
 				</div>
 			</main>
