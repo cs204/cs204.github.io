@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block title %}
+Concepts
+{% endblock %}
+
+
+{% block body %}
+Эта теме есть в  главе 8 книги  "A Tour of C++(Third edition)".
+<h1>Concepts</h1>
+<p>Концепции нужны, что бы задать ограничения на аргументы шаблонов.</p>
+<p>Рассмотрим sum()</p>
+<pre>
+<code class="language-c++">
+#include&lt;iostream&gt;
+#include&lt;vector&gt;
+
+template &lt; typename Seq, typename Value &gt;
+Value sum(Seq s, Value v)
+{
+	for(const auto& x:s)
+		v += x;
+	return v;
+}
+
+int main()
+{
+	std::vector<int> v{1, 2, 3};
+	std::cout  &lt;&lt; sum(v, 0) &lt;&lt; std::endl;
+}
+</code>
+</pre>
+<p>Аргумент шаблона Seq должен удовлетворять ряду требований, 
+запишем их.
+</p>
+<pre>
+<code class = "language-c++">
+using std::ranges::range_value_t;
+using std::ranges::iterator_t;
+using std::iter_value_t;
+using std::input_iterator;
+using std::same_as;
+
+template&lt;typename S&gt;
+concept Sequence = requires(S a){
+	typename range_value_t&lt;S&gt;;
+	typename iterator_t&lt;S&gt;;
+	{a.begin()} -&gt; same_as&lt;iterator_t&lt;S&gt; &gt;;
+	{a.end()} - &gt; same_as &lt; &lt;iterator_t&lt;S&gt; &gt;;
+	requires input_iterator&lt; iterator_t&lt;S&gt; &gt;;
+	requires same_as&lt;range_value_t&lt;S&gt;, iter_value_t&lt;S&gt; &gt;;
+};
+</code>
+</pre>
+<p>Эту концепцию мы можем использовать для записи 
+функции</p>
+<pre>
+<code class="language-c++">
+template&lt;typename Seq, typename Num&gt;
+	requires Sequence&lt;Seq&gt;
+Num sum(Seq s, Num v)
+{
+	for(const auto & x:s)
+		v += x;
+	return v;
+}
+</code>
+</pre>
+Концепция - это предикат проверяемый в момент компиляции.
+Для нашего случая удобно воспользоваться готовой концепцией.
+<pre>
+<code class="language-cpp">
+#import&lt;ragnes&gt;
+
+template&lt;typename S&gt;
+concept Sequence = std::ranges::input_range&lt;S&gt;;
+</code>
+</pre>
+<p>Зададим следующее ограничение</p>
+<pre>
+<code class="language-cpp">
+template&lt;typename T, typename U = T&gt;
+concept Number = 
+	requires(T x, U y){
+		x + y;
+		x - y;
+		x * y;
+		x / y;
+		x += y;
+		x -= y;
+		x *= y; 
+		x /= y;
+		x = x;
+		x = 0;
+	};
+</code>
+</pre>
+<p>Зададим следующую концепцию</p>
+<pre>
+<code class="language-cpp">
+template&lt;typename T, typename U=T&gt;
+concept Arithmetic = Number&lt;T,U&gt; && Number&lt;U, T&gt;;
+</code>
+</pre>
+<p>Окончательно запишем</p>
+<pre>
+<code class="language-cpp">
+using std::ranges::range_value_t;
+template&lt;Sequence Seq, Number Num&gt; 
+	requires Arithmetic &lt; range_value_t&lt;Seq&gt;, Num &gt;	
+Num sum(Seq s, Num v)
+{
+	for(const auto& x:s)
+		v += x;
+	return v;
+}
+</code>
+</pre>
+
+{% endblock %}
