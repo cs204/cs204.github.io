@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}
+fltk
+{% endblock %}
+
+
+{% block body %}
+<a href="https://www.fltk.org/doc-1.3/basics.html">www.fltk.org/doc-1.3</a>
+<hr>
+<h1>fltk</h1>
+<p>Установим fltk.</p>
+<pre>
+sudo apt install libfltk1.3-dev
+</pre>
+
+<p>Создадим каталог hello_fltk.</p>
+<pre>
+mkdir hello_fltk
+cd hello_fltk
+</pre>
+
+<p>Создадим файл hello.cpp.</p>
+<pre>
+<code class="language-c++">
+#include&lt;FL/Fl.H&gt;
+#include&lt;FL/Fl_Window.H&gt;
+#include&lt;FL/Fl_Box.H&gt;
+
+int main(int argc, char **argv)
+{
+	Fl_Window *window = new Fl_Window(340, 180);
+	Fl_Box *box = new Fl_Box(20, 40, 300, 100, "Hello, World!");
+	box-&gt;box(FL_UP_BOX);
+	box-&gt;labelfont(FL_BOLD+FL_ITALIC);
+	box-&gt;labelsize(36);
+	box-&gt;labeltype(FL_SHADOW_LABEL);
+	window-&gt;end();
+	window-&gt;show(argc, argv);
+	return Fl::run();
+}
+</code>
+</pre>
+<p>
+Создайте файл Makefile
+</p>
+<pre>
+<code>
+cxxflags = $(shell fltk-config --cxxflags) -I.
+ldflags = $(shell fltk-config --ldflags ) 
+cxx = g++ --std=c++2a
+link = $(cxx)
+
+hello: hello.o
+	$(link) -o $@  hello.o $(ldflags) 
+
+hello.o: hello.cpp
+	$(cxx) -c $(cxxflags) hello.cpp 
+
+run:
+	./hello
+
+test:
+	echo $(cxxflags)
+	echo $(ldflags)
+
+clean:
+	rm -f hello *.o
+
+</code>
+</pre>
+<p>Выполните make. Запустите программу.</p>
+<hr>
+
+<a href="https://github.com/cortical-iv/hello_fltk">Stroustrup's Principles and Practice</a>
+{% endblock %}
