@@ -71,5 +71,75 @@ clean:
 <p>Выполните make. Запустите программу.</p>
 <hr>
 
+<h2>Простая библиотека из учебника</h2>
 <a href="https://github.com/cortical-iv/hello_fltk">Stroustrup's Principles and Practice</a>
+<hr>
+<p>
+Скачайте 
+</p>
+<pre>
+<code>
+git clone https://github.com/cortical-iv/hello_fltk.git
+</code>
+</pre>
+
+Создайте Makefile
+<pre>
+CC=g++ -fPIC -std=c++2a 
+link=g++ -std=c++2a
+
+all: libstrous.so
+	@echo "Done."
+
+
+
+libstrous.so: Graph.o Window.o GUI.o Simple_window.o 
+	$(link)  -shared -o $@ -L/usr/local/lib Graph.o Window.o GUI.o Simple_window.o  `fltk-config --ldflags --use-images` 
+
+
+Graph.o: Graph.cpp Graph.h Point.h fltk.h std_lib_facilities.h 
+	$(CC)  -I/usr/local/include -c Graph.cpp
+
+Window.o: Window.cpp Window.h fltk.h std_lib_facilities.h Point.h Graph.h GUI.h
+	$(CC)  -I/usr/local/include -c Window.cpp
+
+GUI.o: GUI.cpp GUI.h Window.h fltk.h std_lib_facilities.h Point.h Graph.h  
+	$(CC)  -I/usr/local/include -c GUI.cpp
+
+Simple_window.o: Simple_window.cpp Simple_window.h GUI.h Window.h fltk.h std_lib_facilities.h Point.h Graph.h 
+	$(CC)  -I/usr/local/include -c Simple_window.cpp
+
+clean:
+	rm -f libstrous.so *.o 
+</code>
+</pre>
+Выполните make. В домашнем каталоге создайте папку lib, поместите туда созданную библиотеку.
+Чтобы программы могли её находить добавьте в файл /etc/ld.so.conf информацию об созданной папке.
+Перезагрузите систему.
+Скопируйте заголовочне файлы в ~/strous/include. 
+Создайте папку поместите в нее main.cpp из репозитория, создайте Makefile
+<pre>
+<code>
+CC=g++  
+CFLAG=-std=c++2a
+EXE_NAME=hello_fltk
+
+all: main
+	@echo "Done."
+
+
+main: main.o
+	$(CC) $(CFLAG) -o $(EXE_NAME)  -L/home/ubuntu/lib  main.o -lstrous  -lfltk -lX11 
+# -L/usr/local/lib
+main.o: main.cpp 
+	$(CC) $(CFLAG) -I/usr/local/include -I/home/ubuntu/strous/include -c main.cpp
+
+
+clean:
+	rm -f $(EXE_NAME) *.o 
+
+run:
+	./$(EXE_NAME)
+</pre>
+Выполните make. Вы получили работающий пример. Выполните задания из учебника.
 {% endblock %}
