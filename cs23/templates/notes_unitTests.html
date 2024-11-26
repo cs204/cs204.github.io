@@ -155,6 +155,7 @@ def test_assert():
 		на отдельные функции тестирования.
 	<pre>
 	<code class="language-python">
+import pytest
 from calculator import square
 
 def test_positve():
@@ -167,9 +168,15 @@ def test_negative():
 
 def test_zero():
         assert square(0) == 0
+
+
+def test_str():
+	with pytest.raises(TypeError):
+		square("cat")
 	</code>
 	</pre>
 	Выполните pytest test_calculaotr5.py. В этом случае будет отображаться больше ошибок.
+Обратите внимание, что вместо использования assert мы используем функцию в самой библиотеке pytest, которая называется raises, которая позволяет вам выразить, что вы ожидаете возникновения ошибки. Нам нужно перейти в начало нашей программы и добавить import pytest, а затем вызвать pytest.raises с типом ошибки, которую мы ожидаем
 	</li>
 </ul>
 
