@@ -5,7 +5,7 @@ all:
 #	@(echo $(DIVIDER); cd python23; $(MAKE) -k)
 	@(echo $(DIVIDER); cd cs23; $(MAKE) -k)
 	@(echo $(DIVIDER); cd cpp; $(MAKE) -k)
-#	@(echo $(DIVIDER); cd modeling; $(MAKE) -k)
+	@(echo $(DIVIDER); cd modeling; $(MAKE) -k)
 	@(echo $(DIVIDER); cd networks; $(MAKE) -k)
 	@(echo $(DIVIDER); cd 433; $(MAKE) -k)
 	@(echo $(DIVIDER); cd slides; $(MAKE) -k)
