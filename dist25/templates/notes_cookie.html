@@ -1,0 +1,204 @@
+{% extends "layout.html" %}
+{% block title %}
+Cookie
+{% endblock %}
+
+
+{% block body %}
+<h2>Cookie</h2>
+<ul>
+	<li>
+		Файл app.py
+		<pre>
+		<code class="language-python">
+		from flask import Flask, render_template, redirect, request, session
+		from flask_session import Session
+
+		# конфигурируем приложение
+		app = Flask(__name__)
+
+		# Конфигурируем сессию
+		app.config["SESSION_PREMANENT"]  = False
+		app.config["SESSION_TYPE"] = "filesystem"
+		Session(app)
+
+		@app.route("/")
+		def index():
+		    if not session.get("name"):
+			return redirect("/login")
+		    return render_template("index.html")
+
+
+		@app.route("/login", methods=["GET", "POST"])
+		def login():
+		    if request.method == "POST":
+			session["name"] = request.form.get("name")
+			return redirect("/")
+		    return render_template("login.html")
+
+
+		@app.route("/logout")
+		def logout():
+		    session["name"] = None
+		    return redirect("/")
+		</code>
+		</pre>
+	</li>
+
+	<li>
+		Создадим index.html
+		<pre>
+		<code id="index_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/1/index.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let index_html = document.querySelector("#index_html")
+						index_html.innerText = data
+					})
+		</script>
+
+	</li>
+
+	<li>
+		Создадим login.html
+		<pre>
+		<code id="login_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/1/login.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let login_html = document.querySelector("#login_html")
+						login_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Выполним flask run.
+	</li>
+
+</ul>
+
+<h2>Вход с паролем</h2>
+<ul>
+	<li>
+		Создадим файл базы данных
+		<pre>
+		<code class="langauga-sh">
+		sqlite3 hogwarts.db
+		</code>
+		</pre>
+	</li>
+	<li>
+		Создадим таблицу и вставим в данные.
+		<pre>
+		<code>
+create table 'characters' ('id' integer primary key autoincrement, 'username' varchar(255) not null, 'password' varchar(255) not null);
+insert into 'characters' ('username', 'password') values ('potter', '12345');
+insert into 'characters' ('username', 'password') values ('ron', '12345');
+.quit
+</code>
+		</pre>
+	</li>
+	<li>
+		Создадим app.py
+		<pre>
+		<code class="language-python">
+from flask import Flask, render_template, redirect, request, session
+from flask_session import Session
+
+# Соединение с базой данных
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql import text
+url="sqlite:///hogwarts.db"
+engine = create_engine(url)
+db = scoped_session(sessionmaker(bind=engine))
+
+# конфигурируем приложение
+app = Flask(__name__)
+
+# Конфигурируем сессию
+app.config["SESSION_PREMANENT"]  = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+@app.route("/")
+def index():
+    if not session.get("username"):
+        return redirect("/login")
+    return render_template("index.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        row = db.execute(text("select * from 'characters' where username= :username and password=:password"), 
+                {"username": username, "password": password}).fetchone()
+        if row: 
+            session["username"] = row.username
+            session["id"] = row.id
+            return redirect("/")
+    return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session["username"] = None
+    session["id"] = None
+    return redirect("/")
+    		</code>
+		</pre>
+	</li>
+	<li>
+		Файл index.html.
+		<pre>
+		<code id="index2_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/2/index.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let index2_html = document.querySelector("#index2_html")
+						index2_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Создадим login.html
+		<pre>
+		<code id="login2_html" class="language-html">
+		</code>
+		</pre>
+		<script>
+			fetch("data/code_examples/cookie/2/login.html")
+					.then(responce => responce.text())
+					.then(data=>{
+						let login2_html = document.querySelector("#login2_html")
+						login2_html.innerText = data
+					})
+		</script>
+
+	</li>
+	<li>
+		Создадим файл requirements.txt.
+		<pre>
+		<code>
+		Flask
+		Flask-session
+		Sqlalchemy
+		Gunicorn
+		</code>
+		</pre>
+	</li>
+</ul>
+{% endblock %}

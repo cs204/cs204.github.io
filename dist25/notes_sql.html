@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+sql
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<hr>
+
+					<li><a href="cs50_dev.html">cs50.dev</a></li>
+					<li><a href="django.html">django</a></li>
+
+					<!--
+					<li><a href="git.html">Git, html, css</a></li>
+					<li><a href="sql.html">SQL</a>
+					<li><a href="unitTests.html">Тестирование</a></li>
+					<li><a href="classes.html">Объектно-ориентированное программирование</a></li>
+
+					<li><a href="functions.html">Python. Переменные и функции</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="libraries.html">Библиотеки</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="classes.html">Классы</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+					<li><a href="JavaScript.html">JavaScript, API</a><li>
+					<li><a href="/psets/finance.html">Финансы</a></li>
+					<li><a href="machineLearning.html">Обучение</a></li>
+
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				<div class="container-sm">
+
+					
+<h1>SQL</h1>
+<hr>
+<h2>Базы данных</h2>
+<hr>
+<img src="/cs23/data/images/favorites.png">
+<p>Выполните <a href="https://cs50.harvard.edu/x/2024/psets/7/">задания</a></p>
+<!--
+<ul>
+	<li>Базы данных можно использовать, чтобы 
+		сохранять, использовать и  манипулировать данными в приложении.</li>
+	<li>SQL (Structured Query Language) - язык, созданный для взаимодействия с базами данных.
+		Мы будем использовать версию PostgreSQL.</li>
+</ul>
+
+<h2>Использование SQL</h2>
+<hr>
+<ul>
+	<li>В базе данных для сохранения данных будем создавать таблицы. 
+		Когда создаём таблицу надо указать типы данных, сохраняемых
+		в столбцах.
+		Некоторые SQL типы данных:
+		<ul>
+			<li><code>INTEGER</code></li>
+			<li><code>DECIMAL</code></li>
+			<li><code>SERIAL</code> : автоматически увеличивающееся целое</li>
+			<li><code>VARCHAR</code> : строка текста, переменной длинны</li>
+			<li><code>TIMESTAMP</code></li>
+			<li><code>BOOLEAN</code></li>
+			<li><code>ENUM</code></li>
+		</ul>
+	</li>
+	<li>В дополнении к типу столбец может иметь ограничения:
+		<ul>
+			<li><code>NOT NULL</code> : поел должно иметь значение; если значение не задано, 
+				запись будет отклонена</li>
+			<li><code>UNIQUE</code> : нет двух полей в столбце имеющих одинаковое значение</li>
+			<li><code>PRIMARY KEY</code> : основной способ индексировать  таблицу</li>
+			<li><code>DEFAULT</code> : установить значение по умолчанию для столбца, если не указано другое занчение</li>
+		</ul>
+	</li>
+	<li>PostgreSQL можно установить на компьютер и запустить, мы будем использовать сервер на render.com.
+	Для отправки на него SQL запросов будем использовать терминальный клиент psql.
+	Для подключения к базе данных будем использовать <code>psql <databaseURL></code>.
+	</li>
+	<li>После подключения psql клиента к базе данных  мы можем вводить SQL команды в терминале.
+		Некоторые другие (не SQL) полезные команды:
+		<ul>
+			<li><code>\d</code> : вывести описание базы данных</li>
+			<li><code>\d table_name </code>: вывести описание таблицы</li>
+			<li><code>\q </code>: выйти из клиента</li>
+
+		</ul>
+	</li>
+</ul>
+
+<h2>Базовые операции</h2>
+<p>Зайдите на <a href="https://render.com">render.com</a>.
+Создайте PostgreSQL базу данных. Скопируйте External Database URL.
+Добавьте в файл ~/.profile строку
+<pre>
+<code>
+export DATABASE_URL="ваш External database URL"
+</code>
+</pre>
+Замените в URL postgres на postgresql, иначе вы не сможете из python подключиться.
+Выполните в терминале команду <code>source ~/.profile</code>.
+Чтобы подключиться к базе данных выполните <code>psql $DATABASE_URL</code>.
+</p>
+
+<ul>
+	<li>
+		Создание таблицы:
+		<pre>
+		<code class="language-sql">
+		create table flights (
+			id serial primary key,
+			origin varchar not null,
+			destination varchar not null,
+			duration integer not null
+			);
+		</code>
+		</pre>
+	</li>
+	<li>
+		Вставка данных в таблицу:
+		<pre>
+		<code class="language-sql">
+		insert into flights
+			(origin, destination, duration)
+			values ('New York', 'London', 415);
+		</code>
+		</pre>
+		<ul>
+			<li>Заметьте, что нет поля <code>id</code>, оно будет автоматически увеличиваться.</li>
+			<li>Команда может быть введена в одну строку.</li>
+		</ul>
+	</li>
+	<li>
+		Чтение данных из таблицы:
+		<pre>
+		<code class="language-sql">
+		select * from flights;
+		select origin, destination from flights;
+		select * from flights where id = 3;
+		select * from flights where origin = 'New Yourk';
+		select * from flights where duration > 500;
+		select * from flights where destination = 'Paris' and duration > 500;
+		select * from flights where destination = 'Paris' or duration > 500;
+		select avg(duration) from flights where origin = 'New York';
+		select * from flights where origin like '%a%';
+		select * from flights limit 2;
+		select * from flights order by duration asc;
+		select * from flights order by duration asc limit 3;
+		select origin, count(*) from flights group by origin;
+		select origin, count(*) from flights group by origin having count(*) > 1;
+		</code>
+		</pre>
+		<ul>
+			<li>После <code>select</code> указываем столбцы, которые будут выводится.</li>
+			<li>После <code>where</code> указываем ограничения на строки выводимые.</li>
+			<li><code>*</code> означает все столбцы.</li>
+			<li>
+				Если SQL функция применяется к выбираемому столбцу, то 
+				столбец с значениями применения функции будет получен. Полезные функции:
+				<ul>
+					<li> <code>avg(column)</code> : вычисляет среднее</li>
+					<li><code>count(*)</code> : возвращает число строк</li>
+					<li><code>min(column)</code> : минимальное значение</li>
+					<li><code>max(column)</code> : максимальное значение</li>
+				</ul>
+			</li>
+			<li>
+				<code>like</code> использует шаблон строки и возвращает все строки,
+				подходящие под шаблон. <code>%</code> означает любой текст. В примере
+				выше, любая строка с 'a' в  столбце origin.
+			</li>
+			<li><code>limit</code> задаёт максимальное число выводимых строк.</li>
+			<li>
+				<code>order by</code> упорядочивает строки по данному столбцу по
+				возрастанию (<code>asc</code>) или  убыванию (desc). 
+			</li>
+			<li><code>group by</code> группирует строки по общим значениям в заданном столбце.</li>
+			<li>
+				<code>having</code> опциональный указатель для <code>group by</code>, ограничивает 
+				строки выводимые, подобно <code>where</code>.
+			</li>
+		</ul>
+	</li>
+	<li>Обновление данных в таблице:
+		<pre>
+		<code class="language-sql">
+		update flights
+			set duration = 430
+			where origin = 'New York'
+			and destination = 'London';
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>set</code> столбец для всех строк, удовлетворяющих запросу <code>where</code>.
+			</li>
+		</ul>
+	</li>
+	<li>
+		Удаление данных из таблицы:
+		<pre>
+		<code class="language-sql">
+		delete from flights
+			where destination = 'Tokyo';
+		</code>
+		</pre>
+	</li>
+</ul>
+
+<h2>Связь между таблицами</h2>
+<ul>
+	<li>
+		Таблицы могут быть связаны. Приведём пример:
+		<pre>
+		<code class="language-sql">
+		create table passengers(
+			id serial primary key,
+			name varchar not null,
+			flight_id integer references flights.id
+			);
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>flight_id</code> будет внешним ключом для таблицы <code>flights</code>
+				на значения в столбце <code>flights.id</code>. Через внешний ключ мы можем
+				получить для таблицы passengers информацию об рейсе в таблице flights. 
+			</li>
+		</ul>
+	</li>
+	<li>
+		Мы можем сделать запросы к информации из нескольких таблиц:
+		<pre>
+		<code class="language-sql">
+		select origin, destination, name from flights join passengers on passengers.flight_id = flights.id;
+		select origin, destination, name from flights join passengers 
+			on passengers.flight_id = flights.id where name = 'Alice';
+		select origin, destination, name from flights left join passengers on passengers.flight_id = flights.id;
+		</code>
+		</pre>
+		<ul>
+			<li>
+				<code>join</code> создаёт объединённую таблицу: строки в ней удовлетворяют указанному
+				в <code>on</code> требованию.
+			</li>
+			<li>
+				<code>left join</code> включает строки из первой таблицы даже если нет соответствующих
+				строк во второй таблице (т.е. нет пассажиров на этот рейс). <code>right join</code>
+				действует аналогично (т.е. пассажиры без рейса).
+			</li>
+		</ul>
+	</li>
+	<li>
+		Вложенный запрос - другой способ сделать выбор из нескольких таблиц:
+		<pre>
+		<code class="language-sql">
+		select * from flights where id in 
+			(select flight_id from passengers group by flight_id having count(*) > 1);
+		</code>
+		</pre>
+		<ul>
+			<li>
+				Внутренний запрос создаст таблицу с столбцом <code>flight_id</code> 
+				с числом пассажиров больше 1.
+			</li>
+			<li>
+				Внешний запрос создаст таблицу с строками из таблицы <code>flihghts</code>
+				в которых <code>id</code> есть в таблицы из внутреннего запроса.
+			</li>
+			<li>
+				Иными словами запрос вернёт рейсы с количеством пассажиров больше 1.
+			</li>
+		</ul>
+	</li>
+</ul>
+-->
+
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

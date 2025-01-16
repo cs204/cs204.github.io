@@ -1,0 +1,274 @@
+
+{% extends "layout.html" %}
+{% block tytle %}
+Тестирование программы
+{% endblock %}
+
+
+{% block body %}
+
+<h1>Тестирование программы</h1>
+<ul>
+	<li>В консоле выполните code calculaotr.py. Наберите код:
+	<pre>
+	<code class="language-python">
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", square(x))
+
+def square(n):
+    return n * n
+
+if __name__ == "__main__":
+    main()
+</code>
+	</pre>
+	</li>
+	<li>
+		Создайте программу тестирования code test_calculator.py.
+	<pre>
+	<code class="language-python">
+from calculator import square
+
+def main():
+    test_square()
+
+def test_square():
+    if square(2) != 4:
+        print("2 squared was not 4")
+    if square(3) != 9:
+        print("3 squared wan not 9")
+
+if __name__ == "__main__":
+    main()
+</code>
+	</pre>
+	Мы создали функцию test_square. В ней мы определили некоторые условия для проверки.
+	</li>
+</ul>
+
+<h2>assert (утверждаю)</h2>
+<ul>
+	<li>Инструкция assert проверяет, что некоторые утверждения выполняются. 
+		Используем её в нашем примере.
+	<pre>
+	<code class="language-python">
+from calculator import square
+
+def main(): 
+    test_square()
+
+
+def test_square():
+    assert square(2) == 4
+    assert square(3) == 9
+
+if __name__ == "__main__":
+    main()
+    </code>
+	</pre>
+	</li>
+	<li>
+		Мы можем умышленно сломать наш код calculator.py изменив его так:
+	<pre>
+	<code class="language-python">
+def main():
+    x = int(input("What's x? "))
+    print("x squared is", square(x))
+
+def square(n):
+    return n + n
+
+if __name__ == "__main__":
+    main()
+</code>
+	</pre>
+	Мы заменили * на + в функции square.
+	</li>
+	<li>
+		Выполним в консоли python test_square.py. Python бросит исключение 
+		<a href="https://docs.python.org/3/library/exceptions.html#AssertionError">AssertionError</a>
+		Это говорит нам что одно из утверждений не было выполнено.
+	</li>
+	<li>Мы можем обработать исключения.
+	<pre>
+	<code class="language-python">
+from calculator import square
+
+def main():
+    test_square()
+
+def test_square():
+    try:
+        assert square(2) == 4
+    except AssertionError:
+        print("2 squared is not 4")
+    try:
+        assert square(3) == 9
+    except AssertionError:
+        print("3 squared is not 9")
+    try:
+        assert square(-2) == 4
+    except AssertionError:
+        print("-2 squared is not 4")
+
+if __name__ == "__main__":
+    main()
+    </code>
+	</pre>
+	Запуск этого кода выдаст много сообщений об ошибках.
+	</li>
+</ul>
+Документация на 
+		<a href="https://docs.python.org/3/reference/simple_stmts.html#the-assert-statement">assert</a>.
+
+
+<h2>pytest</h2>
+<ul>
+	<li> 
+		pytest - это сторонняя библиотека, помогающая тестировать программу.
+	</li>
+	<li>
+		Для установки pytest выполните в консоли pip install pytest .
+	</li>
+	<li>
+		В файле test_calculator4.py наберите текст:
+	<pre>
+	<code class="language-python">
+from calculator import square
+
+def test_assert():
+        assert square(2) == 4
+        assert square(3) == 9
+        assert square(-2) == 4
+        assert square(3) == 9
+        assert square(0) == 0
+	</code>
+	</pre>
+	Заметьте, как в коде перечислены все утверждения, которые мы хотим проверить.
+	</li>
+	<li>
+		В терминале наберите pytest test_calculator4.py. Посмотрите на результат.
+	</li>
+	<li>
+		Чтобы улучшить код теста создайте файл test_calculator5.py, разбив в нем
+		на отдельные функции тестирования.
+	<pre>
+	<code class="language-python">
+import pytest
+from calculator import square
+
+def test_positve():
+        assert square(2) == 4
+        assert square(3) == 9
+
+def test_negative():
+        assert square(-2) == 4
+        assert square(3) == 9
+
+def test_zero():
+        assert square(0) == 0
+
+
+def test_str():
+	with pytest.raises(TypeError):
+		square("cat")
+	</code>
+	</pre>
+	Выполните pytest test_calculaotr5.py. В этом случае будет отображаться больше ошибок.
+Обратите внимание, что вместо использования assert мы используем функцию в самой библиотеке pytest, которая называется raises, которая позволяет вам выразить, что вы ожидаете возникновения ошибки. Нам нужно перейти в начало нашей программы и добавить import pytest, а затем вызвать pytest.raises с типом ошибки, которую мы ожидаем
+	</li>
+</ul>
+
+Документация на <a href="https://docs.pytest.org/en/7.1.x/getting-started.html">pytest</a>.
+
+<h2>Тестирование строк</h2>
+<ul>
+	<li>
+		Создадим файл hello.py.
+	<pre>
+	<code class="language-python">
+def main():
+    name = input("What's your name? ")
+    print(hello(name))
+
+def hello(to="world"):
+    return f"hello, {to}"
+
+if __name__ == "__main__":
+    main()
+    </code>
+	</pre>
+	</li>
+	<li>
+		Создадим файл test_hello.py.
+	<pre>
+	<code class="language-python">
+from hello import hello
+
+def test_hello():
+    assert hello("David") == "hello, David"
+    assert hell() == "hello, world"
+    </code>
+	</pre>
+	</li>
+	<li>
+		Если мы запустим pytest test_hello.py, программа пройдёт тест без ошибок.
+	</li>
+	<li>
+		Как и раньше, мы можем разбить на раздельные тесты.
+	<pre>
+	<code class="language-python">
+from hello1 import hello
+
+def test_default():
+    assert hello() == "hello, world"
+
+def test_argument():
+    assert hello("David") == "hello, David"
+    </code>
+	</pre>
+	</li>
+</ul>
+
+<h2>Собрать тесты в папке</h2>
+<ul>
+	<li>
+		Создайте папку mkdir test. 
+	</li>
+	<li>
+		Создайте тест в папке code test/test_hello.py.
+	<pre>
+	<code class="language-python">
+from hello1 import hello
+
+def test_default():
+    assert hello() == "hello, world"
+
+def test_argument():
+    assert hello("David") == "hello, David"
+    </code>
+	</pre>
+	</li>
+	<li>
+		Создайте файл code test/__init__.py. Файл оставьте пустым.
+	</li>
+	<li>
+		Выполните в терминале pytest test. Будут выполнены все тесты из папки test.
+	</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
