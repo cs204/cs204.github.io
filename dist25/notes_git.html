@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+Git
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<hr>
+
+					<li><a href="cs50_dev.html">cs50.dev</a></li>
+					<li><a href="django.html">django</a></li>
+
+					<!--
+					<li><a href="git.html">Git, html, css</a></li>
+					<li><a href="sql.html">SQL</a>
+					<li><a href="unitTests.html">Тестирование</a></li>
+					<li><a href="classes.html">Объектно-ориентированное программирование</a></li>
+
+					<li><a href="functions.html">Python. Переменные и функции</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="conditionals.html">Ветвления</a></li>
+					<li><a href="loops.html">Циклы</a></li>
+					<li><a href="libraries.html">Библиотеки</a></li>
+					<li><a href="exceptions.html">Исключения</a></li>
+					<li><a href="classes.html">Классы</a></li>
+					<li><a href="flask.html">Flask</a></li>
+					<li><a href="sql.html">SQL</a></li>
+					<li><a href="sqlalchemy.html">Sqlalchemy</a></li>
+					<li><a href="cookie.html">Cookie</a></li>
+					<li><a href="JavaScript.html">JavaScript, API</a><li>
+					<li><a href="/psets/finance.html">Финансы</a></li>
+					<li><a href="machineLearning.html">Обучение</a></li>
+
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					-->
+				</ul>
+			</nav>
+			<main>
+				<div class="container-sm">
+
+					
+<header> 
+	<h1>Git,HTML, CSS</h1>
+</header> 
+<main>
+	<h2>Git</h2>
+	<ul>
+		<li> <code>git init</code></li>
+		<li><code>git status</code></li>
+		<li><code>git add . </code></li>
+		<li><code>git commit -m "text"</code></li>
+		<li><code>git push origin main</code></li>
+	</ul>
+	<h2>Интернет</h2>
+	<ul>
+		<li>протокол</li>
+		<li>ip адрес</li>
+		<li>dns</li>
+		<li>порт</li>
+		<li>url</li>
+		<li>веб сервер</li>
+		<li>веб клиент</li>
+		<li>html</li>
+		<li>css</li>
+	</ul>
+	<p>Протокол - это набор правил, которым следуют при общении программы.
+	Так в веб службе клиент и сервер общаются по протоколу http.
+	Когда мы вводим в браузере адрес веб ресурса, браузер (клиент) отправляет
+	запрос по протоколу http к программе, веб сервер. 
+	Ответ сервера может содержать, например, текст, размеченный при помощи 
+	языка html. Браузер интерпретирует ответ и отображает.</p>
+	<h2>HTML</h2> 
+	<p>html - это язык разметки. С его помощью вы указываете, где у вас
+	заголовок, где обычный текст, где список... Для разметки используются
+	элементы языка html. Создадим страницу, на которой написано привет мир.
+	</p>
+	<pre>
+	<code>
+	&lt;!doctype html&gt;
+	&lt;html&gt;
+		&lt;head&gt;
+			&lt;meta charset=&quot;utf-8&quot;&gt;
+			&lt;title&gt;Привет&lt;/title&gt;
+		&lt;/head&gt;
+		&lt;body&gt;
+			&lt;p&gt;Привет, мир!&lt;/p&gt;
+		&lt;/body&gt;
+	&lt;/html&gt;
+	</code>
+	</pre>
+	<p>
+	Элемент title содержит заголовок, он отображается на вкладке браузера.
+	В нашем примере элемент meta имеет атрибут charset, сообщающий, что 
+	кодировка текста utf-8.
+	Внутри body вы размещаете текст страницы. Заголовки
+	выделяете при помощи элементов h1, h2, h3 ... h6. 
+	Например, заголовок этой страницы был создан так:</p>
+	<pre>
+	<code>
+	&lt;h2&gt;HTML&lt;/h2&gt;
+	</code>
+	</pre>
+	<p>Абзацы текста выделяете при помощи элемента p, как в примере с приветствием.</p>
+	<p>Ниже - пример создания списка.</p>
+	<pre>
+	<code>
+	&lt;ol&gt;
+		&lt;li&gt;элемент списка&lt;/li&gt;
+		&lt;li&gt;другой элемет&lt;/li&gt;
+	&lt;/ol&gt;
+	</code>
+	</pre>
+	<p>Вот результат.</p>
+	<ol>
+		<li>элемент списка</li>
+		<li>другой элемет</li>
+	</ol>
+	<p>Гиперссылка  выделяется при помощи элемента a. Например, </p>
+	<pre>
+	<code>
+	Я учусь в &lt;a href= &quot;https://www.tspu.edu.ru&quot;&gt;ТГПУ&lt/a&gt;.
+	</code>
+	</pre>
+	<p>Результат:</p>
+	<p>Я учусь в <a href= "https://www.tspu.edu.ru">ТГПУ</a>.</p>
+	<p>Элемент img используют для вставки изображения. Например</p>
+	<pre>
+	<code>
+	&lt;img src=&quot;file.png&quot;&gt;
+	</code>
+	</pre>
+	<p>Атрибут src - для указания имени файла изображения.
+	Для создания таблиц - элемент table.
+	Если вы хотите добавить к рисунку, таблице или листингу кода
+	подпись, то их надо поместить в контейнер figure. Например,</p>
+	<pre>
+	<code>
+	&lt;figure&gt;
+	&lt;figcaption&gt;Листинг 1. Пример программмы на python.&lt;/figcaption&gt;
+	&lt;pre&gt;&lt;code&gt;
+	print("Hello, World!")
+	&lt;/code&gt;&lt;/pre&gt;
+	&lt;/figure&gt;
+	</code>
+	</pre>
+	Результат:
+	<figure>
+	<figcaption>Листинг 1. Пример программмы на python.</figcaption>
+	<pre><code>
+	print("Hello, World!")
+	</code></pre>
+	</figure>
+
+	<p>Элементы div и span используются для группировки.
+	nav элементом вы выделяете раздел, содержащий навигационные ссылки.</p>
+	<p>Для получения информации от пользователя, удобно разместить элементы
+	ввода на форме.</p>
+	<pre><code>
+	&lt;form&gt;
+		&lt;label for=&quot;name&quot;&gt;Имя&lt;/label&gt;
+		&lt;input type=&quot;text&quot; id=&quot;name&quot;&gt;
+		&lt;input type=&quot;button&quot; value=&quot;find&quot;&gt;
+	&lt;/form&gt;
+	</code></pre>
+	<p>Результат:</p>
+	<form>
+		<label for="name"> Имя</label>
+		<input type="text" id="name">
+		<input type="button" value="find">
+	</form>
+
+	<p>Об этих и других элементах html удобно смотреть на <a href="https://www.w3.org/TR/html51">https://www.w3.org/TR/html51/</a></p>
+	<h2>CSS</h2>
+
+
+</main>
+
+
+				</div>
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>

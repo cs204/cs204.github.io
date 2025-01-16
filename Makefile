@@ -12,6 +12,7 @@ all:
 #	@(echo $(DIVIDER); cd corrStudents; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd physics; $(MAKE) -k)
 	@(echo $(DIVIDER); cd psets; $(MAKE) -k)
+	@(echo $(DIVIDER); cd dist25; $(MAKE) -k)
 	python3 join.py
 clean:
 	@(echo $(DIVIDER); cd csAndTech; $(MAKE) -k clean)
@@ -26,5 +27,6 @@ clean:
 	@(echo $(DIVIDER); cd networks; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd 433; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd slides; $(MAKE) -k clean)
+	@(echo $(DIVIDER); cd dist25; $(MAKE) -k clean)
 
 	rm -f *.html
