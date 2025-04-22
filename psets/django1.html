@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/psets/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		
+	Django
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div class="container-sm">
+			<!--	<div id=flex> -->
+			<!--
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> cs50.dev</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и функции</a></li>
+				</ul>
+			</nav>
+			-->
+			<main>
+				
+<h1>Django</h1>
+
+		<div class="embed-responsive embed-responsive-4by3">
+<iframe width="480" height="270" src="https://dzen.ru/embed/oaUZSNWYIAAA?from_block=partner&from=zen&mute=0&autoplay=0&tv=0" allow="autoplay; fullscreen; accelerometer; gyroscope; picture-in-picture; encrypted-media" data-pjcOG8jVj="embed-iframe" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
+		</div>
+<p>
+Django - фрейморк для веб-приложений на языке Python.
+</p>
+<p>
+Следуюя примеру из книги будем создавать сайт для музыкантов.
+
+Создадим репозиторий RiffMates на github. На cs50.dev перейдем в домашний
+каталог, выполнив
+<pre>
+<code>
+cd ~
+</code>
+</pre>
+Колонируйте репозиторий, выполнив:
+<pre>
+<code>
+git clone адресс репозитория
+</code>
+</pre>
+Перейдите в репозиторий
+<pre>
+<code>
+cd RiffMates
+</code>
+</pre>
+Создайте файл .gitingore, поместите в него одну строку
+<pre>
+<code>
+venv/
+</code>
+</pre>
+git не будет сохранять этот каталог.
+Создайте виртуальное окружение 
+<pre>
+<code>
+python -m venv ./venv
+</code>
+</pre>
+Установите django
+<pre>
+<code>
+pip install django
+</pre>
+</code>
+Создайте проект 
+<pre>
+<code>
+django-admin startproject RiffMates .
+</pre>
+</code>
+Создайте приложение home
+<pre>
+<code>
+./manage.py startapp home
+</code>
+</pre>
+
+В файл RiffMates/settins.py добавьте
+строку
+<pre>
+<code>
+import os
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+</code>
+</pre>
+Создайте файл build.sh
+<pre>
+<code>
+#!/usr/bin/env bash
+set -o errexit
+pip install -r requirements.txt
+python manage.py migrate
+</code>
+</pre>
+Сделайте его выполняемым
+<pre>
+<code>
+chmod a+x build.sh
+</code>
+</pre>
+Установите gunicorn
+<pre>
+<code>
+pip install gunicorn
+</code>
+</pre>
+Скопируйте информацию об установленных пакетах в  requirements.txt
+<pre>
+<code>
+pip freeze > requirements.txt
+</code>
+</pre>
+Запустите проект
+<pre>
+<code>
+gunicorn RiffMates.wsgi:application
+</code>
+</pre>
+Сохраните и загрузите на github
+<pre>
+<code>
+git add .
+git commit -m "first page"
+git push origin main
+</code>
+</pre>
+
+
+
+<h2>render.com</h2>
+Разместите на render.
+
+<h2>Как отправить на проверку</h2>
+
+<ol>
+	<li>В <a href="http://90.188.117.161:8080/character/pset/2021/django1/v">форме</a> укажите адрес сайта на github.</li>
+	
+	<br>
+		Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+	</br>
+
+</ol>
+
+
+
+
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/psets/data/prism/prism.js"></script>
+	</body>
+</html>
