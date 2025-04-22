@@ -11,7 +11,7 @@
 
 	<title> 
 		
-Sqlalchemy
+	Django
  
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
@@ -32,12 +32,11 @@ Sqlalchemy
 					<hr>
 
 					<li><a href="cs50_dev.html">cs50.dev</a></li>
-
-					<li><a href="search.html">Поиск</a></li>
 					<li><a href="git.html">Git, html, css</a></li>
-					<li><a href="/psets/django1.html">Django</a></li>
+					<li><a href="django.html">Django</a></li>
 
 				<!--
+
 					<li><a href="sql.html">SQL</a>
 					<li><a href="functions.html">Python. Переменные и функции</a></li>
 					<li><a href="exceptions.html">Исключения</a></li>
@@ -68,39 +67,93 @@ Sqlalchemy
 				<div class="container-sm">
 
 					
-<header>
+<h1>Django</h1>
+<p>
+Django - фрейморк для веб-приложений на языке Python.
+</p>
+<p>
+Следуюя примеру из книги будем создавать сайт для музыкантов.
 
-<h1>SQL</h1>
-</header>
+Создадим репозиторий RiffMates на github. На cs50.dev перейдем в домашний
+каталог, выполнив
+<pre>
+<code>
+cd ~
+</code>
+</pre>
+Колонируйте репозиторий, выполнив:
+<pre>
+<code>
+git clone адресс репозитория
+</code>
+</pre>
+Перейдите в репозиторий
+<pre>
+<code>
+cd RiffMates
+</code>
+</pre>
+Создайте файл .gitingore, поместите в него одну строку
+<pre>
+<code>
+venv/
+</code>
+</pre>
+git не будет сохранять этот каталог.
+Создайте виртуальное окружение 
+<pre>
+<code>
+python -m venv ./venv
+</code>
+</pre>
+Установите django
+<pre>
+<code>
+pip install django
+</pre>
+</code>
+Создайте проект 
+<pre>
+<code>
+django-admin startproject RiffMates .
+</pre>
+</code>
+Создайте приложение home
+<pre>
+<code>
+./manage.py startapp home
+</code>
+</pre>
+
+В файл RiffMates/settins.py добавьте
+строку
+<pre>
+<code>
+import os
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+</code>
+</pre>
+Далее смотри видео.
+
+<h2>render.com</h2>
+
+<h2>Как отправить на проверку</h2>
+
+<ol>
+	<li>В <a href="http://90.188.117.161:8080/character/pset/2021/django1/v">форме</a> укажите адрес сайта на github.</li>
+	
+	<br>
+		Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+	</br>
+
+</ol>
 
 
-<br>
 
 
-	<p>
-	Материал заимствован с <a href="https://cs50.harvard.edu/web/2018/notes/3/">CS50'x Web Programming</a></p>
 
-<ul>
-	<li>
-
-		Sqlalchemy.<br>
-
-		<div class="embed-responsive embed-responsive-4by3">
-<iframe   src="https://www.youtube.com/embed/lGI4n-ye_d8?si=TPxt4xBEICOXG3Gi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-		</div>
-	</li>
-	<li>
-		Flask + sql
-		<br>
-		<div class="embed-responsive embed-responsive-4by3">
-<iframe  src="https://www.youtube.com/embed/hxCMzBhek6c?si=uePa00GGMzyq9zv7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-		</div>
-	</li>
-	<li><a href ="notes_sqlalchemy.html">Заметки</a></li> 
-	<li><a href="pset_sqlalchemy.html">Задания</a></li>
-	<li><a href="/cs23/data/slides/sql.pdf">Слайды</a></li>
-	<li><a href="/cs23/data/sqlalchemy.zip">Исходный код к лекции</a></li>
-</ul>
 
 
 				</div>
