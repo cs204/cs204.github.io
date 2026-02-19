@@ -7,12 +7,11 @@
 	<meta charset="utf-8">
 	<link href="style.css" rel="stylesheet">
 
-	<link href="/modeling/data/prism/prism.css" rel="stylesheet">
+	<link href="data/prism/prism.css" rel="stylesheet">
 
 	<title> 
-		
-Область видимости
- 
+		{% block title %} 
+		{% endblock %} 
 	</title> 
 	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
 
@@ -36,8 +35,10 @@
 
 				<ol>
 					<li><a href="cs50_dev.html">cs50.dev</a></li>
-
+					<li><a href="dl_introduction.html">Введение</a></li>
+					<li><a href="dnn_training.html">Обучение DNN</a></li>
 					<!--
+					<li><a href="git.html">git, html, css</a></li>
 					<li><a href="scope.html">Scope</a></li>
 					<li><a href="references.html">Ссылки</a></li>
 					<li><a href="pointers.html">Указатели</a></li>
@@ -53,13 +54,8 @@
 			</nav>
 			<main>
 				<div class="container-sm">
-				
-<header>
-	<h1>Область видимости</h1>
-</header>
-<a href="http://www.icodeguru.com/CPP/CppInAction/index-6.htm">Область видимости</a> из с++ In action.
-
-
+				{% block body %} 
+				{% endblock %}
 				</div>
 			</main>
 		</div>

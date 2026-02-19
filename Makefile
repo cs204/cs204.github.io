@@ -1,5 +1,6 @@
 all:
 	@(echo $(DIVIDER); cd cs21; $(MAKE) -k)
+	@(echo $(DIVIDER); cd dl; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd csAndTech; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd cs24; $(MAKE) -k)
 #	@(echo $(DIVIDER); cd python23; $(MAKE) -k)
@@ -31,6 +32,7 @@ clean:
 	@(echo $(DIVIDER); cd slides; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd tech; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd cs25; $(MAKE) -k clean)
+	@(echo $(DIVIDER); cd dl; $(MAKE) -k clean)
 #	@(echo $(DIVIDER); cd dist25; $(MAKE) -k clean)
 
 	rm -f *.html
