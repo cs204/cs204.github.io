@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block title %}
+	
+{% endblock %}
+{% block body %}
+<h1>Обучение модели классификации изображений с нуля </h1>
+
+<h2>Шаги выполнения</h2>
+Зайдите на <a href="https://cs50.dev">cs50.dev</a>. Закачайте архив
+<pre>
+<code class="language-sh">
+wget https://cs204.github.io/psets/data/fashion.zip
+</code>
+</pre>
+Разархивируйте
+<pre>
+<code class="language-sh">
+unzip fashion.zip
+</code>
+</pre>
+Перейдите в каталог
+<pre>
+<code class="language-sh">
+cd fashion
+</code>
+</pre>
+Установите пакет
+<pre>
+<code class="language-sh">
+sudo apt install graphviz
+</code>
+</pre>
+Создайте виртуальное окружение
+<pre>
+<code class="language-sh">
+python -m venv .venv
+source .venv/bin/activate
+</code>
+</pre>
+Установите нужные для проекта пакет
+<pre>
+<code class="language-sh">
+pip install --upgrade pip
+pip install -r requirements.txt
+</code>
+</pre>
+Слева в панели инструментов выберите Файл->Открыть папку. Выберите папку heart.
+Откройте файл example.ipynb, кликнув по нему мышкой два раза.
+В открытом окне выберите ядро python-jupyter. Виртуальная среда .venv
+Запустите проект на выполнение.
+
+<h2>Создание собственного решения</h2>
+Создайте файл 
+<pre>
+<code class="language-sh">
+touch fashion.ipynb
+</code>
+</pre>
+Откройте файл. Напишите собственный код на основе примера (example.ipynb).
+Разберите все команды.
+
+Вы можете проверить правильность выполнения задания, выполнив команду:
+<pre>
+<code>npx cs204 2026/fashion local</code>
+</pre>
+Для отправки на проверку выполните команду:
+<pre>
+<code>npx cs204 2026/fashion</code>
+</pre>
+Чтобы закрыть виртуальную среду, выполните команду:
+<pre>
+<code>deactivate</code>
+</pre>
+
+<h2>Заполните форму</h2>
+<a href="http://90.188.117.161:8080/character/pset/2026/fashion/c">форма отправки на проверку</a>
+<br>
+Свои оценки вы можете посмотреть на <a href="http://90.188.117.161:8080">http://90.188.117.161:8080</a>.
+<br>
+
+{% endblock %}
