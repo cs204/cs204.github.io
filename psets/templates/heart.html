@@ -33,8 +33,8 @@ sudo apt install graphviz
 Создайте виртуальное окружение
 <pre>
 <code class="language-sh">
-python -m venv .venv
-source .venv/bin/activate
+python -m venv ~/.venv
+source ~/.venv/bin/activate
 </code>
 </pre>
 Установите нужные для проекта пакет
@@ -44,18 +44,18 @@ pip install --upgrade pip
 pip install -r requirements.txt
 </code>
 </pre>
-Слева в панели инструментов выберите Файл->Открыть папку. Выберите папку heart.
-Откройте файл example.ipynb, кликнув по нему мышкой два раза.
-В открытом окне выберите ядро python-jupyter. Виртуальная среда .venv
-Запустите проект на выполнение.
-
-<h2>Создание собственного решения</h2>
-Создайте файл 
+Запустите jupyter lab
 <pre>
-<code class="language-sh">
-touch heart.ipynb
+<code>
+jupyter lab
 </code>
 </pre>
+Создайте порт 8888, откройте в браузере, используя токен с генерированный в терминале.
+Слева в панели инструментов выберите Файл->Открыть папку. Выберите папку heart.
+
+
+<h2>Создание собственного решения</h2>
+Создайте файл heart.ipynb
 Откройте файл. Напишите собственный код на основе примера (example.ipynb).
 Разберите все команды.
 
