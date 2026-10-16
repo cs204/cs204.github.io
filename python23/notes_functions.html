@@ -1,0 +1,356 @@
+
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+
+	<link href="/python23/data/prism/prism.css" rel="stylesheet">
+
+	<title> 
+		 
+		 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+
+	<!--- mathjax latex in html---->
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	<!--- mathjax end ---->
+
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<li><a href="error.html">Замечания</>
+					<hr>
+
+					<li><a href="code_cs50_io.html">Неделя 0</a> code.cs50.io</li>
+					<li><a href="functions.html">Неделя 1</a> Переменные и фукции</li>
+					<li><a href="conditionals.html">Неделя 2</a> Ветвления</li>
+					<li><a href="loops.html">Неделя 3</a> Циклы</li>
+					<li><a href="exceptions.html">Неделя 4</a> Исключения</li>
+					<li><a href="libraries.html">Неделя 5</a> Библиотеки</a></li>
+					<li><a href="unitTests.html">Неделя 6</a> Тестирование</a></li>
+					<li><a href="file.html">Неделя 7</a> Файловый ввод/вывод</li>
+					<li><a href="regexes.html">Неделя 8</a> Регулярные выражения</li>
+					<li><a href="classes.html">Неделя 9</a> Объектно-ориентированное программирование</a></li>
+					<li><a href="git.html">Неделя 10</a> Git, html, css</li>
+					<li><a href="search.html">Неделя 11</a> Поиск</li>
+					<li><a href="cetera.html">Неделя 12</a> Дополнения</li>
+					<li><a href="knowledge.html">Неделя 13</a> Знания</li>
+					<li><a href="flask.html">Неделя 14</a> Flask</li>
+				</ul>
+			</nav>
+			<main>
+				
+
+<h1>Переменные и функции.</h1>
+<h2>Где взять ответы?</h2>
+<p>Заходим на <a href="https://digitology.tech/docs/python_3/">документация на русском</a>  (<a href="https://docs.python.org/">https://docs.python.org/</a>).
+Справочная информация разбита на две части: Справочник по библиотеке, Справочник по языку.
+Справочник по языку (Language Reference) описывает синтаксис и семантику языка.
+Справочник по библиотеке (Standard Library Reference) описывает стандартную библиотеку, распространяемую 
+с Python.
+</p>
+<h3>Двоичная система счисления</h3>
+
+
+<h3><a href="https://ru.wikipedia.org/wiki/%D0%AE%D0%BD%D0%B8%D0%BA%D0%BE%D0%B4">Юникод</a>. utf-8</h3>
+<p>
+Юникод - стандарт кодирования символов. Состоит из двух частей: универсального набора символов
+и семейства кодировок (Unicod transforation format UTF). 
+Универсальный набор символов перечисляет допустимые по стандарту 
+Юникод символы и присваивает каждому символу код в виде неотрицательного 
+целого числа (code point).  Семейство кодировок определяет способы преобразования 
+кодов символов для передачи в потоке или в файле.</p>
+<p>Python читает текст программы как кодовые точки Юникод; 
+кодировка исходного файла может быть задана объявлением 
+кодировки и по умолчанию используется UTF-8. 
+Пример объявления кодировки:
+<pre>
+<code>
+# vim:fileencoding=utf-8
+</code>
+</pre>
+</p>
+<h3>Встроенные функции</h3>
+<p>Например, нас интересует функция печати print, 
+заходим на <a href="https://digitology.tech/docs/python_3/">документация</a>,
+выбираем Справочник по библиотеке, затем Встроенные функции, в небольшом списке встроенных 
+функции находим print.</p>
+<pre>
+<code>
+print(*objects, sep=' ', end='\n', file=None, flush=False)
+</code>
+</pre>
+Первый параметр с звёздочкой означает, что может быть несколько параметров,
+разделённых запятыми, это позиционные параметры. Параметры set, end file, flush -
+именованные. sep - разделитель между параметрами в строке (значение по умолчанию пробел), 
+end - ставится в конце строки (значение по умолчанию символ конца строки "\n").  
+Например:</p>
+<pre>
+<code>
+print("Привет", 13, "Мир", sep=": ", end = "!!!")
+print("Мыла Раму")
+</code>
+</pre>
+<p>Следующий пример - функция ввода текста input. Смотрим справку.
+</p>
+<pre>
+<code>
+input(promt)
+</code>
+</pre>
+<p>Аргумент promt функция выводит на стандартное устройство вывода, затем считывает ввод, преобразует в строку и возвращает. Пример:
+</p>
+<pre>
+<code>
+name = input('Как ваше имя?')
+print('Привет,', name, "!")
+</code>
+</pre>
+<h3>Встроенные типы данных</h3>
+<p>Заходим на <a href="https://digitology.tech/docs/python_3/">документация</a>,
+выбираем Справочник по библиотеке, затем Встроенные типы. 
+Стандартные типы, встроенные в интерпретатор.
+</p>
+<h4>Логический тип</h4>
+<p>В этом типе только два значения: True, False.
+Логические операции: or, and, not.</p>
+
+<h4>Числовые типы - int, float, complex.</h4>
+<p>Операции над числовыми типами: </p>
+<table>
+	<tr>
+		<th>операция</th>
+		<th>результат</th>
+	</tr>
+	<tr> 
+		<td>x + y</td>
+		<td>сумма x и y</td>
+	</tr>
+	<tr>
+		<td>x - y</td>
+		<td>разность x и y</td>
+	</tr>
+	<tr> 
+		<td>x * y </td>
+		<td>произведение</td>
+	</tr>
+	<tr>
+		<td>x / y </td>
+		<td>деление x на y</td>
+	</tr>
+	<tr>
+		<td>x // y</td>
+		<td>пол деления</td>
+	</tr>
+	<tr>
+		<td>x % y</td>
+		<td>остаток делания x на y</td>
+	</tr>
+	<tr>
+		<td>abs(x)</td>
+		<td>абсолютное значение x<td>
+	</tr>
+	<tr>
+		<td>int(x)</td>
+		<td>x конвертируется в int</td>
+	</tr>
+	<tr>
+		<td>float(x)</td>
+		<td>x  конвертируется в float</td>
+	</tr>
+	<tr>
+		<td>x**y, pow(x, y)</td>
+		<td>x в степени y</td>
+	</tr>
+</table>
+
+<h5>Побитовые операции над типом int.</h5>
+<table>
+	<tr>
+		<th>операция</th>
+		<th>результат</th>
+	</tr>
+	<tr>
+		<td>x | y </td>
+		<td>побитовое или от x и y</td>
+	</tr>
+	<tr>
+		<td>x ^ y</td>
+		<td>побитовое исключающее или от x и y</td>
+	</tr>
+	<tr>
+		<td>x & y</td>
+		<td>побитовое и от x и y</td>
+	</tr>
+	<tr>
+		<td>x << n</td>
+		<td>x сдвигается влево на n бит</td>
+	</tr>
+	<tr>
+		<td>x >> n</td>
+		<td>x сдвигается вправо на n бит</td>
+	</tr>
+	<tr>
+		<td>~x</td>
+		<td>инвертирование битов x</td>
+	</tr>
+</table>
+			
+math - модуль предоставляет доступ к многим функциям. Например, вычислим наибольший 
+		 общий делитель.</p>
+<pre>
+<code>
+import math
+x = int(input("x = "))
+y = int(input("y = "))
+print("gcd(", x ,", ", y, ") = ", math.gcd(x, y))
+</code>
+</pre>
+		 
+<h4>Форматированная строка</h4>
+<p>Смотрим Справка по языку-> Лексический анализ-> Форматированные строковые литералы.
+Форматированная строка начинается с f, 
+может содержать поля замены, они заключены в {}.
+</p>
+<pre>
+<code>
+z = 1.0 / 3.0;
+print(f"1/3 = {z}")
+print(f"1/3 = {z:.2f}")
+</pre>
+</code>
+<h4>str тип</h4>
+<p>Смотрим справку Справочник по библиотеке -> Встроенные типы-> Тип текстовой последовательности -str. 
+Текст представляется объектом str. Есть несколько строковых литер:</p>
+<pre>
+Одинарные кавычки: 'пример'
+Двойные кавычки: "пример"
+Тройные кавычки: '''пример''', """пример"""
+</pre>
+<p>Тройные кавычки могут на несколько строк распространяться.</p>
+<h5>str методы</h5>
+<p>Приведём некоторые примеры методов.
+<a href="https://digitology.tech/docs/python_3/library/stdtypes.html#str.capitalize">str.capitalize</a> <br>
+Возвращает копию строки с заглавной первой буквой.
+</p>
+
+<p>
+<a href="https://digitology.tech/docs/python_3/library/stdtypes.html#str.lower">str.lower</a> <br> 
+Возвращает копию строки, в которой все символы  преобразованы в нижний регистр.
+</p>
+
+<p>
+<a href="https://digitology.tech/docs/python_3/library/stdtypes.html#str.split">str.split(sep=None, maxsplit=-1)</a><br>
+Возвращает список слов в строке, используя sep в качестве строки разделителя. 
+.</p>
+<pre>
+<code>
+s = '1,2,3'.split(',')
+print(s)
+</code>
+</pre>
+<p><a href="https://digitology.tech/docs/python_3/library/stdtypes.html#str.format">str.format(*args, **kwrags)</a>. 
+Строка может содержать литерал текст или
+поля замены ограниченные скобками {}. Поле замены может содержать индекс 
+позиционного аргумента, или имя именованного аргумента. 
+Можно задать опции форматирования. Смотри на <a href="https://digitology.tech/docs/python_3/library/string.html#formatspec">мини язык форматирования</a>. Рассмотрим пример.
+</p>
+<pre>
+<code>
+import math
+print('{0:a>10.2f}{1:,>10.3f}'.format(math.e, math.pi))
+print('{n:b}'.format(n = 5))
+</code>
+</pre>
+Строки можно складывать и умножать на целое число.
+<pre>
+<code>
+a = 'Hello, '
+b = 'Wordl! '
+c = a + b
+print(c)
+c = c * 3
+print(c)
+</code>
+</pre>
+
+<p><a href="https://digitology.tech/docs/python_3/reference/lexical_analysis.html#strings">
+	Литералы строки</a>. Приведём примеры управляющих последовательностей в строковых литералах.</p>
+<table>
+	<tr>
+		<th>Escape sequence</th>
+		<th>Значение</th>
+	</tr>
+	<tr>
+		<td>\<newline></td>
+		<td>Игнорируется символ новой строки</td>
+	</tr>
+	<tr>
+		<td>\'</td>
+		<td>Одинарная ковычка</td>
+	</tr>
+	<tr>
+		<td>\n</td>
+		<td>перевод строки</td>
+	</tr>
+	<tr>
+		<td>\N{name}</td>
+		<td>Символ с именем  name в Юникоде.</td>
+	</tr>
+	<tr>
+		<td>\Uxxxxxxxx</td>
+		<td>Символ с 32-битным шестнадцатиричным значением xxxxxxxx</td>
+	</tr>
+</table>
+Например, символ 🙂 имеет имя Slightly Smiling Face, номер в Юникод 1f642 см. 
+<a href="https://symbl.cc/ru/1F642/">symbl.cc/ru/1f642</a>. Мы можем его задать так:
+<pre>
+<code>
+print("🙂, \N{Slightly Smiling Face}, \U0001f642")
+</code>
+</pre>
+В X11 (Debian и другие Unix) нажмите в редакторе кода <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>U</kbd>, наберите <kbd>1f642</kbd>,  затем <kbd>пробел</kbd> или <kbd>Enter</kbd>.
+
+<h2>Задание функции</h2>
+<p>Пример задания функции.</p>
+<pre>
+<code>
+def main():
+	x = int(input("x?"))
+	print("x в квадрате будет", square(x))
+
+def square(x):
+	return x * x
+
+main()
+</code>
+</pre>
+
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+
+		<script src="/python23/data/prism/prism.js"></script>
+	</body>
+</html>
