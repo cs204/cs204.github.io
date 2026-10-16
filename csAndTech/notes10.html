@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+	<!-- Bootstrap CSS --> 
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> 
+	<meta charset="utf-8">
+	<link href="style.css" rel="stylesheet">
+	<title> 
+		
+Заметки 10
+ 
+	</title> 
+	<link rel="icon" href="data/favicon.ico" type="image/x-icon">
+	</head>
+	<body>
+		<div id=flex>
+			<nav>
+				<ul>
+					<li><a 
+					<li><a style="font-syze: 3em; font-weight: bold;" href="../index.html">Начало</a></li>
+					<li><a style="font-syze: 3em; font-weight: bold;" href="index.html">ИиИТ</a></li>
+					<li> <a href="discassion.html">Обсуждение</a></li>
+					<hr>
+
+					<li> <a href="week0.html">Неделя 0</a> ide.cs50.io</li>
+					<li> <a href="week1.html">Неделя 1</a> HTML, CSS</li>
+					<li> <a href="week2.html">Неделя 2</a> Git, Github</li>
+
+					<li> <a href="week3.html">Неделя 3</a> Javascript, Nodejs</li>
+					<li> <a href="week4.html">Неделя 4</a> Задача о рюкзаке</li>
+					<li> <a href="week5.html">Неделя 5</a> SQL,  express</li>
+				</ul>
+			</nav>
+			<main>
+				
+ <header> 
+ <h1>Заметки</h1>
+ </header>
+ <h2>Электронные таблицы</h2>
+ <ul>
+  <li>Электронные таблицы - это программы для работы с данными
+				  представленными в виде таблиц. Файл для такой программы
+				  может содержать несколько таблиц(листов).</li>
+			  <li>Например, мы создали <a href="https://forms.gle/q4gPwEunMQY2zxJR8">форму</a> в Google Form
+				  для опроса студентов об их любимом тв шоу. Мы смотрим на их ответы и видим,
+				  что в электронной таблице есть три столбца: "Timestamp", "название", "жанр".</li>
+			  <img src="data/favorite_tv_show.png" class="col-9"><img>
+			  <li>Мы можем загрузить CSV файл из google spreadsheet в нашу IDE, и увидеть, что это
+				  текстовый файл с разделяемыми запятой значениями. Мы переименуем это файл в <code>favorites.csv</code>.
+				  Вы можете закачать этот файл, выполнив <kbd>wget https://vadimgb.github.io/data/favorites.csv</kbd></li>
+			  <li>Создадим файл <code>favorites.py</code>:</li>
+  <pre>
+  <code class="language-python">
+  import csv
+  whith open("favorites.csv", "r") as file:
+	reader = csv.DictReader(file)
+
+	for row in reader:
+		print(row["название"])
+</code>
+  </pre>
+			  <ul>
+						  <li>Мы просто открыли файл и распечатали название для каждой строки.
+						  DictReader создал список строк, каждая строка  представлена словарём. </li>
+			  </ul>
+			  <li>Далее мы используем словарь, чтобы подсчитать сколько раз название встречалось. Ключом будет
+				  название, а значение будет числом отслеживающее сколько раз встречалось название.</li>
+<pre>
+<code>
+import csv
+счет = {}
+with open("favorites.csv", "r") with file:
+	reader = csv.DictReader(file)
+
+	for row in reader:
+		название = row["название"]
+		if название in reader:
+			row[название] += 1
+		else:
+			row[название] = 1
+
+for название, число in счет.items():
+	print(название, число, sep = "|"
+</code>
+</pre>
+
+			<li>Мы можем поменять порядок сортировки в списке:</li>
+<pre>
+<code>
+def f(пара):
+	return пара[1]
+
+for название, число in sorted(счет.items(), key = f, reverse=True):
+</code>
+</pre>
+		  </ul>
+
+		  <p>На сайте edx.org курс "cs50 introduction to computer science".
+		  Week 7. Видео лекция,  конспект к ней. Наша 10 неделя - это их week7.
+		  </p>
+ 
+
+			</main>
+		</div>
+
+
+
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
+		</script> 
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+		</script> 
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+		</script>
+	</body>
+</html>
