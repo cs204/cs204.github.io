@@ -15,6 +15,7 @@ all:
 	@(echo $(DIVIDER); cd dist25; $(MAKE) -k)
 	@(echo $(DIVIDER); cd tech; $(MAKE) -k)
 	@(echo $(DIVIDER); cd cs25; $(MAKE) -k)
+	@(echo $(DIVIDER); cd cs26; $(MAKE) -k)
 	@(echo $(DIVIDER); cd corrStudents; $(MAKE) -k)
 	python3 join.py
 clean:
@@ -34,6 +35,7 @@ clean:
 	@(echo $(DIVIDER); cd slides; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd tech; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd cs25; $(MAKE) -k clean)
+	@(echo $(DIVIDER); cd cs26; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd dl; $(MAKE) -k clean)
 	@(echo $(DIVIDER); cd dist25; $(MAKE) -k clean)
 
